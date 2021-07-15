@@ -1,0 +1,3381 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Tornado_warnings\Experiment\Alerts_Experiment\Temp/pilot_analys
+> is.log
+  log type:  text
+ opened on:  15 Jul 2021, 10:33:35
+
+. set seed 135
+
+. 
+. 
+. *Prepare the treatment characteristics to merge:
+. import delimited using "./Input/exp_treatments_pilot.csv", varnames(1) clear 
+> //I prepare this file separately in R, describes each potential treatment (pr
+> ior prob+signal information structure)
+(6 vars, 28 obs)
+
+. drop v1
+
+. 
+. save "./Temp/exp_treatments_pilot.dta", replace
+file ./Temp/exp_treatments_pilot.dta saved
+
+. 
+. import delimited using "./Input/treatment_sequences.csv", varnames(1) clear /
+> /I prepare this file separately in Excel, describes treatment order for each 
+> group of subjects/session type
+(7 vars, 6 obs)
+
+. rename ïseq seq
+
+. reshape long r, i(seq) j(round) //so it is sequence - round structure to make
+>  merging with the results file easier
+(note: j = 1 2 3 4 5 6)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                        6   ->      36
+Number of variables                   7   ->       3
+j variable (6 values)                     ->   round
+xij variables:
+                           r1 r2 ... r6   ->   r
+-----------------------------------------------------------------------------
+
+. rename r treatn
+
+. 
+. merge m:1 treatn using "./Temp/exp_treatments_pilot.dta" //merging characteri
+> stics of each treatment (prior prob, info structure = N of each gremlin types
+> )
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                                36  (_merge==3)
+    -----------------------------------------
+
+. tab _merge
+
+                 _merge |      Freq.     Percent        Cum.
+------------------------+-----------------------------------
+            matched (3) |         36      100.00      100.00
+------------------------+-----------------------------------
+                  Total |         36      100.00
+
+. drop _merge
+
+. sort seq round
+
+. 
+. *Create additional variables to describe posterior probabilities:
+. gen phintWB=(w_gr/tot_gr)
+
+. gen phintWW=(tot_gr-bl_gr)/tot_gr
+
+. gen phintBB=1-phintWB
+
+. gen phintBW=1-phintWW
+
+. gen post_probW=p*phintWB/(p*phintWB+(1-p)*phintWW)
+
+. gen post_probB=p*phintBB/(p*phintBB+(1-p)*phintBW)
+
+. 
+. save "./Temp/exp_treatments.dta", replace
+file ./Temp/exp_treatments.dta saved
+
+. 
+. *First importing the Qualtrics data
+. *The results data has variable names incompatible with Stata
+. *Hence we import the first row of the results file first as data. The first r
+> ow contains original variable names, which we process to an acceptable format
+>  and store in a string 
+. import delimited using "./Input/Data_FirstPilot.csv", rowrange(1:1) varnames(
+> nonames) clear
+(342 vars, 1 obs)
+
+. local myvarlist
+
+. foreach v of varlist _all{
+  2.  display `v'
+  3.  replace `v'=strtrim(`v')
+  4.  replace `v'=subinstr(`v', " (in seconds)", "", .)
+  5.  replace `v'=subinstr(`v', " ", "", .)
+  6.  replace `v'=substr(`v',3,.)+"_"+substr(`v',1,1) if regexm(`v',"^[0-9]")
+  7.  replace `v'=strlower(`v')
+  8.  local luck=`v'[1]
+  9.  local myvarlist `myvarlist' `luck'
+ 10. }
+StartDate
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+EndDate
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Status
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+IPAddress
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Progress
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Duration (in seconds)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Finished
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+RecordedDate
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+ResponseId
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+RecipientLastName
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+RecipientFirstName
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+RecipientEmail
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+ExternalReference
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+LocationLatitude
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+LocationLongitude
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+DistributionChannel
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+UserLanguage
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q57_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q57_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q57_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q57_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q58_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q58_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q58_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q58_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q157
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q158
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+1_B1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_Q59_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q59_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q59_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q59_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_B1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_Q59_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q59_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q59_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q59_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_B1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_Q59_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q59_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q59_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q59_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_B1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_Q59_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q59_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q59_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q59_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_B1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_Q59_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q59_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q59_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q59_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+Q172_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q172_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q172_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q172_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q60_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q60_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q60_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q60_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q120
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q119
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q121
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q118
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q117
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q173_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q173_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q173_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q173_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q130
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q135
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q136
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+1_IP_W
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_IP_B
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_Q61_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q61_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q61_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q61_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_IP_W
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_IP_B
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_Q61_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q61_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q61_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q61_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_IP_W
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_IP_B
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_Q61_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q61_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q61_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q61_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_IP_W
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_IP_B
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_Q61_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q61_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q61_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q61_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_IP_W
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_IP_B
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_Q61_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q61_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q61_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q61_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_IP_W
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_IP_B
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_Q61_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q61_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q61_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q61_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+Q174_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q174_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q174_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q174_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q63_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q63_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q63_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q63_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+1_BE1_W_15
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_Q79_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q79_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q79_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q79_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_BE1_B_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_Q64_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q64_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q64_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q64_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_BE1_W_15
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_Q79_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q79_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q79_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q79_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_BE1_B_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_Q64_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q64_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q64_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q64_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_BE1_W_15
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_Q79_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q79_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q79_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q79_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_BE1_B_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_Q64_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q64_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q64_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q64_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_BE1_W_15
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_Q79_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q79_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q79_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q79_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_BE1_B_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_Q64_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q64_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q64_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q64_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_BE1_W_15
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_Q79_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q79_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q79_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q79_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_BE1_B_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_Q64_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q64_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q64_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q64_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_BE1_W_15
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_Q79_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q79_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q79_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q79_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_BE1_B_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_Q64_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q64_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q64_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q64_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+Q176_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q176_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q176_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q176_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q66_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q66_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q66_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q66_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q164
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q166
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q177_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q177_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q177_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q177_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q178_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q178_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q178_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q178_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+1_WTP1_1_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_2_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_3_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_4_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_5_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_6_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_7_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_8_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_9_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_10_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_WTP1_11_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+1_Q185_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q185_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q185_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+1_Q185_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_WTP1_1_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_2_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_3_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_4_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_5_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_6_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_7_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_8_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_9_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_10_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_WTP1_11_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+2_Q185_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q185_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q185_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+2_Q185_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_WTP1_1_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_2_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_3_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_4_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_5_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_6_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_7_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_8_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_9_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_10_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_WTP1_11_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+3_Q185_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q185_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q185_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+3_Q185_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_WTP1_1_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_2_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_3_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_4_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_5_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_6_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_7_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_8_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_9_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_10_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_WTP1_11_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+4_Q185_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q185_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q185_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+4_Q185_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_WTP1_1_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_2_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_3_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_4_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_5_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_6_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_7_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_8_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_9_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_10_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_WTP1_11_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+5_Q185_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q185_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q185_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+5_Q185_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_WTP1_1_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_2_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_3_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_4_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_5_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_6_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_7_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_8_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_9_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_10_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_WTP1_11_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+6_Q185_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q185_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q185_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+6_Q185_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+A_B
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q179_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q179_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q179_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q179_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q180_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q180_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q180_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q180_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+A_IP
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q181_First Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q181_Last Click
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q181_Page Submit
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q181_Click Count
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(1 real change made)
+Q107_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q107_2
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q107_3
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q107_4
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q112_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q112_2
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q112_3
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q112_4
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q113_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q113_2
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q113_3
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q113_4
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q104
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q105
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q106
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q114
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q115
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q6
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q8_1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q10
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Q137
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Endowment
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+ProtectionCost
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Loss
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+seltask
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+Round
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+History
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Payoffs
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Task
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Signal1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Signal2
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+IP_Wc
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+IP_Bc
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+bl_q1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+bl_q2
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+Treatment_Plans
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+SelSignalStruc
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+SelBoxPic
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+SelSignalPic
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+selprob
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+Sequence
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Final_Payoff
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+Participant_ID
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+T1R1
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1 real change made)
+
+. *Then we import the data from the results file (ignoring first 3 rows with va
+> r names and definition). Then we rename these variables using the previously 
+> stored processed names 
+. import delimited using "./Input/Data_FirstPilot.csv", rowrange(4) varnames(no
+> names) clear
+(342 vars, 20 obs)
+
+. display "`myvarlist'"
+startdate enddate status ipaddress progress duration finished recordeddate resp
+> onseid recipientlastname recipientfirstname recipientemail externalreference 
+> locationlatitude locationlongitude distributionchannel userlanguage q57_first
+> click q57_lastclick q57_pagesubmit q57_clickcount q58_firstclick q58_lastclic
+> k q58_pagesubmit q58_clickcount q157 q158 b1_1 q59_firstclick_1 q59_lastclick
+> _1 q59_pagesubmit_1 q59_clickcount_1 b1_2 q59_firstclick_2 q59_lastclick_2 q5
+> 9_pagesubmit_2 q59_clickcount_2 b1_3 q59_firstclick_3 q59_lastclick_3 q59_pag
+> esubmit_3 q59_clickcount_3 b1_4 q59_firstclick_4 q59_lastclick_4 q59_pagesubm
+> it_4 q59_clickcount_4 b1_5 q59_firstclick_5 q59_lastclick_5 q59_pagesubmit_5 
+> q59_clickcount_5 q172_firstclick q172_lastclick q172_pagesubmit q172_clickcou
+> nt q60_firstclick q60_lastclick q60_pagesubmit q60_clickcount q120 q119 q121 
+> q118 q117 q173_firstclick q173_lastclick q173_pagesubmit q173_clickcount q130
+>  q135 q136 ip_w_1 ip_b_1 q61_firstclick_1 q61_lastclick_1 q61_pagesubmit_1 q6
+> 1_clickcount_1 ip_w_2 ip_b_2 q61_firstclick_2 q61_lastclick_2 q61_pagesubmit_
+> 2 q61_clickcount_2 ip_w_3 ip_b_3 q61_firstclick_3 q61_lastclick_3 q61_pagesub
+> mit_3 q61_clickcount_3 ip_w_4 ip_b_4 q61_firstclick_4 q61_lastclick_4 q61_pag
+> esubmit_4 q61_clickcount_4 ip_w_5 ip_b_5 q61_firstclick_5 q61_lastclick_5 q61
+> _pagesubmit_5 q61_clickcount_5 ip_w_6 ip_b_6 q61_firstclick_6 q61_lastclick_6
+>  q61_pagesubmit_6 q61_clickcount_6 q174_firstclick q174_lastclick q174_pagesu
+> bmit q174_clickcount q63_firstclick q63_lastclick q63_pagesubmit q63_clickcou
+> nt be1_w_15_1 q79_firstclick_1 q79_lastclick_1 q79_pagesubmit_1 q79_clickcoun
+> t_1 be1_b_1_1 q64_firstclick_1 q64_lastclick_1 q64_pagesubmit_1 q64_clickcoun
+> t_1 be1_w_15_2 q79_firstclick_2 q79_lastclick_2 q79_pagesubmit_2 q79_clickcou
+> nt_2 be1_b_1_2 q64_firstclick_2 q64_lastclick_2 q64_pagesubmit_2 q64_clickcou
+> nt_2 be1_w_15_3 q79_firstclick_3 q79_lastclick_3 q79_pagesubmit_3 q79_clickco
+> unt_3 be1_b_1_3 q64_firstclick_3 q64_lastclick_3 q64_pagesubmit_3 q64_clickco
+> unt_3 be1_w_15_4 q79_firstclick_4 q79_lastclick_4 q79_pagesubmit_4 q79_clickc
+> ount_4 be1_b_1_4 q64_firstclick_4 q64_lastclick_4 q64_pagesubmit_4 q64_clickc
+> ount_4 be1_w_15_5 q79_firstclick_5 q79_lastclick_5 q79_pagesubmit_5 q79_click
+> count_5 be1_b_1_5 q64_firstclick_5 q64_lastclick_5 q64_pagesubmit_5 q64_click
+> count_5 be1_w_15_6 q79_firstclick_6 q79_lastclick_6 q79_pagesubmit_6 q79_clic
+> kcount_6 be1_b_1_6 q64_firstclick_6 q64_lastclick_6 q64_pagesubmit_6 q64_clic
+> kcount_6 q176_firstclick q176_lastclick q176_pagesubmit q176_clickcount q66_f
+> irstclick q66_lastclick q66_pagesubmit q66_clickcount q164 q166 q177_firstcli
+> ck q177_lastclick q177_pagesubmit q177_clickcount q178_firstclick q178_lastcl
+> ick q178_pagesubmit q178_clickcount wtp1_1_1_1 wtp1_2_1_1 wtp1_3_1_1 wtp1_4_1
+> _1 wtp1_5_1_1 wtp1_6_1_1 wtp1_7_1_1 wtp1_8_1_1 wtp1_9_1_1 wtp1_10_1_1 wtp1_11
+> _1_1 q185_firstclick_1 q185_lastclick_1 q185_pagesubmit_1 q185_clickcount_1 w
+> tp1_1_1_2 wtp1_2_1_2 wtp1_3_1_2 wtp1_4_1_2 wtp1_5_1_2 wtp1_6_1_2 wtp1_7_1_2 w
+> tp1_8_1_2 wtp1_9_1_2 wtp1_10_1_2 wtp1_11_1_2 q185_firstclick_2 q185_lastclick
+> _2 q185_pagesubmit_2 q185_clickcount_2 wtp1_1_1_3 wtp1_2_1_3 wtp1_3_1_3 wtp1_
+> 4_1_3 wtp1_5_1_3 wtp1_6_1_3 wtp1_7_1_3 wtp1_8_1_3 wtp1_9_1_3 wtp1_10_1_3 wtp1
+> _11_1_3 q185_firstclick_3 q185_lastclick_3 q185_pagesubmit_3 q185_clickcount_
+> 3 wtp1_1_1_4 wtp1_2_1_4 wtp1_3_1_4 wtp1_4_1_4 wtp1_5_1_4 wtp1_6_1_4 wtp1_7_1_
+> 4 wtp1_8_1_4 wtp1_9_1_4 wtp1_10_1_4 wtp1_11_1_4 q185_firstclick_4 q185_lastcl
+> ick_4 q185_pagesubmit_4 q185_clickcount_4 wtp1_1_1_5 wtp1_2_1_5 wtp1_3_1_5 wt
+> p1_4_1_5 wtp1_5_1_5 wtp1_6_1_5 wtp1_7_1_5 wtp1_8_1_5 wtp1_9_1_5 wtp1_10_1_5 w
+> tp1_11_1_5 q185_firstclick_5 q185_lastclick_5 q185_pagesubmit_5 q185_clickcou
+> nt_5 wtp1_1_1_6 wtp1_2_1_6 wtp1_3_1_6 wtp1_4_1_6 wtp1_5_1_6 wtp1_6_1_6 wtp1_7
+> _1_6 wtp1_8_1_6 wtp1_9_1_6 wtp1_10_1_6 wtp1_11_1_6 q185_firstclick_6 q185_las
+> tclick_6 q185_pagesubmit_6 q185_clickcount_6 a_b q179_firstclick q179_lastcli
+> ck q179_pagesubmit q179_clickcount q180_firstclick q180_lastclick q180_pagesu
+> bmit q180_clickcount a_ip q181_firstclick q181_lastclick q181_pagesubmit q181
+> _clickcount q107_1 q107_2 q107_3 q107_4 q112_1 q112_2 q112_3 q112_4 q113_1 q1
+> 13_2 q113_3 q113_4 q104 q105 q106 q114 q115 q6 q8_1 q10 q137 endowment protec
+> tioncost loss seltask round history payoffs task signal1 signal2 ip_wc ip_bc 
+> bl_q1 bl_q2 treatment_plans selsignalstruc selboxpic selsignalpic selprob seq
+> uence final_payoff participant_id t1r1
+
+. local i=1
+
+. foreach v of varlist _all{
+  2.  di `i'
+  3.  local luck: word `i' of `myvarlist'
+  4.  di "`luck'"
+  5.  rename `v' `luck'
+  6.  local i=`i'+1
+  7. }
+1
+startdate
+2
+enddate
+3
+status
+4
+ipaddress
+5
+progress
+6
+duration
+7
+finished
+8
+recordeddate
+9
+responseid
+10
+recipientlastname
+11
+recipientfirstname
+12
+recipientemail
+13
+externalreference
+14
+locationlatitude
+15
+locationlongitude
+16
+distributionchannel
+17
+userlanguage
+18
+q57_firstclick
+19
+q57_lastclick
+20
+q57_pagesubmit
+21
+q57_clickcount
+22
+q58_firstclick
+23
+q58_lastclick
+24
+q58_pagesubmit
+25
+q58_clickcount
+26
+q157
+27
+q158
+28
+b1_1
+29
+q59_firstclick_1
+30
+q59_lastclick_1
+31
+q59_pagesubmit_1
+32
+q59_clickcount_1
+33
+b1_2
+34
+q59_firstclick_2
+35
+q59_lastclick_2
+36
+q59_pagesubmit_2
+37
+q59_clickcount_2
+38
+b1_3
+39
+q59_firstclick_3
+40
+q59_lastclick_3
+41
+q59_pagesubmit_3
+42
+q59_clickcount_3
+43
+b1_4
+44
+q59_firstclick_4
+45
+q59_lastclick_4
+46
+q59_pagesubmit_4
+47
+q59_clickcount_4
+48
+b1_5
+49
+q59_firstclick_5
+50
+q59_lastclick_5
+51
+q59_pagesubmit_5
+52
+q59_clickcount_5
+53
+q172_firstclick
+54
+q172_lastclick
+55
+q172_pagesubmit
+56
+q172_clickcount
+57
+q60_firstclick
+58
+q60_lastclick
+59
+q60_pagesubmit
+60
+q60_clickcount
+61
+q120
+62
+q119
+63
+q121
+64
+q118
+65
+q117
+66
+q173_firstclick
+67
+q173_lastclick
+68
+q173_pagesubmit
+69
+q173_clickcount
+70
+q130
+71
+q135
+72
+q136
+73
+ip_w_1
+74
+ip_b_1
+75
+q61_firstclick_1
+76
+q61_lastclick_1
+77
+q61_pagesubmit_1
+78
+q61_clickcount_1
+79
+ip_w_2
+80
+ip_b_2
+81
+q61_firstclick_2
+82
+q61_lastclick_2
+83
+q61_pagesubmit_2
+84
+q61_clickcount_2
+85
+ip_w_3
+86
+ip_b_3
+87
+q61_firstclick_3
+88
+q61_lastclick_3
+89
+q61_pagesubmit_3
+90
+q61_clickcount_3
+91
+ip_w_4
+92
+ip_b_4
+93
+q61_firstclick_4
+94
+q61_lastclick_4
+95
+q61_pagesubmit_4
+96
+q61_clickcount_4
+97
+ip_w_5
+98
+ip_b_5
+99
+q61_firstclick_5
+100
+q61_lastclick_5
+101
+q61_pagesubmit_5
+102
+q61_clickcount_5
+103
+ip_w_6
+104
+ip_b_6
+105
+q61_firstclick_6
+106
+q61_lastclick_6
+107
+q61_pagesubmit_6
+108
+q61_clickcount_6
+109
+q174_firstclick
+110
+q174_lastclick
+111
+q174_pagesubmit
+112
+q174_clickcount
+113
+q63_firstclick
+114
+q63_lastclick
+115
+q63_pagesubmit
+116
+q63_clickcount
+117
+be1_w_15_1
+118
+q79_firstclick_1
+119
+q79_lastclick_1
+120
+q79_pagesubmit_1
+121
+q79_clickcount_1
+122
+be1_b_1_1
+123
+q64_firstclick_1
+124
+q64_lastclick_1
+125
+q64_pagesubmit_1
+126
+q64_clickcount_1
+127
+be1_w_15_2
+128
+q79_firstclick_2
+129
+q79_lastclick_2
+130
+q79_pagesubmit_2
+131
+q79_clickcount_2
+132
+be1_b_1_2
+133
+q64_firstclick_2
+134
+q64_lastclick_2
+135
+q64_pagesubmit_2
+136
+q64_clickcount_2
+137
+be1_w_15_3
+138
+q79_firstclick_3
+139
+q79_lastclick_3
+140
+q79_pagesubmit_3
+141
+q79_clickcount_3
+142
+be1_b_1_3
+143
+q64_firstclick_3
+144
+q64_lastclick_3
+145
+q64_pagesubmit_3
+146
+q64_clickcount_3
+147
+be1_w_15_4
+148
+q79_firstclick_4
+149
+q79_lastclick_4
+150
+q79_pagesubmit_4
+151
+q79_clickcount_4
+152
+be1_b_1_4
+153
+q64_firstclick_4
+154
+q64_lastclick_4
+155
+q64_pagesubmit_4
+156
+q64_clickcount_4
+157
+be1_w_15_5
+158
+q79_firstclick_5
+159
+q79_lastclick_5
+160
+q79_pagesubmit_5
+161
+q79_clickcount_5
+162
+be1_b_1_5
+163
+q64_firstclick_5
+164
+q64_lastclick_5
+165
+q64_pagesubmit_5
+166
+q64_clickcount_5
+167
+be1_w_15_6
+168
+q79_firstclick_6
+169
+q79_lastclick_6
+170
+q79_pagesubmit_6
+171
+q79_clickcount_6
+172
+be1_b_1_6
+173
+q64_firstclick_6
+174
+q64_lastclick_6
+175
+q64_pagesubmit_6
+176
+q64_clickcount_6
+177
+q176_firstclick
+178
+q176_lastclick
+179
+q176_pagesubmit
+180
+q176_clickcount
+181
+q66_firstclick
+182
+q66_lastclick
+183
+q66_pagesubmit
+184
+q66_clickcount
+185
+q164
+186
+q166
+187
+q177_firstclick
+188
+q177_lastclick
+189
+q177_pagesubmit
+190
+q177_clickcount
+191
+q178_firstclick
+192
+q178_lastclick
+193
+q178_pagesubmit
+194
+q178_clickcount
+195
+wtp1_1_1_1
+196
+wtp1_2_1_1
+197
+wtp1_3_1_1
+198
+wtp1_4_1_1
+199
+wtp1_5_1_1
+200
+wtp1_6_1_1
+201
+wtp1_7_1_1
+202
+wtp1_8_1_1
+203
+wtp1_9_1_1
+204
+wtp1_10_1_1
+205
+wtp1_11_1_1
+206
+q185_firstclick_1
+207
+q185_lastclick_1
+208
+q185_pagesubmit_1
+209
+q185_clickcount_1
+210
+wtp1_1_1_2
+211
+wtp1_2_1_2
+212
+wtp1_3_1_2
+213
+wtp1_4_1_2
+214
+wtp1_5_1_2
+215
+wtp1_6_1_2
+216
+wtp1_7_1_2
+217
+wtp1_8_1_2
+218
+wtp1_9_1_2
+219
+wtp1_10_1_2
+220
+wtp1_11_1_2
+221
+q185_firstclick_2
+222
+q185_lastclick_2
+223
+q185_pagesubmit_2
+224
+q185_clickcount_2
+225
+wtp1_1_1_3
+226
+wtp1_2_1_3
+227
+wtp1_3_1_3
+228
+wtp1_4_1_3
+229
+wtp1_5_1_3
+230
+wtp1_6_1_3
+231
+wtp1_7_1_3
+232
+wtp1_8_1_3
+233
+wtp1_9_1_3
+234
+wtp1_10_1_3
+235
+wtp1_11_1_3
+236
+q185_firstclick_3
+237
+q185_lastclick_3
+238
+q185_pagesubmit_3
+239
+q185_clickcount_3
+240
+wtp1_1_1_4
+241
+wtp1_2_1_4
+242
+wtp1_3_1_4
+243
+wtp1_4_1_4
+244
+wtp1_5_1_4
+245
+wtp1_6_1_4
+246
+wtp1_7_1_4
+247
+wtp1_8_1_4
+248
+wtp1_9_1_4
+249
+wtp1_10_1_4
+250
+wtp1_11_1_4
+251
+q185_firstclick_4
+252
+q185_lastclick_4
+253
+q185_pagesubmit_4
+254
+q185_clickcount_4
+255
+wtp1_1_1_5
+256
+wtp1_2_1_5
+257
+wtp1_3_1_5
+258
+wtp1_4_1_5
+259
+wtp1_5_1_5
+260
+wtp1_6_1_5
+261
+wtp1_7_1_5
+262
+wtp1_8_1_5
+263
+wtp1_9_1_5
+264
+wtp1_10_1_5
+265
+wtp1_11_1_5
+266
+q185_firstclick_5
+267
+q185_lastclick_5
+268
+q185_pagesubmit_5
+269
+q185_clickcount_5
+270
+wtp1_1_1_6
+271
+wtp1_2_1_6
+272
+wtp1_3_1_6
+273
+wtp1_4_1_6
+274
+wtp1_5_1_6
+275
+wtp1_6_1_6
+276
+wtp1_7_1_6
+277
+wtp1_8_1_6
+278
+wtp1_9_1_6
+279
+wtp1_10_1_6
+280
+wtp1_11_1_6
+281
+q185_firstclick_6
+282
+q185_lastclick_6
+283
+q185_pagesubmit_6
+284
+q185_clickcount_6
+285
+a_b
+286
+q179_firstclick
+287
+q179_lastclick
+288
+q179_pagesubmit
+289
+q179_clickcount
+290
+q180_firstclick
+291
+q180_lastclick
+292
+q180_pagesubmit
+293
+q180_clickcount
+294
+a_ip
+295
+q181_firstclick
+296
+q181_lastclick
+297
+q181_pagesubmit
+298
+q181_clickcount
+299
+q107_1
+300
+q107_2
+301
+q107_3
+302
+q107_4
+303
+q112_1
+304
+q112_2
+305
+q112_3
+306
+q112_4
+307
+q113_1
+308
+q113_2
+309
+q113_3
+310
+q113_4
+311
+q104
+312
+q105
+313
+q106
+314
+q114
+315
+q115
+316
+q6
+317
+q8_1
+318
+q10
+319
+q137
+320
+endowment
+321
+protectioncost
+322
+loss
+323
+seltask
+324
+round
+325
+history
+326
+payoffs
+327
+task
+328
+signal1
+329
+signal2
+330
+ip_wc
+331
+ip_bc
+332
+bl_q1
+333
+bl_q2
+334
+treatment_plans
+335
+selsignalstruc
+336
+selboxpic
+337
+selsignalpic
+338
+selprob
+339
+sequence
+340
+final_payoff
+341
+participant_id
+342
+t1r1
+
+. 
+. 
+. *Mass renaming some response variables to make reshaping and analysis more co
+> nvenient:
+. rename b1_* bp_* //blind protection responses by round
+
+. rename be1_b_1* be_b* //beliefs if the gremlin says "black" by round
+
+. rename be1_w_15* be_w* //beliefs if the gremlin says "white" by round
+
+. rename wtp1_*_1_* wtp_*_* //value responses by round
+
+. rename sequence seq
+
+. 
+. 
+. 
+. 
+. ***CLEANING************************
+. drop if missing(participant_id) //if no id
+(1 observation deleted)
+
+. keep if finished==1 //subjects complete the experiment
+(0 observations deleted)
+
+. drop ipaddress recipient* distributionchannel userlanguage finished //drop un
+> necessary identifying information
+
+. drop round externalreference location* responseid t1r1 sel* treatment_plans i
+> p_wc ip_bc payoffs signal* //other excessive info, relicts of previous experi
+> ment edits
+
+. 
+. 
+. 
+. 
+. *identify correct quiz answers
+. gen blind_correct=(q157==2)+(q158==3)
+
+. tab blind_correct
+
+blind_corre |
+         ct |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |          3       15.79       15.79
+          1 |          8       42.11       57.89
+          2 |          8       42.11      100.00
+------------+-----------------------------------
+      Total |         19      100.00
+
+. gen informed_correct=(q120==2)+(q119==2)+(q121==1)+(q118==3)+(q117==4)
+
+. tab informed_correct
+
+informed_co |
+      rrect |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          2 |          1        5.26        5.26
+          3 |          1        5.26       10.53
+          4 |          6       31.58       42.11
+          5 |         11       57.89      100.00
+------------+-----------------------------------
+      Total |         19      100.00
+
+. gen wtpq_correct=(q164==3)+(q166==3)
+
+. tab wtpq_correct
+
+wtpq_correc |
+          t |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |          4       21.05       21.05
+          1 |          9       47.37       68.42
+          2 |          6       31.58      100.00
+------------+-----------------------------------
+      Total |         19      100.00
+
+. gen ncorrect=blind_correct+informed_correct+wtpq_correct
+
+. tab ncorrect
+
+   ncorrect |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          3 |          1        5.26        5.26
+          5 |          1        5.26       10.53
+          6 |          6       31.58       42.11
+          7 |          5       26.32       68.42
+          8 |          4       21.05       89.47
+          9 |          2       10.53      100.00
+------------+-----------------------------------
+      Total |         19      100.00
+
+. 
+. *remove participants missing more than 2 questions:
+. //drop if ncorrect<7
+. 
+. 
+. encode participant_id, gen(subject_id) //as participant_id is initially a str
+> ing
+
+. drop participant_id
+
+. 
+. save "./Temp/first_pilot_wide.dta", replace
+file ./Temp/first_pilot_wide.dta saved
+
+. 
+. ***SANITY CHECKS*******************
+. 
+. 
+. **BLIND PROTECTION ANALYSIS (SEPARATELY DUE TO DIFFERENT N of rounds)**
+. keep subject_id bp_*
+
+. reshape long bp_,  i(subject_id) j(round)
+(note: j = 1 2 3 4 5)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                       19   ->      95
+Number of variables                   6   ->       3
+j variable (5 values)                     ->   round
+xij variables:
+                     bp_1 bp_2 ... bp_5   ->   bp_
+-----------------------------------------------------------------------------
+
+. rename bp_ bp
+
+. gen prob=0.1*round
+
+. reg bp prob
+
+      Source |       SS           df       MS      Number of obs   =        95
+-------------+----------------------------------   F(1, 93)        =     29.69
+       Model |  5.73157909         1  5.73157909   Prob > F        =    0.0000
+    Residual |  17.9526314        93  .193039048   R-squared       =    0.2420
+-------------+----------------------------------   Adj R-squared   =    0.2338
+       Total |  23.6842105        94  .251959686   Root MSE        =    .43936
+
+------------------------------------------------------------------------------
+          bp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        prob |   1.736842   .3187468     5.45   0.000     1.103874     2.36981
+       _cons |   .0052631   .1057163     0.05   0.960    -.2046686    .2151948
+------------------------------------------------------------------------------
+
+. xtset subject_id round
+       panel variable:  subject_id (strongly balanced)
+        time variable:  round, 1 to 5
+                delta:  1 unit
+
+. xtreg bp prob, fe vce(robust)
+
+Fixed-effects (within) regression               Number of obs     =         95
+Group variable: subject_id                      Number of groups  =         19
+
+R-sq:                                           Obs per group:
+     within  = 0.2985                                         min =          5
+     between =      .                                         avg =        5.0
+     overall = 0.2420                                         max =          5
+
+                                                F(1,18)           =      15.54
+corr(u_i, Xb)  = 0.0000                         Prob > F          =     0.0010
+
+                            (Std. Err. adjusted for 19 clusters in subject_id)
+------------------------------------------------------------------------------
+             |               Robust
+          bp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        prob |   1.736842   .4405953     3.94   0.001     .8111857    2.662499
+       _cons |   .0052631   .1321786     0.04   0.969    -.2724338    .2829601
+-------------+----------------------------------------------------------------
+     sigma_u |  .22321416
+     sigma_e |  .42376756
+         rho |   .2171918   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. 
+. 
+. **CHANGE TO THE PANEL STRUCTURE FOR THE OTHER TASKS********************
+. **Panel: participant_id round 
+. **because all the tasks except the blind protection have the same N of rounds
+>  (6) 
+. use "./Temp/first_pilot_wide.dta", replace
+
+. 
+. reshape long ip_w_ ip_b_ be_b_ be_w_ wtp_1_ wtp_2_ wtp_3_ wtp_4_ wtp_5_ wtp_6
+> _ wtp_7_ wtp_8_ wtp_9_ wtp_10_ wtp_11_, i(subject_id) j(round)
+(note: j = 1 2 3 4 5 6)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                       19   ->     114
+Number of variables                 322   ->     248
+j variable (6 values)                     ->   round
+xij variables:
+               ip_w_1 ip_w_2 ... ip_w_6   ->   ip_w_
+               ip_b_1 ip_b_2 ... ip_b_6   ->   ip_b_
+               be_b_1 be_b_2 ... be_b_6   ->   be_b_
+               be_w_1 be_w_2 ... be_w_6   ->   be_w_
+            wtp_1_1 wtp_1_2 ... wtp_1_6   ->   wtp_1_
+            wtp_2_1 wtp_2_2 ... wtp_2_6   ->   wtp_2_
+            wtp_3_1 wtp_3_2 ... wtp_3_6   ->   wtp_3_
+            wtp_4_1 wtp_4_2 ... wtp_4_6   ->   wtp_4_
+            wtp_5_1 wtp_5_2 ... wtp_5_6   ->   wtp_5_
+            wtp_6_1 wtp_6_2 ... wtp_6_6   ->   wtp_6_
+            wtp_7_1 wtp_7_2 ... wtp_7_6   ->   wtp_7_
+            wtp_8_1 wtp_8_2 ... wtp_8_6   ->   wtp_8_
+            wtp_9_1 wtp_9_2 ... wtp_9_6   ->   wtp_9_
+         wtp_10_1 wtp_10_2 ... wtp_10_6   ->   wtp_10_
+         wtp_11_1 wtp_11_2 ... wtp_11_6   ->   wtp_11_
+-----------------------------------------------------------------------------
+
+. 
+. rename *_ *
+
+. 
+. 
+. 
+. ***Merging the treatment sequences***
+. merge m:1 seq round using "./Temp/exp_treatments.dta"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                               114  (_merge==3)
+    -----------------------------------------
+
+. tab _merge
+
+                 _merge |      Freq.     Percent        Cum.
+------------------------+-----------------------------------
+            matched (3) |        114      100.00      100.00
+------------------------+-----------------------------------
+                  Total |        114      100.00
+
+. drop _merge
+
+. 
+. **Calculate the maximum willingness-to-pay for info for each participant/roun
+> d (wtp):
+. egen wtp=rowtotal(wtp_1-wtp_11)
+
+. replace wtp=0.5*(wtp-1)
+(114 real changes made)
+
+. sum wtp
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         wtp |        114    2.144737    1.720161          0          5
+
+. 
+. **CRUCIAL VARIABLES***
+. 
+. *ip_w - protection in response to seeing a white hint in informed protection 
+> (0 - no protection, 1 - protection)
+. *ip_b - protection in response to seeing a black hint in informed protection 
+> (0 - no protection, 1 - protection)
+. *be_w - belief on prob that the ball is black if seeing a white hint
+. *be_b - belief on prob that the ball is black if seeing a black hint
+. *wtp_x - acceptance of price $0.5*(x-1) for information (1 if accepted)
+. *wtp - revealed wtp for information (in $)
+. 
+. 
+. *Saving the cleaned dataset with the panel structure
+. save "./Output/first_pilot.dta", replace
+file ./Output/first_pilot.dta saved
+
+. 
+. *Remove the timing information for now
+. drop *click* *page* history q104-q106 q114 q115
+
+. 
+. 
+. 
+. 
+. ****----RUNNING SOME REGRESSIONS---***********
+. xtset subject_id round
+       panel variable:  subject_id (strongly balanced)
+        time variable:  round, 1 to 6
+                delta:  1 unit
+
+. **informed protection prob response to posterior prob***
+. xtreg ip_w post_probW, fe vce(robust)
+
+Fixed-effects (within) regression               Number of obs     =        114
+Group variable: subject_id                      Number of groups  =         19
+
+R-sq:                                           Obs per group:
+     within  = 0.3158                                         min =          6
+     between = 0.0030                                         avg =        6.0
+     overall = 0.2187                                         max =          6
+
+                                                F(1,18)           =      22.93
+corr(u_i, Xb)  = -0.0713                        Prob > F          =     0.0001
+
+                            (Std. Err. adjusted for 19 clusters in subject_id)
+------------------------------------------------------------------------------
+             |               Robust
+        ip_w |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  post_probW |   2.832122   .5914664     4.79   0.000     1.589497    4.074747
+       _cons |   .1116941   .0279681     3.99   0.001     .0529352    .1704529
+-------------+----------------------------------------------------------------
+     sigma_u |  .22737109
+     sigma_e |  .34127345
+         rho |  .30742162   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. xtreg ip_b post_probB, fe vce(robust)
+
+Fixed-effects (within) regression               Number of obs     =        114
+Group variable: subject_id                      Number of groups  =         19
+
+R-sq:                                           Obs per group:
+     within  = 0.0220                                         min =          6
+     between = 0.0061                                         avg =        6.0
+     overall = 0.0088                                         max =          6
+
+                                                F(1,18)           =       2.77
+corr(u_i, Xb)  = -0.0713                        Prob > F          =     0.1131
+
+                            (Std. Err. adjusted for 19 clusters in subject_id)
+------------------------------------------------------------------------------
+             |               Robust
+        ip_b |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  post_probB |  -.1140017   .0684528    -1.67   0.113    -.2578157    .0298123
+       _cons |   1.026248   .0526305    19.50   0.000     .9156751     1.13682
+-------------+----------------------------------------------------------------
+     sigma_u |  .14016624
+     sigma_e |  .21638036
+         rho |  .29558372   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. 
+. 
+. **belief elicitation reponse to posterior prob (participant FE)**
+. replace be_w=0.01*be_w
+variable be_w was byte now float
+(72 real changes made)
+
+. replace be_b=0.01*be_b
+variable be_b was byte now float
+(114 real changes made)
+
+. xtreg be_w post_probW, fe vce(robust)
+
+Fixed-effects (within) regression               Number of obs     =        114
+Group variable: subject_id                      Number of groups  =         19
+
+R-sq:                                           Obs per group:
+     within  = 0.1629                                         min =          6
+     between = 0.0000                                         avg =        6.0
+     overall = 0.0634                                         max =          6
+
+                                                F(1,18)           =      23.76
+corr(u_i, Xb)  = -0.0206                        Prob > F          =     0.0001
+
+                            (Std. Err. adjusted for 19 clusters in subject_id)
+------------------------------------------------------------------------------
+             |               Robust
+        be_w |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  post_probW |    1.16933   .2398691     4.87   0.000     .6653835    1.673276
+       _cons |   .2478649   .0113425    21.85   0.000     .2240352    .2716945
+-------------+----------------------------------------------------------------
+     sigma_u |  .26447555
+     sigma_e |  .21700834
+         rho |  .59763632   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. xtreg be_b post_probB, fe vce(robust)
+
+Fixed-effects (within) regression               Number of obs     =        114
+Group variable: subject_id                      Number of groups  =         19
+
+R-sq:                                           Obs per group:
+     within  = 0.3741                                         min =          6
+     between = 0.1280                                         avg =        6.0
+     overall = 0.2916                                         max =          6
+
+                                                F(1,18)           =      40.70
+corr(u_i, Xb)  = -0.0132                        Prob > F          =     0.0000
+
+                            (Std. Err. adjusted for 19 clusters in subject_id)
+------------------------------------------------------------------------------
+             |               Robust
+        be_b |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  post_probB |   .5418941   .0849442     6.38   0.000      .363433    .7203552
+       _cons |   .3132725     .06531     4.80   0.000     .1760612    .4504838
+-------------+----------------------------------------------------------------
+     sigma_u |  .15574299
+     sigma_e |  .19939886
+         rho |  .37890468   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. 
+. *value vs predicted value:
+. gen value=max(0,-(p*phintWB*loss-(p*phintBB+(1-p)*phintBW)*protectioncost))
+
+. sum value
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       value |        114    1.092105    .9613914          0   3.333333
+
+. reg wtp value
+
+      Source |       SS           df       MS      Number of obs   =       114
+-------------+----------------------------------   F(1, 112)       =      4.32
+       Model |  12.4065811         1  12.4065811   Prob > F        =    0.0400
+    Residual |  321.955261       112  2.87460054   R-squared       =    0.0371
+-------------+----------------------------------   Adj R-squared   =    0.0285
+       Total |  334.361842       113  2.95895435   Root MSE        =    1.6955
+
+------------------------------------------------------------------------------
+         wtp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       value |   .3446566   .1659011     2.08   0.040     .0159448    .6733684
+       _cons |   1.768336   .2409202     7.34   0.000     1.290983    2.245688
+------------------------------------------------------------------------------
+
+. xtreg wtp value, fe vce(robust)
+
+Fixed-effects (within) regression               Number of obs     =        114
+Group variable: subject_id                      Number of groups  =         19
+
+R-sq:                                           Obs per group:
+     within  = 0.0599                                         min =          6
+     between = 0.0027                                         avg =        6.0
+     overall = 0.0371                                         max =          6
+
+                                                F(1,18)           =       8.89
+corr(u_i, Xb)  = -0.0315                        Prob > F          =     0.0080
+
+                            (Std. Err. adjusted for 19 clusters in subject_id)
+------------------------------------------------------------------------------
+             |               Robust
+         wtp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       value |   .3785553   .1269475     2.98   0.008     .1118486     .645262
+       _cons |   1.731315     .13864    12.49   0.000     1.440043    2.022586
+-------------+----------------------------------------------------------------
+     sigma_u |   1.059862
+     sigma_e |  1.4614117
+         rho |  .34467526   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Tornado_warnings\Experiment\Alerts_Experiment\Temp/pilot_analys
+> is.log
+  log type:  text
+ closed on:  15 Jul 2021, 10:33:36
+-------------------------------------------------------------------------------
