@@ -10,7 +10,6 @@ library(ggplot2)
 library(haven)
 library(tidyr)
 library(sjlabelled)
-library(qualtRics)
 library(httr)
 library(survey)
 
@@ -26,15 +25,9 @@ require("haven")
 
 #httr::GET('cran.r-project.org/faqs.html')
 
-qualtrics_api_credentials(api_key = "rOzoL4zoBzVLlwGrBSMGUuNeWb950Fh9xGUKtY09", 
-                          base_url = "ousurvey.ca1.qualtrics.com",
-                          install = TRUE, overwrite=TRUE)
-readRenviron("~/.Renviron")
-surveys<-all_surveys()
-
 
 #Importing the results:
-fulldat<-fetch_survey('SV_0UlVIGdg1ekiLgW',unanswer_recode=-99,label=FALSE,convert=FALSE, force_request=TRUE)
+fulldat<-
 print(head(fulldat))
 print(names(fulldat))
 
