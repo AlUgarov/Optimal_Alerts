@@ -5,14 +5,14 @@
 
 
 ## Setup
-Launch rundirectory.bat will produce all the results in the paper.
-Launch runstata.bat to produce all the results produced in Stata (later in the pipeline)
+Launch rundirectory.bat to produce all the results in the paper. Note: both Stata and R should be in the path variable.
+Launch runstataonly.bat to produce all the results produced in Stata (later in the pipeline). Note: Stata should be in the path variable.
 
 ## Software Requirements
 * Stata 14 or above
-* Stata packages:
-* R
-* R packages:
+* Stata packages: estout
+* R 1.3 or above
+* R packages: tidyr, dplyr, ggplot2, ggpubr, magrittr, wesanderson (for graphics)
 
 ## Status
 Work in progress. First pilot is completed.

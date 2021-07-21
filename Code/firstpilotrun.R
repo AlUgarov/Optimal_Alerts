@@ -1,42 +1,45 @@
 #Analyze the optimal alerts experiment data (first attempt)
 remove(list = ls())
-library(huxtable)
-#library(foreign)
-library(plyr)
 library(dplyr)
-library(xtable)
-#library(ggpubr)
-library(ggplot2)
-library(haven)
 library(tidyr)
-library(sjlabelled)
-library(httr)
-library(survey)
+library(ggplot2)
+library(ggpubr)
+
+
 
 tempdir()
 dir.create(tempdir())
 
 
-unloadNamespace("memisc")
-
 #Put your own data folder here:
-setwd("C:/Tornado_warnings/Experiment/Experiment_Analysis")
-require("haven")
-
-#httr::GET('cran.r-project.org/faqs.html')
+setwd("C:/Tornado_warnings/Experiment/Alerts_Experiment")
 
 
 #Importing the results:
-fulldat<-
-print(head(fulldat))
+fulldat<-read.csv(file = 'Input/Data_FirstPilot.csv')
+
+print(fulldat[1:5,1:10])
 print(names(fulldat))
+fulldat<-fulldat[-c(1,2),] #remove first two rows with metadata
+print(fulldat[1:5,1:10])
 
 nrounds=6
 
 
 names(fulldat)[names(fulldat) == "Sequence"] <- "sequence"
 
-saveRDS(fulldat,file="firstpilot.Rdata")
+textvars<-c("StartDate","EndDate","ExternalReference","Q104","Q105","Q106","Q114","Q115")
+allvars<-names(fulldat)
+numvars<-allvars[!(allvars %in% textvars)]
+print(textvars)
+print(numvars)
+fulldat[,numvars]<-lapply(fulldat[,numvars] , as.numeric)
+
+
+fulldat<-filter(fulldat,!is.na(sequence))
+dim(fulldat)
+
+saveRDS(fulldat,file="Temp/firstpilot.Rdata")
 
 #identify correct quiz answers
 fulldat$blind_correct<-(fulldat$Q157==2)+(fulldat$Q158==3)
@@ -47,21 +50,17 @@ table(fulldat$wtp_correct)
 fulldat$Ncorrect<-fulldat$blind_correct+fulldat$informed_correct+fulldat$wtp_correct
 table(fulldat$Ncorrect)
 
-unique.levels <- sort(unique(data$levels))
-count <- table(fulldat$Ncorrect)
-count.df <- data.frame(unique.levels, count)
 
-setwd("C:/Tornado_warnings/Experiment")
 #Understanding of the instructions:
 COMPRplot<-fulldat %>% select(Ncorrect) %>% filter(complete.cases(.)) %>%
   ggplot(aes(Ncorrect))+
   geom_bar()+
   scale_fill_manual(values = c("navy"))+
   #coord_flip()+
-  labs(x="Correct answers", y="N respondents", title = "N of correct quiz responses")
+  labs(x="Correct answers", y="N respondents", title = "N of correct quiz responses")+
   #scale_y_continuous(limits=c(0,1),labels = scales::percent)+
   #theme(text = element_text(size=15), plot.title = element_text(size=15), legend.position = "none")+
-  #scale_x_discrete(limits = rev(levels(fulldat$Q117)))
+  scale_x_discrete(limits=c(0,1,2,3,4,5,6,7,8,9))
 print(COMPRplot)
 ggsave("Graphs/COMPRplot.pdf")
 
@@ -110,16 +109,13 @@ fulldat$goodquiz<-(fulldat$Ncorrect>6)
 fulldat<-subset(fulldat,goodquiz==TRUE)
 
 #merge treatment sequences:
-setwd("C:/Tornado_warnings/Experiment/")
-exp_treatments<-readRDS(file="exp_treatments.Rdata") #reading the 
+exp_treatments<-readRDS(file="Input/exp_treatments.Rdata") #reading the treatments
 
 names(exp_treatments)<-c("treatN","belong","p","tot_gr","bl_gr","w_gr")
 exp_treatments<-subset(exp_treatments,select= -c(belong))
-write.csv(exp_treatments,'exp_treatments_pilot.csv')
 
 
-
-treat_sequences<-read.csv(file='treatment_sequences.csv')
+treat_sequences<-read.csv(file='Input/treatment_sequences.csv')
 names(treat_sequences)<-c("sequence","r1","r2","r3","r4","r5","r6")
 
 #treatments dataframe has a panel structure: sequence and round in two first columns
@@ -137,7 +133,7 @@ print(treatments)
 
 
 #Saving the text information
-fileConn<-file("Feedback2.txt","w")
+fileConn<-file("Output/Feedback_pilot.txt","w")
 writeLines(c("Which task did you find the most confusing?"), fileConn)
 writeLines(paste(fulldat$Q104, collapse = "\n"), fileConn)
 writeLines(c("**************************************************\n \n"), fileConn)
@@ -154,6 +150,12 @@ writeLines(c("Anything else you would like to say about the experiment?"), fileC
 writeLines(paste(fulldat$Q115, collapse = "\n"), fileConn)
 close(fileConn)
 
+
+#Remove X as the first letter of many variable names:
+oldnames = names(fulldat)[substr(names(fulldat),1,1)=="X"]
+newnames = sapply(oldnames,function (x) substr(x,2,100000L),USE.NAMES=FALSE)
+
+fulldat %>% rename_at(vars(oldnames), ~ newnames) -> fulldat
 
 #Prepare the data on blind protection choices:
 blprotN<-c("1_B1","2_B1", "3_B1", "4_B1", "5_B1")
@@ -236,7 +238,7 @@ for (r in 1:6){
   
   WTPnames<-names(fulldat)[substr(names(fulldat),1,6)==sprintf("%d_WTP1",r)] 
   print(WTPnames)
-  fulldat %>% select(WTPnames) %>% sapply(function(x) ifelse(x==-99,0,x)) %>% as.matrix %>% rowSums->WTP
+  fulldat %>% select(WTPnames) %>% sapply(function(x) ifelse(is.na(x),0,x)) %>% as.matrix %>% rowSums->WTP
   WTPmatrix[,r]<-0.5*(WTP-1)
   
 }
@@ -336,12 +338,10 @@ print(fig_response_sd)
 ggsave("Graphs/GR_responses2.pdf",width = 10, height = 6)
 #Q117, Q118
 
-#Filtering data based on responses
-fulldat$correct<-(fulldat$Q117=="This is impossible")&(fulldat$Q118=="We don't know")
 
 
 #Protection choices based on the signal received #calculate average protection rate based on the posterior
-IPtransf %>% group_by(post_prob) %>% summarize(average = mean(IP), totprotect=sum(IP), n = n()) ->IPprops
+IPtransf %>% group_by(post_prob) %>% dplyr::summarize(average = mean(IP), totprotect=sum(IP), n = n()) ->IPprops
 
 IP_plot<-IPprops %>% ggplot(aes(post_prob,average),color = "#1F3552")+
   geom_line(color = "#1F3552",size=2)+

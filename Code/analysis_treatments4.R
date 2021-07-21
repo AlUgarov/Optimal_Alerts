@@ -1,24 +1,20 @@
 #R analysis of the experimental data
 
-# Install We Anderson palettes
+# Install Wes Anderson palettes
 #install.packages("wesanderson")
 # Load
 
 
 remove(list = ls())
 library(dplyr)
-library(xtable)
-library(ggplot2)
-library(haven)
 library(tidyr)
-library(sjlabelled)
-library(qualtRics)
+library(ggplot2)
 library(magrittr)
 library(wesanderson)
 
 tempdir()
 dir.create(tempdir())
-setwd("C:/Tornado_warnings/Experiment")
+setwd("C:/Tornado_warnings/Experiment/Alerts_Experiment")
 
 #Signal descriptions:
 totgremlins<-c(2,3,3,3,5,5,5)
@@ -41,8 +37,8 @@ exp_treatments<-data.frame(snames=as.numeric(snames), belong=rep(1,each=ntreatme
 print(exp_treatments)
 
 #Save to import into the data analysis:
-saveRDS(exp_treatments, file = "exp_treatments.Rdata")
-write.csv(exp_treatments,'exp_treatments_pilot.csv')
+saveRDS(exp_treatments, file = "Input/exp_treatments.Rdata")
+write.csv(exp_treatments,'Input/exp_treatments_pilot.csv')
 
 exp_treatments$snames<-rep('',each=ntreatments)
 exp_treatments %<>% mutate(tpr=(tot_gr-w_gr)/tot_gr,fpr=bl_gr/tot_gr, ppv=p*(tot_gr-w_gr)/(p*(tot_gr-w_gr)+(1-p)*bl_gr))
@@ -72,7 +68,7 @@ ROC_curve<-ggplot(signals, aes(x=fpr, y=tpr, label=snames, fill=factor(belong)))
   geom_text(hjust=-0.1,vjust=0.9,size=5)
 
 print(ROC_curve)
-ggsave("ROC_curve2.png")
+ggsave("Graphs/ROC_curve2.png")
 
 
 #Graph of treatments (detection error tradeoff)
@@ -85,10 +81,7 @@ PR_curve<-ggplot(signals, aes(x=tpr, y=ppv, label=snames, fill=factor(belong))) 
   geom_text(hjust=0.3,vjust=-0.7,size=5)
 
 print(PR_curve)
-ggsave("PR_curve2.pdf")
-
-
-
+ggsave("Graphs/PR_curve2.pdf")
 
 
 
@@ -107,4 +100,4 @@ FAR_curve<-ggplot(signals, aes(x=fnr, y=fdr, label=snames, fill=factor(belong)))
   geom_text(hjust=0.3,vjust=-0.7,size=5)
 
 print(FAR_curve)
-ggsave("FAR_curve2.pdf")
+ggsave("Graphs/FAR_curve2.pdf")
