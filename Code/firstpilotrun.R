@@ -28,7 +28,7 @@ nrounds=6
 
 names(fulldat)[names(fulldat) == "Sequence"] <- "sequence"
 
-textvars<-c("StartDate","EndDate","ExternalReference","Q104","Q105","Q106","Q114","Q115")
+textvars<-c("StartDate","EndDate","ExternalReference","Participant_ID", "Q104","Q105","Q106","Q114","Q115")
 allvars<-names(fulldat)
 numvars<-allvars[!(allvars %in% textvars)]
 print(textvars)
@@ -106,7 +106,7 @@ ggsave("Graphs/Uplot2.pdf")
 
 #Filtering only the responses with good understanding of instructions:
 fulldat$goodquiz<-(fulldat$Ncorrect>6)
-fulldat<-subset(fulldat,goodquiz==TRUE)
+#fulldat<-subset(fulldat,goodquiz==TRUE)
 
 #merge treatment sequences:
 exp_treatments<-readRDS(file="Input/exp_treatments.Rdata") #reading the treatments
@@ -259,7 +259,10 @@ WTPdat<-merge(WTPdat,treatments,by=c("sequence","round"),all.x=TRUE)
 Loss=20
 cost=5
 
-WTPdat %>% mutate(Value=-(p*phintWB*Loss-(p*phintBB+(1-p)*phintBW)*cost))->WTPdat
+WTPdat %>% mutate(cost_bp=pmin(p*Loss,cost)) %>%
+           mutate(cost_ip=p*phintWB*Loss+(p*phintBB+(1-p)*phintBW)*cost) %>%
+           mutate(Value=pmax(0,cost_bp-cost_ip)) ->WTPdat
+
 print(table(WTPdat$Value))
 
 
@@ -354,10 +357,6 @@ print(IP_plot)
 ggsave("Graphs/IP_plot.pdf")
 
 
-
-
-
-
 #Scatter plot reported beliefs vs posteriors
 UPD_curve<-ggplot(belief_dat, aes(x=post_prob, y=belief)) + geom_point(colour = 'dodgerblue4',fill="dodgerblue4", size=3, shape=21)+
   labs(x="Posterior Probability",y="Reported Belief", title = "Bayesian Updating")+
@@ -369,7 +368,6 @@ UPD_curve<-ggplot(belief_dat, aes(x=post_prob, y=belief)) + geom_point(colour = 
 
 print(UPD_curve)
 ggsave("Graphs/UPD_curve2.pdf")
-
 
 
 #Scatter plot: WTP vs signal value

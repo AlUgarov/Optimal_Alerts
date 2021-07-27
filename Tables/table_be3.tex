@@ -1,0 +1,24 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Belief Elicitation: Decomposition}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{Smart, FE}\\
+\hline
+lt\_prior        &     .082         &    .0758         &     .135         \\
+                &    (0.4)         &    (0.7)         &    (0.9)         \\
+signalB         &     .491         &      .89\sym{*}  &     1.56\sym{***}\\
+                &    (1.3)         &    (1.8)         &    (3.7)         \\
+signalW         &     .399         &        0         &        0         \\
+                &    (0.8)         &      (.)         &      (.)         \\
+Constant        &    -.279         &     -.69\sym{**} &    -.998\sym{**} \\
+                &   (-0.6)         &   (-2.6)         &   (-3.3)         \\
+\hline
+Observations    &       52         &       52         &       36         \\
+Adjusted \(R^{2}\)&     0.13         &     0.19         &     0.47         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}
