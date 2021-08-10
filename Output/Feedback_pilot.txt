@@ -1,72 +1,112 @@
 Which task did you find the most confusing?
 I think all of them made sense
 The last task was slightly the most confusing
+Selecting probability with black/white germlin
 The third and fourth. Third because even though I remember about multiplying probabilities, a) I wasn't sure if this was the right procedure though I thought so, b) it was confusing for me to determine the right probability based on truth vs lie...like if there was a 2/3 chance it was correct info and 1/3 incorrect, I wasn't sure which of these two fractions to use to multiply by the other number and c) when there were 3 gremlins, one honest and two dishonest, I just assumed there was a 50/50 chance the info was correct, but this doesn't seem quite right from what I remember from high school math....   
 They were all pretty simple, the instructions were sometimes a bit confusing but easier to understand once in the round. 
 Task 4
 Measuring Chances
+Task 3
 trying to read the instructions and organize the information in my mind when the gremlins came into the mix along with comprehending the instructions for the last round. I understood in the end but it took me a bit to comprehend the words I was reading. 
+The very last task was the most difficult.
 Task four's instructions were the most confusing.
 The last part was the only confusing part.
 The final task
 The buying of protection mixed with the buying of gremlins for hint. 
+task 1( blind )using
+
+task 4
+The protection aspect of the tasks
+calculating percent
 **************************************************
  
 
 Please explain the strategy you used for Task 2 (Informed Protection)? This is the task in which you see a hint and then decide to protect or not.
 I only trusted the hint if the majority of gremlins were honest
 If it was an honest gremlin, I always trusted it. If it was not, it depended on the proportion of white & black balls, plus the gremlin composition to make my decisions. Generally, if 2 or more of the gremlins were not honest, and 3 or more of the balls were black, I bought protection.
+I focused on the probability
 If there seems to be a greater than 50% that the information is correct, it seems worth protecting (if applicable) 
 I just thought about the probabilities of black/white ball and choose accordingly. 
 The number of a certain type of gremlin present
 If the gremlins were all honest, then I didn't need protection--otherwise, I did.
+My decision depended on hints more than probability. 
 If all were honest, no protection. If there was a black gremlin but they said it was white, no protection. If there was a white gremlin but said it was black, no protection. All other scenarios I bought protection. 
+Based off of percentages on how many gremlins where honest or not.
 In task 2 I chose to buy protection if the majority of the gremlins were not honest. If the majority of the gremlins were honest and the balls were mostly white then I did not buy protection. 
 If it was honest I always did it.  If it was split with a white or black, I did it still.  But if there were 2 or more white or black, I didn't.
 I got confused and did not have one for task 2-4
 Depending on the type of gremlin, I decided. Chances of a white swamp gremlin would be 20% of 4 others were honest gremlins. 
+depending on the gremlin characteristic an informed choice can be made on protection or no protection
+
+I used the percentage of the white and black balls then check the type of gremlin
+The type of gremlin
+used percentages again
 **************************************************
  
 
 Please explain the strategy you used in Task 3 (Measuring Chances)? This is the task in which you use sliders.
 Same as above, when majority were honest it was a high perecntage but if majority were wrong gremlins it was a low percentage
 It was very similar to what I did in task 3, just using a general confidence scale with my strategy
+I focused on the probability as well
 Multiplying probabilities, as mentioned above...but unsure if i was doing it correctly
 I took the percentage that the hint would be "true" and the percentage of the ball being black or white and guesstimated. 
 Estimating probability
 I did my best to calculate the true statistical probability of the outcome in question.
+My decision depended more on hints than on probability. Being risk averse, I didn't consider probability of a color
 Same thoughts as I mentioned above. If it was complicated I sort of just guessed how much of a percent to choose. 
+n/a
 I tried to do some math in my head at first, but I wasn't really sure if I was doing it right. At the end I started just going with the percentage of the balls that were given.
 Basically if it had any black or white gremlins I dropped it to 50%.  If it was honest I was 100%.  Or if the gemlins talking didn't match the gemlin (white saying the ball is black, etc.) I went 100%.
 
 Comparison of the composition of gremlins and the number of balls. 
+using the gremlin that are grouped in same characteristic an estimate can be calculated on the risk taken
+
+I used the percentage of the white and black balls then decrease or increase the percentage based on the type of gremlin
+"Combined" probability of computer using a specific ball and the type of gremlin
+percent based on number of balls and number of possible lies 
 **************************************************
  
 
 Do you see any ways to improve the experiment?
 NO
 The instructions on the last task could be slightly less confusing. I understood, but it didn't seem to be as complex as the instructions worded it.
+I think it's fun but I was looking for more strategy to be accurate
 The instructions on sections 3 and 4 were a little confusing, because read a certain way, it seemed that if I overshot the percentage I had more of a chance of losing money than undershooting it.
 I'm not sure 
 No
 A minor note: Unless I calculated wrong (which is, of course, possible), one of the statistical probabilities in the Measuring Chances task was 7.5%, which is what I wanted to indicate; but only integers were accepted (so I rounded up to 8). Perhaps allowing decimal points would be helpful.
+no, it works well
 With the concept, I don't see a need for improvements. It was hard for me to focus on reading the instructions because my eyes began to hurt from looking at the screen but I don't think that was your fault. 
+No I think it was written well and easy to understand as long as the test taker was slow & read through the instructions all the way.
 The instructions on section four could have been a little more clear.
 The last task needed more explanation
 
 An interactive example would help. 
+
+
+task 4 could use some more examples
+Walk-through examples (videos with audio), not just text
+no - fairly easy to understand
 **************************************************
  
 
 Anything else you would like to say about the experiment?
 I liked the gremlins
 Super fun!
+Good luck with your experiment!
 
 None that I can think of
 
 No--thank you!
+Interesting tasks
 This was cute!
+I appreciated being able to go back to read the instructions again. 
 
 no. thank you.
 
 
+
+
+task 4 was challenging
+NA
+kind of fun actually

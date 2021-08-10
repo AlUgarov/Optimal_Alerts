@@ -5,29 +5,24 @@
 \usefonttheme{professionalfonts}
  \usepackage[usenames,dvipsnames]{pstricks}
  \usepackage{wallpaper}
- \usepackage{epsfig}
+% \usepackage{epsfig}
 \definecolor{UniBlue}{RGB}{157,34,53}
 \setbeamercolor{block title}{bg=UniBlue!70,fg=black}
-
+\usepackage{subfigure}
 \usepackage{psfrag,graphicx}
 \usepackage{amsmath,amsfonts}
-\usepackage{lscape}
-\usepackage{array,epsfig}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{amsxtra}
-\usepackage{amsthm}
+%\usepackage{lscape}
+%\usepackage{array,epsfig}
 \usepackage{makecell}
 \usepackage[skip=0pt, belowskip=-10pt]{caption}
-\usepackage{subcaption}
+%\usepackage{subcaption}
 \usepackage{float}
 \usepackage{multirow}
 \usepackage{booktabs}
-%\usepackage{subfigure}
-\usepackage{eso-pic}
-\usepackage{transparent}
-\usepackage{graphicx}
-\usepackage{tikz}
+
+%\usepackage{transparent}
+%\usepackage{graphicx}
+%\usepackage{tikz}
 \usepackage{longtable}
 \newtheorem{df}{Definition}
 \newtheorem{lm}{Lemma}
@@ -43,17 +38,10 @@
 \newcommand{\twolinebracel}{$\left. \begin{array}{c} \\ \\ \end{array} \right\lbrace$}
 \newcommand{\bd}{\partial}
 
-\usepackage{pgf}  
-%\logo{\pgfputat{\pgfxy(-1.2,-0.2)}{\pgfbox[center,base]{\includegraphics[height=12pt, keepaspectratio]{UA_Logo_Horizontal.eps}}} }
-
-%\usebackgroundtemplate
-%{
-  %  \node[opacity=0.3, at=(current page.south east),anchor=south east,inner sep=0pt] 
-    %\includegraphics[width=\paperwidth,height=20pt]{UA_Logo_Horizontal.eps}%
-%}
+%\usepackage{pgf}  
 
 \linespread{1}
-\usepackage{parskip}
+%\usepackage{parskip}
 %\setlength{\itemsep}{1em} 
 %\addtolength{\parskip}{5pt}
 \DeclareMathSizes{12}{10}{8}{6}
@@ -64,22 +52,9 @@
 \institute[]{}
 \date{\today}
 
-\newcommand\BackgroundPic{%
-\put(0,0){%
-\parbox[b][\paperheight]{\paperwidth}{%
-\vfill
-\centering
-%\includegraphics[width=\paperwidth,height=\paperheight,%keepaspectratio]{sancho.png}%
-\vfill
-}}}
-
 
 \begin{document}
-%\AddToShipoutPicture*{\BackgroundPic}
 
-\begin{frame}
-\titlepage
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -95,16 +70,15 @@
 \end{frame}
 
 
-\iffalse
 
 \begin{frame}
 \frametitle{Self-reported Understanding of the Instructions}
 \begin{figure}[h]
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.6\textwidth}
 \includegraphics[width=\textwidth]{Graphs/Uplot1.pdf}
 \end{subfigure}
-~
-\begin{subfigure}{0.45\textwidth}
+
+\begin{subfigure}{0.6\textwidth}
 \includegraphics[width=\textwidth]{Graphs/Uplot2.pdf}
 \end{subfigure}
 \end{figure}
@@ -150,7 +124,7 @@
 \includegraphics[scale=0.35]{Graphs/IP_plot.pdf}
 \end{figure}
 \end{frame}
-\fi
+
 
 \begin{frame}
 \frametitle{Informed Protection: Correlation}
@@ -158,7 +132,6 @@
 \input{Tables/table_ip1.tex}
 
 \end{frame}
-
 
 
 \begin{frame}
@@ -176,7 +149,6 @@
 
 
 
-\iffalse
 \begin{frame}
 \frametitle{Belief Updating}
 \begin{itemize}
@@ -187,7 +159,7 @@
 \includegraphics[scale=0.4]{Graphs/UPD_curve2.pdf}
 \end{figure}
 \end{frame}
-\fi
+
 
 \begin{frame}
 \frametitle{Belief Updating: Correlation}
@@ -202,18 +174,6 @@
 \input{Tables/table_be2.tex}
 \end{frame}
 
-\begin{frame}
-\frametitle{Belief Updating: Decomposition}
-\begin{itemize}
-\item Posterior probability $\mu=P(B|S=x)$ that the ball is black conditional on a hint $S=x$ can be written as:
-$$\ln \left({\mu \over 1-\mu} \right)=\lambda_0+S_B+S_W$$
-\item With $\lambda_0\equiv \ln(p/(1-p))$ representing (transformed) prior beliefs
-\item And $S_B$, $S_W$ describing the effect of new evidence:
-$$S_B\equiv I(S=B)\ln(P(s=B|B)/P(s=B|W))$$
-$$S_W\equiv I(S=W)\ln((1-P(s=B|B))/(1-P(s=B|W))$$
-\end{itemize}
-\end{frame}
-
 
 \begin{frame}
 \frametitle{Belief Updating: Decomposition}
@@ -226,12 +186,12 @@ $$S_W\equiv I(S=W)\ln((1-P(s=B|B))/(1-P(s=B|W))$$
 \frametitle{WTP for signals}
 \begin{itemize}
 \item Higher average WTP for more valuable signals
+\item Within-analysis pending
 \end{itemize}
 \begin{figure}[h]
-\includegraphics[scale=0.55]{Graphs/WTP_curve2.pdf}
+\includegraphics[scale=0.4]{Graphs/WTP_curve2.pdf}
 \end{figure}
 \end{frame}
-
 
 \begin{frame}
 \frametitle{WTP for signals: Determinants}

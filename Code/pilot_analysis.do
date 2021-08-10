@@ -304,6 +304,9 @@ esttab using "./Tables/table_be2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(
 
 
 eststo clear
+eststo clear
+eststo clear
+
 eststo: reg lt_bel lt_prior signalB signalW, vce(robust)
 eststo: xtreg lt_bel lt_prior signalB signalW, fe vce(robust)
 eststo: xtreg lt_bel lt_prior signalB signalW if ncorrect>6, fe vce(robust)
