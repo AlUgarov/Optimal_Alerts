@@ -1,0 +1,28 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{WTP for Information (Accounting for Risk Aversion)}
+\begin{tabular}{l*{5}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}\\
+\hline
+value           &     .475\sym{***}&                  &                  &                  &                  \\
+                &    (5.1)         &                  &                  &                  &                  \\
+value\_ra        &                  &     .236\sym{**} &    .0615         &    .0615         &    -.112         \\
+                &                  &    (2.1)         &    (0.4)         &    (0.4)         &   (-0.7)         \\
+honest\_treatment&                  &                  &     .734\sym{*}  &     .734\sym{*}  &     .132         \\
+                &                  &                  &    (1.7)         &    (1.7)         &    (0.3)         \\
+False neg. rate &                  &                  &                  &                  &    -2.92\sym{**} \\
+                &                  &                  &                  &                  &   (-2.1)         \\
+False pos. rate &                  &                  &                  &                  &    -2.13\sym{**} \\
+                &                  &                  &                  &                  &   (-2.3)         \\
+Constant        &      .54\sym{***}&     .793\sym{***}&     .886\sym{***}&     .886\sym{***}&     2.02\sym{***}\\
+                &    (3.6)         &    (3.6)         &    (3.8)         &    (3.8)         &    (3.5)         \\
+\hline
+Observations    &      150         &       78         &       78         &       78         &       78         \\
+Adjusted \(R^{2}\)&     0.14         &     0.04         &     0.07         &     0.07         &     0.09         \\
+\hline\hline
+\multicolumn{6}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

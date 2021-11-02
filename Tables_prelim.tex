@@ -1,0 +1,339 @@
+\documentclass[11pt,hyperref={bookmarks=false}]{beamer}
+\usetheme{Warsaw}
+%\usetheme{Madrid}
+%\usecolortheme{beaver}
+\usefonttheme{professionalfonts}
+ \usepackage[usenames,dvipsnames]{pstricks}
+ \usepackage{wallpaper}
+ \usepackage{epsfig}
+\definecolor{UniBlue}{RGB}{157,34,53}
+\setbeamercolor{block title}{bg=UniBlue!70,fg=black}
+
+\usepackage{psfrag,graphicx}
+\usepackage{amsmath,amsfonts}
+\usepackage{lscape}
+\usepackage{array,epsfig}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsxtra}
+\usepackage{amsthm}
+\usepackage{makecell}
+\usepackage[skip=0pt, belowskip=-10pt]{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{booktabs}
+%\usepackage{subfigure}
+\usepackage{eso-pic}
+\usepackage{transparent}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{longtable}
+\newtheorem{df}{Definition}
+\newtheorem{lm}{Lemma}
+\newtheorem{prp}{Proposition}
+\newtheorem{sprf}{Sketch of Proof}
+\newtheorem{prf}{Proof}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{suffc}{Sufficient Condition}
+\setbeameroption{hide notes}
+\newcommand{\threelinebracer}{$\left. \begin{array}{c} \\ \\ \\ \end{array} \right\rbrace$}
+\newcommand{\threelinebracel}{$\left. \begin{array}{c} \\ \\ \\ \end{array} \right\lbrace$}
+\newcommand{\twolinebracer}{$\left. \begin{array}{c} \\ \\ \end{array} \right\rbrace$}
+\newcommand{\twolinebracel}{$\left. \begin{array}{c} \\ \\ \end{array} \right\lbrace$}
+\newcommand{\bd}{\partial}
+
+\usepackage{pgf}  
+%\logo{\pgfputat{\pgfxy(-1.2,-0.2)}{\pgfbox[center,base]{\includegraphics[height=12pt, keepaspectratio]{UA_Logo_Horizontal.eps}}} }
+
+%\usebackgroundtemplate
+%{
+  %  \node[opacity=0.3, at=(current page.south east),anchor=south east,inner sep=0pt] 
+    %\includegraphics[width=\paperwidth,height=20pt]{UA_Logo_Horizontal.eps}%
+%}
+
+\linespread{1}
+\usepackage{parskip}
+%\setlength{\itemsep}{1em} 
+%\addtolength{\parskip}{5pt}
+\DeclareMathSizes{12}{10}{8}{6}
+%  \begin{itemize}}{\end{itemize}}
+% Separate slides by \begin{frame} and \end{frame}.
+\title[Willingness-to-pay for Warnings]{Willingness-to-pay for Warnings: Some Tables}
+\author[A. Gaduh, P. McGee and A. Ugarov]{A. Gaduh, P. McGee and A. Ugarov}
+\institute[]{}
+\date{\today}
+
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+%\includegraphics[width=\paperwidth,height=\paperheight,%keepaspectratio]{sancho.png}%
+\vfill
+}}}
+
+
+\begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Research Question}
+\begin{itemize}
+	\item How much do people value alerts (signals) about potential preventable threats?
+	\item How do signal's probabilistic characteristics affect the willingness-to-pay for it and the welfare gains from using it?
+	\item Applications:
+	\begin{itemize}
+		\item Natural disaster warnings (tornados, floods, earthquakes)
+		\item Medical tests for treatable conditions
+		\item Investing in research on likelihood of catastrophic events (rogue AI, global warming, pandemics)
+	\end{itemize}
+	\item Note: most real-life applications provide little practice with using the signal
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Overview of the Experiment}
+\begin{itemize}
+	\item An insurance experiment:
+		\begin{itemize}
+			\item Two states of the world: bad ($\omega=1$) and good ($\omega=0$)
+			\item Probability of a bad state is $P (\omega=1) = \pi$
+			\item Bad state $\implies$ loss of \$$L$
+			\item A perfectly protective insurance can be purchased for \$$c$
+		\end{itemize}
+	\item Subject can purchase a signal $s$ before purchasing the insurance:
+		\begin{itemize}
+			\item A signal is characterized by its true-positive ($P(s=1|\omega=1)$) and true-negative rates ($P(s=0|\omega=0)$) 
+		\end{itemize}
+\end{itemize}
+
+\vspace{1em}
+\begin{block}{Research objective}
+	How do signal characteristics affect the WTP?
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for Signals}
+\framesubtitle{If losses are rare ($\pi L<<c$)}
+
+\begin{itemize}
+	\item Theoretically, what should be the WTP for a signal?
+	\item If bad states are a priori rare ($\pi L<<c$) $\implies$ never protect without a signal
+	\item The theoretical WTP $b$ for an expected utility maximizer given a signal $s$ is a solution $b^*$ to the following:
+	\small
+		$$P(s=1)u(Y_0-b^*-c) + \pi P(s=0|\omega=1)u(Y_0-b^*-L)+$$
+		$$+(1-\pi)P(s=0|\omega=0)u(Y_0-b^*) =(1-\pi)u(Y_0)+\pi u(Y_0-L)$$
+\normalsize
+	\item A risk-neutral agent then pays:
+		\[b^*=\pi(1-P(s=0|\omega=1))L-P(s=1)c\]
+\small
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for Signals}
+\framesubtitle{If losses are not necessarily rare}
+
+\begin{itemize}
+	\item The formulas become more complicated if subjects can protect without a signal (bad state are not rare enough)
+	\item The theoretical WTP $b$ for an expected utility maximizer given a signal $s$ is a solution $b^*$ to the following:
+	\small
+ $$P(s=1)u(Y_0-b^*-c) + \pi P(0|1)u(Y_0-b^*-L)+(1-\pi)P(0|0)u(Y_0-b^*)=$$
+		$$=\min[(1-\pi)u(Y_0)+\pi u(Y_0-L),u(Y_0-c)]$$
+
+	\normalsize
+	\item A risk-neutral agent then pays:
+\small
+		\[b^*=\min[\pi L,c]-\pi(1-P(s=0|\omega=1))L-P(s=1)c\]
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Hypotheses}
+\begin{enumerate}
+\item Conditional on the signal's value for risk-neutral subjects, false positive and false negative rates reduce the perceived value of the signal (WTP)
+\item Conditional on the signal's value for risk-neutral subjects, false positive and false negative rates increase expected costs
+\item Extra: how much of these disrepancies result from belief updating issues or risk aversion? 
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for signals}
+\begin{itemize}
+\item Higher average WTP for more valuable signals
+\end{itemize}
+\begin{figure}[h]
+\includegraphics[scale=0.45]{Graphs/WTP_curve2.pdf}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for the Signal}
+\begin{itemize}
+\item Extra effect of false positive and false negative rates
+\end{itemize}
+
+\footnotesize
+\input{Tables/table_wtp1.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for the Signal (Risk Aversion)}
+\begin{itemize}
+\item Does accounting for risk aversion based on blind protection choices helps to explain WTP?
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtp2.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for the Signal (Uniform Risk Aversion)}
+\begin{itemize}
+\item Risk aversion measurements are noisy. What if we assume the same risk aversion for everybody?
+\end{itemize}
+\begin{table}[htbp]\centering
+
+\begin{tabular}{l c}
+\hline\hline
+                $\theta$ & $R^2$\\
+\hline
+0 &    .17       \\
+
+0.5    &     .15\\
+
+1 &     .1\\
+
+1.5      &     .07   \\
+
+\hline
+Observations    &     150 \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Actual Costs vs Theoretical Costs}
+\begin{itemize}
+\item Calculate actual costs based on decisions made in the Informed Protection treatment and actual posterior probabilities of losses.
+\item Each reported participant's strategy $s$ is a tuple of numbers $(r_w,r_b)$ representing protection responses correspondingly to white and black hints
+\item Then the expected cost of each decision are:
+\small
+$$EC(s)=\pi (P(0|1)(1-r_w)+P(1|1)(1-r_b))L+$$
+$$+(P(s=0)r_w+P(s=1)r_b)c$$
+\normalsize
+\item Regress expected costs on minimal theoretical costs and other signal characteristics
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Actual Costs vs Theoretical Costs}
+\footnotesize
+\input{Tables/table_costs0.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Additional Complementary Tables}
+\begin{itemize}
+\item Factors affecting informed protection responses
+\item How well do participants update their beliefs?
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Informed Protection: Correlation}
+\footnotesize
+\input{Tables/table_ip1.tex}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Informed Protection: Determinants}
+\footnotesize
+\input{Tables/table_ip2.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Informed Protection: Do Subject's Beliefs Matter?}
+\footnotesize
+\input{Tables/table_ip2.tex}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Belief Updating}
+\begin{itemize}
+\item A bit more correlation with actual posterior probabilities!
+\item Even more if we exclude everybody scoring less than 7 out of 9 quiz questions
+\end{itemize}
+\begin{figure}[h]
+\includegraphics[scale=0.4]{Graphs/UPD_curve2.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Belief Updating: Correlation}
+\footnotesize
+\input{Tables/table_be1.tex}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{What Affects Beliefs?}
+\footnotesize
+\input{Tables/table_be2.tex}
+\end{frame}
+
+\begin{frame}
+\frametitle{Belief Updating: Decomposition}
+\begin{itemize}
+\item Posterior probability $\mu=P(B|S=x)$ that the ball is black conditional on a hint $S=x$ can be written as:
+$$\ln \left({\mu \over 1-\mu} \right)=\lambda_0+S_B+S_W$$
+\item With $\lambda_0\equiv \ln(p/(1-p))$ representing (transformed) prior beliefs
+\item And $S_B$, $S_W$ describing the effect of new evidence:
+$$S_B\equiv I(S=B)\ln(P(s=B|B)/P(s=B|W))$$
+$$S_W\equiv I(S=W)\ln((1-P(s=B|B))/(1-P(s=B|W))$$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Belief Updating: Decomposition}
+\footnotesize
+\input{Tables/table_be3.tex}
+\end{frame}
+
+
+
+
+
+\end{document}
