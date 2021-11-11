@@ -59,7 +59,7 @@
 \DeclareMathSizes{12}{10}{8}{6}
 %  \begin{itemize}}{\end{itemize}}
 % Separate slides by \begin{frame} and \end{frame}.
-\title[Willingness-to-pay for Warnings]{Willingness-to-pay for Warnings: Some Tables}
+\title[Willingness-to-pay for Warnings]{Willingness-to-pay for Warnings: Main Tables}
 \author[A. Gaduh, P. McGee and A. Ugarov]{A. Gaduh, P. McGee and A. Ugarov}
 \institute[]{}
 \date{\today}
@@ -166,12 +166,18 @@
 \frametitle{Hypotheses}
 \begin{enumerate}
 \item Conditional on the signal's value for risk-neutral subjects, false positive and false negative rates reduce the perceived value of the signal (WTP)
+\begin{itemize}
+\item \textit{The opposite is true: subjects underreact to false positive and false negative rates and overpay for bad signals}
+\end{itemize}
 \item Conditional on the signal's value for risk-neutral subjects, false positive and false negative rates increase expected costs
+\begin{itemize}
+\item \textit{No: FP and FN rates have no significant effects on costs besides their predicted theoretical effect}
+\end{itemize}
 \item Extra: how much of these disrepancies result from belief updating issues or risk aversion? 
 \end{enumerate}
 \end{frame}
 
-
+\iffalse
 \begin{frame}
 \frametitle{WTP for signals}
 \begin{itemize}
@@ -182,53 +188,104 @@
 \end{figure}
 \end{frame}
 
+\fi
+
+
+\begin{frame}
+\frametitle{Risk Aversion Measurement}
+\begin{itemize}
+\item Measure risk aversion based on blind protection choices:
+\begin{itemize}
+\item Exclude obs from subjects switching back and forth
+\item The lowest probability for which a subject chooses to protect is $\pi^*$
+\item Calculate their coefficient of relative risk aversion $\theta$ as the solution to the following equation:
+$$\pi^* u(Y_0-L;\theta)+(1-\pi^*)u(Y_0;\theta)=u(Y_0-c;\theta)$$
+\item Where  $u()$ is the CRRA utility function:
+$$u(x;\theta)={x^{1-\theta} -1 \over 1-\theta}$$
+\end{itemize}
+\item Note: risk lovers have $\theta<0$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{CRRA Estimates}
+\begin{itemize}
+\item Most subjects are moderately risk averse: 
+\end{itemize}
+\begin{table}[htbp]\centering
+
+\begin{tabular}{l c c}
+\hline\hline
+Probability ($\pi^*$) &                $\theta$ & $N$\\
+\hline
+Always protect & $>$2 &   1 \\
+0.1 & 2 & 2 \\
+0.15 & 1.216 & 7 \\
+0.2 & 0.573 & 17 \\
+0.25 & 0 & 7 \\
+0.3 & -0.539 & 5 \\
+Never protect & $<$-0.539 &  8 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Note: 
+\begin{itemize}
+\item There are 18 subjects (out of 65) switching multiple times
+\item Can use more sophisticated methods to measure risk aversion for those
+\end{itemize}
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{WTP for the Signal}
 \begin{itemize}
-\item Extra effect of false positive and false negative rates
+\item Theoretical value of signal for risk-neutral subject:
+$$b^*=\underbrace{\min[\pi L,c]}_{\text{BP costs}}-\underbrace{\pi(1-P(s=0|\omega=1))L}_{\text{False neg. costs}}-\underbrace{P(s=1)c}_{\text{Protection costs}}$$
+\item Two potential approaches:
+\begin{enumerate}
+\item Regress the discrepancy between WTP $V$ and theoretical value $b^*$:
+$$V-b^*=\alpha_0+\alpha_1\text{FN costs}+\alpha_2 \text{Prot. costs}+\epsilon$$
+\item Regress WTP directly on its components and account for censoring at 0:
+$$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\text{BP costs}+\gamma]$$
+\item Note: protection costs include costs due to false positive signals
+\end{enumerate}
 \end{itemize}
 
-\footnotesize
-\input{Tables/table_wtp1.tex}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for the Signal  (Approach 1)}
+\begin{itemize}
+\item Coefficient sign. different from zero is an anomaly: people overpay for bad signals
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtpdiff.tex}
+\normalsize
+\end{frame}
+
+\begin{frame}
+\frametitle{WTP for the Signal (Approach 2, Tobit Estimation)}
+\begin{itemize}
+\item Coefficient should \textbf{differ from one} in abs. value to show an anomaly (ignore stars for now)
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtp01.tex}
+\normalsize
+\end{frame}
+
 
 
 \begin{frame}
 \frametitle{WTP for the Signal (Risk Aversion)}
 \begin{itemize}
-\item Does accounting for risk aversion based on blind protection choices helps to explain WTP?
+\item Explaining the discrepancy between WTP and value with risk aversion:
 \end{itemize}
 \footnotesize
-\input{Tables/table_wtp2.tex}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{WTP for the Signal (Uniform Risk Aversion)}
-\begin{itemize}
-\item Risk aversion measurements are noisy. What if we assume the same risk aversion for everybody?
-\end{itemize}
-\begin{table}[htbp]\centering
-
-\begin{tabular}{l c}
-\hline\hline
-                $\theta$ & $R^2$\\
-\hline
-0 &    .17       \\
-
-0.5    &     .15\\
-
-1 &     .1\\
-
-1.5      &     .07   \\
-
-\hline
-Observations    &     150 \\
-\hline\hline
-\end{tabular}
-\end{table}
-
+\input{Tables/table_wtp_ra.tex}
 \end{frame}
 
 
@@ -239,7 +296,7 @@ Observations    &     150 \\
 \item Each reported participant's strategy $s$ is a tuple of numbers $(r_w,r_b)$ representing protection responses correspondingly to white and black hints
 \item Then the expected cost of each decision are:
 \small
-$$EC(s)=\pi (P(0|1)(1-r_w)+P(1|1)(1-r_b))L+$$
+$$EC(s)=\pi (P(0|1)(1-r_w)+P(1|1)(1-r_b))L+P(s=1)c$$
 $$+(P(s=0)r_w+P(s=1)r_b)c$$
 \normalsize
 \item Regress expected costs on minimal theoretical costs and other signal characteristics
@@ -256,19 +313,12 @@ $$+(P(s=0)r_w+P(s=1)r_b)c$$
 
 \begin{frame}
 \frametitle{Additional Complementary Tables}
-\begin{itemize}
+\begin{enumerate}
 \item Factors affecting informed protection responses
-\item How well do participants update their beliefs?
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Informed Protection: Correlation}
-\footnotesize
-\input{Tables/table_ip1.tex}
-
+\item The effect of beliefs on informed protection
+\item How accurate are their beliefs?
+\item Decomposition of belief updating: priors vs signals
+\end{enumerate}
 \end{frame}
 
 
@@ -276,19 +326,19 @@ $$+(P(s=0)r_w+P(s=1)r_b)c$$
 \begin{frame}
 \frametitle{Informed Protection: Determinants}
 \footnotesize
-\input{Tables/table_ip2.tex}
+\input{Tables/table_ip1.tex}
+
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Informed Protection: Do Subject's Beliefs Matter?}
-\footnotesize
+%\footnotesize
 \input{Tables/table_ip2.tex}
 \end{frame}
 
 
-
-
+\iffalse
 \begin{frame}
 \frametitle{Belief Updating}
 \begin{itemize}
@@ -299,18 +349,15 @@ $$+(P(s=0)r_w+P(s=1)r_b)c$$
 \includegraphics[scale=0.4]{Graphs/UPD_curve2.pdf}
 \end{figure}
 \end{frame}
+\fi
+
+
 
 \begin{frame}
 \frametitle{Belief Updating: Correlation}
-\footnotesize
+%\footnotesize
 \input{Tables/table_be1.tex}
 
-\end{frame}
-
-\begin{frame}
-\frametitle{What Affects Beliefs?}
-\footnotesize
-\input{Tables/table_be2.tex}
 \end{frame}
 
 \begin{frame}
@@ -328,7 +375,7 @@ $$S_W\equiv I(S=W)\ln((1-P(s=B|B))/(1-P(s=B|W))$$
 
 \begin{frame}
 \frametitle{Belief Updating: Decomposition}
-\footnotesize
+%\footnotesize
 \input{Tables/table_be3.tex}
 \end{frame}
 

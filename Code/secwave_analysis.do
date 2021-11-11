@@ -1,10 +1,14 @@
 
-**THE SCRIPT TO ANALYZE THE FIRST PILOT's RESULTS***
+**ANALYZE THE FIRST WAVE (planned 100 participants)***
 set more off
 clear all
 
-*put your working folder below:
+**Requires: estout, moremata
+
+*!!put your working folder below:
 cd C:\Tornado_warnings\Optimal_Alerts
+
+
 *log using "./Temp/pilot_analysis.log", replace
 set seed 135
 
@@ -35,6 +39,7 @@ gen post_probW=p*phintWB/(p*phintWB+(1-p)*phintWW) //posterior prob that the bal
 gen post_probB=p*phintBB/(p*phintBB+(1-p)*phintBW) //posterior prob that the ball is black if the HINT is black
 
 save "./Temp/exp_treatments.dta", replace
+
 
 *First importing the Qualtrics data
 *The results data has variable names incompatible with Stata
@@ -90,17 +95,6 @@ drop round externalreference location* responseid t1r1 sel* treatment_plans ip_w
 list participant_id seq
 tab seq
 
-
-
-
-
-
-
-
-
-
-
-
 *identify correct quiz answers
 gen blind_correct=(q157==2)+(q158==3)
 tab blind_correct
@@ -111,18 +105,18 @@ tab wtpq_correct
 gen ncorrect=blind_correct+informed_correct+wtpq_correct
 tab ncorrect
 
-*remove participants missing more than 2 questions:
-//drop if ncorrect<7
-
-
 encode participant_id, gen(subject_id) //as participant_id is initially a string
 
 save "./Temp/first_wave_wide.dta", replace
 
+
 ***SANITY CHECKS*******************
 
+**??**
 
-**BLIND PROTECTION ANALYSIS (SEPARATELY DUE TO DIFFERENT N of rounds)**
+
+
+**BLIND PROTECTION ANALYSIS**
 * bp - protection decision (0 - do not protect, 1 - protect)
 keep subject_id bp_* bp_time_*
 reshape long bp_ bp_time_,  i(subject_id) j(round)
@@ -142,9 +136,9 @@ replace backswitch=0 if round==1
 by subject_id: egen backswitcher=max(backswitch)
 by subject_id: egen switcher=max(switch)
 save "./Temp/blind_prot_temp.dta", replace
+
 gen switchround=round*switch
 gen backswitchround=round*backswitch
-
 replace switchround=. if switchround==0
 replace backswitchround=. if backswitchround==0
 
@@ -155,17 +149,19 @@ sum bp_val
 
 save "./Temp/bp_val.dta", replace
 
+
+*Collapsing to have one obs per participant (study participant's characteristics):
 collapse (mean) bp submittime (sum) totprot=bp (max) switcher backswitcher (min) maxspeed=submittime firstswitch=switchround backswitchround, by(subject_id)
+
 tab switcher
 tab backswitcher
-
 tab firstswitch //the distribution of the first switching round
 tab backswitchround
 
 scatter submittime backswitcher
 
-**Estimate subjects' risk aversion from the blind protection choices:
 
+**Estimate subjects' risk aversion from the blind protection choices:
 gen switchprob=0.05*firstswitch
 replace switchprob=-0.5 if missing(switchprob)
 mata:
@@ -192,37 +188,14 @@ end
 tab theta
 
 * the oneway table(doesn't work so far)
-eststo clear
-eststo: estpost tabstat theta, by(theta)
-esttab using "./Tables/thetas.tex", cell(b) unstack b(%9.3g) t(%9.1f) ar2(%9.2f) title ("Relative risk avers distribution") label replace
-
-
-
-/*
-use data
-
-mata:
-
-st_view(Y=.,.,"Y")
-st_view(val=.,.,"val")
-
-P = 0.9676741647
-t = 0.5
-function eq1(y,Y,val,P,t) return(sum((Y:<y):*val)/sum(val) - (t-1+P)/P)
-rc = mm_root(x1=.,&eq1(),0,9,4.5,1000,Y,val,P,t)
-
-function eq2(y,Y,val,P,t) return(sum((Y:<y):*val)/sum(val) - t/P)
-rc = mm_root(x2=.,&eq2(),0,9,0,1000,Y,val,P,t)
-*/
+*eststo clear
+*eststo: estpost tabstat theta, by(theta)
+*esttab using "./Tables/thetas.tex", cell(b) unstack b(%9.3g) t(%9.1f) ar2(%9.2f) title ("Relative risk avers distribution") label replace
 
 gen byte allprotect=(totprot==6)
-
 save "./Temp/blind_collapsed.dta", replace
 
-use "./Temp/blind_prot_temp.dta", replace
 
-xtset subject_id round
-xtreg bp p, fe vce(robust)
 
 
 **CHANGE TO THE PANEL STRUCTURE FOR THE OTHER TASKS********************
@@ -230,11 +203,8 @@ xtreg bp p, fe vce(robust)
 **because all the tasks except the blind protection have the same N of rounds (6) 
 use "./Temp/first_wave_wide.dta", replace
 
-
 reshape long ip_w_ ip_b_ ip_time_ be_w_ be_b_ be_time_w_ be_time_b_ wtp_1_ wtp_2_ wtp_3_ wtp_4_ wtp_5_ wtp_6_ wtp_7_ wtp_8_ wtp_9_ wtp_10_ wtp_11_ wtp_time_, i(subject_id participant_id) j(round)
-
 rename *_ *
-
 rename ip_time time_ip
 
 ***Merging the treatment sequences***
@@ -247,14 +217,7 @@ merge m:1 subject_id using "./Temp/blind_collapsed.dta"
 keep if _merge==3
 drop _merge
 
-
-tab subject_id
-tab participant_id
-
 sort participant_id round
-list round p tot_gr bl_gr w_gr if participant_id=="U44"
-
-list round p tot_gr bl_gr w_gr if participant_id=="F41"
 
 **Calculate the maximum willingness-to-pay for info for each participant/round (wtp):
 foreach v of varlist wtp_1-wtp_11{
@@ -266,6 +229,8 @@ egen wtp=rowtotal(wtp_1-wtp_11)
 replace wtp=0.5*(wtp-1)
 replace wtp=0 if wtp<0
 sum wtp
+
+
 gen honest_treatment=((bl_gr+w_gr)==0) //only honest gremlins in the group
 replace be_w=0.01*(100-be_w) //rescale belief elicitation responses to probabilities
 replace be_b=0.01*be_b //rescale belief elicitation responses to probabilities
@@ -276,26 +241,25 @@ replace be_b=0.01*be_b //rescale belief elicitation responses to probabilities
 *be_ - belief on prob that the ball is black after seeing a hint in the belief elicitation task
 *wtp_x - acceptance of price $0.5*(x-1) for information (1 if accepted)
 *wtp - revealed wtp for information (in $)
-
-
+*p - prior probability
+*post_prob - posterior probability
+*ip_val - expected costs under informed protection given the reported subject's strategy
+*ip_val_o - expected costs under informed protection given the cost-minimizing strategy
 label var p "Prior prob."
 label var phintWB "False neg. rate"
 label var phintBW "False pos. rate"
 
 gen ip_val=-(p*(phintWB*(1-ip_w)+phintBB*(1-ip_b))*loss+p*(phintWB*ip_w+phintBB*ip_b)*protectioncost+(1-p)*(phintWW*ip_w+phintBW*ip_b)*protectioncost)
 sum ip_val
-reg ip_val ncorrect
 
-
+//Calculate the optimal protection strategy based on cost-loss ratio:
 gen ip_w_o=0
 replace ip_w_o=1 if post_probW>=protectioncost/loss
-
 gen ip_b_o=0
 replace ip_b_o=1 if post_probB>=protectioncost/loss
 
+//Calculate exp costs under the optimal strategy:
 gen ip_val_o=-(p*(phintWB*(1-ip_w_o)+phintBB*(1-ip_b_o))*loss+p*(phintWB*ip_w_o+phintBB*ip_b_o)*protectioncost+(1-p)*(phintWW*ip_w_o+phintBW*ip_b_o)*protectioncost)
-
-
 
 reg ip_val ip_val_o
 
@@ -311,7 +275,10 @@ save "./Output/first_wave.dta", replace
 drop *click* *page* history q104-q106 q114 q115
 rename post_probW post_probw
 rename post_probB post_probb
-reshape long ip_ be_ be_time_ post_prob, i(subject_id round) j(hint) string
+keep subject_id round ip_w ip_b be_w be_b be_time_w be_time_b post_probw post_probb time_ip honest ncorrect p phintBW phintWB phintBB
+
+*Reshape to (subject_id round hint) long format
+reshape long ip_ be_ be_time_ post_prob, i(subject_id round time_ip honest ncorrect p phintBW phintWB phintBB) j(hint) string
 gen blackhint=.
 replace blackhint=1 if hint=="b"
 replace blackhint=0 if hint=="w"
@@ -326,41 +293,39 @@ label var honest "Honest treatment"
 label var post_prob "Posterior prob."
 
 
-
-****----RUNNING SOME REGRESSIONS---***********
+**********************************************
+****----MAIN REGRESSIONS---***********
+**********************************************
 xtset subject_id question
 
-**--INFORMED PROTECTION--****
-**informed protection prob response to posterior prob***
-xtreg ip_ post_prob, fe vce(robust)
-xtreg ip_ post_prob p blackhint, fe vce(robust)
 
+****-- INFORMED PROTECTION --****
 
-
+**response to posterior probabilities of black***
 eststo clear
-eststo: xtreg ip_ post_prob, fe vce(robust)
-eststo: xtreg ip_ post_prob p blackhint, fe vce(robust)
-eststo: xtreg ip_ post_prob if ncorrect>6, fe vce(robust)
-eststo: xtreg ip_ post_prob p blackhint if ncorrect>6, fe vce(robust)
-esttab using "./Tables/table_ip1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Informed Protection) mtitles("All" "All" "Smart" "Smart") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: probit ip_ post_prob, vce(robust)
+eststo: probit ip_ post_prob p blackhint, vce(robust)
+eststo: probit ip_ post_prob if ncorrect>6, vce(robust)
+eststo: probit ip_ post_prob p blackhint if ncorrect>6, vce(robust)
+esttab using "./Tables/table_ip1.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection) mtitles("All" "All" "Smart" "Smart") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
-**informed protection prob response to elicited (and posterior) prob***
+**response to elicited (and posterior) probabilities of black***
 eststo clear
-eststo: xtreg ip_ be_, fe vce(robust)
-eststo: xtreg ip_ be_ post_prob, fe vce(robust)
-eststo: xtreg ip_ be_ post_prob if ncorrect>6, fe vce(robust)
-esttab using "./Tables/table_ip2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("All" "All" "Smart") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: probit ip_ be_, vce(robust)
+eststo: probit ip_ be_ post_prob, vce(robust)
+eststo: probit ip_ be_ post_prob if ncorrect>6, vce(robust)
+esttab using "./Tables/table_ip2.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("All" "All" "Smart") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
-**timing and correlation: see no sizable differences
+**testing for timing and correlation
 xtreg ip_ be_, fe vce(robust)
 xtreg ip_ be_ if time_ip<20, fe vce(robust)
-
 reg ip_ post_prob, vce(robust)
 reg ip_ post_prob if time_ip<20, vce(robust)
 
 
 
-**--BELIEF ELICITATION--****
+****-- BELIEF ELICITATION --****
+
 **prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)
 gen lt_bel=log(be_/(1-be_))
 gen lt_prior=log(p/(1-p))
@@ -373,8 +338,6 @@ sum lt_bel lt_posterior lt_prior signalB signalW
 
 reg lt_posterior lt_prior signalB signalW //all the coeffs should be one, zero const
 
-xtreg be_ post_prob, vce(robust)
-xtreg be_ post_prob if be_time_>20, vce(robust)
 
 *Testing the accuracy of reported beliefs***
 eststo clear
@@ -383,19 +346,8 @@ eststo: reg be_ post_prob if ncorrect>6, vce(robust)
 eststo: reg be_ post_prob if (honest==0), vce(robust)
 esttab using "./Tables/table_be1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Belief vs Posterior) mtitles("All" "Not_honest" "Good quiz") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
-
-*Testing for biases in reported beliefs***
+*Decomposition of belief updating (coeffs should be all ones)***
 eststo clear
-eststo: reg ip_ post_prob p blackhint, vce(robust)
-eststo: xtreg ip_ post_prob p blackhint, fe vce(robust)
-eststo: xtreg ip_ post_prob p blackhint if ncorrect>6, fe vce(robust)
-esttab using "./Tables/table_be2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Determinants) mtitles("OLS" "FE" "Smart, FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
-
-
-eststo clear
-eststo clear
-eststo clear
-
 eststo: reg lt_bel lt_prior signalB signalW, vce(robust)
 eststo: xtreg lt_bel lt_prior signalB signalW, fe vce(robust)
 eststo: xtreg lt_bel lt_prior signalB signalW if ncorrect>6, fe vce(robust)
@@ -403,24 +355,30 @@ esttab using "./Tables/table_be3.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(
 
 
 
-**--WTP for Information--***
+****-- WTP FOR INFORMATION --****
 use "./Output/first_wave.dta", replace
 xtset subject_id round
 
-*theoretical value for a risk-neutral subject:
-gen cost_bp=min(p*loss, protectioncost)
-gen cost_ip=p*phintWB*loss+(p*phintBB+(1-p)*phintBW)*protectioncost
-*gen value=max(0,-(p*phintWB*loss-(p*phintBB+(1-p)*phintBW)*protectioncost))
-gen false_pos=(p*phintBB+(1-p)*phintBW)*protectioncost
-gen false_neg=p*phintWB*loss
+*calculate theoretical value of signal for a risk-neutral subject:
+gen cost_bp=min(p*loss, protectioncost) //expected blind protection cost
+gen false_pos=(p*phintBB+(1-p)*phintBW)*protectioncost //expected protection costs (protect as long as there is a signal)
+gen false_neg=p*phintWB*loss //expected false positive costs
+gen cost_ip=false_neg+false_pos //total informed protection costs
+gen value=max(0, cost_bp-cost_ip) //theoretical value for a risk-neutral subject
 
-gen value=max(0, cost_bp-cost_ip)
+label var false_pos "Prot. costs"
+label var false_neg "False neg. costs"
+label var cost_bp "BP costs"
+label var phintWB "False neg. rate"
+label var phintBW "False pos. rate"
+
+*uniform CRRA values to calculate the signal's values later
 gen theta1=0.5
 gen theta2=1
 gen theta3=1.5
 
 
-*theoretical value for risk-averse subject:
+*calculate theoretical value for a risk-averse subject (both heterogeneous and uniform CRRA coeffs):
 mata:
   function myfunc2(V,p,pWW,pBB,thet) return(infoval_diff(V,30,5,20,p,pWW,pBB,thet))
   X = st_data(.,("p","phintWW","phintBB","theta"))
@@ -449,7 +407,6 @@ mata:
 	Z2[i]=V2
 	Z3[i]=V3
   }
-  //(X, Z, Z1, Z2, Z3)
   mata drop myfunc2()
   idx = st_addvar("float", "value_ra")
   st_store(., "value_ra", Z)
@@ -466,89 +423,57 @@ end
 
 replace value_ra=. if ((value_ra<0)|(backswitcher==1))
 replace value_ra=. if theta==-1
+
 *belief-adjusted value for a risk-neutral subject:
 *gen value_b=max(0,-(p*phintWB*loss-(p*phintBB+(1-p)*phintBW)*protectioncost))
 
 
 
+/*Merging blind protection choices to get expected costs under blind protection for each probability*/
 merge m:1 subject_id p using "./Temp/bp_val.dta"
 
 gen info_effect=ip_val-bp_val //expected difference in earnings between informed and blind protection (subject and decision-specific)
 sum info_effect
 replace info_effect=0 if info_effect<0 //because wtp is never negative
 
-reg info_effect value
-reg wtp info_effect
-reg wtp info_effect value
-reg wtp info_effect value
 
-label var phintWB "False neg. rate"
-label var phintBW "False pos. rate"
+sum value wtp wtp_time
+hist wtp_time //Most people answer wtp question in less than 10 seconds
 
+*Calculate discrepancies between WTP and theoretical value for different risk aversion levels:
+gen wtp_diff=wtp-value
+gen wtp_diff0=wtp-value_ra
+gen wtp_diff1=wtp-value_ra1
+gen wtp_diff2=wtp-value_ra2
+gen wtp_diff3=wtp-value_ra3
 
-
-sum value wtp_time
-
-*Most people answer wtp question in less than 10 seconds
-hist wtp_time
-
-reg wtp value
-reg wtp value switchprob
-reg wtp value totprot
-reg wtp value if totprot<6&totprot>0
-
-
-
-xtreg wtp value, fe vce(robust)
-xtreg wtp value, fe vce(robust)
-xtreg wtp value if backswitcher==0, fe vce(robust)
-xtreg wtp value if allprotect==0, fe vce(robust)
-xtreg wtp value honest_treatment, fe vce(robust)
-xtreg wtp value phintWB phintBW, fe vce(robust)
-xtreg wtp value honest_treatment phintWB phintBW, fe vce(robust)
-
-
+*Estimate the discrepancy between wtp and risk-neutral value as a function of false positive losses, expected protection costs and blind protection costs:
 eststo clear
-eststo: reg wtp value, vce(robust)
-eststo: reg wtp value p, vce(robust)
-eststo: reg wtp value phintWB phintBW, vce(robust)
-eststo: reg wtp value p phintWB phintBW, vce(robust)
-esttab using "./Tables/table_wtp1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information) mtitles("OLS" "OLS" "OLS" "OLS") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg wtp_diff false_pos false_neg, vce(robust)
+eststo: reg wtp_diff false_pos false_neg if theta>0&backswitcher==0, vce(robust)
+eststo: reg wtp_diff false_pos false_neg if theta<0&backswitcher==0, vce(robust)
+eststo: reg wtp_diff false_pos false_neg if backswitcher==1, vce(robust)
+esttab using "./Tables/table_wtpdiff.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
+*Estimate wtp as a function of false positive losses, expected protection costs and blind protection costs:
 eststo clear
-eststo: reg wtp value p phintWB phintBW, vce(robust)
-eststo: reg wtp value p phintWB phintBW if theta>0&backswitcher==0, vce(robust)
-eststo: reg wtp value p phintWB phintBW if theta<0&backswitcher==0, vce(robust)
-eststo: reg wtp value p phintWB phintBW if backswitcher==1, vce(robust)
-esttab using "./Tables/table_wtp_split.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (by Risk Aversion)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: tobit wtp cost_bp false_pos false_neg, ll(0) vce(robust)
+eststo: tobit wtp cost_bp false_pos false_neg if theta>0&backswitcher==0, ll(0) vce(robust)
+eststo: tobit wtp cost_bp false_pos false_neg if theta<0&backswitcher==0, ll(0) vce(robust)
+eststo: tobit wtp cost_bp false_pos false_neg if backswitcher==1, ll(0) vce(robust)
+esttab using "./Tables/table_wtp01.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(WTP for Information (Tobit Estimation)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
-
-
-
+*Accounting for risk aversion:
 eststo clear
-eststo: reg wtp value if !missing(value_ra), vce(robust)
-eststo: reg wtp value_ra, vce(robust)
-eststo: reg wtp value_ra p, vce(robust)
-eststo: reg wtp value_ra phintWB phintBW, vce(robust)
-eststo: reg wtp value_ra p phintWB phintBW, vce(robust)
-esttab using "./Tables/table_wtp2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Accounting for Risk Aversion)) mtitles("OLS" "OLS" "OLS" "OLS" "OLS") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg wtp_diff0 cost_bp false_pos false_neg, vce(robust)
+eststo: reg wtp_diff1 cost_bp false_pos false_neg, vce(robust)
+eststo: reg wtp_diff2 cost_bp false_pos false_neg, vce(robust)
+eststo: reg wtp_diff3 cost_bp false_pos false_neg, vce(robust)
+esttab using "./Tables/table_wtp_ra.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (different risk aversion)) mtitles("Heterogeneous" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
-
-
-eststo clear
-eststo: reg wtp value_ra1, vce(robust)
-eststo: reg wtp value_ra2, vce(robust)
-eststo: reg wtp value_ra3, vce(robust)
-eststo: reg wtp value_ra1 p phintWB phintBW, vce(robust)
-eststo: reg wtp value_ra2 p phintWB phintBW, vce(robust)
-eststo: reg wtp value_ra3 p phintWB phintBW, vce(robust)
-esttab using "./Tables/table_wtp3.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Assuming Uniform Risk Aversion)) mtitles("OLS" "OLS" "OLS" "OLS" "OLS" "OLS") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
-
-
-
-
+*Actual expected costs vs optimal theoretical costs of informed protection:
 eststo clear
 eststo: reg ip_val ip_val_o, vce(robust)
 eststo: reg  ip_val ip_val_o p, vce(robust)
@@ -557,14 +482,6 @@ eststo: xtreg ip_val ip_val_o, fe vce(robust)
 eststo: xtreg  ip_val ip_val_o p, fe vce(robust)
 eststo: xtreg  ip_val ip_val_o phintWB phintBW, fe vce(robust)
 esttab using "./Tables/table_costs0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Actual Exp. Costs vs Theoretical Costs) mtitles("OLS" "OLS" "OLS" "FE" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
-
-
-
-
-
-*the speed of answering wtp question does not explain the lack of correlation
-reg wtp value
-reg wtp value if wtp_time>10
 
 
 log close
