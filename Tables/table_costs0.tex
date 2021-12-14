@@ -1,26 +1,26 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{Actual Exp. Costs vs Theoretical Costs}
-\begin{tabular}{l*{6}{c}}
+\begin{tabular}{l*{5}{c}}
 \hline\hline
-                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
-                &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
 \hline
-Optimal exp. costs&     1.05\sym{***}&     .986\sym{***}&     .586\sym{***}&     1.04\sym{***}&      .99\sym{***}&     1.03\sym{***}\\
-                &   (23.4)         &   (12.0)         &    (2.8)         &   (20.9)         &   (10.6)         &   (17.9)         \\
-Prior prob.     &                  &    -.739         &    -3.17\sym{**} &                  &    -.603         &                  \\
-                &                  &   (-0.9)         &   (-2.2)         &                  &   (-0.8)         &                  \\
-False neg. rate &                  &                  &     -2.4\sym{***}&                  &                  &      -.8         \\
-                &                  &                  &   (-2.9)         &                  &                  &   (-1.4)         \\
-False pos. rate &                  &                  &    -.874         &                  &                  &     .831         \\
-                &                  &                  &   (-1.1)         &                  &                  &    (1.2)         \\
-Constant        &    -.745\sym{***}&    -.693\sym{***}&     -.54\sym{***}&    -.776\sym{***}&    -.721\sym{***}&    -.809\sym{***}\\
-                &   (-6.4)         &   (-5.6)         &   (-4.1)         &   (-7.0)         &   (-6.8)         &   (-7.4)         \\
+Optimal exp. costs&     .979\sym{***}&     .549\sym{***}&     .987\sym{***}&     .733\sym{***}&     1.06\sym{***}\\
+                &   (13.1)         &    (2.9)         &   (11.5)         &    (6.0)         &   (10.2)         \\
+Prior prob.     &    -.689         &     -3.3\sym{**} &    -.607         &    -2.15\sym{**} &     -.18         \\
+                &   (-0.9)         &   (-2.5)         &   (-0.8)         &   (-2.5)         &   (-0.2)         \\
+False neg. rate &                  &    -2.48\sym{***}&                  &    -1.88\sym{***}&                  \\
+                &                  &   (-3.4)         &                  &   (-3.1)         &                  \\
+False pos. rate &                  &    -1.04         &                  &                  &      .71         \\
+                &                  &   (-1.4)         &                  &                  &    (1.0)         \\
+Constant        &    -.707\sym{***}&    -.542\sym{***}&    -.711\sym{***}&    -.637\sym{***}&    -.754\sym{***}\\
+                &   (-6.2)         &   (-4.5)         &   (-7.4)         &   (-6.6)         &   (-6.8)         \\
 \hline
-Observations    &      629         &      629         &      629         &      629         &      629         &      629         \\
-Adjusted \(R^{2}\)&     0.38         &     0.38         &     0.39         &     0.44         &     0.44         &     0.44         \\
+Observations    &      743         &      743         &      743         &      743         &      743         \\
+Adjusted \(R^{2}\)&     0.38         &     0.39         &     0.43         &     0.44         &     0.43         \\
 \hline\hline
-\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
-\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\multicolumn{6}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

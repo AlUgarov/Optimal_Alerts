@@ -1,29 +1,24 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{WTP for Information (Tobit Estimation)}
-\begin{tabular}{l*{4}{c}}
+\begin{tabular}{l*{3}{c}}
 \hline\hline
-                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
-                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Risk-averse}&\multicolumn{1}{c}{Risk-loving}&\multicolumn{1}{c}{Switchers}\\
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Risk-averse}&\multicolumn{1}{c}{Risk-loving}\\
 \hline
-model           &                  &                  &                  &                  \\
-BP costs        &     .541\sym{***}&     .549\sym{***}&     .537\sym{***}&     .386         \\
-                &    (6.2)         &    (4.6)         &    (4.0)         &    (1.1)         \\
-Prot. costs     &    -.274\sym{**} &    -.292         &    -.186         &     -.78         \\
-                &   (-2.1)         &   (-1.6)         &   (-1.0)         &   (-1.4)         \\
-False neg. costs&    -.471\sym{***}&     -.59\sym{***}&    -.357\sym{***}&    -.564         \\
-                &   (-5.1)         &   (-4.3)         &   (-2.7)         &   (-1.5)         \\
-Constant        &     .332         &     .325         &     .189         &     2.04         \\
-                &    (1.2)         &    (0.8)         &    (0.5)         &    (1.5)         \\
+model           &                  &                  &                  \\
+BP costs        &     .688\sym{***}&     .625\sym{***}&      .72\sym{***}\\
+                &   (12.0)         &    (7.9)         &    (8.2)         \\
+Pos. signal costs&    -.373\sym{***}&    -.233         &    -.486\sym{**} \\
+                &   (-3.0)         &   (-1.4)         &   (-2.5)         \\
+False neg. costs&    -.587\sym{***}&    -.569\sym{***}&    -.578\sym{***}\\
+                &   (-6.7)         &   (-4.9)         &   (-4.2)         \\
 \hline
-sigma           &                  &                  &                  &                  \\
-Constant        &     1.97\sym{***}&     1.91\sym{***}&     1.97\sym{***}&     2.18\sym{***}\\
-                &   (28.0)         &   (18.7)         &   (19.6)         &    (7.0)         \\
-\hline
-Observations    &      630         &      288         &      300         &       42         \\
-\textit{AIC}    &  2303.98         &  1038.72         &  1114.55         &   164.51         \\
+N obs.          &      744         &      336         &      354         \\
+AIC             &     2726         &     1213         &     1312         \\
+p(coeff=1)      & 6.68e-09\sym{***}& 1.04e-06\sym{***}&   .00357\sym{***}\\
 \hline\hline
-\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}
