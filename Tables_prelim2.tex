@@ -213,13 +213,7 @@ $$u(x;\theta)={x^{1-\theta} -1 \over 1-\theta}$$
 \begin{itemize}
 \item Roughly one third of subjects (33 in the sample) switch from protection to no protection at least once
 \item But only 6\% (6 subjects) switch more than once!
-\item In order to keep more risk aversion measurements we ``repair'' switches if they require a single change (a single error):
-\begin{itemize}
-\item ``0 1 0'' is replaced with ``0 0 0''
-\item ``1 0 1'' is replaced with ``1 1 1''
-\item ``1 0'' in last two rounds replace with ``1 1''
-\item Note: because the algorithm goes from through rounds in increasing order, the sequence ``... 0 1 0 1 1 ...''changes to ``.. 0 0 0 1 1 ...'' and the switching round goes up 
-\end{itemize}
+\item If a switcher becomes non-switcher after a single change, calculate the risk aversion based on the total number of switches
 \item Left with only 7 subjects where this approach doesn't work and no risk aversion measurement is possible
 \end{itemize}
 \end{frame}
@@ -237,12 +231,12 @@ $$u(x;\theta)={x^{1-\theta} -1 \over 1-\theta}$$
 Probability ($\pi^*$) &                $\theta$ & $N$\\
 \hline
 Always protect & $>$2 &   1 \\
-0.1 & 2 & 9 \\
-0.15 & 1.216 & 14 \\
-0.2 & 0.573 & 24 \\
-0.25 & 0 & 15 \\
-0.3 & -0.539 & 11 \\
-Never protect & $<$-0.539 &  24 \\
+0.1 & 2 & 10 \\
+0.15 & 1.216 & 13 \\
+0.2 & 0.573 & 29 \\
+0.25 & 0 & 16 \\
+0.3 & -0.539 & 15 \\
+Never protect & $<$-0.539 &  14 \\
 \hline
 \end{tabular}
 \end{table}
@@ -268,7 +262,7 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 
 
 \begin{frame}
-\frametitle{WTP for the Signal (Approach 2, Tobit Estimation)}
+\frametitle{WTP for the Signal (Tobit)}
 \begin{itemize}
 \item Coeffs should be one in abs. value
 \item Coefs are significantly less than 1
@@ -277,6 +271,42 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \input{Tables/table_wtp01.tex}
 \normalsize
 \end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for the Signal (Tobit, Conservative Classification)}
+\begin{itemize}
+\item Any crossing from protection to no protection=switcher
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtp02.tex}
+\normalsize
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for the Signal (Tobit, Splitting Protection Costs)}
+\begin{itemize}
+\item Any crossing from protection to no protection=switcher
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtp03.tex}
+\normalsize
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for the Signal (Tobit, by Belief Accuracy)}
+\begin{itemize}
+\item Accurate beliefs=total abs. belief elicitation error$<$median
+\item Subject with accurate beliefs are more sensitive to signal characteristics (but diffs are insignificant at 5\%)
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtp04.tex}
+\normalsize
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Risk-averse vs Risk-loving}
@@ -294,9 +324,11 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \begin{frame}
 \frametitle{False-positive vs False-negative payoff}
 \begin{itemize}
-\item Test equality of coefficients on false-positive (-0.27) and false-negative costs (-0.47)
-\item Currently insignificant (p=0.18)
-\item Linear regressions seem to produce slightly lower variances (so that respective p=0.07)
+\item Test equality of coefficients on false-positive (-0.27) and false-negative costs (-0.48)
+\begin{itemize}
+\item Significance: $p=0.12$ (standard), $p=0.08$ (1000 bootstrap)
+\end{itemize}
+\item Linear regression has lower variances (so that respective $p=0.008$ and $p=0.023$)
 \end{itemize}
 \end{frame}
 
@@ -370,7 +402,7 @@ $$+(P(s=0)r_w+P(s=1)r_b)c$$
 \frametitle{Belief Updating}
 \begin{itemize}
 \item A bit more correlation with actual posterior probabilities!
-\item Even more if we exclude everybody scoring less than 7 out of 9 quiz questions
+\item Even more if we exclude everybody scoring less than 7 out of 10 quiz questions
 \end{itemize}
 \begin{figure}[h]
 \includegraphics[scale=0.4]{Graphs/UPD_curve2.pdf}
