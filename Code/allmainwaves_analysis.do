@@ -939,12 +939,20 @@ esttab using "./Tables/table_costs0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label tit
 
 
 gen ip_val_diff=ip_val-ip_val_o
+
+eststo clear
+eststo: reg  ip_val_diff false_pos false_neg, vce(robust)
+eststo: reg  ip_val_diff i.plevel false_pos false_neg, vce(robust)
+eststo: xtreg ip_val_diff false_pos false_neg, fe vce(robust)
+eststo: xtreg ip_val_diff i.plevel false_pos false_neg, fe vce(robust)
+esttab using "./Tables/table_costs1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Discrepancy: actual-theoretical Costs) mtitles("OLS" "OLS" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
 eststo clear
 eststo: reg  ip_val_diff phintBW phintWB, vce(robust)
 eststo: reg  ip_val_diff i.plevel  phintBW phintWB, vce(robust)
 eststo: xtreg ip_val_diff  phintBW phintWB, fe vce(robust)
 eststo: xtreg ip_val_diff i.plevel  phintBW phintWB, fe vce(robust)
-esttab using "./Tables/table_costs1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Discrepancy: actual-theoretical Costs) mtitles("OLS" "OLS" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+esttab using "./Tables/table_costs2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Discrepancy 2: actual-theoretical Costs) mtitles("OLS" "OLS" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
 
