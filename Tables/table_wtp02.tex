@@ -7,16 +7,18 @@
                 &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Risk-averse}&\multicolumn{1}{c}{Risk-loving}&\multicolumn{1}{c}{Switchers}\\
 \hline
 model           &                  &                  &                  &                  \\
-BP costs        &     .688\sym{***}&     .635\sym{***}&     .704\sym{***}&      .74\sym{***}\\
-                &   (12.0)         &    (6.3)         &    (7.2)         &    (7.5)         \\
-Pos. signal costs&    -.373\sym{***}&    -.326         &    -.492\sym{**} &    -.329         \\
-                &   (-3.0)         &   (-1.5)         &   (-2.3)         &   (-1.6)         \\
-False neg. costs&    -.587\sym{***}&    -.619\sym{***}&    -.534\sym{***}&    -.625\sym{***}\\
-                &   (-6.7)         &   (-3.9)         &   (-3.4)         &   (-4.6)         \\
+BP costs        &     .464\sym{***}&     .389\sym{***}&     .463\sym{***}&     .989\sym{***}\\
+                &    (6.9)         &    (4.2)         &    (4.5)         &    (3.4)         \\
+True pos. costs &     .411\sym{**} &     .582\sym{**} &     .425         &    -.825         \\
+                &    (2.3)         &    (2.4)         &    (1.5)         &   (-1.1)         \\
+False pos. costs&    -.779\sym{***}&    -.649\sym{***}&    -.978\sym{***}&    -.648         \\
+                &   (-5.5)         &   (-3.5)         &   (-4.4)         &   (-1.1)         \\
+False neg. costs&    -.477\sym{***}&    -.442\sym{***}&    -.458\sym{***}&    -.835\sym{**} \\
+                &   (-5.5)         &   (-3.8)         &   (-3.3)         &   (-2.5)         \\
 \hline
-N obs.          &      744         &      240         &      276         &      228         \\
-AIC             &     2726         &      868         &     1026         &      841         \\
-p(coeff=1)      & 6.68e-09\sym{***}&    .0028\sym{***}&   .00569\sym{***}& .0000643\sym{***}\\
+N obs.          &      744         &      336         &      354         &       54         \\
+AIC             &     2693         &     1194         &     1295         &      212         \\
+p(coeff=1)      & 1.51e-15\sym{***}& 1.44e-10\sym{***}& 1.70e-06\sym{***}&     .645         \\
 \hline\hline
 \multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
 \multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\

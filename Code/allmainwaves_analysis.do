@@ -171,7 +171,7 @@ save "./Temp/bp_val.dta", replace
 
 
 *Collapsing to have one obs per participant (study participant's characteristics):
-collapse (first) bp_val (mean) bp submittime (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
+collapse (mean) bp submittime (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
 
 tab firstswitch
 replace firstswitch=7-totprot if repairable==1
@@ -196,11 +196,6 @@ gen pilot=0
 
 **Merge-in blind protection choices from the pilot
 append using "./Temp/blind_collapsed_pilot.dta"
-
-sum bp_val
-
-replace bp_val=-bp_val
-
 
 mata:
   function funk(V,p) return(blind_diff(V,30,5,20,p))
@@ -239,6 +234,26 @@ tab pilot
 save "./Temp/blind_collapsed.dta", replace
 
 
+use "./Temp/bp_val.dta", replace
+gen pilot=0
+
+append using "./Temp/bp_val_pilot.dta"
+replace pilot=1 if missing(pilot)
+
+keep participant_id p bp bp_val pilot
+
+save "./Temp/bp_val.dta", replace
+
+
+
+
+
+
+
+
+
+
+
 
 
 **CHANGE TO THE PANEL STRUCTURE FOR THE OTHER TASKS********************
@@ -248,8 +263,6 @@ use "./Temp/mainwaves_wide.dta", replace
 
 *add the pilot's data:
 append using "./Temp/pilot_wide.dta"
-
-
 encode participant_id, gen(subject_id) //as participant_id is initially a string
 
 
@@ -259,13 +272,11 @@ rename ip_time time_ip
 
 ***Merging the treatment sequences***
 merge m:1 seq round using "./Temp/exp_treatments.dta"
-tab _merge
 drop _merge
 
+
 **Merging risk aversion vars from the blind protection task
-
 merge m:1 participant_id using "./Temp/blind_collapsed.dta"
-
 keep if _merge==3
 drop _merge
 
@@ -366,6 +377,17 @@ label var blackhint "Gremlin says Black"
 label var honest "Honest treatment"
 label var post_prob "Posterior prob."
 
+replace ip_=. if ip_==-99
+
+**Calculate subject-level accuracy of reported beliefs:
+gen bel_err=abs(be_-post_prob)
+sort subject_id
+by subject_id: egen tot_bel_err=sum(bel_err) //total abs error per subject
+
+sum tot_bel_err, detail
+hist tot_bel_err
+gen accur_bel=tot_bel_err<1.558 //error is less than the median
+
 
 **********************************************
 ****----MAIN REGRESSIONS---***********
@@ -381,7 +403,9 @@ eststo: probit ip_ post_prob, vce(robust)
 eststo: probit ip_ post_prob p blackhint, vce(robust)
 eststo: probit ip_ post_prob if ncorrect>6, vce(robust)
 eststo: probit ip_ post_prob p blackhint if ncorrect>6, vce(robust)
-esttab using "./Tables/table_ip1.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection) mtitles("All" "All" "Smart" "Smart") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+esttab using "./Tables/table_ip1.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection) mtitles("All" "All" "Good quiz" "Good quiz") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
 
 **response to elicited (and posterior) probabilities of black***
 eststo clear
@@ -389,6 +413,8 @@ eststo: probit ip_ be_, vce(robust)
 eststo: probit ip_ be_ post_prob, vce(robust)
 eststo: probit ip_ be_ post_prob if ncorrect>6, vce(robust)
 esttab using "./Tables/table_ip2.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("All" "All" "Good quiz") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
 
 
 
@@ -404,9 +430,6 @@ probit ip_ i.subject_id post_prob i.subject_id#c.err, vce(robust)
 est store hetall
 
 
-//probit ip_ i.subject_id post_prob i.subject_id#c.err, vce(robust)
-
-
 
 **testing for timing and correlation
 xtreg ip_ be_, fe vce(robust)
@@ -417,7 +440,6 @@ reg ip_ post_prob if time_ip<20, vce(robust)
 
 
 ****-- BELIEF ELICITATION --****
-
 **prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)
 gen lt_bel=log(be_/(1-be_))
 gen lt_prior=log(p/(1-p))
@@ -431,14 +453,50 @@ sum lt_bel lt_posterior lt_prior signalB signalW
 reg lt_posterior lt_prior signalB signalW //all the coeffs should be one, zero const
 
 
+
 *Testing the accuracy of reported beliefs***
 eststo clear
 eststo: reg be_ post_prob, vce(robust)
 eststo: reg be_ post_prob if ncorrect>6, vce(robust)
 eststo: reg be_ post_prob if (honest==0), vce(robust)
-esttab using "./Tables/table_be1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Belief vs Posterior) mtitles("All" "Not_honest" "Good quiz") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg be_ post_prob if (accur_bel==1), vce(robust)
+esttab using "./Tables/table_be1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Belief vs Posterior) mtitles("All" "Good quiz" "Dishonest greml" "Acc. beliefs") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
+**response to elicited (and posterior) probabilities of black***
+eststo clear
+eststo: probit ip_ be_ post_prob, vce(robust)
+eststo: probit ip_ be_ post_prob if accur_bel==1, vce(robust)
+eststo: probit ip_ be_ post_prob if accur_bel==0, vce(robust)
+esttab using "./Tables/table_ip3.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("All" "Accurate beliefs" "Inaccurate beliefs") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+**Calculate the N of reversions in strategy with respect to 1) posterior probab and 2) beliefs:
+sort subject_id ip_
+by subject_id: egen rpostprob=rank(post_prob)
+gen rpostprob0=(1-ip_)*rpostprob
+gen rpostprob1=ip_*rpostprob
+by subject_id: egen sumrank_prob0=sum(rpostprob0)
+by subject_id: egen sumrank_prob1=sum(rpostprob1)
+
+
+by subject_id: egen rbe=rank(be_)
+gen rbe0=(1-ip_)*rbe
+gen rbe1=ip_*rbe
+by subject_id: egen sumrank_bel0=sum(rbe0)
+by subject_id: egen sumrank_bel1=sum(rbe1)
+
+by subject_id: egen n1=sum(ip_)
+gen correction=n1*(n1+1)/2
+
+sum sumrank_prob0 sumrank_prob1
+gen U_postprob=sumrank_prob1-correction
+gen U_bel=sumrank_bel1-correction
+
+sum U_postprob U_bel
+
+scatter U_postprob U_bel, title("Determinants of informed protection response (by subject)") xtitle("Mann-Whitney U (beliefs)") ytitle("Mann-Whitney U (posteriors)")
+graph export "./Graphs/clustering.png", width(1200) height(800) replace
 
 eststo clear
 eststo: reg be_ post_prob, vce(robust)
@@ -455,16 +513,7 @@ esttab using "./Tables/table_be1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) stats() labe
 
 
 
-**Calculate subject-level accuracy of reported beliefs:
-gen bel_err=abs(be_-post_prob)
-sort subject_id
-by subject_id: egen tot_bel_err=sum(bel_err) //total abs error per subject
 
-sum tot_bel_err, detail
-hist tot_bel_err
-reg tot_bel_err pilot ncorrect
-
-gen accur_bel=tot_bel_err<1.558 //error is less than the median
 
 *Decomposition of belief updating (coeffs should be all ones)***
 eststo clear
@@ -480,6 +529,11 @@ collapse (first) tot_bel_err accur_bel, by(subject_id)
 save "./Temp/bel_accuracy.dta", replace
 
 
+
+
+
+
+
 ****-- WTP FOR INFORMATION --****
 use "./Output/main_waves.dta", replace
 xtset subject_id round
@@ -487,6 +541,10 @@ xtset subject_id round
 merge m:1 subject_id using "./Temp/bel_accuracy.dta"
 drop _merge
 
+
+merge m:1 participant_id p using "./Temp/bp_val.dta"
+drop if _merge==2
+drop _merge
 
 *calculate theoretical value of signal for a risk-neutral subject:
 gen cost_bp=min(p*loss, protectioncost) //expected blind protection cost
@@ -575,6 +633,7 @@ replace value_ra=. if theta==-1
 
 /*Merging blind protection choices to get expected costs under blind protection for each probability*/
 *merge m:1 participant_id p using "./Temp/bp_val.dta"
+replace bp_val=-bp_val
 
 gen info_effect=bp_val+ip_val //expected difference in earnings between informed and blind protection (subject and decision-specific)
 sum info_effect
@@ -587,7 +646,7 @@ gen value_mu=max(0, bp_val-ip_val_mu) //expected diff in earnings between IP and
 
 
 sum value wtp wtp_time
-hist wtp_time //Most people answer wtp question in less than 10 seconds
+hist wtp_time //50% of wtp questions are answered in less than 10.5 seconds
 
 *Calculate discrepancies between WTP and theoretical value for different risk aversion levels:
 gen wtp_diff=wtp-value
@@ -597,20 +656,121 @@ gen wtp_diff2=wtp-value_ra2
 gen wtp_diff3=wtp-value_ra3
 gen wtp_diff4=wtp-value_ra4
 
+
+gen plevel=round(1000*p) //create integer var to code prior probability
+gen phintWBs=phintWB*loss
+gen phintBWs=phintBW*protectioncost
+
+label var phintWBs "False-neg. prob. x Loss"
+label var phintBWs "False-neg. prob. x Prot. cost"
+
+
+
+*Estimate the discrepancy between wtp and risk-neutral value as a function of false positive losses and expected protection costs:
+eststo clear
+eststo: reg wtp_diff false_pos false_neg, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff false_pos false_neg if theta>0&backswitcher==0, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff false_pos false_neg if theta<=0&backswitcher==0, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff false_pos false_neg if backswitcher==1, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtpdiff.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+*Estimate the discrepancy between wtp and risk-neutral value as a function of false positive losses and expected protection costs by bayesian updating skill:
+eststo clear
+eststo: reg wtp_diff false_pos false_neg, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff false_pos false_neg if accur_bel==1, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff false_pos false_neg if accur_bel==0, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtpdiff1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Accur. beliefs" "Inaccur. beliefs") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+
+*Estimate the effect of signal-induced protection costs and false negative costs
+eststo clear
+eststo: reg wtp_diff pos_cost false_neg, vce(robust)
+test (pos_cost =0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff pos_cost false_neg if theta>0&backswitcher==0, vce(robust)
+test (pos_cost =0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff pos_cost false_neg if theta<=0&backswitcher==0, vce(robust)
+test (pos_cost =0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff pos_cost false_neg if backswitcher==1, vce(robust)
+test (pos_cost =0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtpdiff2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+
+
 *Estimate the discrepancy between wtp and risk-neutral value as a function of false positive losses, expected protection costs and blind protection costs:
 eststo clear
 eststo clear
 eststo clear
-eststo: reg wtp_diff false_pos false_neg, noconstant vce(robust)
-eststo: reg wtp_diff false_pos false_neg if theta>0&backswitcher==0, noconstant vce(robust)
-eststo: reg wtp_diff false_pos false_neg if theta<0&backswitcher==0, noconstant vce(robust)
-eststo: reg wtp_diff false_pos false_neg if backswitcher==1, noconstant vce(robust)
-esttab using "./Tables/table_wtpdiff.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg wtp_diff cost_bp pos_cost false_neg, vce(robust)
+test (cost_bp=0) (pos_cost=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff cost_bp pos_cost false_neg if theta>0&backswitcher==0,  vce(robust)
+test (cost_bp=0) (pos_cost=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff cost_bp pos_cost false_neg if theta<=0&backswitcher==0, vce(robust)
+test (cost_bp=0) (pos_cost=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff cost_bp pos_cost false_neg if backswitcher==1, vce(robust)
+test (cost_bp=0) (pos_cost=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtpdiff3.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+*Estimate the discrepancy between wtp and risk-neutral value as a function of false positive losses and false-negative losses conditional on prior prob:
+eststo clear
+eststo: reg wtp_diff i.plevel false_pos false_neg, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel false_pos false_neg if theta>0&backswitcher==0, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel false_pos false_neg if theta<=0&backswitcher==0, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel false_pos false_neg if backswitcher==1, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtpdiff4.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label drop(*.plevel) title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+*Estimate the discrepancy between wtp and risk-neutral value as a function of false positive losses and false-negative losses conditional on prior prob:
+eststo clear
+eststo: reg wtp_diff i.plevel phintWBs phintBWs, vce(robust)
+test (phintWBs=0) (phintBWs=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel phintWBs phintBWs if theta>0&backswitcher==0, vce(robust)
+test (phintWBs=0) (phintBWs=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel phintWBs phintBWs if theta<=0&backswitcher==0, vce(robust)
+test (phintWBs=0) (phintBWs=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel phintWBs phintBWs if backswitcher==1, vce(robust)
+test (phintWBs=0) (phintBWs=0)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtpdiff5.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label drop(*.plevel) title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
 *Estimate wtp as a function of blind protection costs, positive signal costs, and expected protection costs:
-eststo clear
-eststo clear
 eststo clear
 eststo: tobit wtp cost_bp pos_cost false_neg,  noconstant ll(0) ul(5)
 test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
@@ -618,36 +778,82 @@ estadd scalar RNmodtest = r(p)
 eststo: tobit wtp cost_bp pos_cost false_neg if theta>0&backswitcher==0,  noconstant ll(0) ul(5)
 test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
 estadd scalar RNmodtest = r(p)
-eststo: tobit wtp cost_bp pos_cost false_neg if theta<-0&backswitcher==0,  noconstant ll(0) ul(5)
+eststo: tobit wtp cost_bp pos_cost false_neg if theta<=0&backswitcher==0,  noconstant ll(0) ul(5)
 test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
 estadd scalar RNmodtest  = r(p)
 esttab using "./Tables/table_wtp01.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(WTP for Information (Tobit Estimation)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeff=1)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving") drop(_cons) star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
-*Estimate wtp as a function of blind protection costs, false positive losses, and expected protection costs (old switchers' definition):
+
+
+
+
+*Estimate wtp as a function of blind protection costs, false positive, true positive, and false negative costs:
 eststo clear
-eststo clear
-eststo clear
-eststo: tobit wtp cost_bp pos_cost false_neg,  noconstant ll(0) ul(5)
-test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
+eststo: tobit wtp cost_bp true_pos false_pos false_neg,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
 estadd scalar RNmodtest = r(p)
-eststo: tobit wtp cost_bp pos_cost false_neg if theta>0&backswitcher0==0,  noconstant ll(0) ul(5)
-test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
+eststo: tobit wtp cost_bp true_pos false_pos false_neg if theta>0&backswitcher==0,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
 estadd scalar RNmodtest = r(p)
-eststo: tobit wtp cost_bp pos_cost false_neg if theta<=0&backswitcher0==0,  noconstant ll(0) ul(5)
-test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
+eststo: tobit wtp cost_bp true_pos false_pos  false_neg if theta<=0&backswitcher==0,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
 estadd scalar RNmodtest = r(p)
-eststo: tobit wtp cost_bp pos_cost false_neg if backswitcher0==1,  noconstant ll(0) ul(5)
-test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
+eststo: tobit wtp cost_bp true_pos false_pos false_neg if backswitcher==1,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
 estadd scalar RNmodtest = r(p)
 esttab using "./Tables/table_wtp02.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(WTP for Information (Tobit Estimation)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeff=1)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") drop(_cons) star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
 
 
+*Estimate wtp as a function of false positive and false negative costs:
+eststo clear
+eststo: tobit wtp i.plevel false_pos false_neg,  noconstant ll(0) ul(5)
+test (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+eststo: tobit wtp  i.plevel false_pos false_neg if theta>0&backswitcher==0,  noconstant ll(0) ul(5)
+test (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+eststo: tobit wtp  i.plevel false_pos  false_neg if theta<=0&backswitcher==0,  noconstant ll(0) ul(5)
+test (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+eststo: tobit wtp  i.plevel false_pos false_neg if backswitcher==1,  noconstant ll(0) ul(5)
+test (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtp03.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label drop(_cons *.plevel) title(WTP Tobit (Prob Dummies)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeff=1)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+
+
+
+
+*Estimate wtp as a function of blind protection costs, false positive losses, and expected protection costs (old switchers' definition):
+eststo clear
+eststo: tobit wtp cost_bp true_pos false_pos false_neg,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+eststo: tobit wtp cost_bp true_pos false_pos false_neg if theta>0&backswitcher==0,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+eststo: tobit wtp cost_bp true_pos false_pos  false_neg if theta<=0&backswitcher==0,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+eststo: tobit wtp cost_bp true_pos false_pos false_neg if backswitcher==1,  noconstant ll(0) ul(5)
+test (cost_bp=1) (true_pos=-1) (false_pos=-1) (false_neg=-1)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtp02.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(WTP for Information (Tobit Estimation)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeff=1)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") drop(_cons) star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+
+
+
+
+
+
+
+
 *Estimate wtp as a function of false positive losses, expected protection costs, and blind protection costs:
-eststo clear
-eststo clear
 eststo clear
 eststo: tobit wtp cost_bp true_pos false_pos false_neg,  noconstant ll(0) ul(5)
 eststo: tobit wtp cost_bp true_pos false_pos false_neg if theta>0&backswitcher==0,  noconstant ll(0) ul(5)
@@ -656,8 +862,6 @@ esttab using "./Tables/table_wtp03.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label titl
 
 
 *Estimate wtp as a function of blind protection costs, positive signal costs, and expected protection costs by accuracy of reported beliefs:
-eststo clear
-eststo clear
 eststo clear
 eststo: tobit wtp cost_bp pos_cost false_neg,  noconstant ll(0) ul(5)
 test (cost_bp=1) (pos_cost=-1) (false_neg=-1)
@@ -714,11 +918,11 @@ test [riskav_model=risklov_model]
 
 *Accounting for risk aversion:
 eststo clear
-eststo: reg wtp_diff0 cost_bp false_pos false_neg, vce(robust)
-eststo: reg wtp_diff1 cost_bp false_pos false_neg, vce(robust)
-eststo: reg wtp_diff2 cost_bp false_pos false_neg, vce(robust)
-eststo: reg wtp_diff3 cost_bp false_pos false_neg, vce(robust)
-eststo: reg wtp_diff4 cost_bp false_pos false_neg, vce(robust)
+eststo: reg wtp_diff0 false_pos false_neg, vce(robust)
+eststo: reg wtp_diff1 false_pos false_neg, vce(robust)
+eststo: reg wtp_diff2 false_pos false_neg, vce(robust)
+eststo: reg wtp_diff3 false_pos false_neg, vce(robust)
+eststo: reg wtp_diff4 false_pos false_neg, vce(robust)
 esttab using "./Tables/table_wtp_ra.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (different risk aversion)) mtitles("Heterogeneous" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
@@ -733,9 +937,22 @@ eststo: xtreg ip_val ip_val_o p phintBW, fe vce(robust)
 esttab using "./Tables/table_costs0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Actual Exp. Costs vs Theoretical Costs) mtitles("OLS" "OLS" "FE" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
+
+gen ip_val_diff=ip_val-ip_val_o
+eststo clear
+eststo: reg  ip_val_diff phintBW phintWB, vce(robust)
+eststo: reg  ip_val_diff i.plevel  phintBW phintWB, vce(robust)
+eststo: xtreg ip_val_diff  phintBW phintWB, fe vce(robust)
+eststo: xtreg ip_val_diff i.plevel  phintBW phintWB, fe vce(robust)
+esttab using "./Tables/table_costs1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Discrepancy: actual-theoretical Costs) mtitles("OLS" "OLS" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+
+
 reg wtp value
 reg wtp value_mu
 reg wtp info_effect
+corr value value_mu info_effect wtp
 
 log close
 cmdlog using "./Temp/mainwaves_analysis.log"

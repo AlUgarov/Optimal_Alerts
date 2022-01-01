@@ -1,0 +1,23 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{WTP for Information (Discrepancy)}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Risk-averse}&\multicolumn{1}{c}{Risk-loving}&\multicolumn{1}{c}{Switchers}\\
+\hline
+Pos. signal costs&     .191\sym{***}&     .335\sym{***}&    .0629         &   -.0304         \\
+                &    (2.6)         &    (3.3)         &    (0.6)         &   (-0.1)         \\
+False neg. costs&     .291\sym{***}&     .276\sym{***}&     .325\sym{***}&     .135         \\
+                &    (4.7)         &    (3.2)         &    (3.3)         &    (0.7)         \\
+Constant        &    -.342\sym{**} &      -.6\sym{***}&     -.21         &     .562         \\
+                &   (-2.4)         &   (-3.0)         &   (-1.0)         &    (0.9)         \\
+\hline
+N obs.          &      744         &      336         &      354         &       54         \\
+AIC             &     2810         &     1235         &     1361         &      215         \\
+p(coeffs=0)     & 7.97e-07\sym{***}&  .000017\sym{***}&   .00419\sym{***}&     .772         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

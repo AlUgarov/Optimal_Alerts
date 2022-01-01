@@ -1,0 +1,23 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{WTP for Information (Discrepancy)}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Accur. beliefs}&\multicolumn{1}{c}{Inaccur. beliefs}\\
+\hline
+False pos. costs&      .17         &   -.0437         &     .338\sym{**} \\
+                &    (1.6)         &   (-0.3)         &    (2.3)         \\
+False neg. costs&       .3\sym{***}&     .234\sym{***}&     .367\sym{***}\\
+                &    (4.8)         &    (2.9)         &    (4.0)         \\
+Constant        &    -.111         &   -.0405         &    -.173         \\
+                &   (-1.2)         &   (-0.3)         &   (-1.2)         \\
+\hline
+N obs.          &      744         &      372         &      372         \\
+AIC             &     2814         &     1389         &     1425         \\
+p(coeffs=0)     & 5.45e-06\sym{***}&    .0153\sym{**} & .0000787\sym{***}\\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

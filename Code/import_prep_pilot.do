@@ -155,7 +155,7 @@ replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp==0)&(round==6)
 save "./Temp/bp_val_pilot.dta", replace
 
 *Collapsing to have one obs per participant (study participant's characteristics):
-collapse (first) bp_val (mean) bp submittime (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
+collapse (mean) bp submittime (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
 
 tab firstswitch
 replace firstswitch=6-totprot if repairable==1

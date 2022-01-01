@@ -1,7 +1,7 @@
 \documentclass[11pt,hyperref={bookmarks=false}]{beamer}
-\usetheme{Warsaw}
-%\usetheme{Madrid}
-%\usecolortheme{beaver}
+%\usetheme{Warsaw}
+\usetheme{Madrid}
+\usecolortheme{beaver}
 \usefonttheme{professionalfonts}
  \usepackage[usenames,dvipsnames]{pstricks}
  \usepackage{wallpaper}
@@ -257,16 +257,94 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \item Note: protection costs include costs due to false positive signals
 \end{enumerate}
 \end{itemize}
-
 \end{frame}
 
 
 \begin{frame}
-\frametitle{WTP for the Signal (Tobit)}
+\frametitle{WTP Discrepancy Regressions}
+\Large
 \begin{itemize}
-\item Coeffs should be one in abs. value
-\item Coefs are significantly less than 1
+\item Regressing the difference between WTP and theoretical value for a risk-neutral subject
+\item Coefficients should be zero
 \end{itemize}
+\normalsize
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy 1}
+
+\footnotesize
+\input{Tables/table_wtpdiff.tex}
+\normalsize
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy 2}
+\begin{itemize}
+\item Controlling for the prior probability of a black ball with dummies
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtpdiff4.tex}
+\normalsize
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy 3 (Beliefs Accuracy)}
+\footnotesize
+\input{Tables/table_wtpdiff1.tex}
+\normalsize
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy 4}
+\begin{itemize}
+\item Positive signal costs include costs of responding to true positive signal and the costs of responding to false positive signals
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtpdiff2.tex}
+\normalsize
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy 5 (by Risk Aversion)}
+\begin{itemize}
+\item Explaining the discrepancy between WTP and value with risk aversion:
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtp_ra.tex}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tobit Regressions}
+\Large
+\begin{itemize}
+\item Regressing the WTP on its theoretical components
+\item Censoring at 0 and at 5 USD
+\item Coefficients should be one in absolute value
+\item No constant in regressions
+\end{itemize}
+\normalsize
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP Tobit 1}
+
 \footnotesize
 \input{Tables/table_wtp01.tex}
 \normalsize
@@ -274,7 +352,26 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 
 
 \begin{frame}
-\frametitle{WTP for the Signal (Tobit, Conservative Classification)}
+\frametitle{WTP Tobit 2: Splitting Protection Costs}
+
+\footnotesize
+\input{Tables/table_wtp02.tex}
+\normalsize
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP Tobit 3: Controlling for Prior Probability}
+
+\footnotesize
+\input{Tables/table_wtp03.tex}
+\normalsize
+\end{frame}
+
+
+\iffalse
+\begin{frame}
+\frametitle{WTP Tobit 3 (Conservative Classification)}
 \begin{itemize}
 \item Any crossing from protection to no protection=switcher
 \end{itemize}
@@ -284,19 +381,9 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \end{frame}
 
 
-\begin{frame}
-\frametitle{WTP for the Signal (Tobit, Splitting Protection Costs)}
-\begin{itemize}
-\item Any crossing from protection to no protection=switcher
-\end{itemize}
-\footnotesize
-\input{Tables/table_wtp03.tex}
-\normalsize
-\end{frame}
-
 
 \begin{frame}
-\frametitle{WTP for the Signal (Tobit, by Belief Accuracy)}
+\frametitle{WTP Tobit 3 (Belief Accuracy)}
 \begin{itemize}
 \item Accurate beliefs=total abs. belief elicitation error$<$median
 \item Subject with accurate beliefs are more sensitive to signal characteristics (but diffs are insignificant at 5\%)
@@ -324,25 +411,15 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \begin{frame}
 \frametitle{False-positive vs False-negative payoff}
 \begin{itemize}
-\item Test equality of coefficients on false-positive (-0.27) and false-negative costs (-0.48)
+\item Test equality of coefficients on false-positive (-0.37) and false-negative costs (-0.59)
 \begin{itemize}
 \item Significance: $p=0.12$ (standard), $p=0.08$ (1000 bootstrap)
 \end{itemize}
 \item Linear regression has lower variances (so that respective $p=0.008$ and $p=0.023$)
 \end{itemize}
 \end{frame}
+\fi
 
-
-
-
-\begin{frame}
-\frametitle{WTP for the Signal (Risk Aversion)}
-\begin{itemize}
-\item Explaining the discrepancy between WTP and value with risk aversion:
-\end{itemize}
-\footnotesize
-\input{Tables/table_wtp_ra.tex}
-\end{frame}
 
 
 \begin{frame}
@@ -369,31 +446,78 @@ $$+(P(s=0)r_w+P(s=1)r_b)c$$
 \input{Tables/table_costs0.tex}
 \end{frame}
 
+\begin{frame}
+\frametitle{Actual Costs - Theoretical Costs Discrepancy}
+\begin{itemize}
+\item Prior prob and false negative rates disproportionally affect expected costs:
+\end{itemize}
+\footnotesize
+\input{Tables/table_costs1.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Actual Costs - Theoretical Costs Discrepancy 2}
+\begin{itemize}
+\item Prior prob and false negative rates disproportionally affect expected costs:
+\end{itemize}
+\footnotesize
+\input{Tables/table_costs2.tex}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Value Formation}
+\begin{itemize}
+\item What drives the difference between theoretical value and actual willingness-to-pay? Potential elements affecting the WTP:
+\begin{itemize}
+\item Beliefs
+\item Strategies
+\item Preferences
+\end{itemize}
+\item We recalculate the value after incorporating these elements one-by-one
+\end{itemize}
+%\footnotesize
+\includegraphics[scale=0.4]{value_diagram.png}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Value Formation}
+\begin{itemize}
+\item Accounting for reported beliefs or strategies does not make the theoretical value closer to the WTP
+\item WTP is still more correlated with the (completely) theoretical value rather than with values accounting for beliefs $\mu_R$ or strategies $a_R$
+\item My hypothesis: subjects approach the tasks independently and/or do not report beliefs truthfully
+\end{itemize}
+
+\begin{table}[htbp]\centering
+
+\begin{tabular}{l c c c c}
+\hline\hline
+           & $V(a^*(p^*))$ & $V(a^*(\mu_R))$   & $V(a_R)$ & $V_R$\\
+\hline
+$V(a^*(p^*))$ & 1 &   0.52 & 0.54 & 0.34\\
+$V(a^*(\mu_R))$ & 0.52 & 1 & 0.63 & 0.29  \\
+$V(a_R)$ & 0.54 & 0.63 & 1 & 0.33\\
+$V_R$ & 0.34 & 0.29 & 0.33 & 1 \\
+
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Additional Complementary Tables}
 \begin{enumerate}
-\item Factors affecting informed protection responses
-\item The effect of beliefs on informed protection
-\item How accurate are their beliefs?
-\item Decomposition of belief updating: priors vs signals
+\item Belief updating (slides are not updated)
+\item Determinants of informed protection responses
+\item Classifying informed protection strategies
+\item Extra WTP tables
 \end{enumerate}
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Informed Protection: Determinants}
-\footnotesize
-\input{Tables/table_ip1.tex}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Informed Protection: Do Subject's Beliefs Matter?}
-%\footnotesize
-\input{Tables/table_ip2.tex}
 \end{frame}
 
 
@@ -439,6 +563,77 @@ $$S_W\equiv I(S=W)\ln((1-P(s=B|B))/(1-P(s=B|W))$$
 \end{frame}
 
 
+
+\begin{frame}
+\frametitle{Informed Protection: Determinants}
+\footnotesize
+\input{Tables/table_ip1.tex}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Informed Protection: Reacting to Own Beliefs or Posterior Probabilties?}
+%\footnotesize
+\input{Tables/table_ip2.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Informed Protection: Do Subject's Beliefs Matter?}
+%\footnotesize
+\input{Tables/table_ip3.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Informed Protection: Responding to Beliefs or Posterior Probabilities}
+\begin{itemize}
+\item Calculate the subject-specific correlation between beliefs, posterior probabilities and protection responses
+\item Mann-Whitney U-test as  a correlation measure with two "groups": signals answered with either protection or no protection responses
+\item No obvious clustering, but $\exists$ three groups:
+\begin{enumerate}
+\item Sophisticated: protection decisions closely follow their accurate beliefs
+\item Clueless: protection decisions follow neither posteriors nor reported beliefs
+\item Amenders: have inaccurate beliefs, but behave consistently with posterior probabilities (small group)
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Informed Protection: Responding to Beliefs or Posterior Probabilities}
+
+%\footnotesize
+\includegraphics[scale=0.45]{Graphs/clustering1.png}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy 6}
+\begin{itemize}
+\item Adding blind protection costs
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtpdiff3.tex}
+\normalsize
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy 7}
+\begin{itemize}
+\item Controlling for the prior probability of a black ball with dummies
+\end{itemize}
+\footnotesize
+\input{Tables/table_wtpdiff5.tex}
+\normalsize
+\end{frame}
 
 
 

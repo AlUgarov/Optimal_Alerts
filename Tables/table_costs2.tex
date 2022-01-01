@@ -1,0 +1,23 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Discrepancy 2: actual-theoretical Costs}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
+\hline
+False pos. rate &     .443         &     .447         &     .657         &     .659         \\
+                &    (1.1)         &    (1.1)         &    (1.1)         &    (1.1)         \\
+False neg. rate &    -.812\sym{**} &    -.814\sym{**} &    -.862\sym{*}  &    -.864\sym{*}  \\
+                &   (-2.0)         &   (-2.0)         &   (-1.9)         &   (-1.9)         \\
+Constant        &    -.803\sym{***}&    -.649\sym{***}&    -.823\sym{***}&    -.783\sym{***}\\
+                &   (-8.1)         &   (-6.3)         &   (-9.9)         &   (-8.1)         \\
+Prior prob dummies &       No         &      Yes         &       No         &      Yes         \\
+\hline
+Observations    &      743         &      743         &      743         &      743         \\
+Adjusted \(R^{2}\)&     0.00         &     0.00         &     0.01         &     0.01         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}
