@@ -94,6 +94,22 @@ keep if finished==1 //subjects complete the experiment
 drop ipaddress recipient* distributionchannel userlanguage finished //drop unnecessary identifying information
 drop round externalreference location* responseid t1r1 sel* treatment_plans ip_wc ip_bc payoffs signal* //other excessive info, relicts of previous experiment edits
 
+
+*sex variable:
+recode q6 (1=0) (2=1) (4=0), gen(sex)
+label define sexes 0 "non-male" 1 "male"
+label values sex sexes
+tab sex
+
+gen age=2021-(2003-75)-q8 //18 means 18 and younger!!
+
+recode q137 (1=1) (2=0) (3=0),gen(stat_educ)
+label var stat_educ "Statistics class"
+label define stat_educl 0 "Not completed" 1 "Completed"
+label values stat_educ stat_educl
+tab stat_educ
+
+
 *Checking that the treatment assignment is balanced:
 list participant_id seq
 tab seq
@@ -126,8 +142,8 @@ save "./Temp/mainwaves_wide.dta", replace
 **BLIND PROTECTION ANALYSIS**
 * bp - protection decision (0 - do not protect, 1 - protect)
 
-keep participant_id bp_* bp_time_*
-reshape long bp_ bp_time_,  i(participant_id) j(round)
+keep participant_id bp_* bp_time_* sex age stat_educ
+reshape long bp_ bp_time_,  i(participant_id sex age stat_educ) j(round)
 rename bp_ bp
 rename bp_time_ submittime
 gen p=0.05*round
@@ -171,7 +187,7 @@ save "./Temp/bp_val.dta", replace
 
 
 *Collapsing to have one obs per participant (study participant's characteristics):
-collapse (mean) bp submittime (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
+collapse (mean) bp submittime (first) sex age stat_educ (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
 
 tab firstswitch
 replace firstswitch=7-totprot if repairable==1
@@ -266,7 +282,7 @@ append using "./Temp/pilot_wide.dta"
 encode participant_id, gen(subject_id) //as participant_id is initially a string
 
 
-reshape long ip_w_ ip_b_ ip_time_ be_w_ be_b_ be_time_w_ be_time_b_ wtp_1_ wtp_2_ wtp_3_ wtp_4_ wtp_5_ wtp_6_ wtp_7_ wtp_8_ wtp_9_ wtp_10_ wtp_11_ wtp_time_, i(subject_id participant_id) j(round)
+reshape long ip_w_ ip_b_ ip_time_ be_w_ be_b_ be_time_w_ be_time_b_ wtp_1_ wtp_2_ wtp_3_ wtp_4_ wtp_5_ wtp_6_ wtp_7_ wtp_8_ wtp_9_ wtp_10_ wtp_11_ wtp_time_, i(subject_id participant_id sex age stat_educ) j(round)
 rename *_ *
 rename ip_time time_ip
 
@@ -335,6 +351,12 @@ label var ip_val "Exp. costs"
 label var ip_val_o "Optimal exp. costs"
 
 
+gen ip_val_diff=ip_val-ip_val_o //discrepancy between actual and optimal expected costs of informed protection
+
+list subject_id p ip_w ip_b ip_val ip_val_o ip_val_diff if abs(ip_val_diff)>3
+//large discrepancies emerge when subjects take contrarian actions in the informed protection (e.g. protect when white and do not protect when black)
+
+
 //Calc exp costs under the optimal strategy for reported(!) beliefs:
 gen phintB=p*phintBB+(1-p)*phintBW //ideally we should elicit these probabilities within the experiment
 gen phintW=1-phintB
@@ -352,17 +374,24 @@ sum ip_val_mu
 *Saving the cleaned dataset with the panel structure
 save "./Output/main_waves.dta", replace
 
-
+**Need to keep all the demographic info in a separate file and merge by subject_id each time after reshaping?
 
 *Remove the timing information for now
 drop *click* *page* history q104-q106 q114 q115
 rename post_probW post_probw
 rename post_probB post_probb
 
-keep subject_id round ip_w ip_b be_w be_b be_time_w be_time_b post_probw post_probb time_ip honest ncorrect p phintBW phintWB phintBB pilot
+keep subject_id participant_id round ip_w ip_b be_w be_b be_time_w be_time_b post_probw post_probb time_ip honest ncorrect p phintBW phintWB phintBB
 
 *Reshape to (subject_id round hint) long format
-reshape long ip_ be_ be_time_ post_prob, i(subject_id round time_ip honest ncorrect p phintBW phintWB phintBB pilot) j(hint) string
+reshape long ip_ be_ be_time_ post_prob, i(subject_id participant_id round time_ip honest ncorrect p phintBW phintWB phintBB) j(hint) string
+
+
+**Merging risk aversion vars from the blind protection task
+merge m:1 participant_id using "./Temp/blind_collapsed.dta"
+keep if _merge==3
+drop _merge
+
 
 gen blackhint=.
 replace blackhint=1 if hint=="b"
@@ -629,6 +658,10 @@ replace value_ra=. if theta==-1
 *belief-adjusted value for a risk-neutral subject:
 *gen value_b=max(0,-(p*phintWB*loss-(p*phintBB+(1-p)*phintBW)*protectioncost))
 
+*risk-averse indicator:
+gen risk_averse=theta>0&backswitcher==0
+replace risk_averse=. if backswitcher==1
+
 
 
 /*Merging blind protection choices to get expected costs under blind protection for each probability*/
@@ -751,6 +784,63 @@ eststo: reg wtp_diff i.plevel false_pos false_neg if backswitcher==1, vce(robust
 test (false_pos=0) (false_neg=0)
 estadd scalar RNmodtest = r(p)
 esttab using "./Tables/table_wtpdiff4.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label drop(*.plevel) title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+
+eststo clear
+
+eststo: reg wtp_diff false_pos false_neg, vce(robust)
+eststo: reg wtp_diff i.plevel false_pos false_neg, vce(robust)
+
+eststo: reg wtp_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(robust)
+eststo: reg wtp_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(robust)
+
+eststo: reg wtp_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(robust)
+eststo: reg wtp_diff i.accur_bel##i.plevel i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(robust)
+esttab using "./Tables/table_wtpdiff_01.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+eststo clear
+
+eststo: reg wtp_diff phintWB phintBW, vce(robust)
+eststo: reg wtp_diff i.plevel phintWB phintBW, vce(robust)
+
+eststo: reg wtp_diff i.risk_averse##c.phintWB i.risk_averse##c.phintBW, vce(robust)
+eststo: reg wtp_diff i.risk_averse##i.plevel i.risk_averse##c.phintWB i.risk_averse##c.phintBW, vce(robust)
+
+eststo: reg wtp_diff i.accur_bel##c.phintWB i.accur_bel##c.phintBW, vce(robust)
+eststo: reg wtp_diff i.accur_bel##i.plevel i.accur_bel##c.phintWB i.accur_bel##c.phintBW, vce(robust)
+esttab using "./Tables/table_wtpdiff_01.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+
+
+
+*Main WTP differences table:
+
+
+eststo clear
+eststo: reg wtp_diff i.plevel false_pos false_neg, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel false_pos false_neg if theta>0&backswitcher==0, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel false_pos false_neg if theta<=0&backswitcher==0, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+eststo: reg wtp_diff i.plevel false_pos false_neg if backswitcher==1, vce(robust)
+test (false_pos=0) (false_neg=0)
+estadd scalar RNmodtest = r(p)
+esttab using "./Tables/table_wtpdiff4.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label drop(*.plevel) title(WTP for Information (Discrepancy)) stats(N aic RNmodtest, label ("N obs." "AIC" "p(coeffs=0)") star(RNmodtest)) mtitles("All" "Risk-averse" "Risk-loving" "Switchers") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+
+
+
+
+
+
 
 
 *Estimate the discrepancy between wtp and risk-neutral value as a function of false positive losses and false-negative losses conditional on prior prob:
@@ -918,12 +1008,13 @@ test [riskav_model=risklov_model]
 
 *Accounting for risk aversion:
 eststo clear
-eststo: reg wtp_diff0 false_pos false_neg, vce(robust)
-eststo: reg wtp_diff1 false_pos false_neg, vce(robust)
-eststo: reg wtp_diff2 false_pos false_neg, vce(robust)
-eststo: reg wtp_diff3 false_pos false_neg, vce(robust)
-eststo: reg wtp_diff4 false_pos false_neg, vce(robust)
-esttab using "./Tables/table_wtp_ra.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(WTP for Information (different risk aversion)) mtitles("Heterogeneous" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg wtp_diff i.plevel false_pos false_neg, vce(robust)
+eststo: reg wtp_diff1 i.plevel false_pos false_neg, vce(robust)
+eststo: reg wtp_diff2 i.plevel false_pos false_neg, vce(robust)
+eststo: reg wtp_diff3 i.plevel false_pos false_neg, vce(robust)
+eststo: reg wtp_diff4 i.plevel false_pos false_neg, vce(robust)
+eststo: reg wtp_diff0 i.plevel false_pos false_neg, vce(robust)
+esttab using "./Tables/table_wtp_ra.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label title(WTP for Information (different risk aversion)) mtitles("$\theta=0$" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$" "Heterogeneous $\theta$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
 
@@ -938,7 +1029,7 @@ esttab using "./Tables/table_costs0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label tit
 
 
 
-gen ip_val_diff=ip_val-ip_val_o
+
 
 eststo clear
 eststo: reg  ip_val_diff false_pos false_neg, vce(robust)

@@ -1,23 +1,35 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Discrepancy: actual-theoretical Costs}
-\begin{tabular}{l*{4}{c}}
+\caption{Expected costs discrepancy}
+\begin{tabular}{l*{6}{c}}
 \hline\hline
-                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
-                &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
 \hline
-False pos. costs&    .0438         &    .0142         &    .0336         &   .00252         \\
-                &    (0.4)         &    (0.1)         &    (0.3)         &    (0.0)         \\
-False neg. costs&   -.0137         &    .0227         &  -.00554         &    .0221         \\
-                &   (-0.2)         &    (0.3)         &   (-0.1)         &    (0.3)         \\
-Constant        &    -.857\sym{***}&    -.706\sym{***}&    -.858\sym{***}&    -.823\sym{***}\\
-                &   (-8.9)         &   (-6.4)         &  (-11.2)         &   (-8.9)         \\
-Prior prob dummies &       No         &      Yes         &       No         &      Yes         \\
+FP costs        &    .0438         &    .0142         &    .0512         &    .0505         &    .0318         &   -.0582         \\
+                &    (0.4)         &    (0.1)         &    (0.4)         &    (0.3)         &    (0.2)         &   (-0.4)         \\
+FN costs        &   -.0137         &    .0227         &    -.132         &     -.13         &     .163\sym{**} &     .287\sym{**} \\
+                &   (-0.2)         &    (0.3)         &   (-1.4)         &   (-1.1)         &    (2.0)         &    (2.5)         \\
+Risk-averse     &                  &                  &    -.284         &    .0641         &                  &                  \\
+                &                  &                  &   (-1.4)         &    (0.3)         &                  &                  \\
+Risk-averse $\times$ FP costs&                  &                  &   -.0282         &   -.0629         &                  &                  \\
+                &                  &                  &   (-0.1)         &   (-0.3)         &                  &                  \\
+Risk-averse $\times$ FN costs&                  &                  &      .22\sym{*}  &     .269\sym{*}  &                  &                  \\
+                &                  &                  &    (1.9)         &    (1.7)         &                  &                  \\
+Accur. beliefs  &                  &                  &                  &                  &     .613\sym{***}&    .0902         \\
+                &                  &                  &                  &                  &    (3.2)         &    (0.4)         \\
+Accur. beliefs $\times$ FP costs&                  &                  &                  &                  &    .0566         &     .185         \\
+                &                  &                  &                  &                  &    (0.3)         &    (1.0)         \\
+Accur. beliefs $\times$ FN costs&                  &                  &                  &                  &    -.354\sym{***}&    -.522\sym{***}\\
+                &                  &                  &                  &                  &   (-3.0)         &   (-3.5)         \\
+Constant        &    -.857\sym{***}&    -.706\sym{***}&    -.684\sym{***}&    -.754\sym{***}&    -1.17\sym{***}&    -.758\sym{***}\\
+                &   (-8.9)         &   (-6.4)         &   (-5.4)         &   (-4.7)         &   (-7.7)         &   (-5.1)         \\
+Prior prob dummies &       No         &      Yes         &       No         &      Yes         &       No         &      Yes         \\
 \hline
-Observations    &      743         &      743         &      743         &      743         \\
-Adjusted \(R^{2}\)&    -0.00         &    -0.00         &    -0.00         &    -0.00         \\
+Observations    &      743         &      743         &      689         &      689         &      743         &      743         \\
+Adjusted \(R^{2}\)&    -0.00         &    -0.00         &    -0.00         &    -0.00         &     0.02         &     0.04         \\
 \hline\hline
-\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

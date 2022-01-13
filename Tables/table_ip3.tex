@@ -1,23 +1,35 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{Informed Protection: Response to Reported Beliefs}
-\begin{tabular}{l*{3}{c}}
+\begin{tabular}{l*{4}{c}}
 \hline\hline
-                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
-                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Accurate beliefs}&\multicolumn{1}{c}{Inaccurate beliefs}\\
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
 \hline
-Informed protection&                  &                  &                  \\
-Belief          &      1.1\sym{***}&     2.18\sym{***}&     .728\sym{***}\\
-                &    (7.3)         &    (6.9)         &    (3.8)         \\
-Posterior prob. &     1.52\sym{***}&      .69\sym{**} &     1.55\sym{***}\\
-                &   (11.5)         &    (2.1)         &   (10.6)         \\
-Constant        &    -.881\sym{***}&    -.953\sym{***}&    -.807\sym{***}\\
-                &  (-15.7)         &  (-12.8)         &   (-9.4)         \\
+Informed protection&                  &                  &                  &                  \\
+Belief          &     2.18\sym{***}&     2.62\sym{***}&     2.56\sym{***}&     2.74\sym{***}\\
+                &   (18.5)         &   (18.2)         &   (13.2)         &   (11.6)         \\
+Belief error    &                  &     1.52\sym{***}&     1.47\sym{***}&     1.61\sym{***}\\
+                &                  &   (11.5)         &    (8.8)         &    (7.1)         \\
+Good quiz       &                  &                  &     .108         &                  \\
+                &                  &                  &    (1.0)         &                  \\
+Good quiz $\times$ Belief&                  &                  &      .14         &                  \\
+                &                  &                  &    (0.5)         &                  \\
+Good quiz $\times$ Belief error&                  &                  &      .11         &                  \\
+                &                  &                  &    (0.4)         &                  \\
+Stat. class     &                  &                  &                  &     .127         \\
+                &                  &                  &                  &    (1.1)         \\
+Stat. class $\times$ Belief&                  &                  &                  &    -.189         \\
+                &                  &                  &                  &   (-0.6)         \\
+Stat. class $\times$ Belief error&                  &                  &                  &    -.135         \\
+                &                  &                  &                  &   (-0.5)         \\
+Constant        &    -.762\sym{***}&    -.881\sym{***}&    -.932\sym{***}&    -.963\sym{***}\\
+                &  (-14.3)         &  (-15.7)         &  (-11.5)         &  (-10.0)         \\
 \hline
-Observations    &     1487         &      744         &      743         \\
-\textit{AIC}    &  1413.23         &   603.49         &   798.79         \\
+Observations    &     1487         &     1487         &     1487         &     1487         \\
+\textit{AIC}    &  1566.82         &  1413.23         &  1414.64         &  1418.02         \\
 \hline\hline
-\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
-\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

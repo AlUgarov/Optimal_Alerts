@@ -100,6 +100,23 @@ tab wtpq_correct
 gen ncorrect=blind_correct+informed_correct+wtpq_correct
 tab ncorrect
 
+
+
+*sex variable:
+recode q6 (1=0) (2=1) (4=0), gen(sex)
+label define sexes 0 "non-male" 1 "male"
+label values sex sexes
+tab sex
+
+gen age=2021-(2003-75)-q8 //18 means 18 and younger!!
+
+recode q137 (1=1) (2=0) (3=0),gen(stat_educ)
+label var stat_educ "Statistics class"
+label define stat_educl 0 "Not completed" 1 "Completed"
+label values stat_educ stat_educl
+tab stat_educ
+
+
 *remove participants missing more than 2 questions:
 //drop if ncorrect<7
 gen pilot=1
@@ -112,8 +129,8 @@ save "./Temp/pilot_wide.dta", replace
 * bp - protection decision (0 - do not protect, 1 - protect)
 
 **PREPARE FOR RISK AVERSION CALCULATION CONSISTENT WITH MAIN WAVES
-keep participant_id bp_* bp_time_*
-reshape long bp_ bp_time_,  i(participant_id) j(round)
+keep participant_id bp_* bp_time_* sex age stat_educ ncorrect
+reshape long bp_ bp_time_,  i(participant_id sex age stat_educ ncorrect) j(round)
 rename bp_ bp
 rename bp_time_ submittime
 gen p=0.1*round
@@ -155,7 +172,7 @@ replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp==0)&(round==6)
 save "./Temp/bp_val_pilot.dta", replace
 
 *Collapsing to have one obs per participant (study participant's characteristics):
-collapse (mean) bp submittime (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
+collapse (mean) bp submittime (first) sex age stat_educ ncorrect (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
 
 tab firstswitch
 replace firstswitch=6-totprot if repairable==1
@@ -170,7 +187,7 @@ tab backswitcher
 tab firstswitch //the distribution of the first switching round
 tab backswitchround
 
-scatter submittime backswitcher
+//scatter submittime backswitcher
 
 
 **Estimate subjects' risk aversion from the blind protection choices:

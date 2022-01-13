@@ -1,0 +1,99 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage {amsmath,amsthm}
+\usepackage{geometry}
+\usepackage{titlesec}
+\geometry{a4paper}
+\usepackage{natbib}
+\usepackage{caption}
+\captionsetup{skip=0pt}
+
+%\bibliographystyle{econ}
+
+
+\usepackage [pdftex]{graphicx}
+
+\usepackage[hidelinks]{hyperref}
+%\usepackage[colorlinks=true, urlcolor=blue, pdfborder={0 0 0}]{hyperref}
+%\usepackage{comment}
+\usepackage{sectsty}
+\sectionfont{\fontsize{14}{15}\selectfont}
+\subsectionfont{\fontsize{13}{15}\selectfont}
+
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{makecell}
+\usepackage{subcaption}
+\usepackage{setspace}
+\usepackage{placeins}
+\usepackage{dcolumn}
+\newtheorem{theorem}{Proposition}
+
+\title{\Large Crying Wolf in the Lab\\}
+\author{\large authors*}
+\begin{document}
+\maketitle
+\onehalfspacing
+\begin{abstract}{ }
+
+
+\vspace{10pt}
+\begin{singlespace}
+
+\noindent {\footnotesize{}Keywords: }{\thispagestyle{empty}}
+\end{singlespace}
+\end{abstract}
+
+\vspace{140pt}
+\footnotesize
+
+
+
+
+
+
+\onehalfspacing
+\normalsize
+\newpage
+\section{Introduction}
+
+\appendix
+
+
+\newpage
+\section{Tables}
+%\begin{table}[h!]\centering
+%\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+%\caption{xx}
+\input{Tables/table_wtpdiff_01.tex}
+%\end{table}
+
+\input{Tables/table_wtpdiff_02.tex} \label{xx}
+
+\input{Tables/table_wtp_ra.tex}
+\input{Tables/table_wtp_ra2.tex}
+
+\input{Tables/table_ip3.tex}
+
+\input{Tables/table_costs1.tex}
+
+\input{Tables/table_costs2.tex}
+\newpage
+\section{Figures}
+
+
+
+\begin{figure}[!htbp]
+\caption{Following beliefs vs following posterior probabilities in IP} \label{ref_question}
+\centering
+\includegraphics[scale=0.4]{Graphs/clustering.png}
+\end{figure}
+
+\begin{figure}[!htbp]
+\caption{Belief accuracy vs following beliefs in IP} \label{ref_question}
+\centering
+\includegraphics[scale=0.25]{Graphs/clustering2.png}
+\end{figure}
+
+\end{document}

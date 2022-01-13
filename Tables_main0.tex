@@ -84,82 +84,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Research Question}
-\begin{itemize}
-	\item How much do people value alerts (signals) about potential preventable threats?
-	\item How do signal's probabilistic characteristics affect the willingness-to-pay for it and the welfare gains from using it?
-	\item Applications:
-	\begin{itemize}
-		\item Natural disaster warnings (tornados, floods, earthquakes)
-		\item Medical tests for treatable conditions
-		\item Investing in research on likelihood of catastrophic events (rogue AI, global warming, pandemics)
-	\end{itemize}
-	\item Note: most real-life applications provide little practice with using the signal
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Overview of the Experiment}
-\begin{itemize}
-	\item An insurance experiment:
-		\begin{itemize}
-			\item Two states of the world: bad ($\omega=1$) and good ($\omega=0$)
-			\item Probability of a bad state is $P (\omega=1) = \pi$
-			\item Bad state $\implies$ loss of \$$L$
-			\item A perfectly protective insurance can be purchased for \$$c$
-		\end{itemize}
-	\item Subject can purchase a signal $s$ before purchasing the insurance:
-		\begin{itemize}
-			\item A signal is characterized by its true-positive ($P(s=1|\omega=1)$) and true-negative rates ($P(s=0|\omega=0)$) 
-		\end{itemize}
-\end{itemize}
-
-\vspace{1em}
-\begin{block}{Research objective}
-	How do signal characteristics affect the WTP?
-\end{block}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{WTP for Signals}
-\framesubtitle{If losses are rare ($\pi L<<c$)}
-
-\begin{itemize}
-	\item Theoretically, what should be the WTP for a signal?
-	\item If bad states are a priori rare ($\pi L<<c$) $\implies$ never protect without a signal
-	\item The theoretical WTP $b$ for an expected utility maximizer given a signal $s$ is a solution $b^*$ to the following:
-	\small
-		$$P(s=1)u(Y_0-b^*-c) + \pi P(s=0|\omega=1)u(Y_0-b^*-L)+$$
-		$$+(1-\pi)P(s=0|\omega=0)u(Y_0-b^*) =(1-\pi)u(Y_0)+\pi u(Y_0-L)$$
-\normalsize
-	\item A risk-neutral agent then pays:
-		\[b^*=\pi(1-P(s=0|\omega=1))L-P(s=1)c\]
-\small
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{WTP for Signals}
-\framesubtitle{If losses are not necessarily rare}
-
-\begin{itemize}
-	\item The formulas become more complicated if subjects can protect without a signal (bad state are not rare enough)
-	\item The theoretical WTP $b$ for an expected utility maximizer given a signal $s$ is a solution $b^*$ to the following:
-	\small
- $$P(s=1)u(Y_0-b^*-c) + \pi P(0|1)u(Y_0-b^*-L)+(1-\pi)P(0|0)u(Y_0-b^*)=$$
-		$$=\min[(1-\pi)u(Y_0)+\pi u(Y_0-L),u(Y_0-c)]$$
-
-	\normalsize
-	\item A risk-neutral agent then pays:
-\small
-		\[b^*=\min[\pi L,c]-\pi(1-P(s=0|\omega=1))L-P(s=1)c\]
-\end{itemize}
-\end{frame}
-
 
 
 \begin{frame}
@@ -177,70 +101,6 @@
 \end{enumerate}
 \end{frame}
 
-\iffalse
-\begin{frame}
-\frametitle{WTP for signals}
-\begin{itemize}
-\item Higher average WTP for more valuable signals
-\end{itemize}
-\begin{figure}[h]
-\includegraphics[scale=0.45]{Graphs/WTP_curve2.pdf}
-\end{figure}
-\end{frame}
-
-\fi
-
-
-\begin{frame}
-\frametitle{Risk Aversion Measurement}
-\begin{itemize}
-\item Measure risk aversion based on blind protection choices:
-\begin{itemize}
-\item Exclude obs from subjects switching back and forth
-\item The lowest probability for which a subject chooses to protect is $\pi^*$
-\item Calculate their coefficient of relative risk aversion $\theta$ as the solution to the following equation:
-$$\pi^* u(Y_0-L;\theta)+(1-\pi^*)u(Y_0;\theta)=u(Y_0-c;\theta)$$
-\item Where  $u()$ is the CRRA utility function:
-$$u(x;\theta)={x^{1-\theta} -1 \over 1-\theta}$$
-\end{itemize}
-\item Note: risk lovers have $\theta<0$
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Abnormal Protection Responses}
-\begin{itemize}
-\item Roughly one third of subjects (33 in the sample) switch from protection to no protection at least once
-\item But only 6\% (6 subjects) switch more than once!
-\item If a switcher becomes non-switcher after a single change, calculate the risk aversion based on the total number of switches
-\item Left with only 7 subjects where this approach doesn't work and no risk aversion measurement is possible
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{CRRA Estimates}
-\begin{itemize}
-\item Most subjects are moderately risk averse: 
-\end{itemize}
-\begin{table}[htbp]\centering
-
-\begin{tabular}{l c c}
-\hline\hline
-Probability ($\pi^*$) &                $\theta$ & $N$\\
-\hline
-Always protect & $>$2 &   1 \\
-0.1 & 2 & 10 \\
-0.15 & 1.216 & 13 \\
-0.2 & 0.573 & 29 \\
-0.25 & 0 & 16 \\
-0.3 & -0.539 & 15 \\
-Never protect & $<$-0.539 &  14 \\
-\hline
-\end{tabular}
-\end{table}
-\end{frame}
 
 
 \begin{frame}
@@ -271,6 +131,31 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Actual Costs vs Theoretical Costs}
+\begin{itemize}
+\item Calculate actual costs based on decisions made in the Informed Protection treatment and actual posterior probabilities of losses.
+\item Each reported participant's strategy $s$ is a tuple of numbers $(r_w,r_b)$ representing protection responses correspondingly to white and black hints
+\item Then the expected cost of each decision are:
+\small
+$$EC(s)=\pi (P(0|1)(1-r_w)+P(1|1)(1-r_b))L+P(s=1)c$$
+$$+(P(s=0)r_w+P(s=1)r_b)c$$
+\normalsize
+\item Regress expected costs on minimal theoretical costs and other signal characteristics
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Actual Costs vs Theoretical Costs}
+\begin{itemize}
+\item Prior prob and false negative rates disproportionally affect expected costs:
+\end{itemize}
+\footnotesize
+\input{Tables/table_costs0.tex}
+\end{frame}
+
+
 
 
 
@@ -279,6 +164,15 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 
 \footnotesize
 \input{Tables/table_wtpdiff_01.tex}
+\normalsize
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP Discrepancy (Demographics)}
+
+\footnotesize
+\input{Tables/table_wtpdiff_02.tex}
 \normalsize
 \end{frame}
 
@@ -293,6 +187,11 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \input{Tables/table_wtp_ra.tex}
 \end{frame}
 
+
+
+
+
+\iffalse
 \begin{frame}
 \frametitle{Tobit Regressions}
 \Large
@@ -305,7 +204,6 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \normalsize
 \end{frame}
 
-\iffalse
 \begin{frame}
 \frametitle{WTP Tobit 1}
 
@@ -385,30 +283,6 @@ $$V=\min[0,\beta_0+\beta_1\text{FN costs}+\beta_2 \text{Prot. costs}-\beta_3\tex
 \fi
 
 
-
-\begin{frame}
-\frametitle{Actual Costs vs Theoretical Costs}
-\begin{itemize}
-\item Calculate actual costs based on decisions made in the Informed Protection treatment and actual posterior probabilities of losses.
-\item Each reported participant's strategy $s$ is a tuple of numbers $(r_w,r_b)$ representing protection responses correspondingly to white and black hints
-\item Then the expected cost of each decision are:
-\small
-$$EC(s)=\pi (P(0|1)(1-r_w)+P(1|1)(1-r_b))L+P(s=1)c$$
-$$+(P(s=0)r_w+P(s=1)r_b)c$$
-\normalsize
-\item Regress expected costs on minimal theoretical costs and other signal characteristics
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Actual Costs vs Theoretical Costs}
-\begin{itemize}
-\item Prior prob and false negative rates disproportionally affect expected costs:
-\end{itemize}
-\footnotesize
-\input{Tables/table_costs0.tex}
-\end{frame}
 
 \begin{frame}
 \frametitle{Actual Costs - Theoretical Costs Discrepancy}
