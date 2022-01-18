@@ -1,24 +1,35 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Belief Elicitation: Determinants}
-\begin{tabular}{l*{3}{c}}
+\caption{Belief Elicitation: Discrepancy}
+\begin{tabular}{l*{6}{c}}
 \hline\hline
-                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
-                &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{Smart, FE}\\
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
 \hline
-Posterior prob. &     1.44         &     1.73         &     2.01         \\
-                &    (1.2)         &    (1.1)         &    (1.1)         \\
-Prior prob.     &     .909         &     .597\sym{**} &     .722\sym{**} \\
-                &    (1.6)         &    (2.2)         &    (2.0)         \\
-Gremlin says Black&    -.697         &    -.916         &    -1.12         \\
-                &   (-0.6)         &   (-0.7)         &   (-0.7)         \\
-Constant        &   -.0814         &   -.0114         &   -.0768\sym{*}  \\
-                &   (-0.4)         &   (-0.3)         &   (-1.8)         \\
+False neg. rate &   -.0141         &    -.014         &    .0199         &    .0201         &     .101         &    .0992         \\
+                &   (-0.3)         &   (-0.3)         &    (0.2)         &    (0.2)         &    (1.1)         &    (1.1)         \\
+False pos. rate &    -.546\sym{***}&    -.547\sym{***}&    -.578\sym{***}&    -.579\sym{***}&    -.596\sym{***}&    -.594\sym{***}\\
+                &  (-10.4)         &  (-10.5)         &   (-7.4)         &   (-7.5)         &   (-7.1)         &   (-7.1)         \\
+Good quiz       &                  &                  &   .00858         &  -.00576         &                  &                  \\
+                &                  &                  &    (0.4)         &   (-0.2)         &                  &                  \\
+Good quiz $\times$ False neg. rate&                  &                  &   -.0705         &   -.0708         &                  &                  \\
+                &                  &                  &   (-0.6)         &   (-0.6)         &                  &                  \\
+Good quiz $\times$ False pos. rate&                  &                  &    .0718         &    .0715         &                  &                  \\
+                &                  &                  &    (0.7)         &    (0.7)         &                  &                  \\
+Stat. class     &                  &                  &                  &                  &     .015         &    .0385         \\
+                &                  &                  &                  &                  &    (0.7)         &    (1.0)         \\
+Stat. class $\times$ False neg. rate&                  &                  &                  &                  &    -.186         &    -.185         \\
+                &                  &                  &                  &                  &   (-1.6)         &   (-1.6)         \\
+Stat. class $\times$ False pos. rate&                  &                  &                  &                  &    .0824         &    .0796         \\
+                &                  &                  &                  &                  &    (0.8)         &    (0.7)         \\
+Constant        &    .0406\sym{***}&  -.00484         &    .0364\sym{**} &  -.00227         &    .0315\sym{*}  &   -.0313         \\
+                &    (3.8)         &   (-0.3)         &    (2.2)         &   (-0.1)         &    (1.8)         &   (-0.9)         \\
+Prior prob dummies &       No         &      Yes         &       No         &      Yes         &       No         &      Yes         \\
 \hline
-Observations    &      780         &      780         &      636         \\
-Adjusted \(R^{2}\)&     0.01         &     0.01         &     0.01         \\
+Observations    &     1488         &     1488         &     1488         &     1488         &     1488         &     1488         \\
+Adjusted \(R^{2}\)&     0.07         &     0.08         &     0.07         &     0.08         &     0.07         &     0.08         \\
 \hline\hline
-\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
-\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

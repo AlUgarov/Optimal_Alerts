@@ -31,7 +31,7 @@
 \newtheorem{theorem}{Proposition}
 
 \title{\Large Crying Wolf in the Lab\\}
-\author{\large authors*}
+\author{\large Arya Gaduh, Peter McGee, Alexander Ugarov*}
 \begin{document}
 \maketitle
 \onehalfspacing
@@ -74,6 +74,8 @@
 \input{Tables/table_wtp_ra.tex}
 \input{Tables/table_wtp_ra2.tex}
 
+\input{Tables/table_be2.tex}
+
 \input{Tables/table_ip3.tex}
 
 \input{Tables/table_costs1.tex}
@@ -82,18 +84,48 @@
 \newpage
 \section{Figures}
 
+\begin{figure}[!h]
+\centering
+\caption{Belief Updating}
+\begin{subfigure}[t]{.48\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Graphs/hist_belief_error.png}
+  %\caption{Belief accuracy} \label{bel_updating}
+\end{subfigure}
+\begin{subfigure}[t]{.48\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Graphs/updating_s1.png}
+  %\caption{Error distribution} \label{error_hist}
+\end{subfigure}
 
+\end{figure}
 
-\begin{figure}[!htbp]
+\begin{figure}[!h]
+\centering
 \caption{Following beliefs vs following posterior probabilities in IP} \label{ref_question}
-\centering
-\includegraphics[scale=0.4]{Graphs/clustering.png}
+\begin{subfigure}[t]{.48\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Graphs/clustering.png}
+  %\caption{xx} \label{xx2}
+\end{subfigure}
+%\hfill
+\begin{subfigure}[t]{.48\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Graphs/clustering2.png}
+\end{subfigure}
 \end{figure}
 
-\begin{figure}[!htbp]
-\caption{Belief accuracy vs following beliefs in IP} \label{ref_question}
+
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=0.25]{Graphs/clustering2.png}
+\caption{x} \label{cost_discrepancy}
+
+  \centering
+  \includegraphics[width=\textwidth]{Graphs/hist_costs_discr.png}
+
 \end{figure}
+
+
+
 
 \end{document}

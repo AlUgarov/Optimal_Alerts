@@ -6,14 +6,11 @@ clear all
 **Requires: estout, moremata
 
 *!!put your working folder below:
-
 cd C:\Tornado_warnings\Experiment\Alerts_Experiment
 
 
-
-log using "./Temp/pilot_analysis.log", replace
+*log using "./Temp/pilot_analysis.log", replace
 set seed 135
-
 
 *Prepare the treatment characteristics to merge:
 import delimited using "./Input/exp_treatments_pilot.csv", varnames(1) clear //I prepare this file separately in R, describes each potential treatment (prior prob+signal information structure)
@@ -98,7 +95,6 @@ drop round externalreference location* responseid t1r1 sel* treatment_plans ip_w
 list participant_id seq
 tab seq
 
-*sex variable:
 recode q6 (1=0) (2=1) (4=0), gen(sex)
 label var sex "Male"
 label define sexes 0 "Non-male" 1 "Male"
@@ -112,7 +108,6 @@ label var stat_educ "Stat. class"
 label define stat_educl 0 "No" 1 "Stat. class"
 label values stat_educ stat_educl
 tab stat_educ
-
 
 
 *identify correct quiz answers
@@ -132,17 +127,10 @@ gen pilot=0
 save "./Temp/mainwaves_wide.dta", replace
 
 
-***SANITY CHECKS*******************
-
-**??**
-
-*encode participant_id, gen(subject_id) //as participant_id is initially a string
-
 
 
 **BLIND PROTECTION ANALYSIS**
 * bp - protection decision (0 - do not protect, 1 - protect)
-
 keep participant_id bp_* bp_time_* sex age stat_educ ncorrect
 reshape long bp_ bp_time_,  i(participant_id sex age stat_educ ncorrect) j(round)
 rename bp_ bp
@@ -202,8 +190,6 @@ tab backswitcher
 tab firstswitch //the distribution of the first switching round
 tab backswitchround
 
-//scatter submittime backswitcher
-
 gen byte allprotect=(totprot==6)
 
 
@@ -248,16 +234,11 @@ label define goodquiz_l 0 "$>$2 wrong answers" 1 "Good quiz"
 label values goodquiz goodquiz_l
 
 
-
 //Make the table on distribution of thetas
 tab theta
 tab pilot
 
-
-
-
 save "./Temp/blind_collapsed.dta", replace
-
 
 use "./Temp/bp_val.dta", replace
 gen pilot=0
@@ -268,15 +249,6 @@ replace pilot=1 if missing(pilot)
 keep participant_id p bp bp_val pilot
 
 save "./Temp/bp_val.dta", replace
-
-
-
-
-
-
-
-
-
 
 
 
@@ -339,12 +311,9 @@ label var phintWB "False neg. rate"
 label var phintBW "False pos. rate"
 
 replace ip_w=. if ip_w==-99
-
 replace ip_b=. if ip_b==-99
 
-
 gen ip_val=-(p*(phintWB*(1-ip_w)+phintBB*(1-ip_b))*loss+p*(phintWB*ip_w+phintBB*ip_b)*protectioncost+(1-p)*(phintWW*ip_w+phintBW*ip_b)*protectioncost)
-
 replace ip_val=. if ip_b==-99
 replace ip_val=. if ip_w==-99
 
@@ -360,10 +329,8 @@ replace ip_b_o=1 if post_probB>=protectioncost/loss
 //Calculate exp costs under the optimal strategy:
 gen ip_val_o=-(p*(phintWB*(1-ip_w_o)+phintBB*(1-ip_b_o))*loss+p*(phintWB*ip_w_o+phintBB*ip_b_o)*protectioncost+(1-p)*(phintWW*ip_w_o+phintBW*ip_b_o)*protectioncost)
 
-
 label var ip_val "Exp. costs"
 label var ip_val_o "Optimal exp. costs"
-
 
 gen ip_val_diff=ip_val-ip_val_o //discrepancy between actual and optimal expected costs of informed protection
 
@@ -381,28 +348,29 @@ gen ip_b_mu=0
 replace ip_b_mu=1 if be_b>=protectioncost/loss
 
 gen ip_val_mu=(loss*(phintW*be_w*(1-ip_w_mu)+phintB*be_b*(1-ip_b_mu))+protectioncost*(phintW*ip_w_mu+phintB*ip_b_mu))
-
 sum ip_val_mu
 
-
-
-
 gen rev_response=(ip_w==1)&(ip_b==0) //subjects protect when white and do not protect when black
-
 tab rev_response
 
 
-
-
+gen treatm_type=0
+replace treatm_type=1 if bl_gr>0&w_gr==0
+replace treatm_type=2 if w_gr>0&bl_gr==0
+replace treatm_type=3 if bl_gr>0&w_gr>0
+label define treatm_typel 0 "Honest" 1 "White-eyed only" 2 "Black-eyed only" 3 "All types"
+label values treatm_type treatm_typel
 
 *Saving the cleaned dataset with the panel structure
 save "./Output/main_waves.dta", replace
 
-keep subject_id participant_id round time_ip honest ncorrect p phintBW phintWB phintBB rev_response
-collapse (first) participant_id time_ip honest ncorrect p phintBW phintWB phintBB rev_response, by(subject_id round)
+keep subject_id participant_id round time_ip honest ncorrect p phintBW phintWB phintBB rev_response treatm_type
+collapse (first) treatm_type participant_id time_ip honest ncorrect p phintBW phintWB phintBB rev_response, by(subject_id round)
+label values treatm_type treatm_typel
 save "./Temp/base_main_waves.dta", replace
 
 use "./Output/main_waves.dta", replace
+
 *Remove the timing information for now
 drop *click* *page* history q104-q106 q114 q115
 rename post_probW post_probw
@@ -425,12 +393,12 @@ merge m:1 participant_id using "./Temp/blind_collapsed.dta"
 keep if _merge==3
 drop _merge
 
-
-
 gen blackhint=.
 replace blackhint=1 if hint=="b"
 replace blackhint=0 if hint=="w"
 gen question=2*(round-1)+blackhint
+
+gen plevel=round(1000*p) //create integer var to code prior probability
 
 sum(be_time_)
 sum(time_ip)
@@ -458,34 +426,24 @@ label values accur_bel accur_bel_l
 
 label values stat_educ stat_educl
 
+hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
+graph export "./Graphs/hist_belief_error.png", width(1200) height(800) replace
+
+scatter be_ post_prob, title("Belief updating") xtitle("True") ytitle("Elicited belief") jitter(1) note("All obs including pilot")
+graph export "./Graphs/updating_s1.png", width(1200) height(800) replace
+
+scatter be_ post_prob if pilot==0&goodquiz==1, title("Belief updating") xtitle("True") ytitle("Elicited belief") jitter(1) note("Main waves only, good quiz")
+graph export "./Graphs/updating_s2.png", width(1200) height(800) replace
+
+
+
 
 **********************************************
-****----MAIN REGRESSIONS---***********
+****----MAIN REGRESSIONS (beliefs and informed protection)---***********
 **********************************************
 xtset subject_id question
 
-
 ****-- INFORMED PROTECTION --****
-
-**response to posterior probabilities of black***
-eststo clear
-eststo: probit ip_ post_prob, vce(robust)
-eststo: probit ip_ post_prob p blackhint, vce(robust)
-eststo: probit ip_ post_prob if ncorrect>6, vce(robust)
-eststo: probit ip_ post_prob p blackhint if ncorrect>6, vce(robust)
-esttab using "./Tables/table_ip1.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection) mtitles("All" "All" "Good quiz" "Good quiz") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
-
-
-
-**response to elicited (and posterior) probabilities of black***
-eststo clear
-eststo: probit ip_ be_, vce(robust)
-eststo: probit ip_ be_ bel_err, vce(robust)
-eststo: probit ip_ be_ bel_err if ncorrect>6, vce(robust)
-esttab using "./Tables/table_ip2.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("All" "All" "Good quiz") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
-
-
-
 eststo clear
 eststo: probit ip_ be_, vce(robust)
 eststo: probit ip_ be_ bel_err, vce(robust)
@@ -495,61 +453,16 @@ esttab using "./Tables/table_ip3.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(
 
 
 
-**testing for timing and correlation
-xtreg ip_ be_, fe vce(robust)
-xtreg ip_ be_ if time_ip<20, fe vce(robust)
-reg ip_ post_prob, vce(robust)
-reg ip_ post_prob if time_ip<20, vce(robust)
-
-
-
 ****-- BELIEF ELICITATION --****
-**prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)
-**our sample is small because sme vars req to calculate log(0)
-gen lt_bel=log(be_/(1-be_))
-gen lt_prior=log(p/(1-p))
-gen lambda_B=log(phintBB/phintBW)
-gen lambda_W=log((1-phintBB)/(1-phintBW))
-gen lt_posterior=log(post_prob/(1-post_prob)) //just for verification
-gen signalB=blackhint*lambda_B
-gen signalW=(1-blackhint)*lambda_W
-sum lt_bel lt_posterior lt_prior signalB signalW
-
-reg lt_posterior lt_prior signalB signalW //all the coeffs should be one, zero const
-
-
-
 *Testing the accuracy of reported beliefs***
 eststo clear
-eststo: reg be_ post_prob, vce(robust)
-eststo: reg be_ post_prob if ncorrect>6, vce(robust)
-eststo: reg be_ post_prob if (honest==0), vce(robust)
-eststo: reg be_ post_prob if (accur_bel==1), vce(robust)
-esttab using "./Tables/table_be1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Belief vs Posterior) mtitles("All" "Good quiz" "Dishonest greml" "Acc. beliefs") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
-
-
-
-eststo clear
-eststo: reg be_ post_prob, vce(robust)
-test post_prob=1
-estadd scalar CoefVarName = r(F)
-eststo: reg be_ post_prob if ncorrect>6, vce(robust)
-test post_prob=1
-estadd scalar CoefVarName = r(F)
-eststo: reg be_ post_prob if (honest==0), vce(robust)
-test post_prob=1
-estadd scalar CoefVarName = r(F)
-esttab using "./Tables/table_be1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) stats() label title(Belief Elicitation: Belief vs Posterior) mtitles("All" "Not_honest" "Good quiz") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
-
-
-
-
-*Decomposition of belief updating (coeffs should be all ones), small sample***
-eststo clear
-eststo: reg lt_bel lt_prior signalB signalW, noconstant vce(robust)
-eststo: xtreg lt_bel lt_prior signalB signalW, fe vce(robust)
-eststo: xtreg lt_bel lt_prior signalB signalW if ncorrect>6, fe vce(robust)
-esttab using "./Tables/table_be3.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Decomposition) mtitles("OLS" "FE" "Good quiz, FE") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg bel_err phintWB phintBW, vce(robust)
+eststo: reg bel_err i.plevel phintWB phintBW, vce(robust)
+eststo: reg bel_err i.goodquiz##c.phintWB i.goodquiz##c.phintBW, vce(robust)
+eststo: reg bel_err i.goodquiz##i.plevel i.goodquiz##c.phintWB i.goodquiz##c.phintBW, vce(robust)
+eststo: reg bel_err i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(robust)
+eststo: reg bel_err i.stat_educ##i.plevel i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(robust)
+esttab using "./Tables/table_be2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Prior prob dummies = *.plevel) nobaselevels compress nogaps replace
 
 
 ****MEASURING THE INFORMED PROTECTION RESPONSE TO BELIEFS VS POSTERIORS AND GRAPHING IT:
@@ -597,7 +510,6 @@ graph export "./Graphs/clustering2.png", width(1200) height(800) replace
 sum tot_bel_err, detail
 list U_postprob U_bel bel_precision tot_bel_err if U_bel>20&bel_precision<1
 
-
 save "./Temp/bel_accuracy.dta", replace
 
 
@@ -605,8 +517,9 @@ save "./Temp/bel_accuracy.dta", replace
 
 
 
-
-****-- WTP FOR INFORMATION --****
+**********************************************
+****-- Main Regressions: WTP FOR INFORMATION --****
+**********************************************
 use "./Output/main_waves.dta", replace
 xtset subject_id round
 
@@ -715,14 +628,10 @@ label var phintWBs "False-neg. prob. x Loss"
 label var phintBWs "False-neg. prob. x Prot. cost"
 
 
-
-
 replace bp_val=-bp_val
 
 gen info_effect=bp_val+ip_val //expected difference in earnings between informed and blind protection (subject and decision-specific)
-sum info_effect
 replace info_effect=0 if info_effect<0 //because wtp is never negative
-sum info_effect
 
 
 gen value_mu=max(0, bp_val-ip_val_mu) //expected diff in earnings between IP and BP accounting for actual subjects' beliefs
@@ -739,6 +648,12 @@ gen wtp_diff4=wtp-value_ra4
 
 
 label values accur_bel accur_bel_l //restoring lost value labels
+
+
+hist ip_val_diff, title("Distribution of expected costs discrepancies") xtitle("Discrepancy") fraction note("Difference between optimal and actual expected costs in the IP treatment (by round)") color(navy)
+graph export "./Graphs/hist_costs_discr.png", width(1200) height(800) replace
+
+
 
 **Baseline WTP difference: risk-aversion and belief accuracy:
 eststo clear
@@ -832,8 +747,6 @@ esttab using "./Tables/table_wtp_ra2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate
 
 
 
-
-
 log close
-cmdlog using "./Temp/mainwaves_analysis.log"
+
 
