@@ -445,24 +445,24 @@ xtset subject_id question
 
 ****-- INFORMED PROTECTION --****
 eststo clear
-eststo: probit ip_ be_, vce(robust)
-eststo: probit ip_ be_ bel_err, vce(robust)
-eststo: probit ip_ i.goodquiz##c.be_ i.goodquiz##c.bel_err, vce(robust)
-eststo: probit ip_ i.stat_educ##c.be_ i.stat_educ##c.bel_err, vce(robust)
-esttab using "./Tables/table_ip3.tex", b(%9.3g) t(%9.1f) aic(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: probit ip_ be_, vce(cluster subject_id)
+eststo: probit ip_ be_ bel_err, vce(cluster subject_id)
+eststo: probit ip_ i.goodquiz##c.be_ i.goodquiz##c.bel_err, vce(cluster subject_id)
+eststo: probit ip_ i.stat_educ##c.be_ i.stat_educ##c.bel_err, vce(cluster subject_id)
+esttab using "./Tables/table_ip3.tex", b(%9.3g) se(%9.1f) aic(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
 ****-- BELIEF ELICITATION --****
 *Testing the accuracy of reported beliefs***
 eststo clear
-eststo: reg bel_err phintWB phintBW, vce(robust)
-eststo: reg bel_err i.plevel phintWB phintBW, vce(robust)
-eststo: reg bel_err i.goodquiz##c.phintWB i.goodquiz##c.phintBW, vce(robust)
-eststo: reg bel_err i.goodquiz##i.plevel i.goodquiz##c.phintWB i.goodquiz##c.phintBW, vce(robust)
-eststo: reg bel_err i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(robust)
-eststo: reg bel_err i.stat_educ##i.plevel i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(robust)
-esttab using "./Tables/table_be2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Prior prob dummies = *.plevel) nobaselevels compress nogaps replace
+eststo: reg bel_err phintWB phintBW, vce(cluster subject_id)
+eststo: reg bel_err i.plevel phintWB phintBW, vce(cluster subject_id)
+eststo: reg bel_err i.goodquiz##c.phintWB i.goodquiz##c.phintBW, vce(cluster subject_id)
+eststo: reg bel_err i.goodquiz##i.plevel i.goodquiz##c.phintWB i.goodquiz##c.phintBW, vce(cluster subject_id)
+eststo: reg bel_err i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(cluster subject_id)
+eststo: reg bel_err i.stat_educ##i.plevel i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(cluster subject_id)
+esttab using "./Tables/table_be2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Prior prob dummies = *.plevel) nobaselevels compress nogaps replace
 
 
 ****MEASURING THE INFORMED PROTECTION RESPONSE TO BELIEFS VS POSTERIORS AND GRAPHING IT:
@@ -657,24 +657,24 @@ graph export "./Graphs/hist_costs_discr.png", width(1200) height(800) replace
 
 **Baseline WTP difference: risk-aversion and belief accuracy:
 eststo clear
-eststo: reg ip_val_diff false_pos false_neg, vce(robust)
-eststo: reg ip_val_diff i.plevel false_pos false_neg, vce(robust)
-eststo: reg ip_val_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(robust)
-eststo: reg ip_val_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(robust)
-eststo: reg ip_val_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(robust)
-eststo: reg ip_val_diff i.accur_bel##i.plevel i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(robust)
-esttab using "./Tables/table_costs1.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Expected costs discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: reg ip_val_diff false_pos false_neg, vce(cluster subject_id)
+eststo: reg ip_val_diff i.plevel false_pos false_neg, vce(cluster subject_id)
+eststo: reg ip_val_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
+eststo: reg ip_val_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
+eststo: reg ip_val_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
+eststo: reg ip_val_diff i.accur_bel##i.plevel i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
+esttab using "./Tables/table_costs1.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Expected costs discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
 eststo clear
-eststo: reg ip_val_diff false_pos false_neg if abs(ip_val_diff)<3, vce(robust)
-eststo: reg ip_val_diff i.plevel false_pos false_neg if abs(ip_val_diff)<3, vce(robust)
-eststo: reg ip_val_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg if abs(ip_val_diff)<3, vce(robust)
-eststo: reg ip_val_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg if abs(ip_val_diff)<3, vce(robust)
-eststo: reg ip_val_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg if abs(ip_val_diff)<3, vce(robust)
-eststo: reg ip_val_diff i.accur_bel##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg if abs(ip_val_diff)<3, vce(robust)
-esttab using "./Tables/table_costs2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Expected costs discrepancy (without 10\% outliers)) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: reg ip_val_diff false_pos false_neg if abs(ip_val_diff)<3, vce(cluster subject_id)
+eststo: reg ip_val_diff i.plevel false_pos false_neg if abs(ip_val_diff)<3, vce(cluster subject_id)
+eststo: reg ip_val_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg if abs(ip_val_diff)<3, vce(cluster subject_id)
+eststo: reg ip_val_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg if abs(ip_val_diff)<3, vce(cluster subject_id)
+eststo: reg ip_val_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg if abs(ip_val_diff)<3, vce(cluster subject_id)
+eststo: reg ip_val_diff i.accur_bel##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg if abs(ip_val_diff)<3, vce(cluster subject_id)
+esttab using "./Tables/table_costs2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Expected costs discrepancy (without 10\% outliers)) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -685,63 +685,64 @@ esttab using "./Tables/table_costs2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(
 **Baseline WTP difference: risk-aversion and belief accuracy:
 eststo clear
 
-eststo: reg wtp_diff false_pos false_neg, vce(robust)
-eststo: reg wtp_diff i.plevel false_pos false_neg, vce(robust)
+eststo: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.plevel false_pos false_neg, vce(cluster subject_id)
 
-eststo: reg wtp_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(robust)
-eststo: reg wtp_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(robust)
+eststo: reg wtp_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
 
-eststo: reg wtp_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(robust)
-eststo: reg wtp_diff i.accur_bel##i.plevel i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(robust)
-esttab using "./Tables/table_wtpdiff_01.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: reg wtp_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.accur_bel##i.plevel i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_01.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
 
 *Demographic variables:
 eststo clear
-eststo: reg wtp_diff false_pos false_neg, vce(robust)
-eststo: reg wtp_diff i.sex##c.false_pos i.sex##c.false_neg, vce(robust)
-eststo: reg wtp_diff i.sex##i.plevel i.sex##c.false_pos i.sex##c.false_neg, vce(robust)
+eststo: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.sex##c.false_pos i.sex##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.sex##i.plevel i.sex##c.false_pos i.sex##c.false_neg, vce(cluster subject_id)
 
-eststo: reg wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(robust)
-eststo: reg wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(robust)
+eststo: reg wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
 
-eststo: reg wtp_diff i.old##c.false_pos i.old##c.false_neg, vce(robust)
-eststo: reg wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, vce(robust)
+eststo: reg wtp_diff i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
 
-eststo: reg wtp_diff i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(robust)
-eststo: reg wtp_diff i.goodquiz##i.plevel i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(robust)
+eststo: reg wtp_diff i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.goodquiz##i.plevel i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
 
 
-esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy, demographic variables)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy, demographic variables)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
 *Accounting for risk aversion:
 eststo clear
-eststo: reg wtp_diff i.plevel false_pos false_neg if !missing(wtp_diff0), vce(robust)
-eststo: reg wtp_diff1 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(robust)
-eststo: reg wtp_diff2 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(robust)
-eststo: reg wtp_diff3 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(robust)
-eststo: reg wtp_diff4 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(robust)
-eststo: reg wtp_diff0 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(robust)
-esttab using "./Tables/table_wtp_ra.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label title(WTP for Information (different risk aversion)) mtitles("$\theta=0$" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$" "Heterogeneous $\theta$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg wtp_diff i.plevel false_pos false_neg if !missing(wtp_diff0), vce(cluster subject_id)
+eststo: reg wtp_diff1 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(cluster subject_id)
+eststo: reg wtp_diff2 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(cluster subject_id)
+eststo: reg wtp_diff3 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(cluster subject_id)
+eststo: reg wtp_diff4 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(cluster subject_id)
+eststo: reg wtp_diff0 i.plevel false_pos false_neg if !missing(wtp_diff0), vce(cluster subject_id)
+esttab using "./Tables/table_wtp_ra.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label title(WTP for Information (different risk aversion)) mtitles("$\theta=0$" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$" "Heterogeneous $\theta$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
 
 
 eststo clear
-eststo: reg wtp_diff i.plevel false_pos false_neg, vce(robust)
-eststo: reg wtp_diff1 i.plevel false_pos false_neg, vce(robust)
-eststo: reg wtp_diff2 i.plevel false_pos false_neg, vce(robust)
-eststo: reg wtp_diff3 i.plevel false_pos false_neg, vce(robust)
-eststo: reg wtp_diff4 i.plevel false_pos false_neg, vce(robust)
-esttab using "./Tables/table_wtp_ra2.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label title(WTP for Information (different risk aversion)) mtitles("$\theta=0$" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$" "Heterogeneous $\theta$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
+eststo: reg wtp_diff i.plevel false_pos false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff1 i.plevel false_pos false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff2 i.plevel false_pos false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff3 i.plevel false_pos false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff4 i.plevel false_pos false_neg, vce(cluster subject_id)
+esttab using "./Tables/table_wtp_ra2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label title(WTP for Information (different risk aversion)) mtitles("$\theta=0$" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
 
 
 
+bys plevel: reg wtp_diff1 false_pos false_neg, vce(cluster subject_id)
 
 *Tobit WTP tables (currently dropped for brevity)
 
