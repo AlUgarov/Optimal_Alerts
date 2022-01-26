@@ -277,6 +277,8 @@ merge m:1 participant_id using "./Temp/blind_collapsed.dta"
 keep if _merge==3
 drop _merge
 
+drop if pilot==1 //dropping the pilot
+
 sort participant_id round
 
 **Calculate the maximum willingness-to-pay for info for each participant/round (wtp):
@@ -442,6 +444,11 @@ graph export "./Graphs/updating_s2.png", width(1200) height(800) replace
 ****----MAIN REGRESSIONS (beliefs and informed protection)---***********
 **********************************************
 xtset subject_id question
+drop if pilot==1 //now dropping the pilot
+
+
+
+
 
 ****-- INFORMED PROTECTION --****
 eststo clear
@@ -463,6 +470,17 @@ eststo: reg bel_err i.goodquiz##i.plevel i.goodquiz##c.phintWB i.goodquiz##c.phi
 eststo: reg bel_err i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(cluster subject_id)
 eststo: reg bel_err i.stat_educ##i.plevel i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(cluster subject_id)
 esttab using "./Tables/table_be2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Prior prob dummies = *.plevel) nobaselevels compress nogaps replace
+
+
+bys plevel: probit ip_ post_prob, vce(cluster subject_id)
+
+bys plevel: probit ip_ i.blackhint#c.post_prob, vce(cluster subject_id)
+bys plevel: probit ip_ i.treatm_type##c.post_prob, vce(cluster subject_id)
+
+gen psignalblack=p*phintBB+(1-p)*phintBW
+gen psignalwhite=1-psignalblack
+gen pifsignblack=p*phintBB/psignalblack
+
 
 
 ****MEASURING THE INFORMED PROTECTION RESPONSE TO BELIEFS VS POSTERIORS AND GRAPHING IT:
@@ -531,6 +549,8 @@ merge m:1 participant_id p using "./Temp/bp_val.dta" //risk aversion, blind prot
 drop if _merge==2
 drop _merge
 
+drop if pilot==1 //dropping the pilot
+
 *calculate theoretical value of signal for a risk-neutral subject:
 gen cost_bp=min(p*loss, protectioncost) //expected blind protection cost
 gen false_pos=(1-p)*phintBW*protectioncost //expected protection costs for false positives
@@ -578,13 +598,13 @@ qui mata:
 	  V=-99
 	}
 	else {
-      mm_root(V=., &myfunc2(), 0, 5, 0.0001, 1000, p,phintWW,phintBB,theta)
+      mm_root(V=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,theta)
 	}
 	Z[i]=V
-	mm_root(V1=., &myfunc2(), 0, 5, 0.0001, 1000, p,phintWW,phintBB,0.5)
-	mm_root(V2=., &myfunc2(), 0, 5, 0.0001, 1000, p,phintWW,phintBB,1)
-	mm_root(V3=., &myfunc2(), 0, 5, 0.0001, 1000, p,phintWW,phintBB,1.5)
-	mm_root(V4=., &myfunc2(), 0, 5, 0.0001, 1000, p,phintWW,phintBB,2.5)
+	mm_root(V1=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,0.5)
+	mm_root(V2=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,1)
+	mm_root(V3=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,1.5)
+	mm_root(V4=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,2.5)
 	Z1[i]=V1
 	Z2[i]=V2
 	Z3[i]=V3
@@ -609,6 +629,10 @@ end
 
 replace value_ra=. if ((backswitcher==1))
 replace value_ra=0 if value_ra<0
+replace value_ra1=0 if value_ra1<0
+replace value_ra2=0 if value_ra2<0
+replace value_ra3=0 if value_ra3<0
+replace value_ra4=0 if value_ra4<0
 replace value_ra=. if theta==-1
 
 
@@ -649,9 +673,20 @@ gen wtp_diff4=wtp-value_ra4
 
 label values accur_bel accur_bel_l //restoring lost value labels
 
-
+*Histograms:
 hist ip_val_diff, title("Distribution of expected costs discrepancies") xtitle("Discrepancy") fraction note("Difference between optimal and actual expected costs in the IP treatment (by round)") color(navy)
 graph export "./Graphs/hist_costs_discr.png", width(1200) height(800) replace
+
+hist wtp_diff, title("Distribution of WTP discrepancies (WTP - Value)") xtitle("USD") fraction note("Difference between stated wtp and theoretical value for a risk-neutral subject (each choice=obs)") color(navy)
+graph export "./Graphs/hist_WTP_discr1.png", width(1200) height(800) replace
+
+sort subject_id
+gen wtp_diff_abs=abs(wtp_diff)
+by subject_id: egen totwtp_diff=sum(wtp_diff_abs)
+replace totwtp_diff=(1/6)*totwtp_diff
+
+hist totwtp_diff, title("Distribution of WTP discrepancies (WTP - Value)") xtitle("USD") fraction note("Average absolute deviation between stated wtp and theoretical value for a risk-neutral subject, by subject") color(navy)
+graph export "./Graphs/hist_WTP_discr2.png", width(1200) height(800) replace
 
 
 
@@ -677,8 +712,13 @@ eststo: reg ip_val_diff i.accur_bel##i.plevel i.risk_averse##c.false_pos i.risk_
 esttab using "./Tables/table_costs2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior prob dummies = *.plevel) label title(Expected costs discrepancy (without 10\% outliers)) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
-
-
+*expected costs by prior prob:
+eststo clear
+eststo: reg ip_val_diff false_pos false_neg if plevel==100, vce(cluster subject_id)
+eststo: reg ip_val_diff false_pos false_neg if plevel==200, vce(cluster subject_id)
+eststo: reg ip_val_diff false_pos false_neg if plevel==300, vce(cluster subject_id)
+eststo: reg ip_val_diff false_pos false_neg if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_costs3.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Expected costs discrepancy by prior) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -717,6 +757,38 @@ eststo: reg wtp_diff i.goodquiz##i.plevel i.goodquiz##c.false_pos i.goodquiz##c.
 esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy, demographic variables)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
+*By prior prob:
+eststo clear
+eststo: reg wtp_diff false_pos false_neg if plevel==100, vce(cluster subject_id)
+eststo: reg wtp_diff false_pos false_neg if plevel==200, vce(cluster subject_id)
+eststo: reg wtp_diff false_pos false_neg if plevel==300, vce(cluster subject_id)
+eststo: reg wtp_diff false_pos false_neg if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_03.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy, by prior)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+*Testing heterogeneity
+reg wtp_diff i.plevel##c.false_pos i.plevel##c.false_neg, vce(cluster subject_id)
+contrast plevel plevel#c.false_pos plevel#c.false_neg, overall
+
+*By prior prob:
+eststo clear
+eststo: tobit wtp false_pos false_neg if plevel==100, ll(0) ul(5)
+eststo: tobit wtp false_pos false_neg if plevel==200, ll(0) ul(5)
+eststo:tobit wtp false_pos false_neg if plevel==300, ll(0) ul(5)
+eststo: tobit wtp false_pos false_neg if plevel==500, ll(0) ul(5)
+esttab using "./Tables/table_wtpdiff_04.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Tobit, by prior)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+*By prior prob:
+eststo clear
+eststo: tobit wtp phintBW phintWB if plevel==100, ll(0) ul(5)
+eststo: tobit wtp phintBW phintWB if plevel==200, ll(0) ul(5)
+eststo:tobit wtp phintBW phintWB if plevel==300, ll(0) ul(5)
+eststo: tobit wtp phintBW phintWB if plevel==500, ll(0) ul(5)
+esttab using "./Tables/table_wtpdiff_05.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Tobit, by prior)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
 
 *Accounting for risk aversion:
 eststo clear
@@ -739,14 +811,35 @@ eststo: reg wtp_diff3 i.plevel false_pos false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff4 i.plevel false_pos false_neg, vce(cluster subject_id)
 esttab using "./Tables/table_wtp_ra2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label title(WTP for Information (different risk aversion)) mtitles("$\theta=0$" "$\theta=0.5$" "$\theta=1.0$" "$\theta=1.5$" "$\theta=2.5$") star("*" 0.10 "**" 0.05 "***" 0.01) compress nogaps replace
 
+*Paying positive amounts for signals not affecting their protection choices:
+gen pay_notuse=(wtp>0)&(ip_b==ip_w)
+gen use_signal=(ip_b>ip_w)
 
 
 
+
+
+
+tab pay_notuse //many choices are inconsistent
+
+//most subjects make at least one inconsistent choice here:
+sort subject_id
+by subject_id: egen totpay_notuse=sum(pay_notuse)
+tab totpay_notuse
+
+
+bys plevel: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
 bys plevel: reg wtp_diff1 false_pos false_neg, vce(cluster subject_id)
+
+bys plevel: reg wtp_diff1 false_pos false_neg i.subject_id, vce(cluster subject_id)
+
+bys plevel: sum false_pos false_neg
 
 *Tobit WTP tables (currently dropped for brevity)
 
+collapse (mean) wtp value wtp_diff (sd) wtpsd=wtp (first) p false_pos false_neg (count) nobs=wtp, by(treatn)
 
+scatter wtp_diff p
 
 log close
 
