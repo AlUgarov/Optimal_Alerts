@@ -1,0 +1,38 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{WTP}&\multicolumn{1}{c}{WTP}&\multicolumn{1}{c}{WTP(stat)}&\multicolumn{1}{c}{WTP(stat)}&\multicolumn{1}{c}{Value(RN)}&\multicolumn{1}{c}{Value(RN)}\\
+\hline
+model           &                  &                  &                  &                  &                  &                  \\
+Prior prob.     &     3.73\sym{***}&     5.31\sym{*}  &     3.87\sym{***}&     5.28         &     1.85\sym{***}&     25.5\sym{***}\\
+                &    (0.8)         &    (3.0)         &    (1.0)         &    (3.6)         &    (0.3)         &    (0.1)         \\
+FP total prob.  &     1.81         &     5.68         &     1.86         &      2.3         &    -6.33\sym{***}&    -5.18\sym{***}\\
+                &    (3.8)         &    (6.6)         &    (4.9)         &    (8.1)         &    (1.5)         &    (0.2)         \\
+FN total prob.  &    -2.79         &    -13.8         &     -4.8         &    -8.62         &    -16.1\sym{***}&    -13.1\sym{***}\\
+                &    (3.8)         &   (10.1)         &    (4.9)         &   (12.4)         &    (1.5)         &    (0.5)         \\
+FP rate         &    -4.43         &    -5.88\sym{*}  &    -4.14         &    -4.34         &      1.1         &    .0257         \\
+                &    (2.8)         &    (3.3)         &    (3.7)         &    (4.3)         &    (1.1)         &    (0.1)         \\
+FN rate         &    -2.35\sym{**} &       -1         &    -1.55         &    -1.11         &     .216         &    -.106\sym{**} \\
+                &    (1.2)         &    (1.6)         &    (1.5)         &    (2.0)         &    (0.4)         &    (0.1)         \\
+p squared       &                  &    -2.28         &                  &    -2.26         &                  &    -38.5\sym{***}\\
+                &                  &    (4.6)         &                  &    (5.6)         &                  &    (0.1)         \\
+FP total prob. sq.&                  &    -8.39         &                  &    -.811         &                  &     .739\sym{**} \\
+                &                  &   (12.6)         &                  &   (15.3)         &                  &    (0.3)         \\
+FN total prob. sq.&                  &     57.7         &                  &     20.9         &                  &      -18\sym{***}\\
+                &                  &   (49.2)         &                  &   (62.0)         &                  &    (3.5)         \\
+Constant        &     1.46\sym{***}&     1.25\sym{***}&     1.25\sym{***}&     1.09\sym{**} &      2.1\sym{***}&    -.646\sym{***}\\
+                &    (0.2)         &    (0.4)         &    (0.3)         &    (0.5)         &    (0.1)         &    (0.0)         \\
+\hline
+sigma           &                  &                  &                  &                  &                  &                  \\
+Constant        &     1.88\sym{***}&     1.88\sym{***}&      1.8\sym{***}&      1.8\sym{***}&     .708\sym{***}&    .0479\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.0)         &    (0.0)         \\
+\hline
+Observations    &      630         &      630         &      378         &      378         &      630         &      630         \\
+Adjusted \(R^{2}\)&                  &                  &                  &                  &                  &                  \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

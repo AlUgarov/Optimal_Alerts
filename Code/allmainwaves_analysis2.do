@@ -243,7 +243,7 @@ save "./Temp/blind_collapsed.dta", replace
 use "./Temp/bp_val.dta", replace
 gen pilot=0
 
-append using "./Temp/bp_val_pilot.dta"
+*append using "./Temp/bp_val_pilot.dta"
 replace pilot=1 if missing(pilot)
 
 keep participant_id p bp bp_val pilot
@@ -259,7 +259,7 @@ save "./Temp/bp_val.dta", replace
 use "./Temp/mainwaves_wide.dta", replace
 
 *add the pilot's data:
-append using "./Temp/pilot_wide.dta"
+*append using "./Temp/pilot_wide.dta"
 encode participant_id, gen(subject_id) //as participant_id is initially a string
 
 
@@ -336,9 +336,12 @@ label var ip_val_o "Optimal exp. costs"
 
 gen ip_val_diff=ip_val-ip_val_o //discrepancy between actual and optimal expected costs of informed protection
 
+replace ip_val_diff=-ip_val_diff
+
 list subject_id p ip_w ip_b ip_val ip_val_o ip_val_diff if abs(ip_val_diff)>3
 //large discrepancies emerge when subjects take contrarian actions in the informed protection (e.g. protect when white and do not protect when black)
 
+sum ip_w ip_w_o ip_b ip_b_o if p<0.15&phintWB>0
 
 //Calc exp costs under the optimal strategy for reported(!) beliefs:
 gen phintB=p*phintBB+(1-p)*phintBW //ideally we should elicit these probabilities within the experiment
@@ -459,6 +462,72 @@ eststo: probit ip_ i.stat_educ##c.be_ i.stat_educ##c.bel_err, vce(cluster subjec
 esttab using "./Tables/table_ip3.tex", b(%9.3g) se(%9.1f) aic(%9.2f) label title(Informed Protection: Response to Reported Beliefs) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
+**protection decisions: studying compounding neglect
+eststo clear
+eststo: probit ip_ post_prob p phintBW phintWB
+
+
+
+
+*expected response by prior prob:
+gen whitehint=1-blackhint
+eststo clear
+eststo: probit ip_ blackhint i.blackhint#c.phintBW i.blackhint#c.phintWB, vce(cluster subject_id)
+eststo: probit ip_ blackhint i.blackhint#c.phintBW i.blackhint#c.phintWB if plevel==100, vce(cluster subject_id)
+eststo: probit ip_ blackhint i.blackhint#c.phintBW i.blackhint#c.phintWB  if plevel==200, vce(cluster subject_id)
+eststo: probit ip_ blackhint i.blackhint#c.phintBW i.blackhint#c.phintWB  if plevel==300, vce(cluster subject_id)
+eststo: probit ip_ blackhint i.blackhint#c.phintBW i.blackhint#c.phintWB  if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_ip4.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Informed protection by prior) mtitles("All" "0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+gen highprob=p>0.2
+label var highprob "p$>$0.2"
+label define highprob_l 0 "p $\geq$ 0.2" 1 "p$>$0.2"
+label values highprob highprob_l
+
+
+gen post_prob01=0
+replace post_prob01=0 if post_prob<0.2
+
+gen post_prob02=0
+replace post_prob02=post_prob if post_prob>=0.2&post_prob<0.4
+
+gen post_prob03=0
+replace post_prob03=post_prob if post_prob>=0.4&post_prob<0.6
+
+
+gen post_prob04=0
+replace post_prob02=post_prob if post_prob>=0.6&post_prob<0.8
+
+gen post_prob05=0
+replace post_prob05=post_prob if post_prob>=0.8
+
+xtset subject_id
+eststo clear
+eststo: probit ip_ post_prob0* phintBW phintWB, vce(cluster subject_id)
+eststo: probit ip_ post_prob0* phintBW phintWB i.subject_id, vce(cluster subject_id)
+eststo: probit ip_ post_prob0* i.highprob##c.phintBW i.highprob##c.phintWB, vce(cluster subject_id)
+eststo: probit ip_ post_prob0* i.highprob##c.phintBW i.highprob##c.phintWB i.subject_id, vce(cluster subject_id)
+eststo: probit ip_ post_prob0* i.blackhint##c.phintBW i.blackhint##c.phintWB, vce(cluster subject_id)
+eststo: probit ip_ post_prob0* i.blackhint##c.phintBW i.blackhint##c.phintWB i.subject_id, vce(cluster subject_id)
+esttab using "./Tables/table_ip5.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Subject FE=*.subject_id) drop(post_prob0*) mtitles("" "" "" "" "" "") title(Informed protection by prior) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+gen post_prob2=post_prob^2
+
+
+eststo clear
+eststo: probit ip_ post_prob post_prob2 phintBW phintWB , vce(cluster subject_id)
+eststo: probit ip_ post_prob post_prob2 phintBW phintWB if plevel==100, vce(cluster subject_id)
+eststo: probit ip_ post_prob post_prob2 phintBW phintWB if plevel==200, vce(cluster subject_id)
+eststo: probit ip_ post_prob post_prob2 phintBW phintWB if plevel==300, vce(cluster subject_id)
+eststo: probit ip_ post_prob post_prob2 phintBW phintWB if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_ip4.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Informed protection by prior) mtitles("All" "0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
 
 ****-- BELIEF ELICITATION --****
 *Testing the accuracy of reported beliefs***
@@ -472,6 +541,33 @@ eststo: reg bel_err i.stat_educ##i.plevel i.stat_educ##c.phintWB i.stat_educ##c.
 esttab using "./Tables/table_be2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Prior prob dummies = *.plevel) nobaselevels compress nogaps replace
 
 
+**prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)
+gen lt_bel=log(be_/(1-be_))
+gen lt_prior=log(p/(1-p))
+gen lambda_B=log(phintBB/phintBW)
+gen lambda_W=log((1-phintBB)/(1-phintBW))
+gen lt_posterior=log(post_prob/(1-post_prob)) //just for verification
+gen signalB=blackhint*lambda_B
+gen signalW=(1-blackhint)*lambda_W
+gen signal=signalB+signalW
+sum lt_bel lt_posterior lt_prior signalB signalW
+
+label var lt_prior "Prior"
+label var signal "Signal"
+*Decomposition of belief updating (coeffs should be all ones)***
+eststo clear
+eststo: reg lt_bel lt_prior signal, noconstant vce(cluster subject_id)
+eststo: xtreg lt_bel lt_prior signal, fe vce(cluster subject_id)
+eststo: reg lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, noconstant vce(cluster subject_id)
+eststo: xtreg lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, fe vce(cluster subject_id)
+eststo: reg lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, noconstant vce(cluster subject_id)
+eststo: xtreg lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, fe vce(cluster subject_id)
+esttab using "./Tables/table_be3.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) note("Decomposition works only for imperfect signals") nobaselevels compress nogaps replace
+
+
+
+
+
 bys plevel: probit ip_ post_prob, vce(cluster subject_id)
 
 bys plevel: probit ip_ i.blackhint#c.post_prob, vce(cluster subject_id)
@@ -480,6 +576,7 @@ bys plevel: probit ip_ i.treatm_type##c.post_prob, vce(cluster subject_id)
 gen psignalblack=p*phintBB+(1-p)*phintBW
 gen psignalwhite=1-psignalblack
 gen pifsignblack=p*phintBB/psignalblack
+
 
 
 
@@ -494,9 +591,13 @@ by subject_id: egen rbe=rank(be_)
 gen rbe0=(1-ip_)*rbe
 gen rbe1=ip_*rbe
 
+by subject_id: egen rblackhint=rank(blackhint)
+gen rblackhint0=(1-ip_)*rblackhint
+gen rblackhint1=ip_*rblackhint
+
 gen bel_errsq=bel_err^2
 
-collapse (first) tot_bel_err accur_bel (sum) bel_errsq sumrank_prob0=rpostprob0 sumrank_prob1=rpostprob1 sumrank_bel0=rbe0 sumrank_bel1=rbe1 n1=ip_, by(subject_id)
+collapse (first) tot_bel_err accur_bel (sum) bel_errsq sumrank_prob0=rpostprob0 sumrank_prob1=rpostprob1 sumrank_bel0=rbe0 sumrank_bel1=rbe1  sumbh0=rblackhint0 sumbh1=rblackhint1 n1=ip_, by(subject_id)
 label var accur_bel "Accur. beliefs"
 label values accur_bel accur_bel_l
 
@@ -505,8 +606,10 @@ gen correction=n1*(n1+1)/2
 sum sumrank_prob0 sumrank_prob1
 gen U_postprob=sumrank_prob1-correction
 gen U_bel=sumrank_bel1-correction
+gen U_blackhint=sumbh1-correction
 
-sum U_postprob U_bel
+
+sum U_postprob U_bel U_blackhint
 
 gen bel_precision=1/sqrt(bel_errsq)
 
@@ -551,6 +654,26 @@ drop _merge
 
 drop if pilot==1 //dropping the pilot
 
+
+**calculate posterior probabilities WITH base-rate neglect and signal underweighting
+local alph=0.43 //signal weighting
+local beta=0.246 //prior weighting
+
+gen post_prob_adj_W=(phintWB^(`alph'))*(p^(`beta'))/((phintWB^(`alph'))*(p^(`beta'))+(phintWW^(`alph'))*((1-p)^(`beta')) )
+gen post_prob_adj_B=(phintBB^(`alph'))*(p^(`beta'))/((phintBB^(`alph'))*(p^(`beta'))+(phintBW^(`alph'))*((1-p)^(`beta')) )
+gen post_probw=post_prob_adj_B
+gen post_prob=p*phintBB/(p*phintBB+(1-p)*phintBW)
+*gen post_prob0=blackhint*p*phintBB/(p*phintBB+(1-p)*phintBW)+(1-blackhint)*p*phintWB/(p*phintWB+(1-p)*phintWW)
+
+reg post_probw post_prob
+
+
+gen protect_adj_B=post_probw>(protectioncost/loss)
+gen protect_adj_W=post_prob_adj_W>(protectioncost/loss)
+sum post_prob if protect_adj_W==1&protect_adj_B==0
+
+
+
 *calculate theoretical value of signal for a risk-neutral subject:
 gen cost_bp=min(p*loss, protectioncost) //expected blind protection cost
 gen false_pos=(1-p)*phintBW*protectioncost //expected protection costs for false positives
@@ -562,6 +685,38 @@ gen false_neg=p*phintWB*loss //expected false positive costs
 gen cost_ip=false_neg+false_pos+true_pos //total informed protection costs
 gen pos_cost=false_pos+true_pos //total protection costs in response to positive signals
 gen value=max(0, cost_bp-cost_ip) //theoretical value for a risk-neutral subject
+
+gen value_adj=value
+replace value_adj=0 if protect_adj_W==1 //no value in the signal if protecting anyway
+
+
+//drop gamma pw
+gen gamma=0.6
+gen pw=p^gamma/(p^gamma+(1-p)^gamma)^(1/gamma)
+tab p pw
+gen freqBW=(1-p)*phintBW
+gen freqBB=p*phintBB
+gen freqWB=p*phintWB
+
+gen freqBW_pw=freqBW^gamma/(freqBW^gamma+(1-freqBW)^gamma)^(1/gamma)
+gen freqBB_pw=freqBB^gamma/(freqBB^gamma+(1-freqBB)^gamma)^(1/gamma)
+gen freqWB_pw=freqWB^gamma/(freqWB^gamma+(1-freqWB)^gamma)^(1/gamma)
+sum freqBW_pw freqBB_pw freqWB_pw
+
+
+gen cost_bp_pw=min(pw*loss, protectioncost) //expected blind protection cost
+gen false_pos_pw=freqBW_pw*protectioncost //expected protection costs for false positives
+gen true_pos_pw=freqBB_pw*protectioncost //expected protection costs for true positives
+gen false_neg_pw=freqWB_pw*loss //expected false positive costs
+gen cost_ip_pw=false_neg_pw+false_pos_pw+true_pos_pw //total informed protection costs
+
+gen value_pw=max(0, cost_bp_pw-cost_ip_pw) 
+gen value_pw2=max(0, cost_bp-cost_ip_pw)
+
+
+
+corr wtp value value_pw value_pw2
+
 
 label var false_pos "FP costs"
 label var false_neg "FN costs"
@@ -580,7 +735,10 @@ gen theta4=2.5
 
 *calculate theoretical value for a risk-averse subject (both heterogeneous and uniform CRRA coeffs):
 qui mata:
+  //mata drop val_cara()
+  //mata drop myfunc2()
   function myfunc2(V,p,pWW,pBB,thet) return(infoval_diff(V,30,5,20,p,pWW,pBB,thet))
+  function val_cara(V,p,pWW,pBB,thet) return(infoval_diff_cara(V,30,5,20,p,pWW,pBB,thet))
   X = st_data(.,("p","phintWW","phintBB","theta"))
   Z=J(rows(X),1,0)
   
@@ -588,6 +746,8 @@ qui mata:
   Z2=J(rows(X),1,0)
   Z3=J(rows(X),1,0)
   Z4=J(rows(X),1,0)
+  Z5=J(rows(X),1,0)
+  Z6=J(rows(X),1,0)
   
   for(i=1; i<=rows(X); i++) {
     p=X[i,1]
@@ -605,10 +765,15 @@ qui mata:
 	mm_root(V2=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,1)
 	mm_root(V3=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,1.5)
 	mm_root(V4=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,2.5)
+	
+	mm_root(V5=., &val_cara(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,0.05)
+	mm_root(V6=., &val_cara(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,0.3)
 	Z1[i]=V1
 	Z2[i]=V2
 	Z3[i]=V3
 	Z4[i]=V4
+	Z5[i]=V5
+	Z6[i]=V6
   }
   mata drop myfunc2()
   idx = st_addvar("float", "value_ra")
@@ -625,6 +790,13 @@ qui mata:
   
   idx = st_addvar("float", "value_ra4")
   st_store(., "value_ra4", Z4)
+  
+  idx = st_addvar("float", "value_cara1")
+  st_store(., "value_cara1", Z5)
+  
+  idx = st_addvar("float", "value_cara2")
+  st_store(., "value_cara2", Z6)
+  
 end
 
 replace value_ra=. if ((backswitcher==1))
@@ -633,8 +805,11 @@ replace value_ra1=0 if value_ra1<0
 replace value_ra2=0 if value_ra2<0
 replace value_ra3=0 if value_ra3<0
 replace value_ra4=0 if value_ra4<0
+replace value_cara1=0 if value_cara1<0
+replace value_cara2=0 if value_cara2<0
 replace value_ra=. if theta==-1
 
+corr value value_ra value_ra1 value_cara1 value_cara2
 
 *risk-averse indicator:
 gen risk_averse=theta>0&backswitcher==0
@@ -664,14 +839,21 @@ hist wtp_time //50% of wtp questions are answered in less than 10.5 seconds
 
 *Calculate discrepancies between WTP and theoretical value for different risk aversion levels:
 gen wtp_diff=wtp-value
+gen wtp_diff_adj=wtp-value_adj
+gen wtp_diff_pw=wtp-value_pw
+gen wtp_diff_pw2=wtp-wtp-value_pw2
 gen wtp_diff0=wtp-value_ra
 gen wtp_diff1=wtp-value_ra1
 gen wtp_diff2=wtp-value_ra2
 gen wtp_diff3=wtp-value_ra3
 gen wtp_diff4=wtp-value_ra4
 
+gen wtp_diff5=wtp-value_cara1
+
 
 label values accur_bel accur_bel_l //restoring lost value labels
+
+
 
 *Histograms:
 hist ip_val_diff, title("Distribution of expected costs discrepancies") xtitle("Discrepancy") fraction note("Difference between optimal and actual expected costs in the IP treatment (by round)") color(navy)
@@ -722,18 +904,44 @@ esttab using "./Tables/table_costs3.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label ti
 
 
 
+
+
+gen highprob=p>0.2
+label var highprob "p$>$0.2"
+label define highprob_l 0 "p $\geq$ 0.2" 1 "p$>$0.2"
+label values highprob highprob_l
+
+
+*Note: there are some very large values in ip_val_diff and a lot of zeros -> results are sensitive to outliers
+
+eststo clear
+eststo: reg ip_val_diff phintBW phintWB, vce(cluster subject_id)
+eststo: reg ip_val_diff i.highprob##c.phintBW i.highprob##c.phintWB, vce(cluster subject_id)
+eststo: reg ip_val_diff phintBW phintWB if abs(ip_val_diff)<3, vce(cluster subject_id)
+eststo: reg ip_val_diff i.highprob##c.phintBW i.highprob##c.phintWB if abs(ip_val_diff)<3, vce(cluster subject_id)
+esttab using "./Tables/table_costs4.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Expected costs discrepancy by prior) mtitles("All" "All" "No_outl" "No_outl") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+
 **Baseline WTP difference: risk-aversion and belief accuracy:
 eststo clear
 
 eststo: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.plevel false_pos false_neg, vce(cluster subject_id)
+*eststo: reg wtp_diff i.plevel false_pos false_neg, vce(cluster subject_id)
 
 eststo: reg wtp_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
+*eststo: reg wtp_diff i.risk_averse##i.plevel i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
 
 eststo: reg wtp_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.accur_bel##i.plevel i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
-esttab using "./Tables/table_wtpdiff_01.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+*eststo: reg wtp_diff i.accur_bel##i.plevel i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
+
+eststo: reg wtp_diff i.highprob##c.false_pos i.highprob##c.false_neg, vce(cluster subject_id)
+
+esttab using "./Tables/table_wtpdiff_01r.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
 
 
 
@@ -746,15 +954,13 @@ eststo: reg wtp_diff i.sex##i.plevel i.sex##c.false_pos i.sex##c.false_neg, vce(
 
 eststo: reg wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
-
 eststo: reg wtp_diff i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
-
 eststo: reg wtp_diff i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.goodquiz##i.plevel i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
 
 
-esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy, demographic variables)) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP for Information (Discrepancy, demographic variables)) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 *By prior prob:
@@ -765,9 +971,16 @@ eststo: reg wtp_diff false_pos false_neg if plevel==300, vce(cluster subject_id)
 eststo: reg wtp_diff false_pos false_neg if plevel==500, vce(cluster subject_id)
 esttab using "./Tables/table_wtpdiff_03.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy, by prior)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
+bys plevel: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
+bys plevel: reg wtp_diff_pw false_pos false_neg, vce(cluster subject_id)
+
+
+
 *Testing heterogeneity
 reg wtp_diff i.plevel##c.false_pos i.plevel##c.false_neg, vce(cluster subject_id)
 contrast plevel plevel#c.false_pos plevel#c.false_neg, overall
+
+
 
 *By prior prob:
 eststo clear
@@ -788,6 +1001,57 @@ esttab using "./Tables/table_wtpdiff_05.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) labe
 
 
 
+*By prior prob 2:
+eststo clear
+eststo: reg wtp_diff phintBW phintWB if plevel==100, vce(cluster subject_id)
+eststo: reg wtp_diff phintBW phintWB if plevel==200, vce(cluster subject_id)
+eststo: reg wtp_diff phintBW phintWB if plevel==300, vce(cluster subject_id)
+eststo: reg wtp_diff phintBW phintWB if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_06.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy, by prior)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+
+
+
+*By prior prob:
+eststo clear
+eststo: tobit wtp highprob phintBW i.highprob#c.phintBW phintWB i.highprob#c.phintWB, ll(0) ul(5)
+eststo: tobit wtp highprob phintBW i.highprob#c.phintBW phintWB i.highprob#c.phintWB if goodquiz==1, ll(0) ul(5)
+eststo: tobit wtp highprob phintBW i.highprob#c.phintBW phintWB i.highprob#c.phintWB if stat_educ==1, ll(0) ul(5)
+eststo: tobit value highprob phintBW i.highprob#c.phintBW phintWB i.highprob#c.phintWB, ll(0) ul(5)
+esttab using "./Tables/table_wtp_val0.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title() mtitles("WTP" "WTP(good quiz)" "WTP(stateduc)" "Value(RN)") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+gen ps2=p^2
+label var ps2 "p squared"
+label var freqBW "FP total prob."
+label var freqWB "FN total prob."
+gen freqBWs=freqBW^2
+gen freqWBs=freqWB^2
+label var freqBWs "FP total prob. sq."
+label var freqWBs "FN total prob. sq."
+
+*Interaction stuff:
+eststo clear
+eststo: tobit wtp p freqBW freqWB phintBW phintWB, ll(0) ul(5)
+eststo: tobit wtp p freqBW freqWB phintBW phintWB ps2 freqBWs freqWBs, ll(0) ul(5)
+eststo: tobit wtp p freqBW freqWB phintBW phintWB if stat_educ==1, ll(0) ul(5)
+eststo: tobit wtp p freqBW freqWB phintBW phintWB ps2 freqBWs freqWBs if stat_educ==1, ll(0) ul(5)
+eststo: tobit value p freqBW freqWB phintBW phintWB, ll(0) ul(5)
+eststo: tobit value p freqBW freqWB phintBW phintWB ps2 freqBWs freqWBs, ll(0) ul(5)
+esttab using "./Tables/table_wtp_val1.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title() mtitles("WTP" "WTP" "WTP(stat)" "WTP(stat)" "Value(RN)" "Value(RN)") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+*By prior prob:
+eststo clear
+eststo: tobit wtp false_pos false_neg if plevel==100, ll(0) ul(5)
+eststo: tobit wtp false_pos false_neg if plevel==200, ll(0) ul(5)
+eststo:tobit wtp false_pos false_neg if plevel==300, ll(0) ul(5)
+eststo: tobit wtp false_pos false_neg if plevel==500, ll(0) ul(5)
+esttab using "./Tables/table_wtpdiff_04.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Tobit, by prior)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 *Accounting for risk aversion:
@@ -816,10 +1080,6 @@ gen pay_notuse=(wtp>0)&(ip_b==ip_w)
 gen use_signal=(ip_b>ip_w)
 
 
-
-
-
-
 tab pay_notuse //many choices are inconsistent
 
 //most subjects make at least one inconsistent choice here:
@@ -827,8 +1087,93 @@ sort subject_id
 by subject_id: egen totpay_notuse=sum(pay_notuse)
 tab totpay_notuse
 
-
+*sign-switching patterns: high sensitivity to FP when the prior prob is low and high sensit to FN when the prior is high
 bys plevel: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
+
+*checking if the sign-switching is due to treatments in which it is better not to respond to signals
+bys plevel: reg wtp_diff false_pos false_neg if value>0, vce(cluster subject_id)
+
+*checking if the sign-switching is due to base-rate neglect or signal underweighting (adjustments corrects value for signals which should be neglected if the bayesian updating is biased)
+bys plevel: reg wtp_diff_adj false_pos false_neg, vce(cluster subject_id)
+
+*make the table for quasi-bayesian updating:
+eststo clear
+eststo: reg wtp_diff_adj false_pos false_neg if plevel==100, vce(cluster subject_id)
+eststo: reg wtp_diff_adj false_pos false_neg if plevel==200, vce(cluster subject_id)
+eststo: reg wtp_diff_adj false_pos false_neg if plevel==300, vce(cluster subject_id)
+eststo: reg wtp_diff_adj false_pos false_neg if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_bel.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+*make the table for quasi-bayesian updating:
+eststo clear
+eststo: reg wtp_diff_pw false_pos false_neg if plevel==100, vce(cluster subject_id)
+eststo: reg wtp_diff_pw false_pos false_neg if plevel==200, vce(cluster subject_id)
+eststo: reg wtp_diff_pw false_pos false_neg if plevel==300, vce(cluster subject_id)
+eststo: reg wtp_diff_pw false_pos false_neg if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_probw.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+*make the table for quasi-bayesian updating 2 (no reweighting for BP):
+eststo clear
+eststo: reg wtp_diff_pw2 false_pos false_neg if plevel==100, vce(cluster subject_id)
+eststo: reg wtp_diff_pw2 false_pos false_neg if plevel==200, vce(cluster subject_id)
+eststo: reg wtp_diff_pw2 false_pos false_neg if plevel==300, vce(cluster subject_id)
+eststo: reg wtp_diff_pw2 false_pos false_neg if plevel==500, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_probw2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+save "./Temp/wtpdat.dta", replace
+
+*calculate the discrepancy between reweighted and not reweighted probabilities:
+drop value_pw value_pw2 gamma pw freqBW_pw freqBB_pw freqWB_pw cost_bp_pw cost_ip_pw pw
+
+tempname p1
+postfile `p1' prior ms1 ms2 using "./Output/prob_transf_res.dta", replace
+
+forvalues i = 1/10{
+    local gamma=`i' * .1
+    display(`gamma')
+	local p=`gamma'
+    gen gamma=`gamma'
+	gen pw=p^gamma/(p^gamma+(1-p)^gamma)^(1/gamma)
+
+	gen freqBW_pw=freqBW^gamma/(freqBW^gamma+(1-freqBW)^gamma)^(1/gamma)
+	gen freqBB_pw=freqBB^gamma/(freqBB^gamma+(1-freqBB)^gamma)^(1/gamma)
+	gen freqWB_pw=freqWB^gamma/(freqWB^gamma+(1-freqWB)^gamma)^(1/gamma)
+
+	gen cost_bp_pw=min(pw*loss, protectioncost) //expected blind protection cost
+	gen cost_ip_pw=freqWB_pw*loss+freqBW_pw*protectioncost+freqBB_pw*protectioncost //total informed protection costs
+
+	gen value_pw=max(0, cost_bp_pw-cost_ip_pw) 
+	gen value_pw2=max(0, cost_bp-cost_ip_pw)
+	gen err_pw=(wtp-value_pw)^2
+	sum err_pw
+	local ms1=r(mean)
+	gen err_pw2=(wtp-value_pw2)^2
+	sum err_pw2
+	local ms2=r(mean)
+
+	drop value_pw value_pw2 gamma pw freqBW_pw freqBB_pw freqWB_pw cost_bp_pw cost_ip_pw err_pw err_pw2
+	post `p1' (`gamma') (`ms1') (`ms2')
+}
+
+
+postclose `p1'
+
+use "./Output/prob_transf_res.dta", replace
+
+
+
+use "./Temp/wtpdat.dta", replace
+
+sort subject_id
+by subect_id: egen tot_diff=sum(subject_id)
+
+sum tot_diff
+
+
+gen wtp_diff_ur=wtp-(cost_bp-cost_ip)
+bys plevel: reg wtp_diff_ur false_pos false_neg, vce(cluster subject_id)
+
 bys plevel: reg wtp_diff1 false_pos false_neg, vce(cluster subject_id)
 
 bys plevel: reg wtp_diff1 false_pos false_neg i.subject_id, vce(cluster subject_id)
@@ -836,10 +1181,86 @@ bys plevel: reg wtp_diff1 false_pos false_neg i.subject_id, vce(cluster subject_
 bys plevel: sum false_pos false_neg
 
 *Tobit WTP tables (currently dropped for brevity)
+save "./Temp/wtp_befcollapse.dta", replace
+use "./Temp/wtp_befcollapse.dta", replace
+collapse (mean) wtp value wtp_diff ip_val_diff (sd) wtpsd=wtp (first) p phintWB phintBW (count) nobs=wtp, by(treatn)
 
-collapse (mean) wtp value wtp_diff (sd) wtpsd=wtp (first) p false_pos false_neg (count) nobs=wtp, by(treatn)
 
-scatter wtp_diff p
+
+rename wtp wtp_wtp
+rename value wtp_value
+reshape long wtp_ be_ be_time_ post_prob, i(treatn p phintWB phintBW) j(origin) string
+gen var_origin=.
+replace var_origin=1 if origin=="wtp"
+replace var_origin=2 if origin=="value"
+replace var_origin=3 if origin=="diff"
+graph twoway (scatter wtp_ p if var_origin==1) (scatter wtp_ p if var_origin==2)
+
+gen plevel=round(100*p)
+
+*testing the base rate fallacy graphically: false-negative rate sensitivity for WTP and value for different priors
+graph twoway (scatter wtp_ phintWB if var_origin==1&plevel==10) (scatter wtp_ phintWB if var_origin==2&plevel==10), title("Prior=10%") xtitle("False negative rate") ytitle("USD") legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FN_coll1.png", width(1200) height(800) replace
+graph twoway (scatter wtp_ phintWB if var_origin==1&plevel==30) (scatter wtp_ phintWB if var_origin==2&plevel==30), title("Prior=30%") xtitle("False negative rate") ytitle("USD") legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FN_coll3.png", width(1200) height(800) replace
+graph twoway (scatter wtp_ phintWB if var_origin==1&plevel==20) (scatter wtp_ phintWB if var_origin==2&plevel==20), title("Prior=20%") xtitle("False negative rate") ytitle("USD")  legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FN_coll2.png", width(1200) height(800) replace
+graph twoway (scatter wtp_ phintWB if var_origin==1&plevel==50) (scatter wtp_ phintWB if var_origin==2&plevel==50), title("Prior=50%") xtitle("False negative rate") ytitle("USD")  legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FN_coll5.png", width(1200) height(800) replace
+
+
+*testing the base rate fallacy graphically: false-positive rate sensitivity for WTP and value for different priors
+graph twoway (scatter wtp_ phintBW if var_origin==1&plevel==10) (scatter wtp_ phintBW if var_origin==2&plevel==10), title("Prior=10%") xtitle("False positive rate") ytitle("USD") legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FP_coll1.png", width(1200) height(800) replace
+graph twoway (scatter wtp_ phintBW if var_origin==1&plevel==30) (scatter wtp_ phintBW if var_origin==2&plevel==30), title("Prior=30%") xtitle("False positive rate") ytitle("USD") legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FP_coll3.png", width(1200) height(800) replace
+graph twoway (scatter wtp_ phintBW if var_origin==1&plevel==20) (scatter wtp_ phintBW if var_origin==2&plevel==20), title("Prior=20%") xtitle("False positive rate") ytitle("USD")  legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FP_coll2.png", width(1200) height(800) replace
+graph twoway (scatter wtp_ phintBW if var_origin==1&plevel==50) (scatter wtp_ phintBW if var_origin==2&plevel==50), title("Prior=50%") xtitle("False positive rate") ytitle("USD")  legend(lab (1 "WTP") lab(2 "Value"))
+graph export "./Graphs/hist_WTP_FP_coll5.png", width(1200) height(800) replace
+
+
+*measuring sensitivity of false-negative rates:
+use "./Temp/wtpdat.dta", replace
+gen highprob=p>0.2
+collapse (mean) wtp_diff (sd) wtp_diffsd=wtp_diff (count) nobs=wtp_diff, by(highprob phintBW phintWB)
+gen sign=(wtp_diff>0)
+
+graph twoway (scatter phintBW phintWB if highprob==0&sign==0) (scatter phintBW phintWB if highprob==0&sign==1), title("Prior<=20%") xtitle("False positive rate") ytitle("False negative rate") legend(lab (1 "Underpaying") lab(2 "Overpaying"))
+
+graph twoway (scatter phintBW phintWB if highprob==0&sign==0) (scatter phintBW phintWB if highprob==0&sign==1), title("Prior<=20%") xtitle("False positive rate") ytitle("False negative rate") legend(lab (1 "Underpaying") lab(2 "Overpaying"))
+*ssc install colorscatter
+colorscatter phintBW phintWB wtp_diff if highprob==0, rgb_high(250 0 0) rgb_low(0 0 250) cmax(0.6) cmin(0)
+
+#delimit ;
+
+heatplot wtp_diff phintBW phintWB if highprob==0, discrete scatter
+colors(blue red, ipolate(20))
+p(mlc(black))
+keylabels(minmax)
+scheme(plotplain)
+sizeprop
+title("Prior<=20%")
+
+;
+#delimit cr
+graph export "./Graphs/WTP_pattern_low.png", width(1000) height(1000) replace
+
+#delimit ;
+
+heatplot wtp_diff phintBW phintWB if highprob==1, discrete scatter
+colors(blue red, ipolate(20))
+p(mlc(black))
+
+keylabels(minmax) 
+scheme(plotplain)
+sizeprop
+title("Prior>20%")
+
+;
+#delimit cr
+graph export "./Graphs/WTP_pattern_high.png", width(1000) height(1000) replace
+
 
 log close
 
