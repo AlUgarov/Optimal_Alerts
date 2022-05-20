@@ -1,32 +1,32 @@
 {
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{4}{c}}
+\begin{tabular}{l*{3}{c}}
 \hline\hline
-                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
-                &\multicolumn{1}{c}{WTP}&\multicolumn{1}{c}{WTP(good quiz)}&\multicolumn{1}{c}{WTP(stateduc)}&\multicolumn{1}{c}{Value(RN)}\\
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Good quiz only}&\multicolumn{1}{c}{Stat. classes}\\
 \hline
-model           &                  &                  &                  &                  \\
-p$>$0.2         &     1.02\sym{***}&     .918\sym{***}&     .999\sym{***}&     1.45\sym{***}\\
-                &    (0.3)         &    (0.3)         &    (0.3)         &    (0.1)         \\
-FP rate         &    -2.83\sym{**} &    -3.23\sym{**} &    -2.07         &    -4.74\sym{***}\\
-                &    (1.1)         &    (1.4)         &    (1.3)         &    (0.3)         \\
-p$>$0.2 $\times$ FP rate&    -.374         &    -.982         &    -.962         &     1.64\sym{***}\\
-                &    (1.3)         &    (1.6)         &    (1.6)         &    (0.4)         \\
-FN rate         &    -2.45\sym{**} &     -3.8\sym{***}&    -2.24\sym{*}  &    -1.74\sym{***}\\
-                &    (1.1)         &    (1.3)         &    (1.3)         &    (0.3)         \\
-p$>$0.2 $\times$ FN rate&    -.874         &    -.373         &    -.797         &    -3.12\sym{***}\\
-                &    (1.3)         &    (1.5)         &    (1.6)         &    (0.4)         \\
-Constant        &     1.72\sym{***}&     2.11\sym{***}&     1.56\sym{***}&     1.53\sym{***}\\
-                &    (0.2)         &    (0.3)         &    (0.3)         &    (0.1)         \\
+model           &                  &                  &                  \\
+p$>$0.2         &     1.02\sym{***}&     .918\sym{***}&     .999\sym{***}\\
+                &    (0.3)         &    (0.3)         &    (0.3)         \\
+FP rate         &    -2.83\sym{**} &    -3.23\sym{**} &    -2.07         \\
+                &    (1.1)         &    (1.4)         &    (1.3)         \\
+p$>$0.2 $\times$ FP rate&    -.374         &    -.982         &    -.962         \\
+                &    (1.3)         &    (1.6)         &    (1.6)         \\
+FN rate         &    -2.45\sym{**} &     -3.8\sym{***}&    -2.24\sym{*}  \\
+                &    (1.1)         &    (1.3)         &    (1.3)         \\
+p$>$0.2 $\times$ FN rate&    -.874         &    -.373         &    -.797         \\
+                &    (1.3)         &    (1.5)         &    (1.6)         \\
+Constant        &     1.72\sym{***}&     2.11\sym{***}&     1.56\sym{***}\\
+                &    (0.2)         &    (0.3)         &    (0.3)         \\
 \hline
-sigma           &                  &                  &                  &                  \\
-Constant        &      1.9\sym{***}&     1.61\sym{***}&     1.82\sym{***}&     .495\sym{***}\\
-                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.0)         \\
+sigma           &                  &                  &                  \\
+Constant        &      1.9\sym{***}&     1.61\sym{***}&     1.82\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         \\
 \hline
-Observations    &      630         &      342         &      378         &      630         \\
-Adjusted \(R^{2}\)&                  &                  &                  &                  \\
+Observations    &      630         &      342         &      378         \\
+Adjusted \(R^{2}\)&                  &                  &                  \\
 \hline\hline
-\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 }

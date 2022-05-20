@@ -28,6 +28,7 @@
 \usepackage{setspace}
 \usepackage{placeins}
 \usepackage{dcolumn}
+\usepackage{float}
 \newtheorem{theorem}{Proposition}
 
 \title{\Large Crying Wolf in the Lab\\}
@@ -63,7 +64,7 @@
 
 \newpage
 \section{Tables}
-%\begin{table}[h!]\centering
+%\begin{table}[H!]\centering
 %\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 %\caption{xx}
 \input{Tables/table_wtpdiff_01r.tex}
@@ -71,24 +72,13 @@
 
 \input{Tables/table_wtpdiff_06.tex}
 
-%\input{Tables/table_costs4.tex}
 
-%\input{Tables/table_ip4.tex}
 
 \input{Tables/table_ip5.tex}
 
 
 
 
-
-
-%\input{Tables/table_wtpdiff_03.tex}
-
-%\input{Tables/table_wtpdiff_04.tex}
-
-%\input{Tables/table_wtpdiff_05.tex}
-
-%\input{Tables/table_wtpdiff_06.tex}
 
 \begin{table}[htbp]\centering
 \begin{tabular}{|llc|}
@@ -120,8 +110,13 @@ Strict risk-aversion EU+prudence & \makecell[l]{Ratio of FN to FP \\sensitivitie
 
 
 \begin{table}
-\caption{WTP: testing for interaction of priors and signal characteristics}
+\caption{WTP: demographic characteristic interaction of priors and signal characteristics}
 \input{Tables/table_wtp_val0.tex}
+\end{table}
+
+\begin{table}
+\caption{WTP: testing for interaction of priors and signal characteristics}
+\input{Tables/table_wtp_val0ext.tex}
 \end{table}
 
 \begin{table}
@@ -157,42 +152,58 @@ Strict risk-aversion EU+prudence & \makecell[l]{Ratio of FN to FP \\sensitivitie
 
 \section{Figures (Unsorted)}
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \centering
-\caption{x} \label{Blind Protection Responses}
+\caption{Average Blind Protection Response} \label{Blind Protection Responses}
 
   \centering
-  \includegraphics[scale=0.3]{Graphs/BLProt_plot2.pdf}
+  \includegraphics[scale=0.3]{Graphs/blind_prot_sta.png}
 
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \centering
-\caption{x} \label{Informed Protection Responses}
+\caption{Average Informed Protection Response} \label{Informed Protection Responses}
 
   \centering
-  \includegraphics[scale=0.3]{Graphs/IP_plot.pdf}
+  \includegraphics[scale=0.3]{Graphs/ip_response.png}
 
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \centering
 \caption{Belief Updating}
 \begin{subfigure}[t]{.48\textwidth}
   \centering
   \includegraphics[width=\textwidth]{Graphs/hist_belief_error.png}
-  %\caption{Belief accuracy} \label{bel_updating}
 \end{subfigure}
 \begin{subfigure}[t]{.48\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{Graphs/updating_s1.png}
-  %\caption{Error distribution} \label{error_hist}
+  \includegraphics[width=\textwidth]{Graphs/updating_s4.png}
+
 \end{subfigure}
 
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\caption{Theoretical vs actual WTP}
+\includegraphics[width=\textwidth]{Graphs/WTP_value_heat.png}
+\end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
+\centering
+\caption{WTP discrepancy} \label{WTP_discrepancy}
+
+  \centering
+  \includegraphics[scale=0.3]{Graphs/hist_WTP_discr1.png}
+
+\end{figure}
+
+
+
+\begin{figure}[H]
+\caption{WTP discrepancy by prior and signal characteristics} \label{WTP_discr_heat}
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=\textwidth]{Graphs/WTP_pattern_low.png}
 \end{subfigure}
@@ -202,69 +213,6 @@ Strict risk-aversion EU+prudence & \makecell[l]{Ratio of FN to FP \\sensitivitie
 \end{subfigure}
 \end{figure}
 
-\iffalse
-\begin{figure}[!h]
-\centering
-\caption{Following beliefs vs following posterior probabilities in IP} \label{ref_question}
-\begin{subfigure}[t]{.48\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{Graphs/clustering.png}
-  %\caption{xx} \label{xx2}
-\end{subfigure}
-%\hfill
-\begin{subfigure}[t]{.48\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{Graphs/clustering2.png}
-\end{subfigure}
-\end{figure}
-
-
-\begin{figure}[!h]
-\centering
-\caption{x} \label{cost_discrepancy}
-
-  \centering
-  \includegraphics[scale=0.3]{Graphs/hist_costs_discr.png}
-
-\end{figure}
-\fi
-
-
-\begin{figure}[!h]
-\centering
-\caption{WTP discrepancy} \label{WTP_discrepancy}
-
-  \centering
-  \includegraphics[scale=0.3]{Graphs/hist_WTP_discr1.png}
-
-\end{figure}
-
-\iffalse
-\begin{figure}[!h]
-\centering
-\caption{Base rate fallacy for WTP: FN rate sensitivity by prior} \label{WTP_FN_coll}
-\begin{subfigure}[t]{0.5\textwidth}
-  \centering
-  \includegraphics[width=.95\linewidth]{Graphs/hist_WTP_FN_coll1.png}
-\end{subfigure}%
-\begin{subfigure}[t]{0.5\textwidth}
-  \centering
-  \includegraphics[width=.95\linewidth]{Graphs/hist_WTP_FN_coll3.png}
-\end{subfigure}
-
-
-\begin{subfigure}[t]{0.5\textwidth}
-  \centering
-  \includegraphics[width=.95\linewidth]{Graphs/hist_WTP_FN_coll2.png}
-\end{subfigure}%
-\begin{subfigure}[t]{0.5\textwidth}
-  \centering
-  \includegraphics[width=.95\linewidth]{Graphs/hist_WTP_FN_coll5.png}
-
-\end{subfigure}
-
-\end{figure}
-\fi
 
 
 \newpage
