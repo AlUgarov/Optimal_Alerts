@@ -29,6 +29,7 @@ tab _merge
 drop _merge
 sort seq round
 
+
 *Create additional variables to describe posterior probabilities:
 gen phintWB=(w_gr/tot_gr)
 gen phintWW=(tot_gr-bl_gr)/tot_gr
@@ -109,6 +110,12 @@ label define stat_educl 0 "No" 1 "Stat. class"
 label values stat_educ stat_educl
 tab stat_educ
 
+rename q10 educ
+label var educ "Education level"
+label define educl 1 "No schooling" 2 "Grades 1-12, no diploma" 3 "High school diploma or GED" 4 "Some college, but no degree" 5 "Associate or bachelor's degree" 6 "Graduate or professional degree"
+label values educ educl
+tab educ
+
 
 *identify correct quiz answers
 gen blind_correct=(q157==2)+(q158==3)+(q189==4)
@@ -131,7 +138,7 @@ save "./Temp/mainwaves_wide.dta", replace
 
 **BLIND PROTECTION ANALYSIS**
 * bp - protection decision (0 - do not protect, 1 - protect)
-keep participant_id bp_* bp_time_* sex age stat_educ ncorrect
+keep participant_id bp_* bp_time_* sex age stat_educ ncorrect educ
 reshape long bp_ bp_time_,  i(participant_id sex age stat_educ ncorrect) j(round)
 rename bp_ bp
 rename bp_time_ submittime
@@ -173,10 +180,17 @@ replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp==0)&(round==6)
 save "./Temp/bp_val.dta", replace
 
 
+
+
+gen college=educ>4
+
+
+
 *Collapsing to have one obs per participant (study participant's characteristics):
-collapse (mean) bp submittime (first) sex age stat_educ ncorrect (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
+collapse (mean) bp submittime (first) sex age stat_educ ncorrect college (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
 
 tab firstswitch
+replace firstswitch=. if backswitcher==1
 replace firstswitch=7-totprot if repairable==1
 tab firstswitch
 
@@ -195,6 +209,9 @@ gen byte allprotect=(totprot==6)
 gen switchprob=0.05*firstswitch
 replace switchprob=-0.5 if missing(switchprob)
 gen pilot=0
+
+
+
 
 
 **Merge-in blind protection choices from the pilot
@@ -236,6 +253,8 @@ label values goodquiz goodquiz_l
 tab theta
 tab pilot
 
+
+
 save "./Temp/blind_collapsed.dta", replace
 
 use "./Temp/bp_val.dta", replace
@@ -251,10 +270,15 @@ gen xid=1
 collapse (mean) mean=bp (count) n=xid, by(p)
 gen se=sqrt(mean*(1-mean)/n)
 
+
 *Blind protection average response diagram (Fig. 1)
 serrbar mean se p, scale (1.96) title("Blind Protection Response") mlwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices")
 graph export "./Graphs/blind_prot_sta.png", width(1000) height(1000) replace
 
+gen task_type="Blind"
+rename p post_prob
+keep mean post_prob se task_type
+save "./Temp/bp_graph_data.dta", replace
 
 
 
@@ -327,6 +351,8 @@ replace ip_val=. if ip_w==-99
 
 sum ip_val
 
+
+
 //Calculate the optimal protection strategy based on cost-loss ratio:
 gen ip_w_o=0
 replace ip_w_o=1 if post_probW>=protectioncost/loss
@@ -374,6 +400,29 @@ label values treatm_type treatm_typel
 
 *Saving the cleaned dataset with the panel structure
 save "./Output/main_waves.dta", replace
+use "./Output/main_waves.dta", replace
+
+**Create the summary statistics table:
+gen duration_min=duration/60
+collapse (first) seq sex age stat_educ college final_payoff duration_min, by(subject_id)
+
+gen seq_type=(seq>3)
+tab seq_type seq
+gen old=age>23
+replace college=1-college
+
+tabstat sex old college stat_educ, by(seq_type) statistics(sum mean) column(statistics) longstub
+
+*collapse (mean) sex old stat_educ college final_payoff duration_min (sum) tsex=sex told=old  tcollege=college tstat_educ=stat_educ
+*order tsex sex told old tcollege college tstat_educ stat_educ
+*bro
+
+
+*collapse (mean) sex old stat_educ college final_payoff duration_min (sum) tsex=sex told=old  tcollege=college tstat_educ=stat_educ, by(seq_type)
+*order tsex sex told old tcollege college tstat_educ stat_educ
+*bro
+
+use "./Output/main_waves.dta", replace
 
 keep subject_id participant_id round time_ip honest ncorrect p phintBW phintWB phintBB rev_response treatm_type
 collapse (first) treatm_type participant_id time_ip honest ncorrect p phintBW phintWB phintBB rev_response, by(subject_id round)
@@ -440,18 +489,40 @@ label values stat_educ stat_educl
 hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
 graph export "./Graphs/hist_belief_error.png", width(1200) height(800) replace
 
-scatter be_ post_prob, title("Belief updating") xtitle("True") ytitle("Elicited belief") jitter(1) note("All obs including pilot")
+hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("Main waves only, excluding certain signals") color(navy)
+graph export "./Graphs/hist_belief_error_s3.png", width(1200) height(800) replace
+
+hist bel_err  if pilot==0&abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
+graph export "./Graphs/hist_belief_error_s4.png", width(1200) height(800) replace
+
+
+hist bel_err  if pilot==0&abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
+graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replace
+
+qui reg be_ post_prob
+local r2 : display %5.3f = e(r2)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs including pilot") text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) legend(off)
 graph export "./Graphs/updating_s1.png", width(1200) height(800) replace
 
-scatter be_ post_prob if pilot==0&goodquiz==1, title("Belief updating") xtitle("True") ytitle("Elicited belief") jitter(1) note("Main waves only, good quiz")
+qui reg be_ post_prob if pilot==0&goodquiz==1
+local r2 : display %5.3f = e(r2)
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only, good quiz")
 graph export "./Graphs/updating_s2.png", width(1200) height(800) replace
 
-scatter be_ post_prob if pilot==0&honest==0, title("Belief updating") xtitle("True") ytitle("Elicited belief") jitter(1) note("Main waves only, excluding certain signals")
+qui reg be_ post_prob if pilot==0&honest==0
+local r2 : display %5.3f = e(r2)
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only, excluding certain signals")
 graph export "./Graphs/updating_s3.png", width(1200) height(800) replace
 
-scatter be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499, title("Belief updating") xtitle("True") ytitle("Elicited belief") jitter(1) note("Main waves only, the ball color is uncertain")
+qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499
+local r2 : display %5.3f = e(r2)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only")
 graph export "./Graphs/updating_s4.png", width(1200) height(800) replace
 
+qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)>0.499
+local r2 : display %5.3f = e(r2)
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only")
+graph export "./Graphs/updating_s5.png", width(1200) height(800) replace
 
 
 **********************************************
@@ -460,17 +531,65 @@ graph export "./Graphs/updating_s4.png", width(1200) height(800) replace
 xtset subject_id question
 drop if pilot==1 //now dropping the pilot
 
-save long_ip_dat.dta, replace
+save "./Temp/long_ip_dat.dta", replace
+use "./Temp/long_ip_dat.dta", replace
 gen xid=1
 gen post_probi=round(1000*post_prob)
-collapse (mean) mean=ip (count) n=xid, by(post_probi)
-gen se=sqrt(mean*(1-mean)/n)
-gen post_prob=0.001*post_probi
 
-serrbar mean se post_prob, scale (1.96) title("Informed Protection Response") mlwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices")
+gen blind_prob=0.05*round
+
+
+
+*graph twoway (lpoly bp blind_prob, bwidth(0.1) mlwidth(thick)) (lpoly ip post_prob,  mlwidth(thick)), noscatter title("Protection Responses")
+
+*serrbar ip se post_prob if task_type=="Blind", scale (1.96) title("Blind Protection Response") mlwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices")
+
+lpoly ip post_prob, bwidth(0.1) ci noscatter title("Informed Protection Response") lineopt(lwidth(1)) mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")
+graph export "./Graphs/ip_response_lpoly.png", width(1200) height(800) replace
+
+*studying nonsensical responses to certain signals:
+by subject_id: egen ip_dev=sd(ip)
+gen disagr1=0
+gen disagr2=0
+replace disagr1=1 if ip_==0&post_prob==1
+replace disagr2=1 if ip_==1&post_prob==0
+
+by subject_id: egen totdisagr1=sum(disagr1)
+
+by subject_id: egen totdisagr2=sum(disagr2)
+
+list subject_id totdisagr1 totdisagr2 ip_dev if ip_==0&post_prob==1
+
+gen ip_diff=(ip_-post_prob)^2
+bys subject_id: egen tot_diff=sum(ip_diff)
+sum tot_diff
+list subject_id totdisagr1 totdisagr2 ip_dev tot_diff if ip_==0&post_prob==1
+
+*Notes: nonsensical responses mostly come from subjects choosing different answers to different probabilities, 
+* most subjects choosing no protection when prob=1 do not choose protection when prob=0
+* seems to be that these subjects are just more random: sum of deviations btw posteriors and responses is much higher for them than for others even excluding that one mistake
+
+collapse (mean) mean=ip_ (count) n=xid, by(post_probi)
+gen se=sqrt(mean*(1-mean)/n)
+
+gen task_type="Informed"
+
+
+
+gen post_prob=0.001*post_probi
+append using "./Temp/bp_graph_data.dta"
+serrbar mean se post_prob if task_type=="Informed", scale (1.96) title("Informed Protection Response") mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")
 graph export "./Graphs/ip_response.png", width(1200) height(800) replace
 
-use long_ip_dat.dta, replace
+
+
+gen low=mean-1.96*se
+gen high=mean+1.96*se
+twoway (rcap high low post_prob if task_type=="Blind", lwidth(thick)) (rcap high low post_prob if task_type=="Informed"), title("Protection Response") xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices") legend(label(1 "Blind") label(2 "Informed"))
+graph export "./Graphs/ip_response_comp.png", width(1200) height(800) replace
+
+
+use "./Temp/long_ip_dat.dta", replace
 
 
 ****-- INFORMED PROTECTION --****
@@ -540,6 +659,7 @@ esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label 
 
 
 
+
 ****-- BELIEF ELICITATION --****
 *Testing the accuracy of reported beliefs***
 eststo clear
@@ -550,11 +670,6 @@ eststo: reg bel_err i.goodquiz##i.plevel i.goodquiz##c.phintWB i.goodquiz##c.phi
 eststo: reg bel_err i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(cluster subject_id)
 eststo: reg bel_err i.stat_educ##i.plevel i.stat_educ##c.phintWB i.stat_educ##c.phintBW, vce(cluster subject_id)
 esttab using "./Tables/table_be2.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Belief Elicitation: Discrepancy) mtitles("" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Prior prob dummies = *.plevel) nobaselevels compress nogaps replace
-
-
-
-
-
 
 
 **prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)
@@ -624,6 +739,97 @@ label var cost_bp "BP costs"
 label var phintWB "FN rate"
 label var phintBW "FP rate"
 
+
+
+
+*uniform CRRA values to calculate the signal's values later
+gen theta1=0.5
+gen theta2=1
+gen theta3=1.5
+gen theta4=2.5
+
+*calculate theoretical value for a risk-averse subject (both heterogeneous and uniform CRRA coeffs):
+qui mata:
+  //mata drop val_cara()
+  //mata drop myfunc2()
+  function myfunc2(V,p,pWW,pBB,thet) return(infoval_diff(V,30,5,20,p,pWW,pBB,thet))
+  function val_cara(V,p,pWW,pBB,thet) return(infoval_diff_cara(V,30,5,20,p,pWW,pBB,thet))
+  X = st_data(.,("p","phintWW","phintBB","theta"))
+  Z=J(rows(X),1,0)
+  
+  Z1=J(rows(X),1,0)
+  Z2=J(rows(X),1,0)
+  Z3=J(rows(X),1,0)
+  Z4=J(rows(X),1,0)
+  Z5=J(rows(X),1,0)
+  Z6=J(rows(X),1,0)
+  
+  for(i=1; i<=rows(X); i++) {
+    p=X[i,1]
+	phintWW=X[i,2]
+	phintBB=X[i,3]
+	theta=X[i,4]
+	if ((theta<-0.99)||(theta==4)){
+	  V=-99
+	}
+	else {
+      mm_root(V=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,theta)
+	}
+	Z[i]=V
+	mm_root(V1=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,0.5)
+	mm_root(V2=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,1)
+	mm_root(V3=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,1.5)
+	mm_root(V4=., &myfunc2(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,2.5)
+	
+	mm_root(V5=., &val_cara(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,0.05)
+	mm_root(V6=., &val_cara(), -2, 5, 0.0001, 1000, p,phintWW,phintBB,0.3)
+	Z1[i]=V1
+	Z2[i]=V2
+	Z3[i]=V3
+	Z4[i]=V4
+	Z5[i]=V5
+	Z6[i]=V6
+  }
+  mata drop myfunc2()
+  idx = st_addvar("float", "value_ra")
+  st_store(., "value_ra", Z)
+  
+  idx = st_addvar("float", "value_ra1")
+  st_store(., "value_ra1", Z1)
+  
+  idx = st_addvar("float", "value_ra2")
+  st_store(., "value_ra2", Z2)
+  
+  idx = st_addvar("float", "value_ra3")
+  st_store(., "value_ra3", Z3)
+  
+  idx = st_addvar("float", "value_ra4")
+  st_store(., "value_ra4", Z4)
+  
+  idx = st_addvar("float", "value_cara1")
+  st_store(., "value_cara1", Z5)
+  
+  idx = st_addvar("float", "value_cara2")
+  st_store(., "value_cara2", Z6)
+  
+end
+
+replace value_ra=. if ((backswitcher==1))
+replace value_ra=0 if value_ra<0
+replace value_ra1=0 if value_ra1<0
+replace value_ra2=0 if value_ra2<0
+replace value_ra3=0 if value_ra3<0
+replace value_ra4=0 if value_ra4<0
+replace value_cara1=0 if value_cara1<0
+replace value_cara2=0 if value_cara2<0
+replace value_ra=. if theta==-1
+
+
+gen wtp_diffra=wtp-value_ra
+replace wtp_diffra=0 if wtp_diffra<0
+
+
+
 *risk-averse indicator:
 gen risk_averse=theta>0&backswitcher==0
 replace risk_averse=. if backswitcher==1
@@ -676,6 +882,11 @@ graph export "./Graphs/WTP_value_scatter.png", width(1200) height(800) replace
 heatplot wtp value, normalize backfill colors(HCL blues, reverse) title("Theoretical vs actual WTP") xtitle("Theoretical WTP") ytitle("Actual WTP") levels(10) bins(10) keylabels(minmax)
 graph export "./Graphs/WTP_value_heat.png", width(1200) height(800) replace
 
+heatplot wtp value_ra, normalize backfill colors(HCL blues, reverse) title("Theoretical with risk aversion vs actual WTP") xtitle("Theoretical WTP") ytitle("Actual WTP") levels(10) bins(10) keylabels(minmax)
+graph export "./Graphs/WTP_value_heat_ra.png", width(1200) height(800) replace
+
+*Note: correlation wtp value - 0.27; correlation wtp value_ra - 0.24
+
 heatplot wtp value, colors(s2) title("Theoretical vs actual WTP") xtitle("Theoretical WTP") ytitle("Actual WTP") discrete levels(1) scatter sizeprop keylabels(none)
 graph export "./Graphs/WTP_value_heat_scatter.png", width(1200) height(800) replace
 
@@ -685,14 +896,56 @@ label define highprob_l 0 "p $\geq$ 0.2" 1 "p$>$0.2"
 label values highprob highprob_l
 
 gen plevel=round(1000*p)
+gen risk_loving=theta<-0.001
+replace risk_loving=. if missing(theta)
+label var risk_loving "Risk loving"
+label define risklov_l 0 "Not risk-loving" 1 "Risk loving"
+label value risk_loving risklov_l
+
+gen risk_missing=missing(theta)
+label var risk_missing "Risk loving"
+label define riskmiss_l 0 "RA measured" 1 "No risk av. measure"
+label value risk_missing riskmiss_l
+
+replace risk_loving=0 if risk_missing==1
+replace risk_averse=0 if risk_missing==1
+
+gen risk_neutral=(risk_averse+risk_loving==0)&!missing(theta)
+gen model_subject=risk_neutral+accur_bel==2
+
+label define model_subject_l 0 "Not" 1 "Risk-neutral and accur."
+label value model_subject model_subject_l
+
+gen nmodel_subject=1-model_subject
+*replace nmodel_subject=. if missing(risk_loving)
+label define nmodel_subject_l 0 "Risk-neutral and accur." 1 "Not risk-neutral and accurate"
+label value nmodel_subject nmodel_subject_l
+
+
+gen risk_pref=0 if risk_neutral==1
+
+replace risk_pref=1 if risk_loving==1
+replace risk_pref=2 if risk_averse==1
+replace risk_pref=3 if missing(theta)
+label var risk_pref "Risk preferences"
+label define risk_prefl 0 "Risk-neutral" 1 "Risk-loving" 2 "Risk-averse" 3 "No risk av. measure"
+label value risk_pref risk_prefl
+
+gen accur_bel1=1-accur_bel
+label var accur_bel1 "Beliefs accuracy"
+label def accur_bel1l 0 "Accur. beliefs" 1 "Inaccurate beliefs"
+label value accur_bel1 accur_bel1l
+
 
 **Baseline WTP difference: risk-aversion and belief accuracy:
 eststo clear
 eststo: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.risk_averse##c.false_pos i.risk_averse##c.false_neg i.risk_loving##c.false_pos i.risk_loving##c.false_neg i.risk_missing##c.false_pos i.risk_missing##c.false_neg , vce(cluster subject_id)
 eststo: reg wtp_diff i.accur_bel##c.false_pos i.accur_bel##c.false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.highprob##c.false_pos i.highprob##c.false_neg, vce(cluster subject_id)
-esttab using "./Tables/table_wtpdiff_01r.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: reg wtp_diff i.accur_bel1#i.risk_pref##c.false_pos i.accur_bel1#i.risk_pref##c.false_neg, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_01rfull.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+esttab using "./Tables/table_wtpdiff_01r.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information (Discrepancy)) mtitles("" "" "" "") indicate("Risk aversion#Belief accuraccy dummies = *.accur_bel1#*.risk_pref") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 

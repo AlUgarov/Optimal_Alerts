@@ -1,0 +1,942 @@
+%#!pdflatex 
+%#BIBTEX bibtex econ-example
+% Filename:            econ-example.tex
+% Author:              Shiro Takeda
+% First-written:       <2002/11/02>
+%
+% This document explains how to use econ.bst.
+
+%############################## Main #################################
+
+\documentclass[10pt]{article}
+
+%% Use natbib.sty.
+\usepackage{natbib}
+\usepackage{fancybox}
+\usepackage{newtxtext,newtxmath}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0.2,0.6}
+\definecolor{MyRed}{rgb}{0.4,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+\usepackage[bookmarks=true,bookmarksnumbered=true,colorlinks=true,linkcolor=MyBlue,citecolor=MyRed,filecolor=MyBlue,urlcolor=MyGreen]{hyperref}
+
+\setlength{\topmargin}{-15pt} 
+\setlength{\textheight}{638pt}
+\setlength{\oddsidemargin}{25pt}
+\setlength{\textwidth}{420pt}
+
+\makeatletter
+
+% Set the roman font to font for URL (the default font for URL is type writer font).
+\renewcommand\UrlFont{\rmfamily}
+
+\newenvironment{Frame}%
+{\setlength{\fboxsep}{15pt}
+\setlength{\mylength}{\linewidth}%
+\addtolength{\mylength}{-2\fboxsep}%
+\addtolength{\mylength}{-2\fboxrule}%
+\Sbox
+\minipage{\mylength}%
+\setlength{\abovedisplayskip}{0pt}%
+\setlength{\belowdisplayskip}{0pt}%
+}%
+{\endminipage\endSbox
+\[\fbox{\TheSbox}\]}
+
+\newcommand{\bysameline}{\hskip.3em \leavevmode\rule[.5ex]{3em}{.3pt}\hskip0.5em}
+
+%% Define \BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\makeatother
+
+%%% title, author, acknowledgement, and date
+\title{\texttt{econ.bst}:\\
+\BibTeX{} style for economics\\(ver. 3.0)\thanks{\texttt{econ.bst} is available at
+\url{https://github.com/ShiroTakeda/econ-bst}}
+}
+
+\author{Shiro Takeda\thanks{email: {\ttfamily shiro.takeda@gmail.com}.}}
+\date{2020/12/28}
+
+%#####################################################################
+%######################### Document Starts ###########################
+%#####################################################################
+\begin{document}
+
+%%% Title
+\maketitle
+
+\newlength{\mylength}
+\setlength{\fboxsep}{15pt}
+\setlength{\mylength}{\linewidth}
+\addtolength{\mylength}{-2\fboxsep}
+\addtolength{\mylength}{-2\fboxrule}
+
+%%% Table of contents.
+\tableofcontents
+
+%########################## Text Starts ##############################
+
+\setlength{\baselineskip}{16pt}
+
+\section{Main features}
+
+``\texttt{econ.bst}'' is a \BibTeX{} style file. It provids the following
+features:
+\begin{Frame}
+ \begin{itemize}
+  \item The author-year type citation (you need ``\texttt{natbib.sty}'' as well).
+  \item Reference style used in economics papers.
+  \item Highly customizable.  You can easily customize reference style as you
+        wish.
+  \item You can use ``\textit{certified random order}'' proposed by
+        \href{http://dx.doi.org/10.1257/aer.20161492}{\citet[][AER]{10.1257/aer.20161492}}.
+        \begin{itemize}
+         \item If you want to use certified random order, please see Section
+               \ref{sec:cro}.
+        \end{itemize}
+ \end{itemize}
+\end{Frame}
+
+\textbf{The third feature is the key characteristic of ``\texttt{econ.bst}''.}
+
+\section{How to use ``\texttt{econ.bst}''}
+
+\begin{itemize}
+ \item ``\texttt{econ.bst}'' requires ``\texttt{natbib.sty}'', which is
+       installed in the standard \TeX{} system.
+ \item Put ``\texttt{econ.bst}'' file somewhere under the directory (folder)
+       ``\texttt{/texmf/bibtex/bst}''. Or you can place ``\texttt{econ.bst}'' at
+       the same directory as the \TeX{} file you are editting.
+ \item See ``\texttt{econ-example.tex}'' for preparing an tex file.
+ \item For \BibTeX{} in general, see, for example,
+       \href{https://www.economics.utoronto.ca/osborne/latex/BIBTEX.HTM}{Using
+       BibTeX: a short guide} by Martin J. Osborne.
+\end{itemize}
+
+
+\subsection{Preparing a tex file}
+
+In the tex file you are editting, you first need to load \texttt{natbib}
+package in the preample (i.e. before \verb|\begin{document}|)
+\begin{Frame}
+\begin{verbatim}
+\usepackage{natbib}
+\end{verbatim}
+\end{Frame}
+
+In the main text, you can cite bibliographic entries by \verb|\citet|
+command.
+
+For example, ``\verb|\citet{Takeda2014a}| is my paper'' generates the output like
+\begin{Frame}
+\citet{Takeda2014a} is my paper.
+\end{Frame}
+
+At the place where you want to add ``the reference part'', you have to set the
+bibliography style (\texttt{econ.bst}) and database (\texttt{econ-example.bib}) like
+\begin{Frame}
+\begin{verbatim}
+\bibliographystyle{econ}
+\bibliography{econ-example}
+\end{verbatim}
+\end{Frame}
+Note that you should not attach the extension ``bst'' and ``bib'' to the bst and
+database file name.
+
+\subsection{Running pdf\TeX{}}
+
+\texttt{econ-example.tex} is created so that it is compiled with pdf\LaTeX
+(``\texttt{pdflatex.exe}''). So to compile \texttt{econ-example.tex}, you just
+execute the following commnads.
+\begin{Frame}
+\begin{verbatim}
+pdflatex econ-example.tex
+bibtex econ-example
+pdflatex econ-example.tex
+pdflatex econ-example.tex
+\end{verbatim}
+\end{Frame}
+
+\section{Customization}
+
+``\texttt{econ.bst}'' defines many functions which have names like
+``\texttt{bst.xxx.yyy}''.  You can easily customize the reference style by
+changing the contents of these functions.
+
+\subsection{Notes on customization}
+
+\begin{itemize}
+ \item Customization here is customization of the reference part.  Style
+       in the citation part mainly depends on a style file for citation
+       (``\texttt{natbib.sty}'').
+ \item Except for some cases, customization here cannot change order
+       of fields (order of author, year, title etc.)
+ \item Functions with ``\texttt{.pre}'' define strings attached to the start
+       of the field and functions with ``\texttt{.post}'' define strings
+       attached to the end of field.  For exmple,
+       ``\texttt{bst.author.pre}'' defines strings attached before author.
+ \item You can change order of entries (references).  It will be
+       explained in Section \ref{sec:sort_rule}.
+ \item In a bst file, integer (e.g. 0, 1, 2) is represented as \verb|#0|, \verb|#1| , \verb|#2|.
+\end{itemize}
+
+\subsection{Customized bst files}
+
+Many customized bst files listed in Table \ref{tab:c-files} are already
+provided. You can find these files under the ``customization'' folder.  See
+\url{https://github.com/ShiroTakeda/econ-bst/tree/master/customization}.
+
+\begin{table}[htbp]
+\begin{flushleft}
+\caption{List of customized files.}
+\label{tab:c-files} 
+\begin{tabular}{l|l} \hline \hline
+\multicolumn{1}{c}{bst files} & \multicolumn{1}{c}{Explanation} \\\hline
+\texttt{econ.bst}              & The default econ.bst file. \\\hline
+\texttt{econ-a.bst}            & A simple style. \\\hline
+\texttt{econ-b.bst}            & A style with much decoration. \\\hline
+\texttt{econ-no-sort.bst}      & This style lists entries in citation order. \\\hline
+\texttt{econ-abbr.bst}         & This style uses abbreviated journal name. \\\hline
+\texttt{econ-aea.bst}          & The style for AEA journals such as AER, JEL, AEJ and JEP. \\\hline
+\texttt{econ-econometrica.bst} & The style for Econometrica. \\\hline
+\texttt{econ-jpe.bst}          & The style for JPE (\textit{Journal of Poilitical Economy}). \\\hline
+\texttt{econ-jet.bst}          & The style for JET (\textit{Journal of Economic Theoriy}). \\\hline
+\texttt{econ-jie.bst}          & The style for JIE (\textit{Journal of International Economics}). \\\hline
+\texttt{econ-old.bst}          & The style of the old econ.bst. \\\hline
+\end{tabular}
+\end{flushleft}
+\end{table}
+
+\subsection{Examples of customization}
+
+\subsubsection{Change delimiter used to separate mutiple author names
+   from ``and'' to ``\&''.}
+
+For this, change the contents of ``\texttt{bst.and}'' and ``\texttt{bst.ands}''.
+\paragraph{Default definition:}
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.and}
+{ " and " }
+FUNCTION {bst.ands}
+{ ", and " }
+\end{verbatim}
+\end{Frame}
+
+\paragraph{New definition:}
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.and}
+{ " \& " }
+FUNCTION {bst.ands}
+{ " \& " }
+\end{verbatim}
+\end{Frame}
+
+Then, author names in reference part are displayed as follows:
+\begin{center}
+Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
+ $\downarrow$ \\
+Fujita, Masahisa, Paul~R. Krugman \& Anthony~J. Venables 
+\end{center}
+
+See ``\texttt{econ-b.bst}'' for an example.
+
+\subsubsection{Make author to small caps style}
+
+For this, change the contents of ``\texttt{bst.author.pre}'' and ``\texttt{bst.author.post}''.
+\paragraph{Default definition:}
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.author.pre}
+{ "" }
+FUNCTION {bst.author.post}
+{ "" }
+\end{verbatim}
+\end{Frame}
+
+\paragraph{New definition:}
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.author.pre}
+{ "\textsc{" }
+FUNCTION {bst.author.post}
+{ "}" }
+\end{verbatim}
+\end{Frame}
+
+Then, author names in reference part are changed as follows:
+\begin{center}
+Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
+ $\downarrow$ \\
+\textsc{Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables}
+\end{center}
+
+See ``\texttt{econ-b.bst}'' for an example.
+
+\subsubsection{Change the style of volume and number}
+
+For this, change the contents of ``\texttt{bst.volume.pre}'',
+``\texttt{bst.volume.post}'', ``\texttt{bst.number.pre}'' and
+``\texttt{bst.number.post}''.  
+
+\paragraph{Default definition:}
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.volume.pre}
+{ ", " }
+FUNCTION {bst.volume.post}
+{ "" }
+FUNCTION {bst.number.pre}
+{ " (" }
+FUNCTION {bst.number.post}
+{ ")" }
+\end{verbatim}
+\end{Frame}
+
+\paragraph{New definition:}
+\begin{Frame}
+ \begin{verbatim}
+FUNCTION {bst.volume.pre}
+{ ", Vol. " }
+FUNCTION {bst.volume.post}
+{ "" }
+FUNCTION {bst.number.pre}
+{ ", No. " }
+FUNCTION {bst.number.post}
+{ "" }
+\end{verbatim}
+\end{Frame}
+
+By this, the style of volume and number change from ``5 (10)'' to ``Vol. 5,
+Non. 10''.  See ``\texttt{econ-b.bst}'' for an example.
+
+\subsubsection{Abbreviation of author name}
+
+By default, when there are mutiple documents of the same author, author
+name except for the first document is abbreviated by \verb|\bysame|
+command (i.e. \bysameline).
+
+If you want to always show author name for all documents, change the
+content of ``\texttt{bst.use.bysame}'' as follows:
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.use.bysame}
+{ #0 }  
+\end{verbatim}
+\end{Frame}
+
+In the default setting (`\texttt{bst.use.bysame}' is set to \#1), author names
+are abbreviated when they are exactly the same. For example, suppose that there
+are the following entries
+\begin{itemize}
+ \item Mazda, A., Subaru, B., and Honda, C., (2011) "ABC"
+ \item Mazda, A., Subaru, B., and Honda, C., (2011) "DEF"
+ \item Mazda, A., Subaru, B., and Toyota, D., (2011) "GHI"
+\end{itemize}
+\vspace*{1em}
+
+In the default setting, these entries are listed like
+\begin{Frame}
+\begin{itemize}
+ \item Mazda, A., Subaru, B., and Honda, C., (2011) "ABC" 
+ \item \bysameline, (2011) "DEF"
+ \item Mazda, A., Subaru, B., and Toyota, D., (2011) "GHI"
+\end{itemize}
+\end{Frame}
+
+That is, the abbreviation of authors by `bysame' is only applied to
+entries with exactly the same authors.
+
+If you set \#2 to `bst.use.bysame' like
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.use.bysame}
+{ #2 }  
+\end{verbatim}
+\end{Frame}
+you can choose alternative abbreviation style like
+\begin{Frame}
+\begin{itemize}
+ \item Mazda, A., Subaru, B., Honda, C., (2011) "ABC"
+ \item \bysameline, \bysameline, and \bysameline, (2011) "DEF"
+ \item \bysameline, \bysameline, and Toyota, D., (2011) "GHI"
+\end{itemize}
+\end{Frame}
+\vspace*{1em}
+
+See ``\texttt{econ-a.bst}'' and ``\texttt{econ-b.bst}'' for examples.
+
+
+\subsubsection{Order of first and last name in author field}
+
+``\texttt{bst.author.name}'' defines order of first and last name in author field.
+
+\paragraph{Default definition:}
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.author.name}
+{ #0 }
+\end{verbatim}
+\end{Frame}
+
+If you change \verb|#0| to \verb|#1| or \verb|#2|, you can customize
+order of first and family name.  For example, suppose author field is
+defined as follows:
+\begin{verbatim}
+  author =       {Masahisa Fujita and Paul R. Krugman and Anthony J. Venables}
+\end{verbatim}
+
+According to the content of ``\texttt{bst.author.name}'', expression of
+author changes as follows:
+\begin{Frame}
+\begin{itemize}
+ \item \verb|#0|: First author $\rightarrow$ last-first, other authors
+       $\rightarrow$ first-last.\\
+       $\rightarrow$ Fujita, Masahisa, Paul~R. Krugman, and
+       Anthony~J. Venables
+ \item \verb|#1|: All authos $\rightarrow$ last-first \\
+       $\rightarrow$ Fujita, Masahisa, Krugman, Paul~R., and Venables, Anthony~J.
+ \item \verb|#2|: All authors $\rightarrow$ first-last \\
+       $\rightarrow$ Masahisa Fujita, Paul~R. Krugman, and Anthony~J. Venables
+\end{itemize}
+\end{Frame}
+
+\subsubsection{First name in initial}
+
+By default, first name is displayed in full.  If you change the content
+of ``\texttt{bst.first.name.initial}'' to non-zero, first name is displayed
+in initial.  For example,
+\begin{center}
+Fujita, Masahisa, Paul~R. Krugman, and Anthony~J. Venables \\
+ $\downarrow$ \\
+Fujita, M., P.~R. Krugman, and A.~J. Venables
+\end{center}
+
+See ``\texttt{econ-a.bst}'' for an exmpale.
+
+\subsubsection{Decapitalize letters in title field}
+
+Suppose that the title field is defined as follows
+\begin{center}
+  \verb| title =        {Econometric Policy Evaluation: A Critique}|
+\end{center}
+
+Then, title is displayed in reference as follows:
+\begin{center}
+ Econometric Policy Evaluation: A Critique
+\end{center}
+
+If you change the content of ``\texttt{bst.title.lower.case}'' to
+non-zero, letters except the first letter are decapitalized.  That is,
+you get the following expression in reference:
+\begin{center}
+ Econometric policy evaluation: A critique
+\end{center}
+
+See ``\texttt{econ-a.bst}'' for an exmpale.
+
+
+\subsubsection{Number index before documents in reference}
+
+You can put the number index to each documents as in
+``\texttt{plain.bst}''.  For this, change the content of
+``\texttt{bst.use.number.index}'' to non-zero.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.use.number.index}
+ { #1 }
+\end{verbatim}
+\end{Frame}
+
+If you use fonts other than computer modern fonts, you had better adjust
+the contents of functions ``\texttt{bst.number.index.xxx.yyy}''.
+
+See ``\texttt{econ-b.bst}'' for an exmpale.
+
+
+\subsubsection{List old references first}
+
+By default, references written by the same author are listed in
+chronological order (old documents are listed first).  If you change the
+contents of ``\texttt{bst.reverse.year}'' to non-zero, the order is
+reversed.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.reverse.year}
+{ #1 }
+\end{verbatim}
+\end{Frame}
+
+\subsubsection{Change the position of year}
+
+By default, year is always displayed right after author name.  You can
+change the place of year by setting other values to
+``\texttt{bst.year.position}''.
+\\
+
+If non-zero set to ``\texttt{bst.year.position}'', year is placed
+\begin{itemize}
+ \item at the end of line if there is no ``\texttt{note}'' field, 
+ \item and before ``\texttt{note}'' field if there is.
+\end{itemize}
+for non-article type entry.
+
+With respect to aritcle type entry, the following rule is applied:
+\begin{Frame}
+\begin{enumerate}
+ \item \verb|#1|: $\rightarrow$ year is placed at the end (before note field).
+ \item \verb|#2|: $\rightarrow$ year is placed after journal name.
+ \item \verb|#3|: $\rightarrow$ year is placed after volume.
+\end{enumerate}
+\end{Frame}
+
+For example, reference style changes as follows:
+\begin{description}
+ \item[\#0: ] Mazda, A. and B. Subaru, 2007, ``ABC,'' \textit{Journal of
+            Automobiles}, 1 (2), pp. 1-10.
+ \item[\#1: ] Mazda, A. and B. Subaru, ``ABC,'' \textit{Journal of Automobiles},
+            1 (2), pp. 1-10, 2007.
+ \item[\#2: ] Mazda, A. and B. Subaru, ``ABC,'' \textit{Journal of Automobiles},
+            2007, 1 (2), pp. 1-10.
+ \item[\#3: ] Mazda, A. and B. Subaru, ``ABC,'' \textit{Journal of Automobiles},
+            1 (2), 2007, pp. 1-10.
+\end{description}
+
+See ``\texttt{econ-a.bst}'' and ``\texttt{econ-b.bst}'' for exmpales.
+
+
+\subsubsection{Order of editors and book title in incollection and inproceedings entry}
+
+By default, editor name comes before book title in incollection and
+inproceedings entry. You can reverse this order by
+setting non-zero to `bst.editor.btitle.order' like
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.editor.btitle.order}
+{ #1 }
+\end{verbatim}
+\end{Frame}
+
+
+\begin{Frame}
+Krugman, Paul~R. (1991) ``Is Bilateralism Bad?'' in Elhanan Helpman and Assaf
+  Razin eds.  {\it International Trade and Trade Policy}, Cambridge, MA: MIT
+  Press, pp. 9--23.
+\begin{center}
+ $\downarrow$
+\end{center} 
+Krugman, Paul~R. (1991) ``Is Bilateralism Bad?'' in  {\it International Trade
+and Trade Policy}  eds. by Elhanan Helpman and Assaf Razin, Cambridge, MA:
+MIT Press, pp. 9--23.
+\end{Frame}
+
+\subsubsection{Order of address and publisher}
+
+By default, publisher address is placed before publisher name.  You can
+reverse this order by setting non-zero to `bst.address.position'.
+\begin{Frame}
+Krugman, Paul~R. (1991) ``Is Bilateralism Bad?'' in Elhanan Helpman and
+  Assaf Razin eds.  {\it International Trade and Trade Policy},
+  Cambridge, MA, MIT Press, pp. 9--23.
+\begin{center}
+ $\downarrow$
+\end{center} 
+Krugman, Paul~R. (1991) ``Is Bilateralism Bad?'' in Elhanan Helpman and Assaf
+  Razin eds.   {\it International Trade and Trade Policy}, MIT Press,
+  Cambridge, MA, pp. 9--23.
+\end{Frame}
+
+\subsubsection{When the number of authors is very large}
+
+In some research areas, the number of authors of a paper is sometimes very large
+(more than 100 ). In such a bibliographic entry, it is not possible to list all
+authors names in the reference part.  To handle a bibliographic entry with many
+authors, ``\texttt{econ.bst}'' lists only a part of authors when the number of
+authors is large. In particular, econ.bst works as follows:
+\begin{itemize}
+ \item If the number of authors is greater than N1, only the first N2 authors'
+       names are displayed in the reference part (and other authors' names are
+       omitted by ``et el.'').
+ \item N1 is determined by `bst.max.author.num' (the default value = 8).
+ \item N2 is determined by `bst.max.author.num.displayed' (the default value =
+       3).
+\end{itemize}
+
+This function is applied to The following three entries:
+\citet{essd-10-405-2018}, \citet{luthi08:_high}, and
+\citet{doi:10.1175/2009BAMS2778.1}. In addition, \texttt{econ-many-authors.tex}
+in the customization folder includes other examples.
+
+
+\subsection{Customization of citation part}
+
+We have so far seen the customization of reference part. ``\texttt{econ.bst}''
+also can change the styles of citation part although it is highly limited.
+
+\subsubsection{The number of authors for ``\textit{et al.}'' in citation part}
+
+With \texttt{natbib.sty}, you can cite a paper by both full names and
+abbreviated names. For example, by using command `\verb|\citet|' and
+`\verb|\citet*|', you can generate the following two styles.
+\begin{itemize}
+ \item Citation by full names: \\
+       \verb|\citet*{Takeda2014a}| $\longrightarrow$ \citet*{Takeda2014a}
+ \item Citation by abbreviated names: \\
+       \verb|\citet{Takeda2014a}| $\longrightarrow$ \citet{Takeda2014a}
+\end{itemize}
+
+By the default, author names more than three are abbreviated. But you can change
+the number of authors to which abbreviation is applied.  For example, if you set
+\verb|#4| to `\texttt{bst.and.others.num}`, abbreviation is applied only to the
+entry with more than four authors.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.and.others.num}
+{ #4 }
+\end{verbatim} 
+\end{Frame}
+
+\subsection{Customization of citation part by \texttt{natbib.sty}}
+
+The style of citation part is mainly controlled by \texttt{natbib.sty}. You can
+change the style of citation part by changing commands and options provided by
+\texttt{natbib.sty}.
+See the manual of \texttt{natbib.sty} for the details. 
+\begin{itemize}
+ \item The manual of \texttt{natbib.sty}:
+       \href{http://mirror.ctan.org/macros/latex/contrib/natbib/natbib.pdf}{natbib.pdf}
+ \item The reference sheet of \texttt{natbib.sty}:
+       \href{http://mirror.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}{natnotex.pdf}
+\end{itemize}
+
+\subsubsection{Citation by number index}
+
+Here I show one customization of \texttt{natbib.sty} for citation style.  With
+\texttt{natbib.sty}, we usually use ``author (year)'' citation format. However,
+we can use citation by numder index like [1], [2], [3]...
+
+To use this style, you first need to load \texttt{natbib} package with option
+``\texttt{numbers}''
+\begin{Frame}
+\begin{verbatim}
+\usepackage[numbers]{natbib}        
+\end{verbatim} 
+\end{Frame}
+
+In addition, you need to use \texttt{citep} command in the citation part like
+\begin{Frame}
+\begin{verbatim}
+\citep{Takeda2014a}
+\end{verbatim} 
+\end{Frame}
+
+See ``\texttt{econ-numbers.tex}'' and ``\texttt{econ-numbers.pdf}'' for an example.
+
+\section{Certified random order}
+\label{sec:cro}
+
+\subsection{What is ``certified random order''?}
+
+The ordering of author names in joint publications in economics is typically
+alphabetical.  However, alphabetical order has its shortcomings; in particular,
+it confers greater benefits on the first author.\footnote{See
+\citet{10.1257/aer.20161492} for the details.} This can happen for various
+reasons, including the use of the ``et al.'' convention, the bunching of
+bibliographic references for early-ordered names in reference lists, and the
+psychological focus on first authors.
+
+\citet{10.1257/aer.20161492} propose ``certified random order,'' in which names
+are separated by a symbol, \textcircled{r}, that certifies or signals that the
+author names are in random order. In particular, the symbol permits authors to
+``certify'' that a reverse name order is only due to randomization, and avoids
+the usual interpretation of name reversal in economics.
+
+``\texttt{econ.bst}'' can handle references to papers in random order. Examples
+of such papers in this document are \citet{10.1257/aer.20161492},
+\citet{RePEc:hka:wpaper:2018-037}, \citet{vohra18:_maxim_farsig_stabl_set},
+\citet{NBERw25205}.
+
+
+\subsection{How to cite papers in certified random order}
+
+To cite papers in certified random order with ``\texttt{econ.bst}'', you must
+flag those entries in the bib file.  To achieve this, ``\texttt{econ.bst}''
+contains the field ``\texttt{nameorder}''. If the bibliographical entry uses
+random order, add the following information to that entry:
+\begin{verbatim}
+    nameorder    = {random}
+\end{verbatim}
+
+For intance, the entry for \citet{10.1257/aer.20161492} is specified in
+\texttt{econ-example.bib} as follows:
+\begin{verbatim}
+@article{10.1257/aer.20161492,
+  Author       = {Ray, Debraj and Robson, Arthur},
+  Title        = {Certified Random: A New Order for Coauthorship},
+  Journal      = {American Economic Review},
+  Volume       = {108},
+  Number       = {2},
+  Year         = {2018},
+  Month        = {February},
+  Pages        = {489-520},
+  DOI          = {10.1257/aer.20161492},
+  URL          = {http://www.aeaweb.org/articles?id=10.1257/aer.20161492},
+  nameorder    = {random}
+}
+\end{verbatim}
+
+\noindent \textbf{[Notes]} \\
+1. The field ``nameorder'' is currently unique to \texttt{econ.bst} and it
+is not a field used in bibliography databases (at least for now).
+
+\noindent 2. ``\texttt{econ.bst}'' does not itself randomize the order of
+names. It simply cites an existing reference in random order, as the authors
+intend it to be cited.
+\vspace*{1em}
+
+
+With the ``nameorder'' field in place, there is nothing else you need to change,
+and you can cite bibliographic entries as before.  For example, the command
+\verb|\citet{10.1257/aer.20161492}| will generate the citation
+\citet{10.1257/aer.20161492} in the text, and the following entry in the
+references:
+
+\begin{quote}
+Ray, Debraj \textcircled{r} Arthur Robson (2018) ``Certified Random: A New
+Order for Coauthorship,'' \textit{American Economic Review}, 108 (2),
+489--520, \href{http://dx.doi.org/10.1257/aer.20161492}{\urlstyle{rm}
+\nolinkurl{10.1257/aer.20161492}}.
+\end{quote}
+
+Under the random order style, an entry with two authors is cited as already
+described: \citet{10.1257/aer.20161492}. On the other hand, an entry with more
+than two authors has two citation styles, depending on whether all names are
+cited in full, or the citation is abbreviated:
+\begin{itemize}
+ \item All-names citation $\longrightarrow$ \citet*{NBERw25205}
+ \item Abbreviated citation $\longrightarrow$ \citet{NBERw25205}
+\end{itemize}
+
+Note that in the abbreviated names style, \textcircled{r} is used instead of
+``et''. Think of \textcircled{r} as a conjunction just as ``and'' or ``but''. In
+verbal citations, it would be pronounced just as the letter ``r'' is pronounced.
+
+\subsection{Customization for certified random order}
+
+The behavior of random order is controlled by the following functions:
+`\texttt{bst.use.nameorder}', `\texttt{bst.and.nameorder}',
+`\texttt{bst.cite.and.nameorder}' and `\texttt{bst.and.others.nameorder}'.
+\vspace*{1em}
+
+Under the default setting of ``\texttt{econ.bst}'', random order is
+automatically used for bibliographic entries with `\texttt{nameorder}' field.
+However, if you set \verb|#0| to `\texttt{bst.use.nameorder}' as follows, the
+function of random order is not used.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.use.nameorder}
+{ #0 }  % Not use random order
+\end{verbatim}
+\end{Frame}
+
+Under the default setting, we use ``\textcircled{r}'' (\verb|\textcircled{r}|)
+for the symbol for separating author names.
+They are defined with the following code in \texttt{econ.bst}.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.and.nameorder}
+{ " \textcircled{r} " }
+
+FUNCTION {bst.cite.and.nameorder}
+{ " \textcircled{r} " }
+
+FUNCTION {bst.and.others.nameorder}
+{ " \textcircled{r}~al." }
+\end{verbatim}
+\end{Frame}
+
+You can use an alternative symbol by redefining these functions:
+`\texttt{bst.and.nameorder}', `\texttt{bst.cite.and.nameorder}' and
+`\texttt{bst.and.others.nameorder}'.
+
+
+\section{Sorting rule}
+\label{sec:sort_rule}
+
+\noindent \textbf{[Note]} If you want to create an ordinary list of
+references, you need not  read this part.  The explanation below is
+for sorting references in a special way.
+
+\subsection{Basic sorting rule}
+
+The sorting of references is done according to values of fields defined
+in bib files.  Basically, sorting is done according to the following
+order of priority:
+\begin{enumerate}
+ \item Type of entry (if ``\texttt{bst.sort.entry.type}'' has non-zero value)
+ \item Value of ``\texttt{year}'' field (if ``\texttt{bst.sort.year}'' has non-zero value)
+ \item Value of ``\texttt{absorder}'' field (if ``\texttt{absorder}'' field has
+       a value)
+ \item Value of ``\texttt{author}'' (or ``\texttt{editor}'') field.
+ \item Value of ``\texttt{year}'' field.
+ \item Value of ``\texttt{order}'' field.
+ \item Value of ``\texttt{month}'' field.
+ \item Value of ``\texttt{title}'' field.
+\end{enumerate}
+
+By default, 
+\begin{itemize}
+ \item ``\texttt{bst.sort.entry.type}'' and ``\texttt{bst.sort.year}'' have
+       zero,
+ \item \textbf{''\texttt{absorder}''} and \textbf{''\texttt{order}''}
+       fields are not assigned values because they are fields specific
+       to ``\texttt{econ.bst}''.
+\end{itemize}
+Thus, references are sorted according to
+\begin{Frame}
+ \begin{center}
+ ``\texttt{author}'' $\rightarrow$ ``\texttt{year}'' $\rightarrow$
+ ``\texttt{month}'' $\rightarrow$  ``\texttt{title}'' 
+\end{center}
+\end{Frame}
+That is, ``\texttt{author}'' is used as the primary key, ``\texttt{year}'' as
+the secondary key, ``\texttt{month}'' as the third key and ``\texttt{title}'' as
+the fourth key.
+
+\subsection{No sorting}
+
+If you want to list references in citation order, set non-zero value to
+``\texttt{bst.no.sort}''.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.no.sort}
+{ #1 }
+\end{verbatim}
+\end{Frame}
+
+Note that when you set non-zero value to ``\texttt{bst.no.sort}'', you had better not
+use \verb|\bysame|.
+
+\subsection{Sort references by type}
+
+If you want to gather references according to their types (article,
+book, incollection, unpublished etc.), set non-zero value to
+``\texttt{bst.sort.entry.type}''.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.sort.entry.type}
+{ #1 }
+\end{verbatim}
+\end{Frame}
+
+Order of listing by entry type is determined by function
+``\texttt{bst.sort.entry.type.order}'' (by default, listed in alphabetical
+order, that is, article $\rightarrow$ book $\rightarrow$ booklet
+$\rightarrow$ comment $\rightarrow$ inbook $\rightarrow$ incollection
+$\rightarrow$ $\cdots$ $\rightarrow$ unpublished).  See
+``\texttt{bst.sort.entry.type.order}'' in ``\texttt{econ.bst}''.
+
+\subsection{Use ``\texttt{year}''  as the primary sorting key}
+
+When you create CV or a list of your papers, you may want to sort
+references in chronological order.  If all papers are written soley by
+yourself, references are sorted in chronological order by default.
+However, there are co-writers and if you are not the first author,
+references are not sorted in chronological order because the author name
+is used as the primary sorting key by default.
+If you want to sort references in chronological order even when
+there are co-writers, set non-zero to ``\texttt{bst.sort.year}''.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.sort.year}
+{ #1 }
+\end{verbatim}
+\end{Frame}
+
+By default, old references are listed first.  But if you set non-zero to
+``\texttt{bst.reverse.year}'', new references are listed first.
+
+\subsection{Sorting by ''\texttt{absorder}'' field}
+
+If ``\texttt{absorder}'' is defined in bib file,
+``\texttt{econ.bst}'' uses its content as the primary sorting key.
+You can set number 0--999 to ''\texttt{absorder}'' field.
+
+\begin{Frame}
+\begin{center}
+ no absorder or absorder = 0  $\rightarrow$ absorder = 1 $\rightarrow$ absorder = 2
+ $\rightarrow$ $\cdots$ $\rightarrow$ absorder = 999
+\end{center}
+\end{Frame}
+That is, reference with a small value of ``\texttt{absorder}'' is listed
+first.  In this document (``\texttt{econ-example.bib}''), the reference
+with the key \citet{takeda10:_cge_analy_welfar_effec_trade} has 999 for
+``\texttt{absorder}'' field and thus listed in the last.
+
+
+\subsubsection{Ignore ''\texttt{absorder}'' field}
+
+If you set some values for ``\texttt{absorder}'' fields in bib file,
+but if you want to ignore them, set non-zero to
+``\texttt{bst.notuse.absorder.field}''.
+\begin{Frame}
+\begin{verbatim}
+FUNCTION {bst.notuse.absorder.field}
+{ #1 }
+\end{verbatim}
+\end{Frame}
+
+\section{Misc.}
+
+\begin{itemize}
+ \item Email: \verb|<shiro.takeda@gmail.com>|.
+ \item ``\texttt{econ.bst}'' is available at \url{https://github.com/ShiroTakeda/econ-bst}.
+\end{itemize}
+\vspace*{1em}
+
+\citet{borgers95:_note_implem_stron_domin},
+\citet{bergemann11:_ration},
+\citet{takeda2015a},
+\citet{Takeda2014a},
+\citet{Biker-2007-unemployment},
+\citet{Babiker-1999-JapaneseNuclearPower},
+\citet{Babiker-1999-KyotoProtocoland},
+\citet{Babiker2000525},
+\citet{BabikerRutherford-2005-EconomicEffectsof},
+\citet{goldin:katz:2011}, \citet{goldin:katz:2008}, \citet{goldin:katz:2000}.
+\citet{stakeda2019web},
+\citet{Rivers-2005-CombiningTop-Downand},
+\citet{WilsonMannOtsuki-2005-AssessingBenefitsof},
+\citet{zhang2016Deep},
+\citet{imbens2019Optimized},
+\citet{essd-10-405-2018},
+\citet{luthi08:_high},
+\citet{doi:10.1175/2009BAMS2778.1},
+
+\vspace*{1em}
+
+\nocite{*}
+
+%%% BibTeX style.
+\bibliographystyle{econ}
+
+%% BibTeX database file.
+\addcontentsline{toc}{section}{References}
+\bibliography{econ-example}
+
+\end{document}
+
+%#####################################################################
+%######################### Document Ends #############################
+%#####################################################################
+% --------------------
+% Local Variables:
+% fill-column: 80
+% End:
+
