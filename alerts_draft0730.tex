@@ -446,7 +446,19 @@ We show that the observed pattern of switching sensitivities to false-positive a
 
 \textbf{Loss-averse decision-maker.} A loss-averse decision-makers have extra-sensitivity to losses or deviations of incomes below a certain baseline. As a result, utility function becomes convex in the domain of losses. There are different functional specifications of loss aversion, but ---
 
-\textbf{Probability-weighting decision-maker.} A decision-maker does probability weighting if it reacts to overreacts to very low probabilities and underreacts to very high probabilities. Their behavior can be described as a standard expected utility maximization but transforming all the probabilities to number closer to the middle of the support (1/2). We can show that probability weighting implies a reverse pattern of responses to false-positive and false-negative rates with priors and hence cannot explain our observations. Math ---
+\textbf{Probability-weighting decision-maker.} A decision-maker does probability weighting if it reacts to overreacts to very low probabilities and underreacts to very high probabilities. Their behavior can be described as a standard expected utility maximization but transforming all the probabilities to number closer to the middle of the support (1/2). We can show that probability weighting implies a reverse pattern of responses to false-positive and false-negative rates with priors and hence cannot explain our observations. Willingness-to-pay solves the following equation, which is equivalent to eqation () but with probabilities $x$ replaced by its monotonic transform $f(x)$:
+
+\begin{equation}
+\begin{split}
+f(P(s=1))u(Y-b-c)+f(\pi P_{01})u(Y-b-L)+f((1-\pi)P_{00})u(Y-b)=\\=\max[u(Y-c),f(\pi) u(Y-L)+f((1-\pi)) u(Y)] 
+\end{split}
+\end{equation}
+
+Taking derivatives from both sides we obtain:
+
+ $${db\over dP_{10}}=-{(1-\pi)(u(Y-b)-u(Y-c-b))\over D(\pi, P_{01}, P_{10}, b)}$$
+$${db\over dP_{01}}=-{\pi(u(Y-c-b)-u(Y-L-b))\over D(\pi, P_{01}, P_{10}, b)}$$
+
 
 \textbf{Preferences for certainty.} \citet{eliaz_paying_2010} observe subjects paying for signals which have no potential effect on their decisions. Their theoretical explanation assumes that decision-maker's certainty in a chosen action directly affects their decision. In our setup it is equivalent to adding a strictly increasing function of the posterior belief $\mu$ to the consumption utility. Math ---
 

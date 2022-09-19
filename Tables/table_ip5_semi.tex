@@ -1,38 +1,38 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Informed protection by prior}
+\caption{Informed protection response: semiparametric control for posteriors}
 \begin{tabular}{l*{4}{c}}
 \hline\hline
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
                 &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
 \hline
-False pos. rate &     .415\sym{***}&     .458\sym{***}&     .451\sym{***}&     .324\sym{**} \\
-                &    (0.1)         &    (0.2)         &    (0.1)         &    (0.1)         \\
-False neg. rate &    .0154         &   -.0466         &   -.0807         &    .0574         \\
-                &    (0.1)         &    (0.2)         &    (0.3)         &    (0.1)         \\
-p$>$0.2         &                  &     .048         &                  &                  \\
-                &                  &    (0.0)         &                  &                  \\
-highprobBW      &                  &   -.0285         &                  &                  \\
+False pos. rate &     .547\sym{***}&     .439\sym{**} &     .527\sym{***}&     .361\sym{*}  \\
+                &    (3.6)         &    (2.2)         &    (3.3)         &    (1.8)         \\
+False neg. rate &    -.186         &    -.197         &    -.643         &   .00259         \\
+                &   (-1.0)         &   (-0.9)         &   (-1.6)         &    (0.0)         \\
+p$>$0.2         &                  &    .0377         &                  &                  \\
+                &                  &    (0.8)         &                  &                  \\
+FP rate x (p $\geq$ 0.2)&                  &     .225         &                  &                  \\
+                &                  &    (0.9)         &                  &                  \\
+FN rate x (p $\geq$ 0.2)&                  &    .0451         &                  &                  \\
                 &                  &    (0.2)         &                  &                  \\
-highprobWB      &                  &    .0918         &                  &                  \\
-                &                  &    (0.2)         &                  &                  \\
-Gremlin says Black&                  &                  &     .081         &                  \\
-                &                  &                  &    (0.2)         &                  \\
-blackhintBW     &                  &                  &     -.42         &                  \\
-                &                  &                  &    (0.4)         &                  \\
-blackhintWB     &                  &                  &     .125         &                  \\
-                &                  &                  &    (0.3)         &                  \\
-(first) stat\_educ&                  &                  &                  &  -.00775         \\
-                &                  &                  &                  &    (0.0)         \\
-statBW          &                  &                  &                  &      .16         \\
-                &                  &                  &                  &    (0.1)         \\
-statWB          &                  &                  &                  &    -.068         \\
-                &                  &                  &                  &    (0.1)         \\
+S=Black         &                  &                  &    -6.21         &                  \\
+                &                  &                  &   (-0.6)         &                  \\
+FP rate x (S=Black)&                  &                  &   .00529         &                  \\
+                &                  &                  &    (0.0)         &                  \\
+FN rate x (S=Black)&                  &                  &     .516         &                  \\
+                &                  &                  &    (1.3)         &                  \\
+Stat. class     &                  &                  &                  &   -.0199         \\
+                &                  &                  &                  &   (-0.4)         \\
+FP rate x Stat. class&                  &                  &                  &     .326         \\
+                &                  &                  &                  &    (1.5)         \\
+FN rate x Stat. class&                  &                  &                  &    -.298         \\
+                &                  &                  &                  &   (-1.4)         \\
 \hline
-Observations    &     1259         &     1259         &     1259         &     1259         \\
-Adjusted \(R^{2}\)&     0.01         &     0.01         &     0.01         &     0.01         \\
+Observations    &      629         &      629         &      629         &      629         \\
+Adjusted \(R^{2}\)&     0.02         &     0.02         &     0.02         &     0.02         \\
 \hline\hline
-\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
 \multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

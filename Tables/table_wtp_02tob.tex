@@ -1,0 +1,33 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{WTP for Information (tobit)}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{p=0.1}&\multicolumn{1}{c}{p=0.2}&\multicolumn{1}{c}{All}&\multicolumn{1}{c}{All}&\multicolumn{1}{c}{All}\\
+\hline
+model           &                  &                  &                  &                  &                  &                  \\
+FN costs        &    -.562\sym{**} &    -1.22\sym{**} &    -.682\sym{***}&    -.791\sym{***}&     -.68\sym{***}&    -.674\sym{**} \\
+                &    (0.2)         &    (0.6)         &    (0.3)         &    (0.2)         &    (0.3)         &    (0.3)         \\
+FP costs        &    -.631\sym{***}&    -.624\sym{**} &    -.519\sym{**} &    -.581\sym{***}&    -.485\sym{**} &    -.463\sym{**} \\
+                &    (0.2)         &    (0.2)         &    (0.3)         &    (0.2)         &    (0.2)         &    (0.2)         \\
+BP costs        &                  &                  &                  &     .397\sym{***}&     .386\sym{***}&     .393\sym{***}\\
+                &                  &                  &                  &    (0.1)         &    (0.1)         &    (0.1)         \\
+Belief change   &                  &                  &                  &                  &     .368         &                  \\
+                &                  &                  &                  &                  &    (0.3)         &                  \\
+Certainty       &                  &                  &                  &                  &                  &     .799         \\
+                &                  &                  &                  &                  &                  &    (0.8)         \\
+Constant        &     1.94\sym{***}&     1.72\sym{***}&     2.33\sym{***}&     .816\sym{**} &     .573         &    .0873         \\
+                &    (0.2)         &    (0.2)         &    (0.2)         &    (0.3)         &    (0.4)         &    (0.8)         \\
+\hline
+sigma           &                  &                  &                  &                  &                  &                  \\
+Constant        &     1.82\sym{***}&     1.86\sym{***}&      1.7\sym{***}&     1.78\sym{***}&     1.78\sym{***}&     1.78\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+\hline
+Observations    &      315         &      162         &      153         &      315         &      315         &      315         \\
+Adjusted \(R^{2}\)&                  &                  &                  &                  &                  &                  \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

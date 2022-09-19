@@ -1,0 +1,25 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Informed protection response: probit}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
+\hline
+False pos. rate &     .245\sym{**} &     .244\sym{**} &     .657\sym{***}&     .201\sym{*}  &     .189\sym{*}  &     .642\sym{***}\\
+                &    (2.1)         &    (2.2)         &    (5.4)         &    (1.7)         &    (1.7)         &    (4.6)         \\
+False neg. rate &     .342\sym{***}&     .335\sym{***}&     .302\sym{***}&     .365\sym{***}&     .349\sym{***}&     .302\sym{***}\\
+                &    (3.3)         &    (3.3)         &    (3.0)         &    (3.3)         &    (3.2)         &    (2.8)         \\
+S=Black         &                  &     .477\sym{***}&     .219\sym{***}&                  &      .48\sym{***}&     .224\sym{***}\\
+                &                  &   (58.6)         &    (4.1)         &                  &  (249.0)         &    (4.0)         \\
+Posterior prob. &                  &                  &     .371\sym{***}&                  &                  &     .365\sym{***}\\
+                &                  &                  &    (5.0)         &                  &                  &    (4.5)         \\
+\hline
+Observations    &      629         &      629         &      629         &      587         &      587         &      587         \\
+Adjusted \(R^{2}\)&                  &                  &                  &                  &                  &                  \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{7}{l}{\footnotesize Errors are clustered by subject, average marginal treatment effects}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}
