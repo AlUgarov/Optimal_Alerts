@@ -981,17 +981,7 @@ eststo: reg bel_err c.phintWB c.phintBW if plevel<300&blackhint==1, vce(cluster 
 eststo: reg bel_err phintWB phintBW i.subject_id if plevel<300, vce(cluster subject_id)
 eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
 eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
-esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black" "All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
-
-
-
-eststo: reg bel_err i.plevel phintWB phintBW if plevel<300, vce(cluster subject_id)
-eststo: reg bel_err i.goodquiz##c.phintWB i.goodquiz##c.phintBW if plevel<300, vce(cluster subject_id)
-eststo: reg bel_err i.goodquiz##i.plevel i.goodquiz##c.phintWB i.goodquiz##c.phintBW if plevel<300, vce(cluster subject_id)
-eststo: reg bel_err i.stat_educ##c.phintWB i.stat_educ##c.phintBW if plevel<300, vce(cluster subject_id)
-eststo: reg bel_err i.stat_educ##i.plevel i.stat_educ##c.phintWB i.stat_educ##c.phintBW if plevel<300, vce(cluster subject_id)
-
-
+esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black" "All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
 
 
 *Testing the accuracy of reported beliefs***
