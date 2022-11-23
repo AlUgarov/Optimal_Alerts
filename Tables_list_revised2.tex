@@ -72,35 +72,109 @@
 %\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 %\caption{xx}
 
-\begin{table}[h!]
+\begin{table}[htbp!]
 \caption{List of Treatments}
 \input{Tables/table_treatments.tex}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[htbp!]
 \caption{Demographic Characteristics of Subjects}
 \input{Tables/table_summary.tex}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[htbp!]
 \caption{Risk Aversion Measurement}
 \input{Tables/thetas.tex}
 \end{table}
 
 %\input{Tables/table_wtpdiff_01r.tex}
 %\end{table}
+\newpage
 \input{Tables/table_ip0.tex}
+
+\newpage
 \input{Tables/table_ip5.tex}
 
-\input{Tables/table_ip_strat.tex}
+\newpage
+
+\begin{table}[H]
+\caption{Latent Class Multinomial Choice Model Estimates (FP and FN rates by hint)}
+\input{Tables/lc_results3.tex}
+\end{table}
+
+\input{Tables/table_ipclasses2.tex}
+
+\input{Tables/table_class_det2.tex}
+
+\input{Tables/losses_matr2c.tex}
+
+\newpage
+%\begin{table}[H]
+%\caption{Model Quality by N of classes}
+%\input{Tables/class_search.tex}
+%\end{table}
+
+\begin{table}[H]
+\caption{Latent Class Multinomial Choice Model Estimates}
+\input{Tables/lc_results.tex}
+\end{table}
+
+%\input{Tables/table_ip_strat.tex}
+
+%\begin{table}[H]
+%\caption{Classification Quality (2 classes)}
+%\input{Tables/class_or.tex}
+%\end{table}
+
+\input{Tables/table_ipclasses.tex}
+
+%\input{Tables/table_class_det.tex}
 
 
+%\input{Tables/losses_matr.tex}
 
+\input{Tables/table_be_err.tex}
+
+\begin{table}[H]\centering
+\caption{Comparing Findings across the Tasks}
+\begin{tabular}{l|c|c|c}
+\hline \hline
+Design & Beliefs & IP &WTP\\
+\hline
+White, FP only & $>$ & $>$ & $>*$ \\
+White, FN only & $>$ & - & $<>$ \\
+White, FN and FP & $>>$ & - & $>$ \\
+Black, FP only & $>$ & - & $>*$ \\
+Black, FN only & $<<$ & $<>$ & $<>$ \\
+Black, FN and FP & $>$ & - & $>$\\
+\hline
+\multicolumn{4}{l}{*-WTP estimates do not depend on signals.}\\
+\end{tabular}
+\end{table}
+
+%\begin{table}[H]
+%\caption{Model Quality by N of classes (FP and FN rates)}
+%\input{Tables/class_search2.tex}
+%\end{table}
+
+%\begin{table}[H]
+%\caption{Latent Class Multinomial Choice Model Estimates (FP and FN rates)}
+%\input{Tables/lc_results2.tex}
+%\end{table}
+
+
+\newpage
 \input{./Tables/table_wtp_02tob.tex}
+
+
 
 \input{Tables/table_wtpdiff_01rfull_ag.tex}
 
+
+\input{./Tables/table_wtp_classes.tex}
+
 \input{./Tables/table_wtp_strat.tex}
+
 
 %\input{Tables/table_ip_het.tex}
 
@@ -149,10 +223,7 @@
 
 
 %\input{Tables/table_costs3.tex}
-\vspace{40pt}
-\newpage
 
-\newpage
 
 \section{Figures}
 

@@ -1,0 +1,28 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{IP response by class}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{Class 1}&\multicolumn{1}{c}{Class 2}\\
+\hline
+S=Black         &     .628\sym{***}&     .357\sym{***}&     .772\sym{***}\\
+                &   (23.1)         &    (2.8)         &   (10.5)         \\
+FN rate*White hint&     .691\sym{***}&     1.49\sym{***}&     .352\sym{***}\\
+                &    (4.3)         &    (3.5)         &    (3.3)         \\
+FP rate*White hint&     .622\sym{***}&      .49         &      .47\sym{***}\\
+                &    (4.6)         &    (1.6)         &    (4.7)         \\
+FN rate*Black hint&   -.0274         &    .0659         &    .0588         \\
+                &   (-0.2)         &    (0.2)         &    (0.4)         \\
+FP rate*Black hint&    -.124         &     1.15\sym{***}&    -1.25\sym{***}\\
+                &   (-0.8)         &    (5.6)         &   (-4.8)         \\
+\hline
+N               &      624         &      138         &      486         \\
+Pseudo R-squared&     .347         &     .242         &     .543         \\
+Log-likelihood  &     -282         &    -62.3         &     -153         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{4}{l}{\footnotesize Errors are clustered by subject, average marginal treatment effects}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

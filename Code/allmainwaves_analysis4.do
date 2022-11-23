@@ -135,11 +135,40 @@ gen pilot=0
 
 save "./Temp/mainwaves_wide.dta", replace
 
+
+
+
 import delimited using "./Input/coded_strategies.csv", clear
+
+
+gen mention_hint=0
+replace mention_hint=1 if strpos(explanation, "hint")>0
+replace mention_hint=1 if strpos(explanation, "says")>0
+replace mention_hint=1 if strpos(explanation, "say")>0
+replace mention_hint=1 if strpos(explanation, "tell")>0
+replace mention_hint=1 if strpos(explanation, "told")>0
+
+gen mention_prop=0
+
+replace mention_prop=1 if strpos(explanation, "balls")
+
+gen mention_hon=0
+replace mention_hon=1 if strpos(explanation, "truth")>0
+replace mention_hon=1 if strpos(explanation, "honest")>0
+replace mention_hon=1 if strpos(explanation, "lying")>0
+
+
+tab mention_hint
+tab mention_prop
+tab mention_hon
+
 save "./Temp/coded_strategies.dta", replace
 use "./Temp/mainwaves_wide.dta", replace
 merge 1:1 participant_id using "./Temp/coded_strategies.dta"
 drop _merge
+
+
+
 save "./Temp/mainwaves_wide.dta", replace
 
 **BLIND PROTECTION ANALYSIS**
@@ -423,7 +452,7 @@ replace college=1-college
 tabstat sex old college stat_educ, by(seq_type) statistics(sum mean) column(statistics) longstub
 
 *collapse (mean) sex old stat_educ college final_payoff duration_min (sum) tsex=sex told=old  tcollege=college tstat_educ=stat_educ
-*order tsex sex told old tcollege college tstat_educ stat_educ
+*order tsex sex told old college college tstat_educ stat_educ
 *bro
 
 
@@ -495,7 +524,6 @@ gen accur_bel=tot_bel_err<`err_med' //error is less than the median
 
 
 *Evaluating relative belief accuracy conditional on tasks (prior x signal)
-
 bys round: sum absbel_err
 bys subject_id round: egen v1=sum(absbel_err)
 bys p phintWB phintBW:egen med_bel_err=median(v1)
@@ -568,7 +596,6 @@ graph export "./Graphs/hist_belief_error_s3.png", width(1200) height(800) replac
 hist bel_err  if pilot==0&abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
 graph export "./Graphs/hist_belief_error_s4.png", width(1200) height(800) replace
 
-
 hist bel_err  if pilot==0&abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
 graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replace
 
@@ -621,7 +648,7 @@ keep if p<0.3
 
 *serrbar ip se post_prob if task_type=="Blind", scale (1.96) title("Blind Protection Response") mlwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices")
 
-lpoly ip post_prob, bwidth(0.1) ci noscatter title("Informed Protection Response") lineopt(lwidth(1)) mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")
+lpoly ip_ post_prob, bwidth(0.1) ci noscatter title("Informed Protection Response") lineopt(lwidth(1)) mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")
 graph export "./Graphs/ip_response_lpoly.png", width(1200) height(800) replace
 
 sort subject_id round
@@ -672,9 +699,9 @@ set more off
 ****-- INFORMED PROTECTION --****
 
 *expected response by prior prob:
-gen highprob=p>0.2
-label var highprob "p$>$0.2"
-label define highprob_l 0 "p $\geq$ 0.2" 1 "p$>$0.2"
+gen highprob=p>0.101
+label var highprob "p$\geq$0.2"
+label define highprob_l 0 "p$=$0.1" 1 "p$\geq$0.2"
 label values highprob highprob_l
 
 label var stat_educ "Stat. class"
@@ -711,43 +738,108 @@ label var black_phintWB "FN rate x (S=Black)"
 
 xtset subject_id
 
+label var phintBW "FP rate"
+label var phintWB "FN rate"
 
 **Baseline IP table:
+gen fef=1
 eststo clear
+eststo: logit ip_ phintBW phintWB blackhint i.plevel if plevel<300, vce(cluster subject_id)
+local r2p=e(r2_p)
+local llike=e(ll)
+test phintBW=phintWB
+local p=r(p)
+eststo m1: margins, dydx(phintBW phintWB blackhint i.plevel) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+eststo: logit ip_ phintBW phintWB i.plevel if blackhint==0&plevel<300, vce(cluster subject_id)
+test phintBW=phintWB
+local p=r(p)
+local r2p=e(r2_p)
+local llike=e(ll)
+
+eststo m2: margins, dydx(phintBW phintWB i.plevel) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+eststo: logit ip_ phintBW phintWB i.plevel if blackhint==1&plevel<300, vce(cluster subject_id)
+test phintBW=phintWB
+local p=r(p)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m3: margins, dydx(phintBW phintWB i.plevel) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+eststo: probit ip_ phintBW phintWB blackhint i.plevel fef i.subject_id if plevel<300, vce(cluster subject_id)
+test phintBW=phintWB
+local p=r(p)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m4: margins, dydx(phintBW phintWB blackhint i.plevel fef) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+eststo: logit ip_ phintBW phintWB i.plevel fef i.subject_id if blackhint==0&plevel<300, vce(cluster subject_id)
+test phintBW=phintWB
+local p=r(p)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m5: margins, dydx(phintBW phintWB i.plevel fef) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+eststo: logit ip_ phintBW phintWB i.plevel fef i.subject_id if blackhint==1&plevel<300, vce(cluster subject_id)
+test phintBW=phintWB
+local p=r(p)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m6: margins, dydx(phintBW phintWB i.plevel fef) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) stats(p N r2p llike, labels("P(FP rate $\neq$ FN rate)" "N" "Pseudo R-squared" "Log-likelihood")) indicate(Subject FE = fef) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: logistical regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
 eststo: probit ip_ phintBW phintWB if plevel<300, vce(cluster subject_id)
-eststo m1: margins, dydx(phintBW phintWB) post
-eststo: probit ip_ phintBW phintWB blackhint if plevel<300, vce(cluster subject_id)
-eststo m2: margins, dydx(phintBW phintWB blackhint) post
+eststo m2: margins, dydx(phintBW phintWB ) post
 eststo: probit ip_ phintBW phintWB blackhint post_prob if plevel<300, vce(cluster subject_id)
 eststo m3: margins, dydx(phintBW phintWB blackhint post_prob) post
-eststo: probit ip_ phintBW phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo: probit ip_ phintBW phintWB fef i.subject_id if plevel<300, vce(cluster subject_id)
 eststo m4: margins, dydx(phintBW phintWB) post
-eststo: probit ip_ phintBW phintWB blackhint i.subject_id if plevel<300 , vce(cluster subject_id)
+eststo: probit ip_ phintBW phintWB blackhint fef i.subject_id if plevel<300 , vce(cluster subject_id)
 eststo m5: margins, dydx(phintBW phintWB blackhint) post
-eststo: probit ip_ phintBW phintWB blackhint post_prob i.subject_id if plevel<300, vce(cluster subject_id)
+eststo: probit ip_ phintBW phintWB blackhint post_prob fef i.subject_id if plevel<300, vce(cluster subject_id)
 eststo m6: margins, dydx(phintBW phintWB blackhint post_prob) post
-esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("" "" "" "FE" "FE" "FE") title(Informed protection response: probit) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip0x.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("" "" "" "FE" "FE" "FE") title(Informed protection response: probit) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
 
 *IP anomalies basic: with flexible control of posteriors:
 eststo clear
-eststo: probit ip_ post_prob0* phintBW phintWB if plevel<300, vce(cluster subject_id)
-eststo m1: margins, dydx(phintBW phintWB) post
-eststo: probit ip_ post_prob0* phintBW phintWB i.subject_id if plevel<300, vce(cluster subject_id)
-eststo m2: margins, dydx(phintBW phintWB) post
-eststo: probit ip_ post_prob0* highprob phintBW phintWB high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
-eststo m3: margins, dydx(highprob phintBW phintWB high_phintBW high_phintWB)  post
-eststo: probit ip_ post_prob0* blackhint phintBW phintWB black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
-eststo m4: margins, dydx(blackhint phintBW phintWB black_phintBW black_phintWB) post
-eststo: probit ip_ post_prob0* phintBW phintWB if blackhint==0&plevel<300, vce(cluster subject_id)
-eststo m5: margins, dydx(phintBW phintWB) post
-eststo: probit ip_ post_prob0* phintBW phintWB if blackhint==1&plevel<300, vce(cluster subject_id)
-eststo m6: margins, dydx(phintBW phintWB) post
-esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip5.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Reporting average marginal effects, errors are clustered by subject." "With flexible controls of posterior probability" ///
- ) mtitles("" "FE" "" "" "S=White" "S=Black") title(Informed Protection Response: flexible control for posteriors) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint if plevel<300, vce(cluster subject_id)
+eststo m1: margins, dydx(phintBW phintWB highprob blackhint) post
+eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo m2: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
 
+eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo m3: margins, dydx(phintBW phintWB highprob blackhint high_phintBW high_phintWB)  post
+
+eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo m4: margins, dydx(phintBW phintWB  highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB) post
+esttab m1 m2 m3 m4 using "./Tables/table_ip5.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Reporting average marginal effects, subject FE, errors are clustered by subject." "With flexible controls of posterior probability" ///
+ ) mtitles("" "" "" "") title(Informed Protection Response: logit with flexible control for posteriors) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+ 
+ 
 
 *Self-reported strategies
 gen strategy_short=strategy_ip
@@ -849,14 +941,603 @@ tab overprotect bayesian
 
 save "./Temp/strat_analysis.dta", replace
 
+use "./Temp/strat_analysis.dta", replace
 *Just knowing the prop of dishonest gremlins is almost as good for predicting decisions as knowing FP and FN!
 gen false_prob=phintWB+phintBW
-reg ip_ false_prob blackhint
-reg ip_ i.blackhint##c.false_prob
-reg ip_ i.blackhint##c.phintWB i.blackhint##c.phintBW
+
+sort subject_id round hint
+*Make the dataset balanced:
+drop if missing(ip_)
+by subject_id: egen nchoices=count(round)
+drop if nchoices<12
+*clogit ip_ post_prob, group(choice_id)
+*lclogit2 ip_, rand(post_prob false_prob) group(subject_id) nclasses(2) seed(17587)
+
+*Also GLLAMM:
+gen cons=1
+*eq int: cons
+*eq slope: post_prob
+*gllamm ip_ post_prob, i(subject_id) nrf(2) eqs(int slope)
+
+*gllamm ip_ post_prob, i(subject_id) nrf(2) eqs(int slope)
+*stop
+
+expand 2, gen(alt)
+replace alt=alt+1
+replace ip_=1-ip_ if alt==1 //ip_ designates choosing no protection case here//
+egen choice_id=group(subject_id round hint)
+sort subject_id round hint alt
 
 
-*Subjects who start protecting uniformly with increasing N of dishonest gremlins tot_liars
+order subject_id round hint choice_id alt ip_ post_prob false_prob
+
+bro
+replace alt=alt-1 //alt=1 means choosing protection now//
+
+gen phigh=post_prob
+replace phigh=0 if alt==0
+
+gen phigh_be=be_
+replace phigh_be=0 if alt==0
+
+
+gen phigh_hint=blackhint
+replace phigh_hint=0 if alt==0
+
+reg phigh_hint phigh
+predict phigh_hintd, residual
+
+reg phigh_be phigh
+predict phigh_bed, residual
+
+gen phigh_hintd2=-phigh_hintd
+
+
+gen phigh_acc=blackhint*(1-false_prob)
+replace phigh_acc=0 if alt==0
+
+
+
+gen phintWB1=phintWB
+gen phintBW1=phintBW
+*replace phintWB=0 if blackhint==0
+*replace phintBW=0 if blackhint==1
+replace phintWB=0 if alt==0
+replace phintBW=0 if alt==0
+
+replace false_prob=0 if alt==0
+bys alt: sum phigh
+
+replace p=0 if alt==1
+
+
+
+reg p phigh phigh_hintd false_prob
+predict pdev, residual
+
+label var p "Prior"
+label var phigh "Posterior"
+label var phigh_hint "Black hint"
+label var phigh_hintd "Black hint (res)"
+label var false_prob "Prop. of liars"
+label var false_prob "Prop. of lying gremlins"
+drop if plevel>200
+
+
+
+**Doing some simple exploratory specifications:
+lclogit2 ip_ alt if plevel<300, rand(p phigh_hint false_prob) group(choice_id) id(subject_id) nclasses(3) seed(10001)
+
+logit ip_ phigh phigh_hintd if plevel<300&alt==1
+
+logit ip_ phigh if plevel<300&alt==1
+clogit ip_ alt phigh if plevel<300, group(choice_id)
+
+
+logit ip_ phigh i.subject_id if plevel<300&alt==1
+clogit ip_ alt phigh if plevel<300, group(subject_id)
+
+
+logit ip_ phigh_hint phintWB phintBW if plevel<300&alt==1
+clogit ip_ alt phigh_hint phintWB phintBW if plevel<300, group(choice_id)
+
+
+
+
+***Baseline estimation***
+matrix drop class_compar
+*One class: do it by imposing constraints between the two classes (as lclogit2 doesn't allow for one class)
+constraint 1 [Class1]phigh_hint = [Class2]phigh_hint
+constraint 2 [Class1]phigh = [Class2]phigh
+constraint 3 [Class1]false_prob = [Class2]false_prob
+lclogit2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(2) constraints(1 2 3) seed(10001)
+local akaike1=e(aic)
+local nclasses=1
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix start = e(b)
+matrix class_compar = nullmat(class_compar) \ `nclasses', `bic', `akaike1', `akaike_cor'
+matrix colnames class_compar = "N Classes" "BIC" "AIC"  "AIC corrected"
+
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix lc_results=1, 1, coeff["y1", "Fix:alt"], class1_coeff, 1, `bic' 
+matrix list lc_results
+
+forvalues nclasses = 2/4 {
+  lclogit2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(`nclasses') seed(10001)
+  local akaike1=e(aic)
+  display(`akaike1')
+  local bic=e(bic)
+  display(`bic')
+  local akaike_cor=e(caic)
+  display(`akaike_cor')
+  matrix class_compar = nullmat(class_compar) \ `nclasses', `bic', `akaike1', `akaike_cor'
+  matrix start = e(b)
+  lclogitml2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(`nclasses')  from(start)
+}
+matlist class_compar, name(columns)
+esttab matrix(class_compar) using "./Tables/class_search.tex", tex replace
+
+
+
+
+lclogit2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(2) seed(10001)
+local akaike1=e(aic)
+local nclasses=2
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix start = e(b)
+lclogitml2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(2)  from(start)
+display("coefficients:")
+matrix coeff=e(b)
+matrix shares=e(P)
+matrix list coeff
+
+*Assembling the matrix of results:
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix class2_coeff=coeff["y1", "Class2:"]
+local modelname=1
+local classn=1
+matrix lc_results = lc_results \ 2, 1, coeff["y1", "Fix:alt"], class1_coeff, shares[1,1], `bic' \ 2, 2, coeff["y1", "Fix:alt"], class2_coeff, shares[2,1], `bic'
+matrix list lc_results
+matrix colnames lc_results = "Model" "Class" "Alt"  "Hint" "False_prob" "Posterior" "Class share" "BIC"
+matrix list lc_results
+
+
+lclogit2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(3) seed(10001)
+local akaike1=e(aic)
+local nclasses=3
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix start = e(b)
+lclogitml2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(3)  from(start)
+display("coefficients:")
+matrix coeff=e(b)
+matrix shares=e(P)
+matrix list coeff
+
+*Assembling the matrix of results:
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix class2_coeff=coeff["y1", "Class2:"]
+matrix class3_coeff=coeff["y1", "Class3:"]
+local modelname=1
+local classn=1
+matrix lc_results = lc_results \ 3, 1, coeff["y1", "Fix:alt"], class1_coeff, shares[1,1], `bic'
+matrix lc_results = lc_results  \ 3, 2, coeff["y1", "Fix:alt"], class2_coeff, shares[2,1], `bic'
+matrix lc_results = lc_results  \ 3, 3, coeff["y1", "Fix:alt"], class3_coeff, shares[3,1], `bic'
+matrix list lc_results
+matrix colnames lc_results = "Model" "Class" "Alt"  "Hint" "False_prob" "Posterior" "Class share" "BIC"
+matrix rownames lc_results=_:
+matrix roweq lc_results=""
+matrix rownames lc_results=""
+matrix coleq lc_results = "" 
+matrix list lc_results
+esttab matrix(lc_results) using "./Tables/lc_results.tex", b(%9.3g)  sfmt(%9.3g)tex replace
+
+
+
+
+*predicting posterior probabilities of belonging to each class given choices
+*re-estimating for 2 classes
+lclogit2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(2) seed(10001)
+local akaike1=e(aic)
+local nclasses=2
+matrix start = e(b)
+lclogitml2 ip_ alt, rand(phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(2)  from(start)
+
+lclogitpr2 classpr, cp
+sum classpr*
+
+*classification confidence (max prob out of all the classes):
+egen double cpmax = rowmax(classpr1-classpr2)
+bys subject_id: gen first = _n==1
+sum cpmax if first==1
+
+*prior probabilities:
+lclogitpr2 pr, pr
+
+*Checking classification quality:
+generate byte class = .
+
+forvalues c = 1/`e(nclasses)' {
+    quietly replace class = `c' if cpmax==classpr`c'
+}
+
+label define class_l 1 "Honest seekers" 2 "Cautious Bayesians"
+label values class class_l
+
+
+
+forvalues c = 1/`e(nclasses)' {
+   quietly summarize pr if class == `c' & ip_==1
+   local n=r(N)
+   local a=r(mean)
+   quietly summarize classpr`c' if class == `c' & ip_==1
+   local b=r(mean)
+   matrix pr = nullmat(pr) \ `n', `c', `a', `b'
+}
+
+matrix colnames pr = "Obs" "Class" "Uncond_Pr" "Cond_PR"
+matlist pr, name(columns)
+esttab matrix(pr) using "./Tables/class_pr.tex", tex replace
+
+tab class stat_educ if first==1, chi2
+
+
+
+replace false_prob=phintWB+phintBW
+eststo clear
+eststo: logit ip_ blackhint false_prob post_prob if alt==1&class==1, vce(cluster subject_id)
+predict ip_class1 if class==1
+eststo m1: margins, dydx(blackhint false_prob post_prob) post
+
+eststo: logit ip_ blackhint false_prob post_prob if alt==1&class==2, vce(cluster subject_id)
+predict ip_class1 if class==2
+eststo m2: margins, dydx(blackhint false_prob post_prob) post
+
+esttab m1 m2 using "./Tables/table_ipclasses.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("" "") title(IP response by class) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+reg classpr2 stat_educ sex mention_hon i.strategy_short if first==1
+
+*efficiency analysis
+*informed protection losses:
+
+*losses relative to the switching point:
+
+
+*Saving the classification for later:
+collapse (mean) classpr2 (first) strategy_short, by(subject_id)
+save "./Temp/ipclasses.dta", replace
+
+
+
+tab class mention_prop if first==1, chi2
+tab class mention_hint if first==1, chi2
+tab class mention_hon if first==1, chi2
+
+
+tab class strategy_short if first==1, chi2
+tab class strategy_ip if first==1, chi2
+
+tab class sex if first==1, chi2
+tab class age if first==1, chi2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+***Estimation with separate FP and FN rates***
+matrix drop class_compar
+*One class: do it by imposing constraints between the two classes (as lclogit2 doesn't allow for one class)
+constraint 1 [Class1]phigh_hint = [Class2]phigh_hint
+constraint 2 [Class1]phintWB = [Class2]phintWB
+constraint 3 [Class1]phintBW = [Class2]phintBW
+lclogit2 ip_ alt, rand(phigh_hint phintWB phintBW) group(choice_id) id(subject_id) nclasses(2) constraints(1 2 3) seed(10001)
+local akaike1=e(aic)
+local nclasses=1
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix coeff = e(b)
+matrix class_compar = nullmat(class_compar) \ `nclasses', `bic', `akaike1', `akaike_cor'
+matrix colnames class_compar = "N Classes" "BIC" "AIC"  "AIC corrected"
+
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix lc_results=1, 1, coeff["y1", "Fix:alt"], class1_coeff, 1, `bic' 
+matrix list lc_results
+
+forvalues nclasses = 2/4 {
+  lclogit2 ip_ alt, rand(phigh_hint phintWB phintBW) group(choice_id) id(subject_id) nclasses(`nclasses') seed(8971)
+  local akaike1=e(aic)
+  display(`akaike1')
+  local bic=e(bic)
+  display(`bic')
+  local akaike_cor=e(caic)
+  display(`akaike_cor')
+  matrix class_compar = nullmat(class_compar) \ `nclasses', `bic', `akaike1', `akaike_cor'
+  matrix start = e(b)
+  *lclogitml2 ip_ alt, rand(phigh_hint phintWB phintBW) group(choice_id) id(subject_id) nclasses(`nclasses')  from(start)
+}
+matlist class_compar, name(columns)
+esttab matrix(class_compar) using "./Tables/class_search2.tex", tex replace
+
+
+
+
+lclogit2 ip_ alt, rand(phigh_hint phintWB phintBW) group(choice_id) id(subject_id) nclasses(2) seed(10001)
+local akaike1=e(aic)
+local nclasses=2
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix start = e(b)
+lclogitml2 ip_ alt, rand(phigh_hint phintWB phintBW) group(choice_id) id(subject_id) nclasses(2)  from(start)
+display("coefficients:")
+matrix coeff=e(b)
+matrix shares=e(P)
+matrix list coeff
+
+*Assembling the matrix of results:
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix class2_coeff=coeff["y1", "Class2:"]
+local modelname=1
+local classn=1
+matrix lc_results = lc_results \ 2, 1, coeff["y1", "Fix:alt"], class1_coeff, shares[1,1], `bic' \ 2, 2, coeff["y1", "Fix:alt"], class2_coeff, shares[2,1], `bic'
+matrix list lc_results
+matrix colnames lc_results = "Model" "Class" "Alt"  "Hint" "FP rate" "FN rate" "Class share" "BIC"
+matrix list lc_results
+
+
+lclogit2 ip_ alt, rand(phigh_hint phintWB phintBW) group(choice_id) id(subject_id) nclasses(3) seed(15001)
+local akaike1=e(aic)
+local nclasses=3
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix start = e(b)
+lclogitml2 ip_ alt, rand(phigh_hint phintWB phintBW) group(choice_id) id(subject_id) nclasses(3)  from(start)
+display("coefficients:")
+matrix coeff=e(b)
+matrix shares=e(P)
+matrix list coeff
+
+*Assembling the matrix of results:
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix class2_coeff=coeff["y1", "Class2:"]
+matrix class3_coeff=coeff["y1", "Class3:"]
+local modelname=1
+local classn=1
+matrix lc_results = lc_results \ 3, 1, coeff["y1", "Fix:alt"], class1_coeff, shares[1,1], `bic'
+matrix lc_results = lc_results  \ 3, 2, coeff["y1", "Fix:alt"], class2_coeff, shares[2,1], `bic'
+matrix lc_results = lc_results  \ 3, 3, coeff["y1", "Fix:alt"], class3_coeff, shares[3,1], `bic'
+matrix list lc_results
+matrix colnames lc_results = "Model" "Class" "Alt"  "Hint" "FP rate" "FN rate" "Class share" "BIC"
+matrix coleq lc_results = "" 
+matrix list lc_results
+esttab matrix(lc_results) using "./Tables/lc_results2.tex", b(%9.3g)  sfmt(%9.3g)tex replace
+
+
+
+
+
+*predicting posterior probabilities of belonging to each class given choices
+lclogitpr2 classpr, cp
+sum classpr*
+
+*classification confidence (max prob out of all the classes):
+egen double cpmax = rowmax(classpr1-classpr2)
+bys subject_id: gen first = _n==1
+sum cpmax if first==1
+
+*prior probabilities:
+lclogitpr2 pr, pr
+
+*Checking classification quality:
+generate byte class = .
+
+forvalues c = 1/`e(nclasses)' {
+    quietly replace class = `c' if cpmax==classpr`c'
+}
+
+label define class_l 1 "Honest seekers" 2 "Cautious Bayesians"
+label values class class_l
+
+
+
+forvalues c = 1/`e(nclasses)' {
+   quietly summarize pr if class == `c' & ip_==1
+   local n=r(N)
+   local a=r(mean)
+   quietly summarize classpr`c' if class == `c' & ip_==1
+   local b=r(mean)
+   matrix pr = nullmat(pr) \ `n', `c', `a', `b'
+}
+
+matrix colnames pr = "Obs" "Class" "Uncond_Pr" "Cond_PR"
+matlist pr, name(columns)
+esttab matrix(pr) using "./Tables/class_pr2.tex", tex replace
+
+
+
+
+
+
+lclogit2 ip_, rand(alt phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(2) seed(10001)
+local akaike1=e(aic)
+local nclasses=2
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix start = e(b)
+lclogitml2 ip_, rand(alt phigh_hintd false_prob phigh) group(choice_id) id(subject_id) nclasses(2)  from(start)
+
+
+tab class mention_prop if first==1, chi2
+tab class mention_hint if first==1, chi2
+tab class mention_hon if first==1, chi2
+
+
+tab class strategy_short if first==1, chi2
+tab class strategy_ip if first==1, chi2
+
+tab class sex if first==1, chi2
+tab class age if first==1, chi2
+
+
+
+
+
+
+**Alternative model: hint-specific sensitivity to FP and FN rates:
+*drop phintWB0 phintWB1 phintBW0 phintBW1
+gen phintWB0=phintWB
+replace phintWB0=0 if phigh_hint==1
+
+gen phintBW0=phintBW
+replace phintBW0=0 if phigh_hint==1
+
+gen phintWB1=phintWB
+replace phintWB1=0 if phigh_hint==0
+
+gen phintBW1=phintBW
+replace phintBW1=0 if phigh_hint==0
+
+
+label var phintWB0 "FN rate*White hint"
+label var phintWB1 "FN rate*Black hint"
+label var phintBW0 "FN rate*White hint"
+label var phintBW1 "FN rate*Black hint"
+
+
+sum phintWB0 phintWB1 phintBW0 phintBW1
+
+
+sum phintWB0 phintWB1 phintBW0 phintBW1 if phigh_hint==1
+
+matrix drop class_compar
+*One class
+constraint 1 [Class1]phigh_hint = [Class2]phigh_hint
+constraint 2 [Class1]phintWB0 = [Class2]phintWB0
+constraint 3 [Class1]phintBW0 = [Class2]phintBW0
+constraint 4 [Class1]phintWB1 = [Class2]phintWB1
+constraint 5 [Class1]phintBW1 = [Class2]phintBW1
+
+lclogit2 ip_ alt, rand(phigh_hint phintWB0 phintWB1 phintBW0 phintBW1) group(choice_id) id(subject_id) nclasses(2) constraints(1 2 3 4 5) seed(10001)
+local akaike1=e(aic)
+local nclasses=1
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix coeff = e(b)
+matrix class_compar = nullmat(class_compar) \ `nclasses', `bic', `akaike1', `akaike_cor'
+matrix colnames class_compar = "N Classes" "BIC" "AIC"  "AIC corrected"
+
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix lc_results=1, 1, coeff["y1", "Fix:alt"], class1_coeff, 1, `bic' 
+matrix list lc_results
+
+
+forvalues nclasses = 3/4 {
+  lclogit2 ip_ alt, rand(phigh_hint phintWB0 phintWB1 phintBW0 phintBW1) group(choice_id) id(subject_id) nclasses(`nclasses') seed(11705)
+  local akaike1=e(aic)
+  display(`akaike1')
+  local bic=e(bic)
+  display(`bic')
+  local akaike_cor=e(caic)
+  display(`akaike_cor')
+  matrix class_compar = nullmat(class_compar) \ `nclasses', `bic', `akaike1', `akaike_cor'
+  matrix start = e(b)
+}
+matlist class_compar, name(columns)
+esttab matrix(class_compar) using "./Tables/class_search3.tex", tex replace
+
+
+
+
+lclogit2 ip_ alt, rand(phigh_hint phintWB0 phintWB1 phintBW0 phintBW1) group(choice_id) id(subject_id) nclasses(2) seed(10001)
+local akaike1=e(aic)
+local nclasses=2
+display(`akaike1')
+local bic=e(bic)
+display(`bic')
+local akaike_cor=e(caic)
+display(`akaike_cor')
+matrix start = e(b)
+lclogitml2 ip_ alt, rand(phigh_hint phintWB0 phintWB1 phintBW0 phintBW1) group(choice_id) id(subject_id) nclasses(2)  from(start)
+display("coefficients:")
+matrix coeff=e(b)
+matrix shares=e(P)
+matrix list coeff
+
+
+
+*Assembling the matrix of results:
+matrix class1_coeff=coeff["y1", "Class1:"]
+matrix class2_coeff=coeff["y1", "Class2:"]
+local modelname=1
+local classn=1
+matrix lc_results = lc_results \ 2, 1, coeff["y1", "Fix:alt"], class1_coeff, shares[1,1], `bic' \ 2, 2, coeff["y1", "Fix:alt"], class2_coeff, shares[2,1], `bic'
+matrix list lc_results
+matrix colnames lc_results = "Model" "Class" "Alt"  "Hint" "FN0" "FN1" "FP0" "FP1" "Class share" "BIC"
+matrix coleq lc_results = "" 
+matrix list lc_results
+esttab matrix(lc_results) using "./Tables/lc_results3.tex", b(%9.3g)  sfmt(%9.3g)tex replace
+
+
+lclogitml2 ip_ alt, rand(phigh_hint phintWB0 phintWB1 phintBW0 phintBW1) group(choice_id) id(subject_id) nclasses(3)
+
+
+
+
+
+
+
+
+
+
+*Subjects who start protecting uniformly with increasing the prop of dishonest gremlins false_prob
 collapse (mean) meanip=ip_, by(subject_id hint false_prob)
 sort subject_id hint false_prob
 gen sort_violation=0
@@ -919,7 +1600,6 @@ esttab using "./Tables/table_ip_het.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label add
 probit ip_ i.plevel##c.phintBW i.plevel##c.phintWB post_prob0*
  
 *Generate some fake IP data to see if reacting on the proportion of dishonest gremlins explains our results
-gen fake
 gen ip_fake=0
 replace ip_fake=ip_ if mod(subject_id,3)==0
 replace ip_fake=blackhint if mod(subject_id,3)>0

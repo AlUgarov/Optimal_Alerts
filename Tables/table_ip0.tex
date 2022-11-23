@@ -1,22 +1,25 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Informed protection response: probit}
+\caption{Informed protection response: logistical regression}
 \begin{tabular}{l*{6}{c}}
 \hline\hline
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
-                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{S=Black}&\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{W=Black}\\
 \hline
-False pos. rate &     .245\sym{**} &     .244\sym{**} &     .657\sym{***}&     .201\sym{*}  &     .189\sym{*}  &     .642\sym{***}\\
-                &    (2.1)         &    (2.2)         &    (5.4)         &    (1.7)         &    (1.7)         &    (4.6)         \\
-False neg. rate &     .342\sym{***}&     .335\sym{***}&     .302\sym{***}&     .365\sym{***}&     .349\sym{***}&     .302\sym{***}\\
-                &    (3.3)         &    (3.3)         &    (3.0)         &    (3.3)         &    (3.2)         &    (2.8)         \\
-S=Black         &                  &     .477\sym{***}&     .219\sym{***}&                  &      .48\sym{***}&     .224\sym{***}\\
-                &                  &   (58.6)         &    (4.1)         &                  &  (249.0)         &    (4.0)         \\
-Posterior prob. &                  &                  &     .371\sym{***}&                  &                  &     .365\sym{***}\\
-                &                  &                  &    (5.0)         &                  &                  &    (4.5)         \\
+FP rate         &     .248\sym{**} &     .557\sym{***}&    -.146         &     .198\sym{*}  &     1.19\sym{***}&     -.38         \\
+                &    (2.2)         &    (4.8)         &   (-0.9)         &    (1.7)         &    (3.7)         &   (-0.8)         \\
+FN rate         &     .341\sym{***}&      .61\sym{***}&    -.025         &      .35\sym{***}&     1.26\sym{***}&    -.116         \\
+                &    (3.2)         &    (4.6)         &   (-0.2)         &    (3.2)         &   (12.8)         &   (-0.3)         \\
+S=Black         &     .454\sym{***}&                  &                  &     .473\sym{***}&                  &                  \\
+                &   (89.2)         &                  &                  &   (98.4)         &                  &                  \\
+plevel=200      &     .105\sym{***}&     .093\sym{*}  &     .117\sym{**} &        0         &        0         &        0         \\
+                &    (2.8)         &    (1.9)         &    (2.1)         &      (.)         &      (.)         &      (.)         \\
+Subject FE      &       No         &       No         &       No         &      Yes         &      Yes         &      Yes         \\
 \hline
-Observations    &      629         &      629         &      629         &      587         &      587         &      587         \\
-Adjusted \(R^{2}\)&                  &                  &                  &                  &                  &                  \\
+P(FP rate $\neq$ FN rate)&     .524         &     .787         &     .621         &     .306         &     .855         &     .705         \\
+N               &      629         &      315         &      314         &      587         &      117         &      105         \\
+Pseudo R-squared&     .333         &     .161         &    .0252         &     .522         &     .479         &    .0844         \\
+Log-likelihood  &     -291         &     -125         &     -152         &     -195         &    -41.2         &    -66.1         \\
 \hline\hline
 \multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
 \multicolumn{7}{l}{\footnotesize Errors are clustered by subject, average marginal treatment effects}\\
