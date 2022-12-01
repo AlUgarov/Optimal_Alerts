@@ -865,8 +865,6 @@ eststo: probit ip_ phintBW phintWB  if blackhint==1&plevel==500, vce(cluster sub
 esttab using "./Tables/table_ip_het.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("First four for white signal, the rest - black" ///
   "Errors are clustered by subject") mtitles("0.1" "0.2" "0.3" "0.5" "0.1" "0.2" "0.3" "0.5") title(Informed protection by prior) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
-*Higher FP rates lead to more protection even conditioned on posterior and prior probability:
-probit ip_ i.plevel##c.phintBW i.plevel##c.phintWB post_prob0*
  
 *Generate some fake IP data to see if reacting on the proportion of dishonest gremlins explains our results
 gen ip_fake=0
@@ -888,10 +886,6 @@ mkspline bespline1 0.2 bespline2 0.4 bespline3 0.6 bespline4 0.8 bespline5 = be_
 bys plevel blackhint phintWB: sum post_prob
 bys plevel: reg post_prob phintWB phintBW if blackhint==1
 
-
-
-
-probit ip_ phintBW phintWB bespline* post_prob0*
 
   
   
@@ -951,17 +945,65 @@ esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label m
 
 
 replace bel_err=-bel_err
+
+save "./Temp/prep_beliefs.dta", replace
+**Comparison of protection by information 
+gen fp_env=phintBW>0
+gen fn_env=phintWB>0
+bys fp_env fn_env blackhint: sum ip_ if plevel<300
+
+tempname p1
+postfile `p1' false_pos false_neg signal prot ptest posterior using "./Temp/ip_by_environment.dta", replace
+
+forvalues i=0/1{
+  forvalues j=0/1{
+  
+    forvalues k=0/1{
+	  if `k'==0{
+	    ttest ip_==0 if plevel<300&fp_env==`i'&fn_env==`j'&blackhint==0, level(95)
+		local ptest=r(p_u)
+		
+	  }
+	  else {
+	    ttest ip_==1 if plevel<300&fp_env==`i'&fn_env==`j'&blackhint==1, level(95)
+	  	local ptest=r(p_l)
+	  }
+	  local prot=r(mu_1)
+	  sum post_prob if plevel<300&fp_env==`i'&fn_env==`j'&blackhint==`k'
+	  local posterior=r(mean)
+	  post `p1' (`i') (`j') (`k') (`prot') (`ptest') (`posterior')
+    }
+  }
+}
+
+postclose `p1'
+
+use "./Temp/ip_by_environment.dta", replace
+
+tostring false_pos false_neg signal, replace
+foreach var of varlist false_pos false_neg signal{
+  replace `var'="No" if `var'=="0"
+  replace `var'="Yes" if `var'=="1"
+}
+bro
+format prot ptest posterior %9.3f
+listtex using "./Tables/bigpicture_IP.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Protection by Signal Type} \begin{tabular}{cccccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Signal=Black}&\textbf{\% protect}& \textbf{P(prot$>$0,$<$1)}& \textbf{Posterior} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+
+
 ****-- BELIEF ELICITATION --****
 
 *Beliefs accuracy by signal characteristics:
 *bel_err=post_prob-be_
 
-save "./Temp/prep_beliefs.dta", replace
+*save "./Temp/prep_beliefs.dta", replace
+use "./Temp/prep_beliefs.dta", replace
+
+collapse (mean) ip_ post_prob, by(fp_env fn_env blackhint)
+sort fp_env fn_env blackhint
 
 use "./Temp/prep_beliefs.dta", replace
 keep if plevel<300
-gen fp_env=phintBW>0
-gen fn_env=phintWB>0
+
 gen prot_cost=5
 gen loss=20
 gen ip_o=post_prob>(prot_cost/loss)
@@ -969,6 +1011,39 @@ bys blackhint fp_env fn_env: ttest bel_err == 0, level(95)
 bys blackhint fp_env fn_env: sum ip_
 
 bys blackhint fp_env fn_env: sum ip_o
+
+
+
+tempname p1
+postfile `p1' false_pos false_neg signal bel_err ptest using "./Temp/bel_by_environment.dta", replace
+
+forvalues i=0/1{
+  forvalues j=0/1{
+  
+    forvalues k=0/1{
+	    ttest bel_err==0 if fp_env==`i'&fn_env==`j'&blackhint==`k', level(95)
+		local ptest=r(p)
+		local bel_err=r(mu_1)
+		post `p1' (`i') (`j') (`k') (`bel_err') (`ptest')
+	  }
+    }
+  }
+
+postclose `p1'
+
+use "./Temp/bel_by_environment.dta", replace
+
+tostring false_pos false_neg signal, replace
+foreach var of varlist false_pos false_neg signal{
+  replace `var'="No" if `var'=="0"
+  replace `var'="Yes" if `var'=="1"
+}
+bro
+format bel_err ptest %9.3f
+listtex using "./Tables/bigpicture_bel.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Signal=Black}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+
+
+
 *collapse (mean) bel_err, by(fp_env fn_env)
 bro
 use "./Temp/prep_beliefs.dta", replace
@@ -1394,6 +1469,37 @@ eststo: tobit wtp phintBW phintWB if plevel==200, ll(0) ul(5)
 eststo: tobit wtp phintBW phintWB if plevel==300, ll(0) ul(5)
 eststo: tobit wtp phintBW phintWB if plevel==500, ll(0) ul(5)
 esttab using "./Tables/table_wtpdiff_04tob.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP for Information, by prior (tobit)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+save  "./Temp/wtp_discrepancy0.dta", replace
+
+**Calculate average WTP discrepancy by signal type
+tempname p1
+postfile `p1' false_pos false_neg wtp_diff ptest using "./Temp/wtp_by_environment.dta", replace
+
+forvalues i=0/1{
+  forvalues j=0/1{
+	    ttest wtp_diff==0 if fp_env==`i'&fn_env==`j'&plevel<300, level(95)
+		local ptest=r(p)
+		local wtp_diff=r(mu_1)
+		post `p1' (`i') (`j') (`wtp_diff') (`ptest')
+    }
+  }
+
+postclose `p1'
+
+use "./Temp/wtp_by_environment.dta", replace
+
+tostring false_pos false_neg, replace
+foreach var of varlist false_pos false_neg{
+  replace `var'="No" if `var'=="0"
+  replace `var'="Yes" if `var'=="1"
+}
+bro
+format wtp_diff ptest %9.3f
+listtex using "./Tables/bigpicture_wtp.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{cccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Mean WTP discrepancy}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+
+
 
 
 
