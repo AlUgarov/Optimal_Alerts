@@ -436,6 +436,12 @@ replace treatm_type=3 if bl_gr>0&w_gr>0
 label define treatm_typel 0 "Honest" 1 "White-eyed only" 2 "Black-eyed only" 3 "All types"
 label values treatm_type treatm_typel
 
+*clean out the subjects with missing informed protection responses (1)
+gen miss_ip=missing(ip_w)|missing(ip_b)
+bys subject_id: egen incompl_ip=sum(miss_ip)
+tab incompl_ip
+drop if incompl_ip>0
+
 *Saving the cleaned dataset with the panel structure
 save "./Output/main_waves.dta", replace
 use "./Output/main_waves.dta", replace
@@ -534,7 +540,7 @@ order subject_id round phintWB phintBW bel_err absbel_err accur_bel med_bel_err 
 bro
 
 
-*Are subjects accurate in the second part of the experiment if they accurate in the first?
+*Are subjects accurate in the second part of the experiment if they are accurate in the first?
 gen laterounds=round>3
 bys laterounds subject_id: egen sbel_err=sum(absbel_err)
 
@@ -731,10 +737,17 @@ gen high_phintWB=highprob*phintWB
 gen black_phintBW=blackhint*phintBW
 gen black_phintWB=blackhint*phintWB
 
+gen FPFN=phintBW*phintWB
+gen blackFPFN=phintBW*phintWB
+gen whiteFPFN=phintBW*phintWB
+
 label var high_phintBW "FP rate x (p $\geq$ 0.2)"
 label var high_phintWB "FN rate x (p $\geq$ 0.2)"
 label var black_phintBW "FP rate x (S=Black)"
 label var black_phintWB "FN rate x (S=Black)"
+
+label var FPFN "FP rate x FN rate"
+
 
 xtset subject_id
 
@@ -805,7 +818,27 @@ estadd scalar p = `p'
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) stats(p N r2p llike, labels("P(FP rate $\neq$ FN rate)" "N" "Pseudo R-squared" "Log-likelihood")) indicate(Subject FE = fef) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: logistical regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: logit ip_ phintBW phintWB FPFN i.plevel fef i.subject_id if blackhint==0&plevel<300, vce(cluster subject_id)
+test phintBW=phintWB
+local p=r(p)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m7: margins, dydx(phintBW phintWB FPFN i.plevel fef) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+eststo: logit ip_ phintBW phintWB FPFN i.plevel fef i.subject_id if blackhint==1&plevel<300, vce(cluster subject_id)
+test phintBW=phintWB
+local p=r(p)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m8: margins, dydx(phintBW phintWB FPFN i.plevel fef) post
+estadd scalar p = `p'
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
+
+esttab m1 m2 m3 m4 m5 m6 m7 m8 using "./Tables/table_ip0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) stats(p N r2p llike, labels("P(FP rate $\neq$ FN rate)" "N" "Pseudo R-squared" "Log-likelihood")) indicate(Subject FE = fef) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black" "S=White" "W=Black") title(Informed protection response: logistical regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 eststo: logit ip_ phintBW phintWB if plevel<300, vce(cluster subject_id)
@@ -946,14 +979,21 @@ esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label m
 
 replace bel_err=-bel_err
 
+
 save "./Temp/prep_beliefs.dta", replace
+
+use "./Temp/prep_beliefs.dta", replace
 **Comparison of protection by information 
 gen fp_env=phintBW>0
 gen fn_env=phintWB>0
 bys fp_env fn_env blackhint: sum ip_ if plevel<300
 
+gen prot_cost=5
+gen loss=20
+gen ip_o=post_prob>(prot_cost/loss)
+
 tempname p1
-postfile `p1' false_pos false_neg signal prot ptest posterior using "./Temp/ip_by_environment.dta", replace
+postfile `p1' false_pos false_neg signal prot ptest posterior mean_opt ptest2 using "./Temp/ip_by_environment.dta", replace
 
 forvalues i=0/1{
   forvalues j=0/1{
@@ -971,7 +1011,10 @@ forvalues i=0/1{
 	  local prot=r(mu_1)
 	  sum post_prob if plevel<300&fp_env==`i'&fn_env==`j'&blackhint==`k'
 	  local posterior=r(mean)
-	  post `p1' (`i') (`j') (`k') (`prot') (`ptest') (`posterior')
+	  ttest ip_==ip_o if plevel<300&fp_env==`i'&fn_env==`j'&blackhint==`k'
+	  local mean_opt=r(mu_2)
+	  local ptest2=r(p)
+	  post `p1' (`i') (`j') (`k') (`prot') (`ptest') (`posterior') (`mean_opt') (`ptest2')
     }
   }
 }
@@ -981,13 +1024,15 @@ postclose `p1'
 use "./Temp/ip_by_environment.dta", replace
 
 tostring false_pos false_neg signal, replace
-foreach var of varlist false_pos false_neg signal{
+foreach var of varlist false_pos false_neg{
   replace `var'="No" if `var'=="0"
   replace `var'="Yes" if `var'=="1"
 }
+replace signal="White" if signal=="0"
+replace signal="Black" if signal=="1"
 bro
-format prot ptest posterior %9.3f
-listtex using "./Tables/bigpicture_IP.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Protection by Signal Type} \begin{tabular}{cccccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Signal=Black}&\textbf{\% protect}& \textbf{P(prot$>$0,$<$1)}& \textbf{Posterior} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+format prot ptest posterior mean_opt ptest2 %9.3f
+listtex using "./Tables/bigpicture_IP.tex", type rstyle(tabular) head("\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline" `"\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{\% protect}& \textbf{P(prot$>$0,$<$1)}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 
 ****-- BELIEF ELICITATION --****
@@ -1034,13 +1079,15 @@ postclose `p1'
 use "./Temp/bel_by_environment.dta", replace
 
 tostring false_pos false_neg signal, replace
-foreach var of varlist false_pos false_neg signal{
+foreach var of varlist false_pos false_neg{
   replace `var'="No" if `var'=="0"
   replace `var'="Yes" if `var'=="1"
 }
+replace signal="White" if signal=="0"
+replace signal="Black" if signal=="1"
 bro
 format bel_err ptest %9.3f
-listtex using "./Tables/bigpicture_bel.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Signal=Black}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_bel.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 
 
@@ -1048,15 +1095,27 @@ listtex using "./Tables/bigpicture_bel.tex", type rstyle(tabular) head("\begin{t
 bro
 use "./Temp/prep_beliefs.dta", replace
 
+merge m:1 subject_id using "./Temp/ipclasses.dta" //risk aversion, blind prot choices and demographic vars
+drop _merge
+
+gen class_alt=2-class
+tab class class_alt
+label var class_alt "IP strategy class"
+label define clsnames 0 "Bayesians" 1 "Simpletons"
+label values class_alt clsnames
+
 
 eststo clear
-eststo: reg bel_err phintWB phintBW if plevel<300, vce(cluster subject_id)
-eststo: reg bel_err c.phintWB c.phintBW if plevel<300&blackhint==0, vce(cluster subject_id)
-eststo: reg bel_err c.phintWB c.phintBW if plevel<300&blackhint==1, vce(cluster subject_id)
 eststo: reg bel_err phintWB phintBW i.subject_id if plevel<300, vce(cluster subject_id)
 eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
 eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
+eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300, vce(cluster subject_id)
+eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
+eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
 esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black" "All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+
+
+reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
 
 
 *Testing the accuracy of reported beliefs***

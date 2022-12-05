@@ -1,11 +1,11 @@
-\begin{table}[H]\centering \caption{Average Protection by Signal Type} \begin{tabular}{cccccc} \hline \hline
-\textbf{False-positive}&\textbf{False-negative}&\textbf{Signal=Black}&\textbf{\% protect}& \textbf{P(prot$>$0,$<$1)}& \textbf{Posterior} \\ \hline
-No&No&No&0.038&0.022&0.000\\
-No&No&Yes&0.838&0.000&1.000\\
-No&Yes&No&0.186&0.000&0.045\\
-No&Yes&Yes&0.786&0.000&1.000\\
-Yes&No&No&0.143&0.001&0.000\\
-Yes&No&Yes&0.739&0.000&0.395\\
-Yes&Yes&No&0.429&0.000&0.062\\
-Yes&Yes&Yes&0.829&0.000&0.328\\
+\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline
+\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{\% protect}& \textbf{P(prot$>$0,$<$1)}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline
+No&No&White&0.038&0.022&0.000&0.000&0.045\\
+No&No&Black&0.837&0.000&1.000&1.000&0.000\\
+No&Yes&White&0.188&0.000&0.045&0.000&0.000\\
+No&Yes&Black&0.783&0.000&1.000&1.000&0.000\\
+Yes&No&White&0.145&0.001&0.000&0.000&0.001\\
+Yes&No&Black&0.739&0.000&0.396&0.739&1.000\\
+Yes&Yes&White&0.429&0.000&0.062&0.000&0.000\\
+Yes&Yes&Black&0.829&0.000&0.328&0.743&0.182\\
 \hline \end{tabular} \end{table}
