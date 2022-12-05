@@ -754,6 +754,20 @@ xtset subject_id
 label var phintBW "FP rate"
 label var phintWB "FN rate"
 
+gen ipB=ip_
+replace ipB=. if blackhint==0|plevel>201
+
+gen ipW=ip_
+replace ipW=. if blackhint==1|plevel>201
+
+bys subject_id: egen varipB=sd(ipB) if plevel<300
+bys subject_id: egen varipW=sd(ipW) if plevel<300
+sum varipB varipW
+
+sum ip_ if varipB>0&plevel<300&blackhint==1
+sum ip_ if varipW>0&plevel<300&blackhint==0
+drop varipB varipW ipB ipW
+
 **Baseline IP table:
 gen fef=1
 eststo clear
@@ -852,6 +866,17 @@ eststo m5: margins, dydx(phintBW phintWB blackhint) post
 eststo: logit ip_ phintBW phintWB blackhint post_prob fef i.subject_id if plevel<300, vce(cluster subject_id)
 eststo m6: margins, dydx(phintBW phintWB blackhint post_prob) post
 esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip0x.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("" "" "" "FE" "FE" "FE") title(Informed protection response: probit) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+eststo clear
+eststo: reg ip_ phintBW phintWB  i.plevel if plevel<300, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB  i.plevel if blackhint==0&plevel<300, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB i.plevel if blackhint==1&plevel<300, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if plevel<300 , vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if blackhint==0&plevel<300, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if blackhint==1&plevel<300, vce(cluster subject_id)
+esttab using "./Tables/table_ip0_lin.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Errors are clustered by subject") indicate(Subject FE = *.subject_id) mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: linear regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -1043,19 +1068,15 @@ listtex using "./Tables/bigpicture_IP.tex", type rstyle(tabular) head("\begin{ta
 *save "./Temp/prep_beliefs.dta", replace
 use "./Temp/prep_beliefs.dta", replace
 
+
 collapse (mean) ip_ post_prob, by(fp_env fn_env blackhint)
 sort fp_env fn_env blackhint
 
 use "./Temp/prep_beliefs.dta", replace
 keep if plevel<300
+gen fp_env=phintBW>0
+gen fn_env=phintWB>0
 
-gen prot_cost=5
-gen loss=20
-gen ip_o=post_prob>(prot_cost/loss)
-bys blackhint fp_env fn_env: ttest bel_err == 0, level(95)
-bys blackhint fp_env fn_env: sum ip_
-
-bys blackhint fp_env fn_env: sum ip_o
 
 
 
@@ -1531,6 +1552,8 @@ esttab using "./Tables/table_wtpdiff_04tob.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) l
 
 
 save  "./Temp/wtp_discrepancy0.dta", replace
+
+use "./Temp/wtp_discrepancy0.dta", replace
 
 **Calculate average WTP discrepancy by signal type
 tempname p1

@@ -1,0 +1,26 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Informed protection response: linear regression}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{S=Black}&\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{W=Black}\\
+\hline
+FP rate         &     .251\sym{**} &     .641\sym{***}&    -.139         &     .203\sym{*}  &     .555\sym{***}&    -.149         \\
+                &    (2.2)         &    (4.5)         &   (-0.8)         &    (1.7)         &    (3.6)         &   (-0.7)         \\
+FN rate         &     .341\sym{***}&     .714\sym{***}&   -.0312         &     .332\sym{***}&     .713\sym{***}&   -.0486         \\
+                &    (3.2)         &    (4.4)         &   (-0.2)         &    (2.9)         &    (3.7)         &   (-0.3)         \\
+plevel=200      &     .106\sym{***}&    .0911\sym{*}  &      .12\sym{**} &     .333\sym{***}&     .667\sym{***}& 1.27e-14         \\
+                &    (2.8)         &    (1.9)         &    (2.2)         &(1.4e+13)         &(1.3e+14)         &    (1.1)         \\
+Constant        &      .37\sym{***}&    -.023         &     .762\sym{***}&     .442\sym{***}&    -.132\sym{***}&     1.02\sym{***}\\
+                &   (11.5)         &   (-0.7)         &   (14.4)         &   (23.9)         &   (-4.8)         &   (38.4)         \\
+Subject FE      &       No         &       No         &       No         &      Yes         &      Yes         &      Yes         \\
+\hline
+Observations    &      624         &      312         &      312         &      624         &      312         &      312         \\
+Adjusted \(R^{2}\)&     0.02         &     0.14         &     0.02         &     0.01         &     0.33         &     0.29         \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{7}{l}{\footnotesize Errors are clustered by subject}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}
