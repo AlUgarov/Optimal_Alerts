@@ -6,16 +6,22 @@
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
                 &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{S=Black}\\
 \hline
-FN rate         &   .00702         &      .38\sym{***}&    -.366\sym{***}\\
+Simpletons      &      .28\sym{***}&    -.105\sym{***}&     .665\sym{***}\\
+                &    (0.0)         &    (0.0)         &    (0.0)         \\
+FN rate         &    .0528         &     .409\sym{***}&    -.304\sym{**} \\
                 &    (0.1)         &    (0.1)         &    (0.1)         \\
-FP rate         &     .948\sym{***}&     .318\sym{***}&     1.58\sym{***}\\
+Simpletons $\times$ FN rate&    -.177         &   -.0993         &    -.255         \\
+                &    (0.2)         &    (0.2)         &    (0.3)         \\
+FP rate         &     .888\sym{***}&     .253\sym{***}&     1.52\sym{***}\\
                 &    (0.1)         &    (0.1)         &    (0.1)         \\
-Constant        &    -.249\sym{***}&     .139\sym{***}&    -.636\sym{***}\\
+Simpletons $\times$ FP rate&     .277         &     .316         &     .238         \\
+                &    (0.2)         &    (0.3)         &    (0.4)         \\
+Constant        &    -.251\sym{***}&      .14\sym{***}&    -.641\sym{***}\\
                 &    (0.0)         &    (0.0)         &    (0.0)         \\
 Subject FE      &      Yes         &      Yes         &      Yes         \\
 \hline
 Observations    &      624         &      312         &      312         \\
-Adjusted \(R^{2}\)&     0.22         &     0.37         &     0.66         \\
+Adjusted \(R^{2}\)&     0.22         &     0.38         &     0.66         \\
 \hline\hline
 \multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{4}{l}{\footnotesize Dep. variable: reported belief - posterior probability}\\

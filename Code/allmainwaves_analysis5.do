@@ -1166,10 +1166,19 @@ esttab using "./Tables/table_be_class.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label 
 
 
 eststo clear
+eststo: reg bel_err phintWB phintBW i.subject_id if plevel<300, vce(cluster subject_id)
+eststo: reg bel_err phintWB phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
+eststo: reg bel_err phintWB phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
+esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+
+
+eststo clear
 eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300, vce(cluster subject_id)
 eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
 eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
-esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_errx.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+
+
 
 
 
