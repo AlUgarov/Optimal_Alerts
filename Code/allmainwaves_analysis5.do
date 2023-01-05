@@ -883,10 +883,16 @@ esttab using "./Tables/table_ip0_lin.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label ad
 
 *IP anomalies basic: with flexible control of posteriors:
 eststo clear
-eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint if plevel<300, vce(cluster subject_id)
+eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint, vce(cluster subject_id)
 eststo m1: margins, dydx(phintBW phintWB highprob blackhint) post
-eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
 eststo m2: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
+
+eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo m3: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
+
+eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id if plevel>201, vce(cluster subject_id)
+eststo m3: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
 
 eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
 eststo m3: margins, dydx(phintBW phintWB highprob blackhint high_phintBW high_phintWB)  post
@@ -963,6 +969,26 @@ eststo: logit ip_ post_prob0* bespline* phintBW phintWB if blackhint==1&plevel<3
 eststo m6: margins, dydx(phintBW phintWB) post
 esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip8_be.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
   "Errors are clustered by subject, average marginal treatment effects") mtitles("" "FE" "" "" "S=White" "S=Black") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+  
+  
+**Robustness: flexible control both for beliefs and posteriors:
+eststo clear:
+eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
+eststo m1: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
+
+eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo m2: margins, dydx(phintBW phintWB  highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB) post
+
+
+eststo: logit ip_ post_prob0* bespline* phintBW phintWB highprob blackhint black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo m3: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
+
+eststo: logit ip_ post_prob0* bespline* phintBW phintWB highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo m4: margins, dydx(phintBW phintWB  highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB) post
+
+esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
+  "Subject FE, errors are clustered by subject, average marginal treatment effects") mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -1123,17 +1149,29 @@ gen class_alt=2-class
 tab class class_alt
 label var class_alt "IP strategy class"
 label define clsnames 0 "Bayesians" 1 "Simpletons"
+
+label var false_prob "Prop. of lying gremlins"
 label values class_alt clsnames
 
 
 eststo clear
-eststo: reg bel_err phintWB phintBW i.subject_id if plevel<300, vce(cluster subject_id)
-eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
-eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
+*eststo: reg bel_err phintWB phintBW i.subject_id if plevel<300, vce(cluster subject_id)
+*eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
+*eststo: reg bel_err c.phintWB c.phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
+eststo: reg be_ post_prob blackhint false_prob if plevel<300&class==1, vce(cluster subject_id)
+eststo: reg be_ post_prob blackhint false_prob if plevel<300&class==2, vce(cluster subject_id)
+esttab using "./Tables/table_be_class.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: beliefs, errors clustered by subject) title(Belief Elicitation by Class) mtitles("Simpletons" "Cautious Bayesians") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+eststo clear
 eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300, vce(cluster subject_id)
 eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)
 eststo: reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==1, vce(cluster subject_id)
-esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black" "All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+
+
 
 
 reg bel_err i.class_alt##c.phintWB i.class_alt##c.phintBW i.subject_id if plevel<300&blackhint==0, vce(cluster subject_id)

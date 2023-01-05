@@ -62,7 +62,142 @@
 \appendix
 
 
+\section{Results}
+
+\section{IP and Beliefs}
+\begin{figure}[H]
+\centering
+\caption{Average Blind Protection Response} \label{Blind Protection Responses}
+
+  \centering
+  \includegraphics[scale=0.3]{Graphs/blind_prot_sta.png}
+
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\caption{Average Informed Protection Response} \label{Informed Protection Responses}
+
+  \centering
+  \includegraphics[scale=0.3]{Graphs/ip_response.png}
+
+\end{figure}
+
+
+\clearpage
+%\input{Tables/bigpicture_IP_AG.tex}
+%\input{Tables/bigpicture_bel_AG.tex}
+
+ALEX: Double check: Are these everyone or p $\leq$ 0.2?
+YES
+
+
 \newpage
+\input{Tables/table_ip_flex.tex}
+
+
+ALEX: 
+\begin{itemize}
+	\item IP Table: 
+		\begin{itemize}
+			\item We have Table 23 (new version) that controls for beliefs -> finds that beliefs explain biases except for s=white, FP.
+			\item We want to tell the story of what happens (or the biases that remain) once we account for belief errors.
+		\end{itemize}
+	%\item Add table where we only have p=0.1,0.2; p=0.3, 0.5
+\end{itemize}
+
+\newpage
+
+\input{Tables/table_be_err.tex}
+ALEX: 
+\begin{itemize}
+	\item BE Table: 
+		\begin{itemize}
+			\item Keep Cols 1-3 (Panel A)
+			\item *Drop for now
+		\end{itemize}
+	\end{itemize}
+
+\newpage\clearpage
+\section{WTP}
+
+\input{./Tables/table_wtp_02tob.tex}
+
+ALEX: 
+\begin{itemize}
+	\item Blind Protection costs: what you lose if you don't use signal.
+	\item Belief change: Respondents' belief change due to the signal from white to black (how info structure changes the relative value of hint).
+	\item Certainty: How close is your belief to 1 or 0. (Willingness to pay for certainty):
+        \item Certainty$=P(S=W)(1-\mu(B|S=W))+P(S=B)\mu(B|S=B)$, $\mu(B|S=Y)$ is the reported belief that the ball is black when the signal is $Y$, $P(S=Y)$ is the actual prob of the ball being $Y$. This is an ad-hoc measure, I probably need to check literature to see if there is something more standard.
+	\item Describe why better than OLS: because we truncate.
+\end{itemize}
+
+
+\newpage\clearpage
+
+\input{Tables/bigpicture_wtp.tex}
+
+
+\input{Tables/table_wtpdiff_01rfull_ag.tex}
+
+
+\newpage\clearpage
+
+
+\section{Summary}
+
+\begin{table}[H]\centering
+\caption{Comparing Findings across the Tasks}
+\begin{tabular}{l|c|c|c}
+\hline \hline
+Design & Beliefs & IP &WTP\\
+\hline
+White, FN only & $>$ & $<>$ & $<>*$ \\
+Black, FN only & $<$ & $<>$ & $<>$ \\
+White, FP only & $>$ & $>$ & $>$ \\
+Black, FP only & $>$ & $<>$ & $>$ \\
+White, FN and FP & $>>$ & $>$ & $>$ \\
+Black, FN and FP & $>$ & $<>$ & $>$\\
+\hline
+\multicolumn{4}{l}{*-WTP estimates do not depend on signals.}\\
+\end{tabular}
+\end{table}
+
+\newpage\clearpage
+\section{Classification: Honest vs. Bayesian}
+
+\begin{table}[H]
+\caption{Latent Class Multinomial Choice Model Estimates (FP and FN rates by hint)}
+\input{Tables/lc_results3.tex}
+\end{table}
+
+%\input{Tables/table_ipclasses2.tex}
+\input{Tables/table_ipclasses.tex}
+
+\input{Tables/table_be_class.tex}
+ALEX: 
+\begin{itemize}
+	\item Do this distinction between number of false gremlin vs. black/white gremlin for belief calculation (other columns)
+\item Alex: Let me know if you need it to join into one table, but it need manual work so we can reserve it for later.
+\end{itemize}
+
+
+\input{Tables/losses_matr2c.tex}
+
+
+\input{Tables/table_be_err.tex}
+ALEX: 
+\begin{itemize}
+	\item BE Table: 
+		\begin{itemize}
+			\item Keep Cols 4-6
+			\item We won't need this if we have the above version for belief.
+		\end{itemize}
+	\end{itemize}
+
+{\huge END TABLE }
+
+\newpage\clearpage
 \section{Tables}
 %\begin{table}[H!]\centering
 %\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
@@ -93,21 +228,12 @@
 \footnotesize
 \input{Tables/table_ip0.tex}
 
-\newpage
-%\input{Tables/table_ip5.tex}
-\input{Tables/table_ip_flex.tex}
+
 \newpage
 
-\begin{table}[H]
-\caption{Latent Class Multinomial Choice Model Estimates (FP and FN rates by hint)}
-\input{Tables/lc_results3.tex}
-\end{table}
-
-\input{Tables/table_ipclasses2.tex}
 
 \input{Tables/table_class_det2.tex}
 
-\input{Tables/losses_matr2c.tex}
 
 \newpage
 %\begin{table}[H]
@@ -127,37 +253,12 @@
 %\input{Tables/class_or.tex}
 %\end{table}
 
-\input{Tables/table_ipclasses.tex}
-
-\input{Tables/table_be_class.tex}
 
 %\input{Tables/table_class_det.tex}
 
 
 %\input{Tables/losses_matr.tex}
 
-\input{Tables/table_be_err.tex}
-
-\input{Tables/bigpicture_IP.tex}
-\input{Tables/bigpicture_bel.tex}
-\input{Tables/bigpicture_wtp.tex}
-
-\begin{table}[H]\centering
-\caption{Comparing Findings across the Tasks}
-\begin{tabular}{l|c|c|c}
-\hline \hline
-Design & Beliefs & IP &WTP\\
-\hline
-White, FN only & $>$ & $<>$ & $<>*$ \\
-Black, FN only & $<$ & $<>$ & $<>$ \\
-White, FP only & $>$ & $>$ & $>$ \\
-Black, FP only & $>$ & $<>$ & $>$ \\
-White, FN and FP & $>>$ & $>$ & $>$ \\
-Black, FN and FP & $>$ & $<>$ & $>$\\
-\hline
-\multicolumn{4}{l}{*-WTP estimates do not depend on signals.}\\
-\end{tabular}
-\end{table}
 
 %\begin{table}[H]
 %\caption{Model Quality by N of classes (FP and FN rates)}
@@ -171,11 +272,6 @@ Black, FN and FP & $>$ & $<>$ & $>$\\
 
 
 \newpage
-\input{./Tables/table_wtp_02tob.tex}
-
-
-
-\input{Tables/table_wtpdiff_01rfull_ag.tex}
 
 
 \input{./Tables/table_wtp_classes.tex}
@@ -233,24 +329,6 @@ Black, FN and FP & $>$ & $<>$ & $>$\\
 
 
 \section{Figures}
-
-\begin{figure}[H]
-\centering
-\caption{Average Blind Protection Response} \label{Blind Protection Responses}
-
-  \centering
-  \includegraphics[scale=0.3]{Graphs/blind_prot_sta.png}
-
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\caption{Average Informed Protection Response} \label{Informed Protection Responses}
-
-  \centering
-  \includegraphics[scale=0.3]{Graphs/ip_response.png}
-
-\end{figure}
 
 \begin{figure}[H]
 \centering
