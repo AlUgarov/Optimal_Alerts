@@ -706,8 +706,8 @@ set more off
 
 *expected response by prior prob:
 gen highprob=p>0.101
-label var highprob "p$\geq$0.2"
-label define highprob_l 0 "p$=$0.1" 1 "p$\geq$0.2"
+label var highprob "p$=$0.2"
+label define highprob_l 0 "p$=$0.1" 1 "p$=$0.2"
 label values highprob highprob_l
 
 label var stat_educ "Stat. class"
@@ -715,36 +715,30 @@ label define stat_educl 0 "No" 1 "Stat. class"
 label values stat_educ stat_educl
 tab stat_educ
 
-gen post_prob01=0
-replace post_prob01=post_prob if post_prob<0.2
 
-gen post_prob02=0
-replace post_prob02=post_prob if post_prob>=0.2&post_prob<0.4
+*Creating splines of prior probability
 
-gen post_prob03=0
-replace post_prob03=post_prob if post_prob>=0.4&post_prob<0.6
-
-
-gen post_prob04=0
-replace post_prob02=post_prob if post_prob>=0.6&post_prob<0.8
-
-gen post_prob05=0
-replace post_prob05=post_prob if post_prob>=0.8
-
+mkspline post_prob01 0.2 post_prob02 0.4 post_prob03 0.6 post_prob04 0.8 post_prob05 = post_prob
 
 gen high_phintBW=highprob*phintBW
 gen high_phintWB=highprob*phintWB
 gen black_phintBW=blackhint*phintBW
 gen black_phintWB=blackhint*phintWB
 
+gen white_phintBW=(1-blackhint)*phintBW
+gen white_phintWB=(1-blackhint)*phintWB
+
 gen FPFN=phintBW*phintWB
 gen blackFPFN=phintBW*phintWB
 gen whiteFPFN=phintBW*phintWB
 
-label var high_phintBW "FP rate x (p $\geq$ 0.2)"
-label var high_phintWB "FN rate x (p $\geq$ 0.2)"
+label var high_phintBW "FP rate x (p=0.2)"
+label var high_phintWB "FN rate x (p=0.2)"
 label var black_phintBW "FP rate x (S=Black)"
 label var black_phintWB "FN rate x (S=Black)"
+
+label var white_phintBW "FP rate x (S=White)"
+label var white_phintWB "FN rate x (S=White)"
 
 label var FPFN "FP rate x FN rate"
 
@@ -974,21 +968,37 @@ esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip8_be.tex", b(%9.3g) t(%9.1f) ar
   
 **Robustness: flexible control both for beliefs and posteriors:
 eststo clear:
-eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
-eststo m1: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
+eststo: logit ip_ post_prob0* white_phintBW white_phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id  if plevel<300, vce(cluster subject_id)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m1: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob) post
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
 
-eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
-eststo m2: margins, dydx(phintBW phintWB  highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB) post
+eststo: logit ip_ post_prob0* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m2: margins, dydx(blackhint white_phintBW white_phintWB  black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
 
 
-eststo: logit ip_ post_prob0* bespline* phintBW phintWB highprob blackhint black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
-eststo m3: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
+eststo: logit ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m3: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob) post
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
 
-eststo: logit ip_ post_prob0* bespline* phintBW phintWB highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
-eststo m4: margins, dydx(phintBW phintWB  highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB) post
+eststo: logit ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+local r2p=e(r2_p)
+local llike=e(ll)
+eststo m4: margins, dydx(blackhint white_phintBW white_phintWB  black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
+estadd scalar r2p = `r2p'
+estadd scalar llike = `llike'
 
-esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
-  "Subject FE, errors are clustered by subject, average marginal treatment effects") mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3g) t(%9.1f) label addnotes("With flexible controls of posterior probability and beliefs" ///
+  "Subject FE, errors are clustered by subject, average marginal treatment effects") stats(N r2p llike, labels("N" "Pseudo R-squared" "Log-likelihood")) mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -1097,6 +1107,21 @@ use "./Temp/prep_beliefs.dta", replace
 
 collapse (mean) ip_ post_prob, by(fp_env fn_env blackhint)
 sort fp_env fn_env blackhint
+
+*Anchoring effects for beliefs
+*checking if a subject reports the same beliefs for first and second prior:
+sort subject_id round blackhint
+
+gen be_p_change=be_~=be_[_n-6]
+replace be_p_change=0 if round<4
+by subject_id: egen nchanges_p=sum(be_p_change)
+
+gen be_s_change=be_~=be_[_n-2]
+replace be_s_change=0 if inlist(round,1,2,4)
+by subject_id: egen nchanges_s=sum(be_s_change)
+tab nchanges_s nchanges_p
+
+
 
 use "./Temp/prep_beliefs.dta", replace
 keep if plevel<300
