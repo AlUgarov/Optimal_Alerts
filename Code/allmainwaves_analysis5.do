@@ -1001,6 +1001,18 @@ esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3g) t(%9.1f) label a
   "Subject FE, errors are clustered by subject, average marginal treatment effects") stats(N r2p llike, labels("N" "Pseudo R-squared" "Log-likelihood")) mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
+  
+ **Robustness: LINEAR! flexible control both for beliefs and posteriors:
+eststo clear
+eststo: reg ip_ post_prob0* white_phintBW white_phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id  if plevel<300, vce(cluster subject_id)
+eststo: reg ip_ post_prob0* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB i.subject_id if plevel<300, vce(cluster subject_id)
+esttab using "./Tables/table_ip_flexlin.tex", b(%9.3g) t(%9.1f)  ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
+  "Subject FE, errors are clustered by subject, average marginal treatment effects") drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") title(Informed Protection Response: flexible control for posteriors and beliefs, LPM) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+  
 
 
 *Reacting to FP rates is still optimal even when the signal is white, because it lowers the probability of the white signal coming from the white state
