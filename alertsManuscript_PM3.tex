@@ -312,6 +312,7 @@ Panel A of Figure~\ref{fig:BeliefUpdate} uses all elicted beliefs and suggests t
 
 \aut{Here is my fist take on the presentation order problem - higher priors.}
 \textbf{We also observe that subject underestimate posterior probabilities more when facing prior probabilities of 0.3 and 0.5 with the differences being statistically significant} at significance level 0.05 \aut{I guess, I should add a table here}\pmt{Can you do a figure that breaks out the error distributions for the lower priors and the higher priors?}. We cannot however exclude that it happens due to presentation order effects: subjects face priors 0.3 and 0.5 in the second part of experiment with some subjects failing to account for higher priors. Indeed, nine subjects do not change their responses between priors at all (so all six responses for higher priors are the same), but only two do not change their responses with signals\pmt{Related to my comment above, can we identify guys who are total knuckleheads across all tasks using this failure to change with priors?  For instance, are all of these 9 guys multiple switchers in BP and making errors when the posterior is certain in BE?}. \pmt{I would delete this next sentence, or at least move most of it, because we haven't talked about WTP yet.}We observe similar pattern in the Willingness-to-Pay Elicitation task with thirteen subjects not updating their willingness-to-pay. For this reason, we have decided to exclude higher priors from the rest of the analysis limiting our sample only to one prior per subject (0.1 or 0.2).
+\pmt{I think this is the appropriate place to address the order effect, but I haven't addressed it further because of the questions I asked above}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
@@ -467,8 +468,8 @@ Table~\ref{tab:updateErrorReg} formalizes our analysis using a regression which 
 
 \textbf{So far, errors in the posterior estimation seem to be consistent with biases observed in the Informed Protection task. It begs the questions of how much bias in the IP task remains after accounting for biases in beliefs.} In Table~\ref{tab:protectReg}, we regress informed protection decisions on FP and FN rates and flexible controls of both posteriors and reported beliefs:
 
-	\[Prob(s_{ij}=1)=Logit(\alpha_i+\beta_1 P_{10}+\beta_2 P_{01}+Z(p_{ij})+Z(\mu_{ij})+\epsilon_{ij}) \]
-where $s_{ij}$ is the protection decision of subject $i$ in treatment $j$, $\alpha_i$ - subject FE, $P_{10}$, $P_{01}$ are FP and FN rates and $Z(p_{ij}),Z(\mu_{ij})$ are vectors of flexible controls\footnote{We use Stata mkspline command to create flexible controls as 5 splines $z_1(x),z_2(x),..z_5(x)$ of initial variable $x$ over the range $[0,1]$ such that $z_k(x)=\min[0,x-x_{k-1},x_k-x_{k-1}]$ with $x_k$ being equally spaced knot values. Splines account for potential nonlinearal effects of posteriors and beliefs on protection decision with limited effect on degrees of freedom.} of posteriors and reported beliefs $\mu_{ij}$ for corresponding treatments. Columns 1 and 2 include only the flexible controls of the true posteriors. Columns 3 and 4 add further flexible controls to account for subjects' (often incorrect) estimates of the posterior, inferred from their BE responses. The model is estimated using Maximum Likelihood Estimation, with standard errors clustered at the subject level. The table presents the average marginal effect coefficients.
+	\[Prob(s_{ij}=1)=Logit(\alpha_i+\beta_1 FP +\beta_2 FN +Z(p_{ij})+Z(\mu_{ij})+\epsilon_{ij}) \]
+where $s_{ij}$ is the protection decision of subject $i$ in treatment $j$, $\alpha_i$ - subject FE, $P_{10}$, $P_{01}$ are FP and FN false positive and false negative rates and $Z(p_{ij}),Z(\mu_{ij})$ are vectors of flexible controls\pmt{We probably need a more plain language explanation than just the footnote}\footnote{We use Stata mkspline command to create flexible controls as 5 splines $z_1(x),z_2(x),..z_5(x)$ of initial variable $x$ over the range $[0,1]$ such that $z_k(x)=\min[0,x-x_{k-1},x_k-x_{k-1}]$ with $x_k$ being equally spaced knot values. Splines account for potential nonlinear effects of posteriors and beliefs on protection decision with limited effect on degrees of freedom.} of posteriors and reported beliefs $\mu_{ij}$ for corresponding treatments. Columns 1 and 2 include only the flexible controls of the true posteriors. Columns 3 and 4 add further flexible controls to account for subjects' (often incorrect) estimates of the posterior, inferred from their BE responses. The model is estimated using Maximum Likelihood Estimation, with standard errors clustered at the subject level. The table presents the average marginal effect coefficients.
 
 Columns 1 and 2 confirmed Result~\ref{res:IPdeviations}, to wit, conditional on posterior and subject FE, IP responses are affected by FP and FN rates. For a white signal, FP and FN rates increased the tendency to overprotect; while for a black signal, FP rate had an opposite effect with comparable magnitude but without statistical significance. Column 3 suggests, however, that once we control for both the posterior and subjects' updated belief, only the effect of the FP rate for white signals remains positive and statistically significant at $p<0.1$. \textbf{These results provide evidence that subjects' failure to protect optimally is largely --- albeit not entirely --- driven by their failure to correctly update their posterior given a signal.}
 
@@ -512,9 +513,15 @@ Columns 1 and 2 confirmed Result~\ref{res:IPdeviations}, to wit, conditional on 
 
 \agt{XXX ARYA STOPPED HERE XXX}
 
-\subsection{Willingness to Pay}
+%\subsection{Willingness to Pay}
 
-Figure XX shows how subjects deviate substantially from the theoretical value for a risk-neutral subject. Here we explore these deviations more systematically by signal characteristics and risk preferences. 
+%Figure XX shows how subjects deviate substantially from the theoretical value for a risk-neutral subject. Here we explore these deviations more systematically by signal characteristics and risk preferences. 
+
+We have shown that signal characteristics both indirectly (through beliefs) and directly (white signals and false positives) influence protection decisions when signals are exogenously provided.  It is far from clear how signal characteristics should affect WTP decisions, however, where the theoretical benchmark had more limited explanatory power, and where any self-awareness of one's inability to update might limit the value of information.
+
+Table XX provides some preliminary evidences that, not only do signal characteristics influence WTP, they do so systematically in a way that suggests subjects are not aware of their own biases.  When there is no possibility of a false positive, subjects underestimate the value of signal relative to the theoretical benchmark.  Regardless of the possibility of a false negative, this difference is not statistically significant at conventional significance levels, though it is both 55\% larger in magnitude and closer to significant ($p=0.152$) when there are false negatives.  When there are false positives, however, subjects significantly overvalue signals relative to the theoretical benchmark, and there is virtually no difference in magnitude between the cases where there are and are not false negatives.\pmt{Can we plot the distributions of deviations for these 4 cases?}
+
+\pmt{WE NEED A GOOD SEGUE TO REGRESSION AND DISCUSSION OF RESULTS, BUT I HAVE STOPPED HERE IN THIS SECTION}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -567,7 +574,9 @@ Black, FN and FP & $>$ & $<>$ & $>$\\
 \singlespacing
 \small
 
-\subsection{Subject Heterogeneity}
+\section{Subject Heterogeneity}
+
+Through out the foregoing results, we have seen both that signal characteristics influence behavior, but also substantial heterogeneity in choices.  To better understand the interplay between these two forces, we estimate a latent class multinomial choice model of the following sort \pmt{includes the hint, FP and FN rates, and the interaction between the two}\pmt{We need a footnote here about model selection}.
 
 
 \begin{table}[H]

@@ -1,0 +1,59 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: alertsManuscript_PM3.aux
+Reallocating 'name_of_file' (item size: 1) to 5 items.
+The style file: econ.bst
+Reallocating 'name_of_file' (item size: 1) to 7 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: Alerts.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty journal in xu_revealed_2020
+Warning--there is no volume, number, and pages in xu_revealed_2020
+You've used 20 entries,
+            6752 wiz_defined-function locations,
+            1440 strings with 14450 characters,
+and the built_in function-call counts, 28113 in all, are:
+= -- 4819
+> -- 1153
+< -- 58
++ -- 376
+- -- 441
+* -- 1682
+:= -- 3651
+add.period$ -- 19
+call.type$ -- 20
+change.case$ -- 152
+chr.to.int$ -- 20
+cite$ -- 22
+duplicate$ -- 670
+empty$ -- 1189
+format.name$ -- 360
+if$ -- 7356
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 73
+num.names$ -- 208
+pop$ -- 226
+preamble$ -- 1
+purify$ -- 152
+quote$ -- 0
+skip$ -- 2082
+stack$ -- 0
+substring$ -- 2211
+swap$ -- 152
+text.length$ -- 146
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 341
+warning$ -- 2
+while$ -- 202
+width$ -- 0
+write$ -- 329
+(There were 2 warnings)
