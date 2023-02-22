@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  16 FEB 2023 16:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  18 FEB 2023 22:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./alertsManuscript_PM3.tex
-(alertsManuscript_PM3.tex
+**./alertsManuscript_AU4.tex
+(alertsManuscript_AU4.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-02> (C:\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
@@ -499,8 +499,8 @@ Package: subcaption 2022/01/07 v1.5 Sub-captions (AR)
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count304
 \l__pdf_internal_box=\box64
-) (alertsManuscript_PM3.aux)
-\openout1 = `alertsManuscript_PM3.aux'.
+) (alertsManuscript_AU4.aux)
+\openout1 = `alertsManuscript_AU4.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
 LaTeX Font Info:    ... okay on input line 72.
@@ -555,9 +555,9 @@ LaTeX Font Info:    ... okay on input line 72.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 72.
-(alertsManuscript_PM3.out) (alertsManuscript_PM3.out)
+(alertsManuscript_AU4.out) (alertsManuscript_AU4.out)
 \@outlinefile=\write3
-\openout3 = `alertsManuscript_PM3.out'.
+\openout3 = `alertsManuscript_AU4.out'.
 
 
 (C:\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
@@ -718,132 +718,80 @@ LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
 (Font)              size <12> substituted on input line 272.
 
 
-LaTeX Warning: Reference `fig:ProtResponse' on page 10 undefined on input line 
-275.
+Overfull \hbox (2.75066pt too wide) in paragraph at lines 276--278
+|   [][][]|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []
+   |   []   |   []   |   []   |   []
+ []
 
-[10]
-
-LaTeX Warning: Reference `fig:ProtResponse' on page 11 undefined on input line 
-283.
-
-[11]
-<Graphs/ip_response_comp.png, id=142, 1204.5pt x 803.0pt>
+[10] [11]
+<Graphs/ip_response_comp.png, id=145, 1204.5pt x 803.0pt>
 File: Graphs/ip_response_comp.png Graphic file (type png)
 <use Graphs/ip_response_comp.png>
-Package pdftex.def Info: Graphs/ip_response_comp.png  used on input line 295.
+Package pdftex.def Info: Graphs/ip_response_comp.png  used on input line 296.
 (pdftex.def)             Requested size: 362.77264pt x 241.84532pt.
-
-
-LaTeX Warning: Reference `fig:BeliefUpdate' on page 12 undefined on input line 
-308.
-
-
-LaTeX Warning: Reference `fig:BeliefUpdate' on page 12 undefined on input line 
-310.
-
-
-LaTeX Warning: Reference `fig:BeliefUpdate' on page 12 undefined on input line 
-310.
-
-
-LaTeX Warning: Reference `fig:ProtResponse' on page 12 undefined on input line 
-310.
-
-
-LaTeX Warning: Reference `fig:BeliefUpdate' on page 12 undefined on input line 
-310.
-
-[12 <./Graphs/ip_response_comp.png (PNG copy)>] [13]
-<Graphs/hist_belief_error_s3.png, id=153, 1204.5pt x 803.0pt>
+ [12 <./Graphs/ip_response_comp.png (PNG copy)>] [13]
+<Graphs/hist_belief_error_s3.png, id=161, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s3.png Graphic file (type png)
 <use Graphs/hist_belief_error_s3.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 32
-2.
+3.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
-put line 322.
-<Graphs/updating_s3.png, id=154, 1204.5pt x 803.0pt>
+put line 323.
+<Graphs/updating_s3.png, id=162, 1204.5pt x 803.0pt>
 File: Graphs/updating_s3.png Graphic file (type png)
 <use Graphs/updating_s3.png>
-Package pdftex.def Info: Graphs/updating_s3.png  used on input line 324.
+Package pdftex.def Info: Graphs/updating_s3.png  used on input line 325.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s4.png, id=155, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s4.png, id=163, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s4.png Graphic file (type png)
 <use Graphs/hist_belief_error_s4.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 32
-6.
+7.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s4.png, id=156, 1204.5pt x 803.0pt>
+<Graphs/updating_s4.png, id=164, 1204.5pt x 803.0pt>
 File: Graphs/updating_s4.png Graphic file (type png)
 <use Graphs/updating_s4.png>
-Package pdftex.def Info: Graphs/updating_s4.png  used on input line 328.
+Package pdftex.def Info: Graphs/updating_s4.png  used on input line 329.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s5.png, id=157, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s5.png, id=165, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s5.png Graphic file (type png)
 <use Graphs/hist_belief_error_s5.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 33
-0.
+1.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s5.png, id=158, 1204.5pt x 803.0pt>
+<Graphs/updating_s5.png, id=166, 1204.5pt x 803.0pt>
 File: Graphs/updating_s5.png Graphic file (type png)
 <use Graphs/updating_s5.png>
-Package pdftex.def Info: Graphs/updating_s5.png  used on input line 332.
+Package pdftex.def Info: Graphs/updating_s5.png  used on input line 333.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
  [14] [15 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
 png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/updati
 ng_s4.png (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/
-updating_s5.png (PNG copy)>]
-
-LaTeX Warning: Reference `tab:nonparIP' on page 16 undefined on input line 351.
-
-
-[16
+updating_s5.png (PNG copy)>] [16
 
 ]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 367--367
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 368--368
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
-(Tables/bigpicture_IP_AG.tex)
-
-LaTeX Warning: Reference `tab:nonparError' on page 17 undefined on input line 3
-98.
-
-[17]
-
-LaTeX Warning: Reference `tab:updateErrorReg' on page 18 undefined on input lin
-e 402.
-
-
-LaTeX Warning: Reference `tab:nonparError' on page 18 undefined on input line 4
-02.
-
-
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 415--415
+(Tables/bigpicture_IP_AG.tex) [17]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 416--416
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
-(Tables/bigpicture_bel_AG.tex) (Tables/table_be_err_AG.tex)
-
-LaTeX Warning: Reference `tab:protectReg' on page 18 undefined on input line 47
-0.
-
-[18]
-
-LaTeX Warning: Reference `res:IPdeviations' on page 19 undefined on input line 
-475.
-
+(Tables/bigpicture_bel_AG.tex) (Tables/table_be_err_AG.tex) [18]
 (Tables/table_ip_flex_AG.tex) [19] [20] (Tables/table_wtp_02tob.tex) [21
 
 ]
 (Tables/bigpicture_wtp.tex) (Tables/table_wtpdiff_01rfull_ag.tex) [22] [23]
 [24] (Tables/lc_results3.tex)
-Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--586
+Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--587
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1--586
+Underfull \hbox (badness 10000) in paragraph at lines 1--587
 
  []
 
@@ -853,70 +801,60 @@ Overfull \hbox (21.78915pt too wide) in paragraph at lines 3--14
  [][] 
  []
 
-) (Tables/table_be_errx.tex) [25] [26] [27] (alertsManuscript_PM3.bbl [28
-
-])
-[29] (Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_ip0.tex
+) (Tables/table_be_errx.tex) [25] [26] [27]
+No file alertsManuscript_AU4.bbl.
+(Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_ip0.tex
 Overfull \hbox (92.85327pt too wide) in paragraph at lines 4--30
  [][] 
  []
 
 ) (Tables/table_ip5.tex) (Tables/table_wtp_02tob.tex)
 (Tables/table_wtpdiff_01r_ag.tex) (Tables/table_wtp_val1.tex)
-Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--649
+Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--650
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--649
+Underfull \hbox (badness 10000) in paragraph at lines 3--650
 
  []
 
-(Tables/table_be3.tex) (Tables/table_ip8_be.tex [30])
-(Tables/table_ip5_semi.tex) (Tables/table_wtpdiff_06.tex) [31] [32] [33]
-[34] [35] [36]
-<Graphs/WTP_value_heat.png, id=338, 1204.5pt x 803.0pt>
+(Tables/table_be3.tex) (Tables/table_ip8_be.tex [28
+
+])
+(Tables/table_ip5_semi.tex) (Tables/table_wtpdiff_06.tex) [29] [30] [31]
+[32] [33] [34]
+<Graphs/WTP_value_heat.png, id=296, 1204.5pt x 803.0pt>
 File: Graphs/WTP_value_heat.png Graphic file (type png)
 <use Graphs/WTP_value_heat.png>
-Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 681.
+Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 682.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
-<Graphs/hist_WTP_discr1.png, id=339, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1.png, id=297, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 689.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 690.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
 
 
 Package natbib Warning: There were undefined citations.
 
-[37 <./Graphs/WTP_value_heat.png (PNG copy)> <./Graphs/hist_WTP_discr1.png (PNG
- copy)>] (alertsManuscript_PM3.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+[35 <./Graphs/WTP_value_heat.png (PNG copy)> <./Graphs/hist_WTP_discr1.png (PNG
+ copy)>] (alertsManuscript_AU4.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package rerunfilecheck Info: File `alertsManuscript_PM3.out' has not changed.
+Package rerunfilecheck Info: File `alertsManuscript_AU4.out' has not changed.
 (rerunfilecheck)             Checksum: DDCA8626786816ADD211863A2E193351;1829.
  ) 
 Here is how much of TeX's memory you used:
- 14335 strings out of 476374
- 230877 string characters out of 5805269
+ 14247 strings out of 476374
+ 228452 string characters out of 5805269
  1923340 words of memory out of 5000000
- 34304 multiletter control sequences out of 15000+600000
- 522213 words of font info for 67 fonts, out of 8000000 for 9000
+ 34242 multiletter control sequences out of 15000+600000
+ 521699 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,15n,117p,2312b,599s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,15n,117p,2304b,599s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exist
 , replaced by a fixed one
@@ -953,11 +891,10 @@ ublic/amsfonts/cm/cmr7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><
 C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmsy6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C
 :/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmti10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C
-:/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on alertsManuscript_PM3.pdf (37 pages, 876400 bytes).
+/amsfonts/cm/cmti10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on alertsManuscript_AU4.pdf (35 pages, 841129 bytes).
 PDF statistics:
- 459 PDF objects out of 1000 (max. 8388607)
- 125 named destinations out of 1000 (max. 500000)
+ 405 PDF objects out of 1000 (max. 8388607)
+ 102 named destinations out of 1000 (max. 500000)
  158 words of extra memory for PDF output out of 10000 (max. 10000000)
 

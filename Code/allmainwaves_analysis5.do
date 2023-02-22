@@ -181,6 +181,7 @@ gen p=0.05*round
 reg bp p
 sum submittime
 
+
 **Identify switchers: change to no protection for higher probabilities
 sort participant_id round
 gen backswitch=(bp==0)&(bp[_n-1]==1)
@@ -473,6 +474,10 @@ collapse (first) treatm_type participant_id time_ip honest ncorrect p phintBW ph
 label values treatm_type treatm_typel
 save "./Temp/base_main_waves.dta", replace
 
+
+
+
+
 use "./Output/main_waves.dta", replace
 
 *Remove the timing information for now
@@ -581,6 +586,83 @@ bys plevel phintWB phintBW: sum confid
 
 **Saving belief accuracy:
 save "./Temp/base_main_waves.dta", replace
+
+
+**ADDING HERE A BIT MORE ANALYSIS ON WHO IS MAKING MOST EGREGIOUS ERRORS!**
+use "./Temp/base_main_waves.dta", replace
+
+
+drop if abs(0.5-post_prob)<0.499 //keeping only certain signals
+
+gen opp_err0=abs(be_-post_prob)>0.999 //giving the opposite probability (0 vs 1)
+gen cert_err0=(be_>0)&(abs(0.5-post_prob)>0.499) //belief error when the outcome is completely certain cond. on a signal
+
+bys subject_id: egen cert_err=sum(cert_err0)
+bys subject_id: egen opp_err=max(opp_err0)
+
+
+
+**IP consistency: non-monotonicies, protecting when p=0, not protecting when p=1
+sort subject_id post_prob
+gen backswitch=(ip_==0&ip[_n-1]==1)&(subject_id==subject_id[_n-1])
+
+*How to check more properly if it's monotonic?
+
+tab backswitch
+bys subject_id: egen nip_backswitches=sum(backswitch)
+tab nip_backswitches
+bys subject_id: egen ip_backswitcher=max(backswitch)
+
+
+gen toosafe=(ip_==1)&(post_prob==0)
+gen suicidal=(ip_==0)&(post_prob==1)
+gen opp_ip_err0=toosafe+suicidal
+by subject_id: egen opp_ip_err=max(opp_ip_err0)
+tab opp_ip_err
+
+
+
+
+
+
+collapse (first) backswitcher backswitcher0 nbswitches goodquiz opp_ip_err ip_backswitcher opp_err cert_err, by(subject_id)
+
+
+***There is little correlation btw making many mistakes on the quiz and the N of back switches in the BP!
+tab goodquiz backswitcher0, chi2
+
+*No correlation btw opposite errors in belief elicitation and back switches
+tab backswitcher0 cert_err, chi2
+tab backswitcher0 opp_err, chi2
+
+*But there is a correlation btw quiz answers and large updating errors
+tab goodquiz opp_err, chi2
+reg cert_err goodquiz
+
+*Obvious but imperfect correlation btw being a backswitcher and IP backswitcher!
+tab backswitcher ip_backswitcher, chi2
+tab backswitcher0 ip_backswitcher, chi2 //and here I'm doing the same for BP backswitchers without excluding repairable switches
+
+
+*Obvious but imperfect correlation btw being a backswitcher and IP backswitcher!
+tab goodquiz ip_backswitcher, chi2
+tab goodquiz opp_ip_err, chi2 //and here I'm doing the same for BP backswitchers without excluding repairable switches
+
+
+*weak correlation with backswitches:
+tab backswitcher0 opp_ip_err, chi2
+tab goodquiz opp_ip_err, chi2
+
+gen badquiz=1-goodquiz
+gen knuckleheadidness=badquiz+backswitcher0+ip_backswitcher+opp_err
+
+*The histogram doesn't indicate any cluster of "knuckleheads", but most subjects make at least one large mistake
+hist knuckleheadidness, start(0) discrete frequency title("Subjects making N large errors") note("Counted mistakes: 2 or more quiz mistakes, back switches in IP or BP," " stating opposite beliefs when the color is certain.") color(navy)
+graph export "./Graphs/hist_bigerrors.png", width(1200) height(800) replace
+
+
+
+use "./Temp/base_main_waves.dta", replace
 collapse (mean) accur_bel accur_bel2 be_change confid, by(subject_id round)
 save "./Temp/bel_accuracy.dta", replace
 use "./Temp/base_main_waves.dta", replace
@@ -593,16 +675,25 @@ label values accur_bel2 accur_bel_l
 
 label values stat_educ stat_educl
 
+gen small_error=abs(bel_err)<0.1
+tab small_error
+
+gen certaincolor=abs(0.5-post_prob)>0.499
+
+sum absbel_err if abs(0.5-post_prob)<0.499, detail
+
+
+
 hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
 graph export "./Graphs/hist_belief_error.png", width(1200) height(800) replace
 
-hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("Main waves only, excluding certain signals") color(navy)
+hist bel_err  if abs(0.5-post_prob)<0.499, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("Main waves only, excluding certain signals") color(navy)
 graph export "./Graphs/hist_belief_error_s3.png", width(1200) height(800) replace
 
-hist bel_err  if pilot==0&abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
+hist bel_err  if abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
 graph export "./Graphs/hist_belief_error_s4.png", width(1200) height(800) replace
 
-hist bel_err  if pilot==0&abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
+hist bel_err  if abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
 graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replace
 
 qui reg be_ post_prob
@@ -762,6 +853,9 @@ sum ip_ if varipB>0&plevel<300&blackhint==1
 sum ip_ if varipW>0&plevel<300&blackhint==0
 drop varipB varipW ipB ipW
 
+
+
+
 **Baseline IP table:
 gen fef=1
 eststo clear
@@ -871,6 +965,11 @@ eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if plevel<300 , vce(clust
 eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if blackhint==0&plevel<300, vce(cluster subject_id)
 eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if blackhint==1&plevel<300, vce(cluster subject_id)
 esttab using "./Tables/table_ip0_lin.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Errors are clustered by subject") indicate(Subject FE = *.subject_id) mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: linear regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+reg ip_ post_prob if plevel<300, vce(cluster subject_id)
+
+
 
 
 
@@ -1848,6 +1947,27 @@ title("Prior>20%")
 ;
 #delimit cr
 graph export "./Graphs/WTP_pattern_high.png", width(1000) height(1000) replace
+
+
+
+**********************************************
+****-- Robustness 1: ANALYSIS OF KNUCKLEHEADS --****
+**********************************************
+
+** BP switches (non-monotonicity) ***
+
+** Survey questions ****
+
+** IP when there is no risk, no protection when the risk is certain ****
+
+** Opposite answers on belief elicitation ***
+
+** Payong for uninformative signals ***
+
+
+
+
+
 
 
 log close
