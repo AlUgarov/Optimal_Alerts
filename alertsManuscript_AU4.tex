@@ -281,19 +281,21 @@ At the individual level, BP responses are also largely sensible but  indicate si
 \subsection{Informed Protection}
 %\bigskip\noindent\textbf{Informed Protection/Response to Signal.}\ \ \
 Protection decisions are also positively correlated across tasks for a given individual.
-Subjects receive more information in the IP task than in the BP task, though using that information requires that subjects engage in Bayesian updating.  Figure~\ref{fig:ProtResponse} shows that, consistent with their behavior in the BP task, the share of subjects protecting in the IP task is increasing in the posterior probabilities. More subjects display non-monotonic response to posterior probability of a black ball or, in other words, they do not protect for some  treatments with posterior probability $P$ while protecting for a posterior probabilty $P'<P$.  is higher than the probility of those they  switch back to no protection when Behavior is noisier, likely due to the fact that subjects have to calculate the posterior.\pmt{I'm not sure what we mean by ``noisier" here.  Is it more overall switching?  Within individual inconsistencies?  Greater discrepancies between posteriors at which they switch?}  At the individual level, we also observe a that the total number of times subject choose protection in the BP task significantly correlates with their likelihood to protect in the IP task conditional on posteriors, but explains only a very small part (<1\%) of variation in the IP decisions\footnote{We use a LPM to estimate this relationship, and while the coefficient on the total number of protection choices is significant at 99\%, $R^2$ increases from 0.295 to 0.3.} \pmt{I presume we have more inconsistent decision makers here?  It's worth putting a number to that, too, as we did for BP.  Are inconsistent BP guys more likely to be inconsistent here? }
+Subjects receive more information in the IP task than in the BP task, though using that information requires that subjects engage in Bayesian updating.  Figure~\ref{fig:ProtResponse} shows that, consistent with their behavior in the BP task, the share of subjects protecting in the IP task is increasing in the posterior probabilities. Roughly 28\% of subjects break monotonicity in their protection responses with respect to posterior probabilities\footnote{ They do not protect for some treatments with posterior probability $P$ while protecting for a posterior probabilty $P'<P$.} which roughly equals the percentage of non-monotonic responses for the BP task. At the individual level, we also observe that the total number of times subjects choose protection in the BP task significantly correlates with their likelihood to protect in the IP task conditional on posteriors, but this explains only a very small part ($<$1\%) of variation in the IP decisions\footnote{We use a LPM to estimate this relationship, and while the coefficient on the total number of protection choices is significant at 99\%, $R^2$ increases from 0.295 to 0.3.} 
 
-Subjects' responses in the first two tasks suggest that conditional on the true probabilities, subjects protected more in the IP task compared to the BP task at low probabilities, \aut{even though the difference is not statistically significant}\pmt{What is the test? Proportion of protection decisions for probabilities less than X or something?}. These choices suggest that subjects’ updated beliefs overshot the true posterior at low probabilities.  Unfortunately, we cannot compare their decisions for higher probabilities because we do not present choices with higher prior in the BP task. \pmst{Do we want to bring up ambiguity aversion?  Do we discuss it again anywhere?  If not, it's probably better just to leave it out.}
-
+Subjects' responses in the first two tasks suggest that conditional on the true probabilities, subjects protected more in the IP task compared to the BP task at low probabilities, \aut{even though the difference is not statistically significant}\pmt{What is the test? Proportion of protection decisions for probabilities less than X or something?}. These choices suggest that subjects’ updated beliefs overshot the true posterior at low probabilities.  Unfortunately, we cannot compare their decisions for higher probabilities because we do not present choices with higher prior in the BP task.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
 \centering
 \caption{Average Protection Response} \label{fig:ProtResponse}
-\begin{subfigure}[t]{.75\textwidth}
+\begin{subfigure}[t]{.45\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{Graphs/ip_response_comp.png}
+\includegraphics[width=\textwidth]{Graphs/blind_prot_sta.png}
+\end{subfigure}
+\begin{subfigure}[t]{.45\textwidth}
+  \includegraphics[width=\textwidth]{Graphs/ip_response_lpoly.png}
 \end{subfigure}
 %\begin{subfigure}[t]{.48\textwidth}
   %\centering
@@ -316,9 +318,7 @@ Using all the observations, however, obscures an important distinction: in many 
 
 \pmt{I'm leaving this here because I'm not really sure what to do with it.  I like being able to say that our results are consistent with previous literature, but I don't know this literature, especially Mobius (2011).}\aut{Not sure we should go in this direction:}Overall, the pattern of belief updating is consistent with previous literature which finds that while humans update beliefs in a correct direction, they tend to underaccount both the effect of prior probabilities and the effect of signals (--my citations--). The first effect received the name of base-rate neglect, while the latter is called signal underweighting. These effects lower the correlation between posteriors and reported beliefs and reduce sensitivity of beliefs to signal characteristics. Using the standard approach of Mobius (2011), we find that --- 
 
-\aut{Here is my fist take on the presentation order problem - higher priors.}
-\textbf{We also observe that subject underestimate posterior probabilities more when facing prior probabilities of 0.3 and 0.5 with the differences being statistically significant} at significance level 0.05 \aut{I guess, I should add a table here}\pmt{Can you do a figure that breaks out the error distributions for the lower priors and the higher priors?}. We cannot however exclude that it happens due to presentation order effects: subjects face priors 0.3 and 0.5 in the second part of experiment with some subjects failing to account for higher priors. Indeed, nine subjects do not change their responses between priors at all (so all six responses for higher priors are the same), but only two do not change their responses with signals\pmt{Related to my comment above, can we identify guys who are total knuckleheads across all tasks using this failure to change with priors?  For instance, are all of these 9 guys multiple switchers in BP and making errors when the posterior is certain in BE?}. \pmt{I would delete this next sentence, or at least move most of it, because we haven't talked about WTP yet.}We observe similar pattern in the Willingness-to-Pay Elicitation task with thirteen subjects not updating their willingness-to-pay. For this reason, we have decided to exclude higher priors from the rest of the analysis limiting our sample only to one prior per subject (0.1 or 0.2).
-\pmt{I think this is the appropriate place to address the order effect, but I haven't addressed it further because of the questions I asked above}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
@@ -343,7 +343,17 @@ Using all the observations, however, obscures an important distinction: in many 
 
 %\bigskip\noindent\textbf{Willingness-to-Pay Elicitation.}\ \ \ 
 \subsection{Willingness-to-Pay Elicitation}
-The BP, IP, and BE tasks allow us to discern how individuals use freely provided information to make protection decisions, but signals are not necessarily provided freely.  To be better understand how subjects value the signals, we elicit their Willingness-to-Pay for signals of differing degrees of informativeness.  Figure XX plots the distributions of the theoretically optimal WTP\pmt{We should explain here where this comes from} (Panel A), the distribution of actually WTP (Panel B), and the distribution of the discrepancies between the theoretical and actual WTP that we observe.  WTP to pay is bounded between \$0 and \$5, where the latter is because protection can be purchased for \$5 so if information were that valuable, an individual would just choose to protect.  \pmt{Placeholder for where we say something about my suggested Panels A and B.}  The theoretical WTP is a useful benchmark, as XX\% of the actual WTP are within \$0.50 of the theoretical WTP.  Nonetheless, there is substantial variation in the discrepancies between actual and theoretical WTP, and there are both substantial fractions of subjects who overpay (XX\% overpay by \$1 or more) and underpay (XX\% underpay by \$1 or more).
+The BP, IP, and BE tasks allow us to discern how individuals use freely provided information to make protection decisions, but signals are not necessarily provided freely.  To better understand how subjects value the signals, we elicit their Willingness-to-Pay for signals of differing degrees of informativeness.  Figure XX plots the distributions of the theoretically optimal WTP\pmt{We should explain here where this comes from} (Panel A), the distribution of actual WTP (Panel B), and the distribution of the discrepancies between the theoretical and actual WTP that we observe.  WTP is bounded between \$0 and \$5, where the latter is because protection can be purchased for \$5 so if information were that valuable, an individual would just choose to protect.  \pmt{Placeholder for where we say something about my suggested Panels A and B.}  Reported WTP is centered around the theoretical WTP, suggesting that it is a useful benchmark. However, the variation is very substantial. Only 25\% of actual WTP are within \$0.50 if the theoretical one, and subjects overvalue the signal by at least \$1.5 in 22\% of cases and undervalue it  by at least \$1.5 in 19\% of cases. 
+
+\begin{figure}[H]\centering 
+\caption{Willingness-to-Pay Distribution} \label{fig:WTPhist}
+\subcaptionbox{Value Distribution}{\includegraphics[scale=0.2]{Graphs/hist_value.png}}
+	\hfill
+\subcaptionbox{WTP distribution}{\includegraphics[scale=0.2]{Graphs/hist_WTP.png}}
+	\hfill
+\subcaptionbox{Discrepancy (WTP-Value)}{\includegraphics[scale=0.2]{Graphs/hist_WTP_discr1.png}}
+	\hfill
+\end{figure}
 
 
 %\subsection{Signal Characteristics and Protection Decision}
@@ -353,11 +363,11 @@ The BP, IP, and BE tasks allow us to discern how individuals use freely provided
 \begin{result}\label{res:IPdeviations} %Signal characteristics affect protection decision.
 Conditional on posterior probability of a black ball, subjects' protection decisions still respond to the signals' false positive and false negative rates. \end{result}
 
-in Table~\ref{tab:nonparIP} we break out average protection decisions by signal characteristics.\pmt{Do we need the ``Row" column?  It certainly makes referencing the table easier, but it also makes the table one column wider.} The first three columns summarize the information available to the subject, i.e., the signal as well as whether the signal might be either a false positive or false negative. Column 4 shows the posterior probability of a black ball averaged across all the treatments within a group, Column 5 the share protection among actual IP responses, Column 6 the p-value of a \emph{t-}test that the protection probability is zero.\aut{On a second thought, it doesn't make sense. It cannot be zero if someone protected.}, Column 7 the share of protection under the RN optimum, and Column 8 the p-value of a \emph{t-}test that actual and optimal choices use the same probability of protection.
+In Table~\ref{tab:nonparIP} we break out average protection decisions by signal characteristics. The first three columns summarize the information available to the subject, i.e., the signal as well as whether the signal might be either a false positive or false negative. Column 4 shows the posterior probability of a black ball averaged across all the treatments within a group, Column 5 the share protection among actual IP responses, Column 6 the share of protection under the RN optimum, and Column 7 the p-value of a \emph{t-}test that actual and optimal choices use the same probability of protection.
 
 First, we note that regardless of FP and FN rates, a hint that the ball is black substantially increases the share of protection decisions.  \textbf{Second, subjects' protection decisions in the majority of treatments significantly deviate from what is optimal for risk-neutral subjects.}  In general, subjects tend to overprotect when facing white signals (rows 1--4) and underprotect when facing black signals (rows 5--8). The exceptions are treatments with black signals and positive FP rates in which we cannot reject the hypothesis that the protection responses matches the response of a risk-neutral subject. 
 
-\textbf{In light of BP decisions it is not surprising that subjects do not behave as risk-neutral agents, but several of deviations from the RN optimal behavior cannot be explained by the expected utility maximization for any degree of risk aversion.} For example, consider the change in the protection rates between rows 1 and 3: the signal is white, so an increase in the signal's FP rate does not change the posterior, but the protection rate increases by more than 11 percentage points (pp.). Similarly, row 4 shows that when both FP and FN are positive, the protection rate increases to 43 percent --- even though the average (maximum) posterior probability for the signal characteristics is 6\pmt{What is this? ~(11)} percent. As a benchmark, with no signal in the BP task, only 13~(32) percent of subjects chose to protect when the probability is 10~(15) percent. 
+\textbf{In light of BP decisions it is not surprising that subjects do not behave as risk-neutral agents, but some biases cannot be explained by the expected utility maximization for any degree of risk aversion.} For example, consider the change in the protection rates between rows 1 and 3: the signal is white, so an increase in the signal's FP rate does not change the posterior, but the protection rate increases by 6 percentage points (pp.). Similarly, row 4 shows that when both FP and FN are positive, the protection rate increases to 56 percent --- even though the average (maximum) posterior probability for the signal characteristics is just 13 percent. As a benchmark, with no signal in the BP task, only 13~(32) percent of subjects chose to protect when the probability is 10~(15) percent. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -366,11 +376,10 @@ First, we note that regardless of FP and FN rates, a hint that the ball is black
 \label{tab:nonparIP}
 \adjustbox{max width=\textwidth}{
 	\begin{threeparttable}
-	\begin{tabular}{ccccccccc} \hline \hline
+	\begin{tabular}{cccccccc} \hline \hline
 	\multirow{4}{6ex}{\centering \textbf{Row}}
 			&\multicolumn{3}{c}{\centering \textbf{Signal Characteristics}} 
 			& \multirow{3}{10ex}{\centering \textbf{Posterior}} & \multirow{3}{10ex}{\centering \textbf{Share Protect}} 
-			& \multirow{3}{13ex}{\centering \textbf{P-val $(H_0: ShProt = 0)$}} 
 			& \multirow{3}{10ex}{\centering \textbf{Share Optimal}} 
 			& \multirow{3}{13ex}{\centering \textbf{P-val $(H_0: ShProt=ShOptimal)$}} \\ 
 			\cmidrule(lr){2-4}
@@ -378,7 +387,7 @@ First, we note that regardless of FP and FN rates, a hint that the ball is black
 			& \multirow{2}{10ex}{\centering \textbf{False Negative}} 
 		\\
 		\\
-		&(1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) \\
+		&(1) & (2) & (3) & (4) & (5) & (6) & (7) \\
 		\hline
 			\input{Tables/bigpicture_IP_AU.tex}
 			\\
@@ -398,13 +407,13 @@ First, we note that regardless of FP and FN rates, a hint that the ball is black
 
 \begin{hypothesis} Subjects' Bayesian-updating errors explain IP decisions. \end{hypothesis}
 \pmt{Should this be something like ``updating errors explain IP decisions, and updating errors are influenced by signal characteristics?}
-\begin{result} When subjects received a signal that the ball is white, the signal's false positive and false negative rates biased their belief upward. When subjects received a signal that the ball is black, the signal's false positive (negative) rates biased their belief upward (downward). Updating errors provide partial explain for subjects' IP decisions conditional on posterior.\end{result}
+\begin{result} When subjects received a signal that the ball is white, the signal's false positive and false negative rates biased their belief upward. When subjects received a signal that the ball is black, the signal's false positive (negative) rates biased their belief upward (downward). Updating errors provide partial explanation for subjects' IP decisions conditional on posterior.\end{result}
 
-\textbf{We observe that many IP responses cannot be reconciled with expected utility maximization given posterior probability, but EU maximization could break down if subjects fail to correctly estimate posteriors.} Table~\ref{tab:nonparError} summarizes how the updating errors vary with signal characteristics. We find that subjects overestimate the probability of a black ball with a white signal. Introducing FP rates to the signal exacerbated their upward bias. To illustrate, consider the change between rows 1 and 3, where introducing a FP rate would not change the posterior because the signal is white. Yet, subjects update their posterior upward, magnifying their updating error. The FN rates also have a similar effect of exacerbating this upward bias for a white signal.
+\textbf{We observe that many IP responses cannot be reconciled with expected utility maximization given posterior probability, but these EU violaitions can also emerge if subjects incorrectly estimate posteriors.} Table~\ref{tab:nonparError} summarizes how the updating errors vary with signal characteristics. We find that subjects overestimate the probability of a black ball with a white signal. Introducing FP rates to the signal exacerbated their upward bias. To illustrate, consider the change between rows 1 and 3, where introducing a FP rate would not change the posterior because the signal is white. Yet, subjects update their posterior upward, magnifying their updating error. The FN rates also have a similar effect of exacerbating this upward bias for a white signal.
 
 The updating bias for black signals, however, varies by information structure. When there is no risk of a false-positive signal (rows 5-6), subjects underestimate the probability of a black ball after receiving a black signal. \aut{Not sure we need it here: This observation contrasts with the case of the white signal, for which introducing FP rates led subjects to overestimate the posterior instead.} Subjects slightly underestimate the probability even when the signal is honest, but introducing FN rates lead subjects to underestimate it further. To illustrate, the introduction of a FN rate given a black signal does not change the posterior rows 5 and 6, but subjects decrease their beliefs. When there is a risk of a false-positive (i.e., FP$>$0), subjects again overestimate the probability of a black ball with little difference in errors between treatments with FP events only and with both FP and FN events. It seems that, because the false-positive rate negatively affects the posterior, subjects fail to adjust their beliefs enough in response to FP rates.
 
-Table~\ref{tab:updateErrorReg} formalizes our analysis using a regression which allows to implicitly contol for risk aversion\pmt{this also controls for a general inability to update though, right?} through subject fixed effects. We estimate a linear regression of updating error (actual posterior - reported belief) on FP and FN rates by signal color. It provides support for the conclusions from Table~\ref{tab:nonparError}: (i) subjects make positive (negative) updating errors for white (black) signals; (ii) FP rates induce an upward bias in subjects' estimates of the posterior; and (iii) FN rates induce an upward (downward) bias when the signal is white (black). This pattern can explain overprotection in the IP task with white signals when the FP rate is positive.
+Table~\ref{tab:updateErrorReg} formalizes our analysis using a regression which allows to implicitly contol for risk aversion with subject fixed effects\pmt{this also controls for a general inability to update though, right?}\aut{Unlikely, because poor updating should reflect in slope heterogeneity not in intersects.}. We estimate a linear regression of updating error (actual posterior - reported belief) on FP and FN rates by signal color. It provides support for the conclusions from Table~\ref{tab:nonparError}: (i) subjects make positive (negative) updating errors for white (black) signals; (ii) FP rates induce an upward bias in subjects' estimates of the posterior; and (iii) FN rates induce an upward (downward) bias when the signal is white (black). This pattern can explain overprotection in the IP task with white signals when the FP rate is positive.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -426,7 +435,7 @@ Table~\ref{tab:updateErrorReg} formalizes our analysis using a regression which 
 		& (1) & (2) & (3) & (4) & (5) \\
 	
 		\hline	
-\input{Tables/bigpicture_bel_AG.tex}
+\input{Tables/bigpicture_bel_AU.tex}
 \\ 	[-1em]
 \hline\hline
 \end{tabular} 
@@ -498,7 +507,7 @@ Columns 1 and 2 confirmed Result~\ref{res:IPdeviations}, to wit, conditional on 
 									&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
 	\hline
 		
-		\input{Tables/table_ip_flex_AG.tex}
+		\input{Tables/table_ip_flex_AU.tex}
 	
 	\\ [-1em]
 	\hline
@@ -528,24 +537,24 @@ Columns 1 and 2 confirmed Result~\ref{res:IPdeviations}, to wit, conditional on 
 
 %Figure XX shows how subjects deviate substantially from the theoretical value for a risk-neutral subject. Here we explore these deviations more systematically by signal characteristics and risk preferences. 
 
-We have shown that signal characteristics both indirectly (through beliefs) and directly (white signals and false positives) influence protection decisions when signals are exogenously provided.  It is far from clear how signal characteristics should affect WTP decisions, however, where the theoretical benchmark had more limited explanatory power, and where any self-awareness of one's inability to update might limit the value of information.
+We have shown that signal characteristics both indirectly (through beliefs) and directly (white signals and false positives) influence protection decisions when signals are exogenously provided.  It is far from clear which signal how signal characteristics should affect WTP decisions, however, where the theoretical benchmark had more limited explanatory power, and where any self-awareness of one's inability to update might limit the value of information.
 
-Table XX provides some preliminary evidences that, not only do signal characteristics influence WTP, they do so systematically in a way that suggests subjects are not aware of their own biases.  When there is no possibility of a false positive, subjects underestimate the value of signal relative to the theoretical benchmark.  Regardless of the possibility of a false negative, this difference is not statistically significant at conventional significance levels, though it is both 55\% larger in magnitude and closer to significant ($p=0.152$) when there are false negatives.  When there are false positives, however, subjects significantly overvalue signals relative to the theoretical benchmark, and there is virtually no difference in magnitude between the cases where there are and are not false negatives.\pmt{Can we plot the distributions of deviations for these 4 cases?}
+\aut{I do not see any significant evidence of bias in this table, except the last row, but then we do multiple testing too. Would rather write just that.} Table ~\ref{tab:WTP_nonpar} provides some preliminary evidence that, not only do signal characteristics influence WTP, they do so systematically in a way that suggests subjects are not aware of their own biases.  When there is no possibility of a false positive, subjects underestimate the value of signal relative to the theoretical benchmark.  Regardless of the possibility of a false negative, this difference is not statistically significant at conventional significance levels, though it is both 55\% larger in magnitude and closer to significant ($p=0.152$) when there are false negatives.  When there are both false positives and false negatives, however, subjects significantly overvalue signals relative to the theoretical benchmark.\pmt{Can we plot the distributions of deviations for these 4 cases?}
 
 \pmt{WE NEED A GOOD SEGUE TO REGRESSION AND DISCUSSION OF RESULTS, BUT I HAVE STOPPED HERE IN THIS SECTION}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{./Tables/table_wtp_02tob.tex}
+\input{Tables/bigpicture_wtp.tex}
 
 
-In Table XX, we use a regression analysis to investigate how and why subjects deviate from the risk-neutral subjects’ theoretical WTP for a signal of a given quality (conditional on prior). We first estimate how individual deviations from the theoretical benchmark $b^*_s$ for a given signal $s$ are correlated with signal's charactaristics:
+In Table ~\ref{tab:WTP_tob}, we use a regression analysis to investigate how and why subjects deviate from the risk-neutral subjects’ theoretical WTP for a signal of a given quality (conditional on prior). We first estimate how individual deviations from the theoretical benchmark $b^*_s$ for a given signal $s$ are correlated with signal's charactaristics:
 
 \[b_{is} - b^*_s = \beta_0 + \beta_1 FalsePositive + \beta_2 FalseNegative + \epsilon_{is}\]
 where $b_{is}$ is the reported WTP of individual $i$ for treatment $s$ and $b^*_s$ is the signal's value for a risk-neutral subject, and FalsePositive (FalseNegative) is the false positive (false positive) costs variables that captures signal quality. We calculate false positive costs as the product of prior probability of a white ball multiplied by the conditional probability of getting a black signal (“The ball is black!”) from a randomly chosen gremlin: $FalsePositive=(1-\pi) P_{10}c$. Similarly we calculate false negative costs as the probability of an adverse state multiplied by a conditional probability of getting a white signal conditional on the ball being black and multiplied by potential loss $FalseNegative=\pi P_{01}L$. Note that these costs already account for expected frequency of receiving different incorrect signals as consistent with their base rate. If our subjects were risk neutral expected utility maximizers, we expect $\beta_1$ and $\beta_2$ to be zero.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{Tables/bigpicture_wtp.tex}
+\input{./Tables/table_wtp_02tob.tex}
 \input{Tables/table_wtpdiff_01rfull_ag.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -568,12 +577,12 @@ These results suggest that, on average, subjects failed to fully account for sig
 \hline \hline
 Design & Beliefs & IP &WTP\\
 \hline
-White, FN only & $>$ & $<>$ & $<>*$ \\
-Black, FN only & $<$ & $<>$ & $<>$ \\
-White, FP only & $>$ & $>$ & $>$ \\
-Black, FP only & $>$ & $<>$ & $>$ \\
-White, FN and FP & $>>$ & $>$ & $>$ \\
-Black, FN and FP & $>$ & $<>$ & $>$\\
+White, FN only & $>$ & $<$ & $<>*$ \\
+Black, FN only & $<$ & $>$ & $<>$ \\
+White, FP only & $>$ & $<$ & $<>$ \\
+Black, FP only & $<>$ & $<>$ & $<>$ \\
+White, FN and FP & $>>$ & $<$ & $>$ \\
+Black, FN and FP & $<>$ & $<>$ & $>$\\
 \hline
 \multicolumn{4}{l}{*-WTP estimates do not depend on signals.}\\
 \end{tabular}
@@ -648,7 +657,7 @@ Through out the foregoing results, we have seen both that signal characteristics
 %\end{table}
 
 %\begin{table}[h!]
-\input{Tables/table_wtpdiff_01r_ag.tex} \label{main_wtp_tab}
+%\input{Tables/table_wtpdiff_01r_ag.tex} \label{main_wtp_tab}
 %\end{table}
 
 

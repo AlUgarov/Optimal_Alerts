@@ -6,8 +6,8 @@ clear all
 **Requires: estout, moremata
 
 *!!put your working folder below:
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-
+*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+cd C:\Tornado_warnings\Optimal_Alerts
 
 *log using "./Temp/pilot_analysis.log", replace
 set seed 135
@@ -307,7 +307,7 @@ gen se=sqrt(mean*(1-mean)/n)
 
 
 *Blind protection average response diagram (Fig. 1)
-serrbar mean se p, scale (1.96) title("Blind Protection Response") mlwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices")
+serrbar mean se p, scale (1.96) title("Blind Protection Response") lwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices") ysc(r(0 1)) ylabel(0(0.2)1.0) note("Here is some note")
 graph export "./Graphs/blind_prot_sta.png", width(1000) height(1000) replace
 
 gen task_type="Blind"
@@ -606,6 +606,21 @@ bys subject_id: egen opp_err=max(opp_err0)
 
 **IP consistency: non-monotonicies, protecting when p=0, not protecting when p=1
 sort subject_id post_prob
+
+*calculate the posterior at the earliest protection
+gen post_probx=post_prob
+replace post_probx=2 if ip_==1
+by subject_id: egen minprotect=min(post_probx)
+sum minprotect
+replace minprotect=1 if minprotect==2
+
+gen post_proby=(1-ip_)*post_prob
+by subject_id: egen maxrisk=max(post_proby)
+sum maxrisk
+gen nonmon=maxrisk>minprotect
+tab nonmon
+*then find if there are no protection for any higher probabilities
+
 gen backswitch=(ip_==0&ip[_n-1]==1)&(subject_id==subject_id[_n-1])
 
 *How to check more properly if it's monotonic?
@@ -769,8 +784,8 @@ gen blind_prob=0.05*round
 
 *serrbar ip se post_prob if task_type=="Blind", scale (1.96) title("Blind Protection Response") mlwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices")
 
-lpoly ip_ post_prob, bwidth(0.1) ci noscatter title("Informed Protection Response") lineopt(lwidth(1)) mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")
-graph export "./Graphs/ip_response_lpoly.png", width(1200) height(800) replace
+lpoly ip_ post_prob, bwidth(0.1) ci noscatter title("Informed Protection Response") lineopt(lwidth(1)) mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices") legend(ring(0) bplacement(seast)) ysc(r(0 1)) ylabel(0(0.2)1)
+graph export "./Graphs/ip_response_lpoly.png", width(1000) height(1000) replace
 
 sort subject_id round
 *studying nonsensical responses to certain signals:
@@ -805,7 +820,7 @@ gen task_type="Informed"
 gen post_prob=0.001*post_probi
 append using "./Temp/bp_graph_data.dta"
 serrbar mean se post_prob if task_type=="Informed", scale (1.96) title("Informed Protection Response") mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")
-graph export "./Graphs/ip_response.png", width(1200) height(800) replace
+graph export "./Graphs/ip_response.png", width(1000) height(1000) replace
 
 
 
@@ -1188,7 +1203,7 @@ gen loss=20
 gen ip_o=post_prob>(prot_cost/loss)
 
 tempname p1
-postfile `p1' nrow signal false_pos false_neg prot ptest posterior mean_opt ptest2 using "./Temp/ip_by_environment.dta", replace
+postfile `p1' nrow signal false_pos false_neg prot posterior mean_opt ptest2 using "./Temp/ip_by_environment.dta", replace
 
 forvalues k=0/1{
   forvalues i=0/1{
@@ -1209,8 +1224,8 @@ forvalues k=0/1{
 	  ttest ip_==ip_o if fp_env==`i'&fn_env==`j'&blackhint==`k'
 	  local mean_opt=r(mu_2)
 	  local ptest2=r(p)
-	  local nrow=4*`i'+2*`j'+`k'+1
-	  post `p1' (`nrow') (`k') (`i') (`j') (`prot') (`ptest') (`posterior') (`mean_opt') (`ptest2')
+	  local nrow=4*`k'+2*`i'+`j'+1
+	  post `p1' (`nrow') (`k') (`i') (`j') (`prot') (`posterior') (`mean_opt') (`ptest2')
     }
   }
 }
@@ -1229,11 +1244,11 @@ foreach var of varlist false_pos false_neg{
 replace signal="White" if signal=="0"
 replace signal="Black" if signal=="1"
 bro
-format prot ptest posterior mean_opt ptest2 %9.3f
+format prot posterior mean_opt ptest2 %9.3f
 listtex using "./Tables/bigpicture_IP.tex", type rstyle(tabular) head("\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline" `"\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{P(prot$>$0,$<$1)}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 
-order nrow signal false_pos false_neg posterior prot ptest mean_opt ptest2
+order nrow signal false_pos false_neg posterior prot mean_opt ptest2
 listtex using "./Tables/bigpicture_IP_AU.tex", type rstyle(tabular) replace
 
 
@@ -1284,7 +1299,7 @@ forvalues k=0/1{
 	    ttest bel_err==0 if fp_env==`i'&fn_env==`j'&blackhint==`k', level(95)
 		local ptest=r(p)
 		local bel_err=r(mu_1)
-		local nrow=4*`i'+2*`j'+`k'+1
+		local nrow=4*`k'+2*`i'+`j'+1
 		post `p1' (`nrow') (`i') (`j') (`k') (`posterior') (`bel_err') (`ptest')
 	  }
     }
@@ -1571,8 +1586,23 @@ label value accur_bel2 accur_bel_l
 hist ip_val_diff, title("Distribution of expected costs discrepancies") xtitle("Discrepancy") fraction note("Difference between optimal and actual expected costs in the IP treatment (by round)") color(navy)
 graph export "./Graphs/hist_costs_discr.png", width(1200) height(800) replace
 
+
+
+hist wtp, title("Distribution of WTP") xtitle("USD") fraction color(navy)
+graph export "./Graphs/hist_WTP.png", width(1200) height(800) replace
+
+
+hist value, title("Distribution of signal's value for a risk-neutral subject") xtitle("USD") fraction note("Value=expected change in costs from BP to IP") color(navy)
+graph export "./Graphs/hist_value.png", width(1200) height(800) replace
+
+
 hist wtp_diff, title("Distribution of WTP discrepancies (WTP - Value)") xtitle("USD") fraction note("Difference between stated wtp and theoretical value for a risk-neutral subject (each choice=obs)") color(navy)
 graph export "./Graphs/hist_WTP_discr1.png", width(1200) height(800) replace
+
+
+
+
+
 
 sort subject_id
 gen wtp_diff_abs=abs(wtp_diff)
