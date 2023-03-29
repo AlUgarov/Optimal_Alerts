@@ -316,7 +316,12 @@ Panel A of Figure~\ref{fig:BeliefUpdate} uses all elicited beliefs and suggests 
 
 Using all the observations, however, obscures an important distinction: in many cases the ball color is completely certain based on priors and signals and so the updating should be trivial.  Panel B of Figure~\ref{fig:BeliefUpdate} includes only those 44\% beliefs elicited for an uncertain posterior. The median error is now -0.12, with with 90\% of errors between -0.48 and 0.3, suggesting that subjects tend to overestimate the likelihood of adverse events for uncertain posteriors, \pmt{which is consistent with what we see in Figure~\ref{fig:ProtResponse}}. The correlation between beliefs and posteriors in this subset of observations is only 0.571.  Panel C of Figure~\ref{fig:BeliefUpdate} plots the distribution of updating errors with certain posteriors, which includes: (i) treatments with all-honest gremlins; and (ii) treatments with obviously irrelevant dishonest gremlins (e.g., a group with honest and white-eyed gremlins with a hint that the ball is black — or vice versa). Reassuringly, 69\% of reported beliefs are correct, but subjects still err in about 30\% of cases. About half of these errors involve reporting a probability of between one and zero, with the other half reporting a probability of one when it should have been zero. \aut{There is little evidence of these drastic errors (0 instead of 1) being strongly correlated with randomness in other treatments.} \pmt{It depends a bit.  Are some guys doing everything right here and others doing everything wrong?  Is there any relationship between errors here and inconsistencies in BP or a lower correlation between BP and IP tasks?} 
 
-\pmt{I'm leaving this here because I'm not really sure what to do with it.  I like being able to say that our results are consistent with previous literature, but I don't know this literature, especially Mobius (2011).}\aut{Not sure we should go in this direction:}Overall, the pattern of belief updating is consistent with previous literature which finds that while humans update beliefs in a correct direction, they tend to underaccount both the effect of prior probabilities and the effect of signals (--my citations--). The first effect received the name of base-rate neglect, while the latter is called signal underweighting. These effects lower the correlation between posteriors and reported beliefs and reduce sensitivity of beliefs to signal characteristics. Using the standard approach of Mobius (2011), we find that --- 
+Overall, the pattern of belief updating is consistent with previous literature which finds that while humans usually update beliefs in a correct direction, they tend to underreact both to priors and the signals. The effect of underweighting priors, first noted in the psychology literature \citep*{phillips_conservatism_1966-1, tversky_belief_1971, kahneman_subjective_1972}, and is known under the names of representativeness bias or base rate neglect. Subjects sensitivity both to priors and signals is easy to measure through estimating the following equation ((first introduced by \citet{grether_bayes_1980}) which links the posterior probabilities $\mu(B|S)$ of the state $B$ conditional on signal $S$ with the prior log-odds $\log\left({P(S|B) \over P(S|W)}\right)$ of the signal and signal log-odds $\log \left({P(B)\over P(W)}\right)$: 
+\begin{equation}
+\log\left({\mu(B|S) \over 1-\mu(B|S)}\right)=\alpha \log\left({P(S|B) \over P(S|W)}\right)+\beta \log \left({P(B)\over P(W)}\right)
+\end{equation}
+
+Coefficients $\alpha$ and $\beta$ should equal one if subjects perfectly follow Bayesian updating. Our estimates of these parameters are significantly below one with $\hat \alpha=0.43$ $\hat \beta=0.25$ (see Column 1 in \ref{belief_decomposition}). This is consistent with the meta-analysis in \citet{benjamin_chapter_2019} which calculates the average $\hat \alpha$ estimate to be around 0.22 (0.4 for incentivized studies only) and the average $\hat \beta$ to be 0.6 (0.43 for incentivized) for studies presenting signals simultaneously (consistent with this study)\footnote{The common name for this kinds of experiments is \textit{bookbag-and-poker-chip experiments}}. Hence our subjects also demonstrate both the base-rate neglect and the signals underweighting. These effects lower the correlation between posteriors and reported beliefs and reduce sensitivity of beliefs to signal characteristics.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -489,7 +494,7 @@ Table~\ref{tab:updateErrorReg} formalizes our analysis using a regression which 
 \textbf{So far, errors in the posterior estimation seem to be consistent with biases observed in the Informed Protection task. It begs the questions of how much bias in the IP task remains after accounting for biases in beliefs.} In Table~\ref{tab:protectReg}, we regress informed protection decisions on FP and FN rates and flexible controls of both posteriors and reported beliefs:
 
 	\[Prob(s_{ij}=1)=Logit(\alpha_i+\beta_1 FP +\beta_2 FN +Z(p_{ij})+Z(\mu_{ij})+\epsilon_{ij}) \]
-where $s_{ij}$ is the protection decision of subject $i$ in treatment $j$, $\alpha_i$ - subject FE, $P_{10}$, $P_{01}$ are FP and FN false positive and false negative rates and $Z(p_{ij}),Z(\mu_{ij})$ are vectors of flexible controls\pmt{We probably need a more plain language explanation than just the footnote}\footnote{We use Stata mkspline command to create flexible controls as 5 splines $z_1(x),z_2(x),..z_5(x)$ of initial variable $x$ over the range $[0,1]$ such that $z_k(x)=\min[0,x-x_{k-1},x_k-x_{k-1}]$ with $x_k$ being equally spaced knot values. Splines account for potential nonlinear effects of posteriors and beliefs on protection decision with limited effect on degrees of freedom.} of posteriors and reported beliefs $\mu_{ij}$ for corresponding treatments. Columns 1 and 2 include only the flexible controls of the true posteriors. Columns 3 and 4 add further flexible controls to account for subjects' (often incorrect) estimates of the posterior, inferred from their BE responses. The model is estimated using Maximum Likelihood Estimation, with standard errors clustered at the subject level. The table presents the average marginal effect coefficients.
+where $s_{ij}$ is the protection decision of subject $i$ in treatment $j$, $\alpha_i$ - subject FE, $P_{10}$, $P_{01}$ are FP and FN false positive and false negative rates and $Z(p_{ij}),Z(\mu_{ij})$ are the splines of corresponding variables $P_{ij}, \mu_{ij}$ to control for these variables in the flexible way. Each spline is a function $Z(x)$ which is just linear $x+C$ within one interval, and constant everywhere else. The splines are constructed so that their linear intervals cover the whole domain of probabilities and beliefs $[0,1]$.  \footnote{We use Stata mkspline command to create 5 splines $z_1(x),z_2(x),..z_5(x)$ of initial variable $x$ over the range $[0,1]$ such that $z_k(x)=\min[0,x-x_{k-1},x_k-x_{k-1}]$ with $x_k$ being equally spaced knot values. Splines account for potential nonlinear effects of posteriors and beliefs on protection decision with limited effect on degrees of freedom.} of posteriors and reported beliefs $\mu_{ij}$ for corresponding treatments. Columns 1 and 2 include only the flexible controls of the true posteriors. Columns 3 and 4 add further flexible controls to account for subjects' (often incorrect) estimates of the posterior, inferred from their BE responses. The model is estimated using Maximum Likelihood Estimation, with standard errors clustered at the subject level. The table presents the average marginal effect coefficients.
 
 Columns 1 and 2 confirmed Result~\ref{res:IPdeviations}, to wit, conditional on posterior and subject FE, IP responses are affected by FP and FN rates. For a white signal, FP and FN rates increased the tendency to overprotect; while for a black signal, FP rate had an opposite effect with comparable magnitude but without statistical significance. Column 3 suggests, however, that once we control for both the posterior and subjects' updated belief, only the effect of the FP rate for white signals remains positive and statistically significant at $p<0.1$. \textbf{These results provide evidence that subjects' failure to protect optimally is largely --- albeit not entirely --- driven by their failure to correctly update their posterior given a signal.}
 
@@ -531,7 +536,6 @@ Columns 1 and 2 confirmed Result~\ref{res:IPdeviations}, to wit, conditional on 
 
 \newpage\clearpage
 
-\agt{XXX ARYA STOPPED HERE XXX}
 
 %\subsection{Willingness to Pay}
 
@@ -641,6 +645,8 @@ Through out the foregoing results, we have seen both that signal characteristics
 \end{table}
 
 
+\input{Tables/table_be3.tex}
+
 %\begin{table}[htbp!]
 \input{Tables/table_ip0.tex}
 %\end{table}
@@ -672,7 +678,7 @@ Through out the foregoing results, we have seen both that signal characteristics
 
 %\begin{table} 
 %\caption{Belief updating: evidence of signal and base rate neglect} \label{updating_tab}
-\input{Tables/table_be3.tex}
+\input{Tables/table_be3.tex} \label{belief_decomposition}
 %\end{table}
 
 %\begin{table}[h!]
