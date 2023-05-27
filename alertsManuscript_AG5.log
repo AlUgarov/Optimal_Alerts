@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  6 APR 2023 15:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  27 MAY 2023 11:15
 entering extended mode
-**./alertsManuscript_AU4.tex
-(alertsManuscript_AU4.tex
+**./alertsManuscript_AG5.tex
+(alertsManuscript_AG5.tex
 LaTeX2e <2021-06-01> patch level 1
 L3 programming layer <2021-08-27>
 (C:\Users\gaduh\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -494,27 +494,27 @@ tex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count300
 \l__pdf_internal_box=\box63
-) (alertsManuscript_AU4.aux)
-\openout1 = `alertsManuscript_AU4.aux'.
+) (alertsManuscript_AG5.aux)
+\openout1 = `alertsManuscript_AG5.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -550,7 +550,7 @@ LaTeX Font Info:    ... okay on input line 72.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 72.
+Package hyperref Info: Link coloring OFF on input line 76.
 (C:\Users\gaduh\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -563,12 +563,12 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count301
 )
-LaTeX Info: Redefining \ref on input line 72.
-LaTeX Info: Redefining \pageref on input line 72.
-LaTeX Info: Redefining \nameref on input line 72.
- (alertsManuscript_AU4.out) (alertsManuscript_AU4.out)
+LaTeX Info: Redefining \ref on input line 76.
+LaTeX Info: Redefining \pageref on input line 76.
+LaTeX Info: Redefining \nameref on input line 76.
+ (alertsManuscript_AG5.out) (alertsManuscript_AG5.out)
 \@outlinefile=\write3
-\openout3 = `alertsManuscript_AU4.out'.
+\openout3 = `alertsManuscript_AG5.out'.
 
 
 (C:\Users\gaduh\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
@@ -604,140 +604,61 @@ Package caption Info: End \AtBeginDocument code.
 {C:/Users/gaduh/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
 
 Package natbib Warning: Citation `xu_revealed_2020' on page 2 undefined on inpu
-t line 101.
+t line 105.
 
 [2]
 
 Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
-t line 103.
+t line 107.
 
 
 Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
-t line 103.
+t line 107.
 
 [3] [4]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 129.
+(amsmath)                 on input line 132.
 
-[5] [6] [7] [8] [9] (Tables/table_treatments.tex) [10]
-
-LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
-(Font)              size <12> substituted on input line 272.
-
-
-Overfull \hbox (2.75066pt too wide) in paragraph at lines 276--278
-|   [][][]|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []
-   |   []   |   []   |   []   |   []
- []
-
-
-LaTeX Warning: Reference `ra_table' on page 11 undefined on input line 279.
-
-[11]
-<Graphs/blind_prot_sta.png, id=218, 1003.75pt x 1003.75pt>
-File: Graphs/blind_prot_sta.png Graphic file (type png)
-<use Graphs/blind_prot_sta.png>
-Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 295.
-(pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
-<Graphs/ip_response_lpoly.png, id=219, 1003.75pt x 1003.75pt>
-File: Graphs/ip_response_lpoly.png Graphic file (type png)
-<use Graphs/ip_response_lpoly.png>
-Package pdftex.def Info: Graphs/ip_response_lpoly.png  used on input line 298.
-(pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
- [12 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response_lpoly.png (
-PNG copy)>] [13]
-<Graphs/hist_belief_error_s3.png, id=254, 1204.5pt x 803.0pt>
-File: Graphs/hist_belief_error_s3.png Graphic file (type png)
-<use Graphs/hist_belief_error_s3.png>
-Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 33
-2.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
-put line 332.
-<Graphs/updating_s3.png, id=255, 1204.5pt x 803.0pt>
-File: Graphs/updating_s3.png Graphic file (type png)
-<use Graphs/updating_s3.png>
-Package pdftex.def Info: Graphs/updating_s3.png  used on input line 334.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s4.png, id=256, 1204.5pt x 803.0pt>
-File: Graphs/hist_belief_error_s4.png Graphic file (type png)
-<use Graphs/hist_belief_error_s4.png>
-Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 33
-6.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s4.png, id=257, 1204.5pt x 803.0pt>
-File: Graphs/updating_s4.png Graphic file (type png)
-<use Graphs/updating_s4.png>
-Package pdftex.def Info: Graphs/updating_s4.png  used on input line 338.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s5.png, id=258, 1204.5pt x 803.0pt>
-File: Graphs/hist_belief_error_s5.png Graphic file (type png)
-<use Graphs/hist_belief_error_s5.png>
-Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 34
-0.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s5.png, id=259, 1204.5pt x 803.0pt>
-File: Graphs/updating_s5.png Graphic file (type png)
-<use Graphs/updating_s5.png>
-Package pdftex.def Info: Graphs/updating_s5.png  used on input line 342.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
- [14] [15 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
-png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/updati
-ng_s4.png (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/
-updating_s5.png (PNG copy)>]
-<Graphs/hist_value.png, id=274, 1204.5pt x 803.0pt>
-File: Graphs/hist_value.png Graphic file (type png)
-<use Graphs/hist_value.png>
-Package pdftex.def Info: Graphs/hist_value.png  used on input line 355.
-(pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
-<Graphs/hist_WTP.png, id=275, 1204.5pt x 803.0pt>
-File: Graphs/hist_WTP.png Graphic file (type png)
-<use Graphs/hist_WTP.png>
-Package pdftex.def Info: Graphs/hist_WTP.png  used on input line 357.
-(pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
-<Graphs/hist_WTP_discr1.png, id=276, 1204.5pt x 803.0pt>
+[5] [6] [7] [8] [9] (Tables/table_treatments.tex)
+<Graphs/hist_WTP_discr1.png, id=207, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 359.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 265.
 (pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
- [16
+ [10] (Tables/wtpdiff_ols.tex) [11 <./Graphs/hist_WTP_discr1.png (PNG copy)>] [
+12]
+(Tables/table_wtp_02tob.tex)
 
-] [17 <./Graphs/hist_value.png (PNG copy)> <./Graphs/hist_WTP.png (PNG copy)> <
-./Graphs/hist_WTP_discr1.png (PNG copy)>]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 387--387
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
+(Font)              size <12> substituted on input line 331.
+
+[13] [14]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 354--354
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 
-Overfull \vbox (14.50002pt too high) detected at line 392
+Overfull \vbox (14.50002pt too high) detected at line 359
  []
 
-(Tables/bigpicture_IP_AU.tex) [18] [19]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 434--434
+(Tables/bigpicture_IP_AU.tex) [15] [16]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 401--401
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 (Tables/bigpicture_bel_AU.tex) (Tables/table_be_err.tex)
-(Tables/table_be_err_AU.tex) [20] [21] (Tables/table_ip_flex_AU.tex) [22]
-[23] (Tables/bigpicture_wtp.tex)
+(Tables/table_be_err_AU.tex) [17] [18] (Tables/table_ip_flex_AU.tex) [19]
+[20] (Tables/bigpicture_wtp.tex) [21
 
-LaTeX Warning: Reference `tab:WTP_tob' on page 24 undefined on input line 555.
-
-(Tables/table_wtp_02tob.tex [24
-
-]) (Tables/table_wtpdiff_01rfull_ag.tex
-
-LaTeX Warning: Float too large for page by 113.11604pt on input line 64.
-
-) [25] [26] [27] (Tables/lc_results3.tex)
-Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--609
+] (Tables/lc_results3.tex)
+Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--558
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1--609
+Underfull \hbox (badness 10000) in paragraph at lines 1--558
 
  []
 
@@ -747,10 +668,10 @@ Overfull \hbox (21.78915pt too wide) in paragraph at lines 3--14
  [][] 
  []
 
-) (Tables/table_be_errx.tex) [28] [29] [30] (alertsManuscript_AU4.bbl [31
+) (Tables/table_be_errx.tex) [22] [23] [24] (alertsManuscript_AG5.bbl [25
 
 ])
-[32] (Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_be3.tex)
+[26] (Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_be3.tex)
 (Tables/table_ip0.tex
 Overfull \hbox (92.85327pt too wide) in paragraph at lines 4--34
  [][] 
@@ -758,31 +679,99 @@ Overfull \hbox (92.85327pt too wide) in paragraph at lines 4--34
 
 ) (Tables/table_ip5.tex) (Tables/table_wtp_02tob.tex)
 (Tables/table_wtp_val1.tex)
-Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--674
+Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--623
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--674
+Underfull \hbox (badness 10000) in paragraph at lines 3--623
 
  []
 
-[33] [34] [35] [36] (Tables/table_be3.tex) (Tables/table_ip8_be.tex)
-(Tables/table_ip5_semi.tex) (Tables/table_wtpdiff_06.tex) [37] [38] [39]
-<Graphs/WTP_value_heat.png, id=450, 1204.5pt x 803.0pt>
+[27] [28] [29] [30] (Tables/table_be3.tex) (Tables/table_ip8_be.tex)
+(Tables/table_ip5_semi.tex) (Tables/table_wtpdiff_06.tex) [31] [32] [33]
+<Graphs/WTP_value_heat.png, id=394, 1204.5pt x 803.0pt>
 File: Graphs/WTP_value_heat.png Graphic file (type png)
 <use Graphs/WTP_value_heat.png>
-Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 706.
+Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 655.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 714.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 663.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
 
+[34 <./Graphs/WTP_value_heat.png (PNG copy)>]
+(alertsManuscript_Appendix_AG1.texpdfTeX warning (ext4): destination with the s
+ame identifier (name{appendix.A}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1 \section{Subject Decisions}
+                               \label{app:subtasks}
+
+LaTeX Warning: Reference `ra_table' on page 35 undefined on input line 24.
+
+[35
+
+]
+<Graphs/blind_prot_sta.png, id=414, 1003.75pt x 1003.75pt>
+File: Graphs/blind_prot_sta.png Graphic file (type png)
+<use Graphs/blind_prot_sta.png>
+Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 40.
+(pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
+<Graphs/ip_response_lpoly.png, id=415, 1003.75pt x 1003.75pt>
+File: Graphs/ip_response_lpoly.png Graphic file (type png)
+<use Graphs/ip_response_lpoly.png>
+Package pdftex.def Info: Graphs/ip_response_lpoly.png  used on input line 43.
+(pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
+ [36 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response_lpoly.png (
+PNG copy)>]
+<Graphs/hist_belief_error_s3.png, id=440, 1204.5pt x 803.0pt>
+File: Graphs/hist_belief_error_s3.png Graphic file (type png)
+<use Graphs/hist_belief_error_s3.png>
+Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 77
+.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
+put line 77.
+<Graphs/updating_s3.png, id=441, 1204.5pt x 803.0pt>
+File: Graphs/updating_s3.png Graphic file (type png)
+<use Graphs/updating_s3.png>
+Package pdftex.def Info: Graphs/updating_s3.png  used on input line 79.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+<Graphs/hist_belief_error_s4.png, id=442, 1204.5pt x 803.0pt>
+File: Graphs/hist_belief_error_s4.png Graphic file (type png)
+<use Graphs/hist_belief_error_s4.png>
+Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 81
+.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+<Graphs/updating_s4.png, id=443, 1204.5pt x 803.0pt>
+File: Graphs/updating_s4.png Graphic file (type png)
+<use Graphs/updating_s4.png>
+Package pdftex.def Info: Graphs/updating_s4.png  used on input line 83.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+<Graphs/hist_belief_error_s5.png, id=444, 1204.5pt x 803.0pt>
+File: Graphs/hist_belief_error_s5.png Graphic file (type png)
+<use Graphs/hist_belief_error_s5.png>
+Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 85
+.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+<Graphs/updating_s5.png, id=445, 1204.5pt x 803.0pt>
+File: Graphs/updating_s5.png Graphic file (type png)
+<use Graphs/updating_s5.png>
+Package pdftex.def Info: Graphs/updating_s5.png  used on input line 87.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+ [37] [38 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
+png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/updati
+ng_s4.png (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/
+updating_s5.png (PNG copy)>])
 
 Package natbib Warning: There were undefined citations.
 
-[40 <./Graphs/WTP_value_heat.png (PNG copy)>] (alertsManuscript_AU4.aux)
+
+Package caption Warning: Unused \captionsetup[table] on input line 679.
+See the caption package documentation for explanation.
+
+(alertsManuscript_AG5.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -790,17 +779,20 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `alertsManuscript_AU4.out' has not changed.
-(rerunfilecheck)             Checksum: DDCA8626786816ADD211863A2E193351;1829.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package rerunfilecheck Info: File `alertsManuscript_AG5.out' has not changed.
+(rerunfilecheck)             Checksum: 0EA7E33418D82784853591B73F3BA9CC;1887.
  ) 
 Here is how much of TeX's memory you used:
- 13647 strings out of 478927
- 213442 string characters out of 2852535
- 574223 words of memory out of 3000000
- 31070 multiletter control sequences out of 15000+600000
- 413048 words of font info for 61 fonts, out of 8000000 for 9000
+ 13649 strings out of 478927
+ 213445 string characters out of 2852535
+ 575500 words of memory out of 3000000
+ 31067 multiletter control sequences out of 15000+600000
+ 413696 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,15n,117p,2158b,572s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,15n,117p,2194b,638s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.9} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -828,33 +820,34 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
 
- <C:\Users\gaduh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm12
-00.pk><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmbx12.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmex10.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/gaduh/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/gaduh/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/gaduh/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ga
-duh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/
-Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.
-pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmr17.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmr6.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmr7.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmr8.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/gaduh/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/gaduh/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/gaduh/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/gad
-uh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/
-Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12
-.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmtt10.pfb>
-Output written on alertsManuscript_AU4.pdf (40 pages, 1078499 bytes).
+ <C:\Users\gaduh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm10
+95.pk> <C:\Users\gaduh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
+tcrm1200.pk><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmbx12.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/gaduh/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/gaduh/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/gaduh/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/gadu
+h/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Us
+ers/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pf
+b><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmr12.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmr17.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmr6.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmr7.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/gaduh/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/gaduh/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/gaduh/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/gaduh
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Use
+rs/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pf
+b><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmti12.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmtt10.pfb>
+Output written on alertsManuscript_AG5.pdf (38 pages, 969288 bytes).
 PDF statistics:
- 575 PDF objects out of 1000 (max. 8388607)
- 137 named destinations out of 1000 (max. 500000)
- 173 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 582 PDF objects out of 1000 (max. 8388607)
+ 140 named destinations out of 1000 (max. 500000)
+ 163 words of extra memory for PDF output out of 10000 (max. 10000000)
 
