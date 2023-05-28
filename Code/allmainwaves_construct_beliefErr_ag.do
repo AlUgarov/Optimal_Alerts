@@ -55,23 +55,20 @@ gen bel_err=post_prob-be_
 label var bel_err "Belief error"
 
 gen absbel_err=abs(bel_err)
-sort subject_id
-by subject_id: egen tot_bel_err=sum(absbel_err) //total abs error per subject
+bys subject_id: egen tot_bel_err=sum(absbel_err) //total abs error per subject
 
 sum tot_bel_err, detail
-local err_med=r(p50)
-gen accur_bel=tot_bel_err<=`err_med' //error is less than the median
-
+gen accur_bel=tot_bel_err<=r(p50) //error is less than the median
 
 
 *Evaluating relative belief accuracy conditional on tasks (prior x signal)
 bys round: sum absbel_err
 bys subject_id round: egen v1=sum(absbel_err)
 bys p phintWB phintBW:egen med_bel_err=median(v1)
-bys p phintWB phintBW:egen sd_bel_err=sd(v1)
+bys p phintWB phintBW blackhint:egen sd_bel_err=sd(absbel_err)
 
 gen accur_bel2=abs(bel_err)<=med_bel_err
-gen accur_bel3=abs(bel_err)<0.005*sd_bel_err
+gen accur_bel3=absbel_err<0.005*sd_bel_err
 
 sort  subject_id round hint
 order subject_id round phintWB phintBW bel_err absbel_err accur_bel med_bel_err accur_bel2

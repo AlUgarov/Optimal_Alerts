@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  27 MAY 2023 11:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  28 MAY 2023 18:24
 entering extended mode
 **./alertsManuscript_AG5.tex
 (alertsManuscript_AG5.tex
@@ -627,38 +627,38 @@ File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 265.
 (pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
- [10] (Tables/wtpdiff_ols.tex) [11 <./Graphs/hist_WTP_discr1.png (PNG copy)>] [
-12]
-(Tables/table_wtp_02tob.tex)
+ [10]
+(Tables/table_wtp_02tob.tex) [11 <./Graphs/hist_WTP_discr1.png (PNG copy)>]
+(Tables/wtpdiff_ols.tex) [12] [13]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
-(Font)              size <12> substituted on input line 331.
+(Font)              size <12> substituted on input line 337.
 
-[13] [14]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 354--354
+[14]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 360--360
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 
-Overfull \vbox (14.50002pt too high) detected at line 359
+Overfull \vbox (14.50002pt too high) detected at line 365
  []
 
-(Tables/bigpicture_IP_AU.tex) [15] [16]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 401--401
+(Tables/bigpicture_IP_AU.tex) [15]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 407--407
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
-(Tables/bigpicture_bel_AU.tex) (Tables/table_be_err.tex)
-(Tables/table_be_err_AU.tex) [17] [18] (Tables/table_ip_flex_AU.tex) [19]
-[20] (Tables/bigpicture_wtp.tex) [21
+(Tables/bigpicture_bel_AU.tex) [16] (Tables/table_be_err.tex)
+(Tables/table_be_err_AU.tex) [17] (Tables/table_ip_flex_AU.tex) [18] [19]
+(Tables/bigpicture_wtp.tex) [20
 
 ] (Tables/lc_results3.tex)
-Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--558
+Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--564
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1--558
+Underfull \hbox (badness 10000) in paragraph at lines 1--564
 
  []
 
@@ -668,10 +668,10 @@ Overfull \hbox (21.78915pt too wide) in paragraph at lines 3--14
  [][] 
  []
 
-) (Tables/table_be_errx.tex) [22] [23] [24] (alertsManuscript_AG5.bbl [25
+) (Tables/table_be_errx.tex) [21] [22] [23] (alertsManuscript_AG5.bbl [24
 
 ])
-[26] (Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_be3.tex)
+[25] (Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_be3.tex)
 (Tables/table_ip0.tex
 Overfull \hbox (92.85327pt too wide) in paragraph at lines 4--34
  [][] 
@@ -679,28 +679,28 @@ Overfull \hbox (92.85327pt too wide) in paragraph at lines 4--34
 
 ) (Tables/table_ip5.tex) (Tables/table_wtp_02tob.tex)
 (Tables/table_wtp_val1.tex)
-Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--623
+Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--629
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--623
+Underfull \hbox (badness 10000) in paragraph at lines 3--629
 
  []
 
-[27] [28] [29] [30] (Tables/table_be3.tex) (Tables/table_ip8_be.tex)
-(Tables/table_ip5_semi.tex) (Tables/table_wtpdiff_06.tex) [31] [32] [33]
-<Graphs/WTP_value_heat.png, id=394, 1204.5pt x 803.0pt>
+[26] [27] [28] [29] (Tables/table_be3.tex) (Tables/table_ip8_be.tex)
+(Tables/table_ip5_semi.tex) (Tables/table_wtpdiff_06.tex) [30] [31] [32]
+<Graphs/WTP_value_heat.png, id=389, 1204.5pt x 803.0pt>
 File: Graphs/WTP_value_heat.png Graphic file (type png)
 <use Graphs/WTP_value_heat.png>
-Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 655.
+Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 661.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 663.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 669.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
 
-[34 <./Graphs/WTP_value_heat.png (PNG copy)>]
+[33 <./Graphs/WTP_value_heat.png (PNG copy)>]
 (alertsManuscript_Appendix_AG1.texpdfTeX warning (ext4): destination with the s
 ame identifier (name{appendix.A}) has been already used, duplicate ignored
 <to be read again> 
@@ -708,24 +708,24 @@ ame identifier (name{appendix.A}) has been already used, duplicate ignored
 l.1 \section{Subject Decisions}
                                \label{app:subtasks}
 
-LaTeX Warning: Reference `ra_table' on page 35 undefined on input line 24.
+LaTeX Warning: Reference `ra_table' on page 34 undefined on input line 24.
 
-[35
+[34
 
 ]
-<Graphs/blind_prot_sta.png, id=414, 1003.75pt x 1003.75pt>
+<Graphs/blind_prot_sta.png, id=409, 1003.75pt x 1003.75pt>
 File: Graphs/blind_prot_sta.png Graphic file (type png)
 <use Graphs/blind_prot_sta.png>
 Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 40.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
-<Graphs/ip_response_lpoly.png, id=415, 1003.75pt x 1003.75pt>
+<Graphs/ip_response_lpoly.png, id=410, 1003.75pt x 1003.75pt>
 File: Graphs/ip_response_lpoly.png Graphic file (type png)
 <use Graphs/ip_response_lpoly.png>
 Package pdftex.def Info: Graphs/ip_response_lpoly.png  used on input line 43.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
- [36 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response_lpoly.png (
+ [35 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response_lpoly.png (
 PNG copy)>]
-<Graphs/hist_belief_error_s3.png, id=440, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s3.png, id=435, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s3.png Graphic file (type png)
 <use Graphs/hist_belief_error_s3.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 77
@@ -733,34 +733,34 @@ Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 77
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
 put line 77.
-<Graphs/updating_s3.png, id=441, 1204.5pt x 803.0pt>
+<Graphs/updating_s3.png, id=436, 1204.5pt x 803.0pt>
 File: Graphs/updating_s3.png Graphic file (type png)
 <use Graphs/updating_s3.png>
 Package pdftex.def Info: Graphs/updating_s3.png  used on input line 79.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s4.png, id=442, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s4.png, id=437, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s4.png Graphic file (type png)
 <use Graphs/hist_belief_error_s4.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 81
 .
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s4.png, id=443, 1204.5pt x 803.0pt>
+<Graphs/updating_s4.png, id=438, 1204.5pt x 803.0pt>
 File: Graphs/updating_s4.png Graphic file (type png)
 <use Graphs/updating_s4.png>
 Package pdftex.def Info: Graphs/updating_s4.png  used on input line 83.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s5.png, id=444, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s5.png, id=439, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s5.png Graphic file (type png)
 <use Graphs/hist_belief_error_s5.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 85
 .
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s5.png, id=445, 1204.5pt x 803.0pt>
+<Graphs/updating_s5.png, id=440, 1204.5pt x 803.0pt>
 File: Graphs/updating_s5.png Graphic file (type png)
 <use Graphs/updating_s5.png>
 Package pdftex.def Info: Graphs/updating_s5.png  used on input line 87.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
- [37] [38 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
+ [36] [37 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
 png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/updati
 ng_s4.png (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/
 updating_s5.png (PNG copy)>])
@@ -768,7 +768,7 @@ updating_s5.png (PNG copy)>])
 Package natbib Warning: There were undefined citations.
 
 
-Package caption Warning: Unused \captionsetup[table] on input line 679.
+Package caption Warning: Unused \captionsetup[table] on input line 685.
 See the caption package documentation for explanation.
 
 (alertsManuscript_AG5.aux)
@@ -779,17 +779,14 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `alertsManuscript_AG5.out' has not changed.
 (rerunfilecheck)             Checksum: 0EA7E33418D82784853591B73F3BA9CC;1887.
  ) 
 Here is how much of TeX's memory you used:
- 13649 strings out of 478927
- 213445 string characters out of 2852535
- 575500 words of memory out of 3000000
- 31067 multiletter control sequences out of 15000+600000
+ 13647 strings out of 478927
+ 213422 string characters out of 2852535
+ 574500 words of memory out of 3000000
+ 31066 multiletter control sequences out of 15000+600000
  413696 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,15n,117p,2194b,638s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -845,9 +842,9 @@ rs/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pf
 b><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmti12.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmtt10.pfb>
-Output written on alertsManuscript_AG5.pdf (38 pages, 969288 bytes).
+Output written on alertsManuscript_AG5.pdf (37 pages, 969013 bytes).
 PDF statistics:
- 582 PDF objects out of 1000 (max. 8388607)
- 140 named destinations out of 1000 (max. 500000)
+ 577 PDF objects out of 1000 (max. 8388607)
+ 139 named destinations out of 1000 (max. 500000)
  163 words of extra memory for PDF output out of 10000 (max. 10000000)
 

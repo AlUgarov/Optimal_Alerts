@@ -268,6 +268,14 @@ We find that subjects' WTP is centered around the risk-neutral signal value, whi
 \end{figure}
 
 
+We also show that the basic relationship between WTP and signal characteristics hold. See table below tobit.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{./Tables/table_wtp_02tob.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 To understand how subjects deviate from these risk-neutral signal values, we use a regression analysis to estimate how these deviations are correlated the signal's false positive and false negative rates. We convert these rates into false positive (negative) costs by multiplying the false positive (negative) rate with the expected cost from an incorrect action from purchasing (not purchasing) protection. We estimate:
 
 \[\Delta b_{is} = \beta_0 + \beta_1 FP + \beta_2 FN + \varepsilon_{is}\]
@@ -283,9 +291,9 @@ where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between the WTP of in
 	\label{tab:wtp_ols}
 	\begin{tabular}{l*{6}{c}}
 		\hline\hline
-		&\multicolumn{4}{c}{\multirow{2}{*}{All}} & \multicolumn{2}{c}{[\dots] Median Accuracy}\\ \cmidrule(lr){6-7}
-		&&&&& Above & Below \\ 
-		\cmidrule(lr){2-5} \cmidrule(lr){6-6} \cmidrule(lr){7-7}  
+		&\multicolumn{4}{c}{\multirow{2}{*}{All}} & \multicolumn{2}{c}{Prior}\\ \cmidrule(lr){6-7}
+		&&&&& $\{.1,.2\}$ & $\{.3,.5\}$\\ 
+		\cmidrule(lr){2-5} \cmidrule(lr){6-6}  \cmidrule(lr){7-7} 
 		&\multirow{1}{*}{(1)} & \multirow{1}{*}{(2)} & \multirow{1}{*}{(3)} & \multirow{1}{*}{(4)} & \multirow{1}{*}{(5)} & \multirow{1}{*}{(6)} \\
 	\hline
 	\\ [-0.5em]
@@ -314,19 +322,17 @@ Table~\ref{tab:wtp_ols} shows that these signal characteristics are correlated w
 
 We find that risk preference helps explain some of the excess sensitivity to signal characteristics. We use data from the BP game to categorize subjects by their risk preference. Among those with internally consistent BP choices (see Appendix XXX), we categorize them into three risk-preference categories: risk averse, risk neutral, and risk loving.\footnote{Subjects who switched from no protection to protection at exactly the cost-loss ratio $\pi=0.2$ are considered risk-neutral, while switching at lower (higher) levels indicates risk aversion (risk-loving). In addition, we created a dummy variable for subjects whose BP choices are inconsistent.}  Column 2 presents the heterogeneity of subject responses to FP and FN costs by their risk preference, with risk-neutral as the default category. The point estimates among risk-neutral subjects fell and became insignificant. The coefficients on the interaction of risk aversion with FP and FN costs is relatively small and insignificant. The linear combination of the FP and FN costs for the risk-loving and risk-averse subjects show that they are sensitive the false negative, but not false positive cost. 
 
-We use data from the BE task to categorize subjects' belief accuracy. We construct two measures of belief accuracy, i.e., accuracy by subject-treatment (where a treatment is a combination of prior, false positive and false negative rate); and accuracy by subject. We define a belief error as the absolute value of the difference between the subject's belief and the true posterior probability. We categorize a subject as accurate for a treatment if their belief error is less than 0.005 standard deviation (sd) of belief error distribution for that treatment. Meanwhile, for the second measure, we categorize a subject to be an accurate (i.e., above median) Bayesian updater if the number of time they are categorized as inaccurate by treatment is less than the median across all subjects.
+We use data from the BE task to categorize belief accuracy. We define a belief error as the absolute value of the difference between the subject's belief and the true posterior probability. A posterior belief for a treatment --- defined by a combination of its prior, false positive and false negative rate, and the hint being observed --- is accurate if the error is less than 0.005 standard deviation (sd) of the empirical belief-error distribution for the treatment.
 
-We find that discriminating by subjects' ability to perform Bayesian updating (hereafter, belief accuracy) increases the precision of the estimates. Column 3 presents the heterogeneity by subject-treatment belief accuracy. We find that on average, when subjects accurately update their belief for an honest treatment, their WTP aligns with the signal value, while inaccurate subjects tend to underpay for an honest signal. We also find that incorporating belief accuracy improved the statistical precision of the estimates for all coefficients. When we examine the heterogeneity by subject belief accuracy (column 4), we find a similar improvement in statistical precision. Above-median accuracy subjects slightly underpaid for honest signals, but this may be due to their updating mistakes for particular treatments.
+We find that discriminating the reported WTPs based on the accuracy of the updated posterior increases the precision of the estimates. Column 3 presents the heterogeneity by belief accuracy. We find that on average, when subjects accurately update their belief for an honest treatment, their WTP aligns with the signal value, while inaccurate subjects tend to underpay for an honest signal. We also find that incorporating belief accuracy improved the statistical precision of the estimates for all coefficients.
 
-Finally, we separately study the role of risk preference for more v. less accurate subjects. Accurate, risk-neutral subjects' WTP align well with the theoretical signal value, and they do not systematically overpay for signals with false positive and/or false negative rate. Consistent with Proposition~\ref{thm:riskAverse} \agt{XXX ALEX, is this true? I am not entirely sure what ``more sensitive'' mean here in terms of how it would affect the sign on the coefficient XXX}, accurate risk-averse subjects are willing to pay a premium for false negative signals;  however, they are unwilling to pay a premium for false positive signals. Risk-loving accurate subjects are willing to pay an even higher premium for false negative signals. In contrast, inaccurate subjects underpay for honest signals. The behavior of the risk-averse inaccurate subjects is similar to their accurate counterparts. On the other hand, risk-loving inaccurate subjects are willing to pay premiums for signals with higher false negative and false positive rates. 
+We further investigate the role of risk preference by examining how WTPs differ for decisions that rely on an accurate belief. In column 5, we find that when made with an accurate belief, risk-neutral subjects' WTPs align well with the theoretical signal value, and they do not systematically overpay for signals with false positive and/or false negative rate. At the bottom of the table, we show the coefficients for risk-averse and risk-loving subjects. Both types of subjects are willing to pay a similar premium for false negative signals, while risk-loving subjects are willing to pay a premium for false positive signals (with a coefficient that is significant at 10 percent).
 
 %These results suggest that, on average, subjects failed to fully account for signal quality, resulting in overpaying for signals with high false-positive and false-negative costs.  FP/FN cost significantly impact the deviation from the theoretical value no matter what else is included.  
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{./Tables/table_wtp_02tob.tex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Finally, we investigate the role of the prior probability. With a low prior, the default action of risk-neutral subject would be not to protect, and vice versa with a high prior. The signal would help the risk-neutral subject decide whether to keep the default action or to switch. Since the cost to protect is equal to $0.25 \times$ the loss from the adverse effect, we split our priors into those above and below $0.25$. Interestingly, with a low (high) prior, a risk-neutral subject exhibits a slight willingness to pay a premium for false positive (negative) signals. Both coefficients are somewhat imprecisely estimated and are only significant at the 10 percent level. Risk-averse and risk-loving subjects similarly exacerbate the sensitivity of WTPs to false positive (negative) signals with a low (high) prior.
 
-
+XXX \agt{XXX What would be nice if we can derive how higher prior would affect risk-averse/loving subjects} XXX
 
 \subsection{Signal Characteristics and Protection Decision}
 %\section{Signal characteristics and protection decisions} 
