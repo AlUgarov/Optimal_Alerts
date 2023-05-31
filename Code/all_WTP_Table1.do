@@ -273,12 +273,13 @@ eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg, abs(
 		estadd scalar b_RA_fn_X=r(estimate)
 		estadd scalar se_RA_fn_X=r(se)
 		estadd scalar p_RA_fn_X=r(p)
-	
+/*	
 eststo: reghdfe wtp_diff i.inac_bel3##c.false_pos i.inac_bel3##c.false_neg, abs(subject_id) vce(cluster subject_id)
 	test false_pos = false_neg
 		estadd scalar test_eq=r(p)
+*/
 
-eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg i.inac_bel3##c.false_pos i.inac_bel3##c.false_neg, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel3##c.false_pos i.risk_pref##i.inac_bel3##c.false_neg, abs(subject_id) vce(cluster subject_id)
 	test false_pos = false_neg
 		estadd scalar test_eq=r(p)
 	lincom false_pos+1.risk_pref#c.false_pos
@@ -339,8 +340,8 @@ eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg if in
 		estadd scalar p_RA_fn_X=r(p)
 */
 		
-eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg i.inac_bel3##c.false_pos i.inac_bel3##c.false_neg if !phigh, abs(subject_id) vce(cluster subject_id)
-	test false_pos = false_neg
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel3##c.false_pos i.risk_pref##i.inac_bel3##c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id)
+		test false_pos = false_neg
 		estadd scalar test_eq=r(p)
 	lincom false_pos+1.risk_pref#c.false_pos
 		estadd scalar b_RL_fp_X=r(estimate)
@@ -359,8 +360,8 @@ eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg i.ina
 		estadd scalar se_RA_fn_X=r(se)
 		estadd scalar p_RA_fn_X=r(p)
 		
-eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg i.inac_bel3##c.false_pos i.inac_bel3##c.false_neg if phigh, abs(subject_id) vce(cluster subject_id)
-	test false_pos = false_neg
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel3##c.false_pos i.risk_pref##i.inac_bel3##c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id)
+		test false_pos = false_neg
 		estadd scalar test_eq=r(p)
 	lincom false_pos+1.risk_pref#c.false_pos
 		estadd scalar b_RL_fp_X=r(estimate)
@@ -417,7 +418,7 @@ eststo: reghdfe wtp_diff i.inac_bel3##i.risk_pref##c.false_pos i.inac_bel3##i.ri
 
 #delimit ;
 	esttab * using "$ROOT/Tables/wtpdiff_ols.tex", replace label 
-		drop(?.risk_pref 0.inac_bel3 *3.risk_pref*)
+		drop(?.risk_pref 0.inac_bel3 0.risk_pref#* *3.risk_pref* ?.inac_bel3* ?.risk_pref#*inac*)
 		order(false_pos false_neg 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
 		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
 		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  28 MAY 2023 18:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  31 MAY 2023 17:19
 entering extended mode
 **./alertsManuscript_AG5.tex
 (alertsManuscript_AG5.tex
@@ -621,44 +621,44 @@ Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 132.
 
-[5] [6] [7] [8] [9] (Tables/table_treatments.tex)
-<Graphs/hist_WTP_discr1.png, id=207, 1204.5pt x 803.0pt>
+[5] [6] [7] [8] [9] (Tables/table_treatments.tex) [10]
+(Tables/table_wtp_02tob.tex)
+<Graphs/hist_WTP_discr1.png, id=213, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 265.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 282.
 (pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
- [10]
-(Tables/table_wtp_02tob.tex) [11 <./Graphs/hist_WTP_discr1.png (PNG copy)>]
-(Tables/wtpdiff_ols.tex) [12] [13]
+ [11] (Tables/wtpdiff_ols.tex) [12 <./Graphs/hist_WTP_discr1.png (PNG copy)>] [
+13] [14]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
-(Font)              size <12> substituted on input line 337.
+(Font)              size <12> substituted on input line 353.
 
-[14]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 360--360
+
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 376--376
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 
-Overfull \vbox (14.50002pt too high) detected at line 365
+Overfull \vbox (14.50002pt too high) detected at line 381
  []
 
-(Tables/bigpicture_IP_AU.tex) [15]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 407--407
+(Tables/bigpicture_IP_AU.tex) [15] [16]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 423--423
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
-(Tables/bigpicture_bel_AU.tex) [16] (Tables/table_be_err.tex)
-(Tables/table_be_err_AU.tex) [17] (Tables/table_ip_flex_AU.tex) [18] [19]
-(Tables/bigpicture_wtp.tex) [20
+(Tables/bigpicture_bel_AU.tex) (Tables/table_be_err.tex)
+(Tables/table_be_err_AU.tex) [17] [18] (Tables/table_ip_flex_AU.tex) [19]
+[20] (Tables/bigpicture_wtp.tex) [21
 
 ] (Tables/lc_results3.tex)
-Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--564
+Overfull \hbox (106.01326pt too wide) in paragraph at lines 1--580
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1--564
+Underfull \hbox (badness 10000) in paragraph at lines 1--580
 
  []
 
@@ -668,36 +668,35 @@ Overfull \hbox (21.78915pt too wide) in paragraph at lines 3--14
  [][] 
  []
 
-) (Tables/table_be_errx.tex) [21] [22] [23] (alertsManuscript_AG5.bbl [24
+) (Tables/table_be_errx.tex) [22] [23] [24] (alertsManuscript_AG5.bbl [25
 
 ])
-[25] (Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_be3.tex)
+[26] (Tables/table_summary.tex) (Tables/thetas.tex) (Tables/table_be3.tex)
 (Tables/table_ip0.tex
 Overfull \hbox (92.85327pt too wide) in paragraph at lines 4--34
  [][] 
  []
 
-) (Tables/table_ip5.tex) (Tables/table_wtp_02tob.tex)
-(Tables/table_wtp_val1.tex)
-Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--629
+) (Tables/table_ip5.tex) (Tables/table_wtp_val1.tex)
+Overfull \hbox (75.87341pt too wide) in paragraph at lines 3--645
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--629
+Underfull \hbox (badness 10000) in paragraph at lines 3--645
 
  []
 
-[26] [27] [28] [29] (Tables/table_be3.tex) (Tables/table_ip8_be.tex)
+[27] [28] [29] (Tables/table_be3.tex) (Tables/table_ip8_be.tex)
 (Tables/table_ip5_semi.tex) (Tables/table_wtpdiff_06.tex) [30] [31] [32]
 <Graphs/WTP_value_heat.png, id=389, 1204.5pt x 803.0pt>
 File: Graphs/WTP_value_heat.png Graphic file (type png)
 <use Graphs/WTP_value_heat.png>
-Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 661.
+Package pdftex.def Info: Graphs/WTP_value_heat.png  used on input line 677.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 669.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 685.
 (pdftex.def)             Requested size: 361.35278pt x 240.90186pt.
 
 [33 <./Graphs/WTP_value_heat.png (PNG copy)>]
@@ -768,7 +767,7 @@ updating_s5.png (PNG copy)>])
 Package natbib Warning: There were undefined citations.
 
 
-Package caption Warning: Unused \captionsetup[table] on input line 685.
+Package caption Warning: Unused \captionsetup[table] on input line 701.
 See the caption package documentation for explanation.
 
 (alertsManuscript_AG5.aux)
@@ -783,10 +782,10 @@ Package rerunfilecheck Info: File `alertsManuscript_AG5.out' has not changed.
 (rerunfilecheck)             Checksum: 0EA7E33418D82784853591B73F3BA9CC;1887.
  ) 
 Here is how much of TeX's memory you used:
- 13647 strings out of 478927
- 213422 string characters out of 2852535
- 574500 words of memory out of 3000000
- 31066 multiletter control sequences out of 15000+600000
+ 13646 strings out of 478927
+ 213336 string characters out of 2852535
+ 566558 words of memory out of 3000000
+ 31068 multiletter control sequences out of 15000+600000
  413696 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,15n,117p,2194b,638s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -842,9 +841,9 @@ rs/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pf
 b><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmti12.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmtt10.pfb>
-Output written on alertsManuscript_AG5.pdf (37 pages, 969013 bytes).
+Output written on alertsManuscript_AG5.pdf (37 pages, 969742 bytes).
 PDF statistics:
  577 PDF objects out of 1000 (max. 8388607)
- 139 named destinations out of 1000 (max. 500000)
+ 138 named destinations out of 1000 (max. 500000)
  163 words of extra memory for PDF output out of 10000 (max. 10000000)
 
