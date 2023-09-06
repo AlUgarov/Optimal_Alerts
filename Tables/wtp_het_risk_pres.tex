@@ -1,0 +1,35 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
+\hline
+p$>$0.2         &   -.0953         &    -.875\sym{**} &    -.113         &    -.884\sym{***}\\
+FN costs        &    -.514         &    -.755         &    -.488         &    -.805\sym{*}  \\
+p$>$0.2 $\times$ FN costs&     .836\sym{**} &     1.24\sym{***}&     .826\sym{**} &     1.27\sym{***}\\
+Risk-loving $\times$ p$>$0.2 $\times$ FN costs&     .245         &    -.733\sym{**} &     .164         &    -.633\sym{*}  \\
+Risk-averse $\times$ p$>$0.2 $\times$ FN costs&     .174         &    -.526         &     .125         &    -.498         \\
+No risk av. measure $\times$ p$>$0.2 $\times$ FN costs&     .135         &    -.531         &     .158         &    -.655         \\
+FP costs        &     .506\sym{*}  &     .334         &     .492\sym{*}  &      .27         \\
+p$>$0.2 $\times$ FP costs&    -.758\sym{*}  &    -.189         &    -.734         &    -.191         \\
+Risk-loving $\times$ p$>$0.2 $\times$ FP costs&    -.239         &    -.613         &     .204         &    -.459         \\
+Risk-averse $\times$ p$>$0.2 $\times$ FP costs&    -.152         &    -.986         &    -.262         &    -.978         \\
+No risk av. measure $\times$ p$>$0.2 $\times$ FP costs&     .158         &     -.92         &    -.453         &    -1.09         \\
+Risk-loving $\times$ p$>$0.2&                  &     .846         &                  &     .837         \\
+Risk-averse $\times$ p$>$0.2&                  &     .982\sym{**} &                  &     .967\sym{**} \\
+No risk av. measure $\times$ p$>$0.2&                  &     .771         &                  &     .797         \\
+Risk-loving $\times$ FN costs&                  &     .807         &                  &     .659         \\
+Risk-averse $\times$ FN costs&                  &     .507         &                  &      .47         \\
+No risk av. measure $\times$ FN costs&                  &     .489         &                  &     .681         \\
+Risk-loving $\times$ FP costs&                  &   -.0496         &                  &     .314         \\
+Risk-averse $\times$ FP costs&                  &      .34         &                  &     .317         \\
+No risk av. measure $\times$ FP costs&                  &     .638         &                  &     .306         \\
+Risk pref dummies &       No         &      Yes         &       No         &      Yes         \\
+\hline
+Observations    &      624         &      624         &      624         &      624         \\
+Adjusted \(R^{2}\)&     0.07         &     0.06         &     0.41         &     0.41         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

@@ -1,0 +1,33 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{WTP for Information (OLS): analyze FP/FN sensitivity by prior}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{FE}\\
+\hline
+Prior\_change$\times$FP rate&    -.392         &                  &    -.457         &                  \\
+                &    (0.5)         &                  &    (0.4)         &                  \\
+Prior\_change$\times$FN rate&   -.0869         &                  &     -.08         &                  \\
+                &    (0.1)         &                  &    (0.1)         &                  \\
+plevel=200 $\times$ FP rate&                  &    .0497         &                  &    .0668         \\
+                &                  &    (0.2)         &                  &    (0.2)         \\
+plevel=300 $\times$ FP rate&                  &    -.281\sym{***}&                  &    -.281\sym{***}\\
+                &                  &    (0.1)         &                  &    (0.1)         \\
+plevel=500 $\times$ FP rate&                  &    -.103         &                  &   -.0857         \\
+                &                  &    (0.2)         &                  &    (0.2)         \\
+plevel=200 $\times$ FN rate&                  & -.000453         &                  &  .000683         \\
+                &                  &    (0.0)         &                  &    (0.0)         \\
+plevel=300 $\times$ FN rate&                  &   -.0384\sym{*}  &                  &   -.0384\sym{*}  \\
+                &                  &    (0.0)         &                  &    (0.0)         \\
+plevel=500 $\times$ FN rate&                  &   -.0295         &                  &   -.0284         \\
+                &                  &    (0.0)         &                  &    (0.0)         \\
+\hline
+P(beta\_X=0)     &     .544         &    .0286         &      .53         &    .0276         \\
+Adjusted \(R^{2}\)&     .158         &     .156         &     .543         &     .543         \\
+Observations    &      624         &      624         &      624         &      624         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

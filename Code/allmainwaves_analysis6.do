@@ -6,8 +6,8 @@ clear all
 **Requires: estout, moremata
 
 *!!put your working folder below:
-*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-cd C:\Tornado_warnings\Optimal_Alerts
+cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+*cd C:\Tornado_warnings\Optimal_Alerts
 
 *log using "./Temp/pilot_analysis.log", replace
 set seed 135
@@ -518,6 +518,9 @@ label var post_prob "Posterior prob."
 
 replace ip_=. if ip_==-99
 
+
+
+
 **Calculate subject-level accuracy of reported beliefs:
 gen bel_err=post_prob-be_
 label var bel_err "Belief error"
@@ -556,7 +559,7 @@ bys laterounds: sum sbel_err
 *How much the signal affects beliefs?
 gen be_w=be_
 gen be_b=be_
-replace be_w=. if hint=="b"
+replace be_w=. if hint=="b"/
 replace be_b=. if hint=="w"
 bys subject_id round: egen be_w1=mean(be_w)
 bys subject_id round: egen be_b1=mean(be_b)
@@ -835,9 +838,9 @@ set more off
 ****-- INFORMED PROTECTION --****
 
 *expected response by prior prob:
-gen highprob=p>0.101
-label var highprob "p$=$0.2"
-label define highprob_l 0 "p$=$0.1" 1 "p$=$0.2"
+gen highprob=p>0.201
+label var highprob "p$>$0.2"
+label define highprob_l 0 "p$\leq$0.2" 1 "p$>$0.2"
 label values highprob highprob_l
 
 label var stat_educ "Stat. class"
@@ -862,8 +865,8 @@ gen FPFN=phintBW*phintWB
 gen blackFPFN=phintBW*phintWB
 gen whiteFPFN=phintBW*phintWB
 
-label var high_phintBW "FP rate x (p=0.2)"
-label var high_phintWB "FN rate x (p=0.2)"
+label var high_phintBW "FP rate x (p$>$0.2)"
+label var high_phintWB "FN rate x (p$>$0.2)"
 label var black_phintBW "FP rate x (S=Black)"
 label var black_phintWB "FN rate x (S=Black)"
 
@@ -898,88 +901,68 @@ drop varipB varipW ipB ipW
 **Baseline IP table:
 gen fef=1
 eststo clear
-eststo: logit ip_ phintBW phintWB blackhint i.plevel, vce(cluster subject_id)
+eststo: logit ip_ phintBW phintWB highprob, vce(cluster subject_id)
 local r2p=e(r2_p)
 local llike=e(ll)
 test phintBW=phintWB
 local p=r(p)
-eststo m1: margins, dydx(phintBW phintWB blackhint i.plevel) post
+eststo m1: margins, dydx(phintBW phintWB highprob) post
 estadd scalar p = `p'
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ phintBW phintWB i.plevel if blackhint==0, vce(cluster subject_id)
+eststo: logit ip_ phintBW phintWB highprob if blackhint==0, vce(cluster subject_id)
 test phintBW=phintWB
 local p=r(p)
 local r2p=e(r2_p)
 local llike=e(ll)
 
-eststo m2: margins, dydx(phintBW phintWB i.plevel) post
+eststo m2: margins, dydx(phintBW phintWB highprob) post
 estadd scalar p = `p'
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ phintBW phintWB i.plevel if blackhint==1, vce(cluster subject_id)
+eststo: logit ip_ phintBW phintWB highprob if blackhint==1, vce(cluster subject_id)
 test phintBW=phintWB
 local p=r(p)
 local r2p=e(r2_p)
 local llike=e(ll)
-eststo m3: margins, dydx(phintBW phintWB i.plevel) post
+eststo m3: margins, dydx(phintBW phintWB highprob) post
 estadd scalar p = `p'
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ phintBW phintWB blackhint i.plevel fef i.subject_id, vce(cluster subject_id)
+eststo: logit ip_ phintBW phintWB highprob high_phintBW high_phintWB fef i.subject_id, vce(cluster subject_id)
 test phintBW=phintWB
 local p=r(p)
 local r2p=e(r2_p)
 local llike=e(ll)
-eststo m4: margins, dydx(phintBW phintWB blackhint i.plevel fef) post
+eststo m4: margins, dydx(phintBW phintWB highprob high_phintBW high_phintWB fef) post
 estadd scalar p = `p'
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ phintBW phintWB i.plevel fef i.subject_id if blackhint==0, vce(cluster subject_id)
+eststo: logit ip_ phintBW phintWB highprob high_phintBW high_phintWB fef i.subject_id if blackhint==0, vce(cluster subject_id)
 test phintBW=phintWB
 local p=r(p)
 local r2p=e(r2_p)
 local llike=e(ll)
-eststo m5: margins, dydx(phintBW phintWB i.plevel fef) post
+eststo m5: margins, dydx(phintBW phintWB highprob high_phintBW high_phintWB fef) post
 estadd scalar p = `p'
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ phintBW phintWB i.plevel fef i.subject_id if blackhint==1, vce(cluster subject_id)
+eststo: logit ip_ phintBW phintWB highprob high_phintBW high_phintWB fef i.subject_id if blackhint==1, vce(cluster subject_id)
 test phintBW=phintWB
 local p=r(p)
 local r2p=e(r2_p)
 local llike=e(ll)
-eststo m6: margins, dydx(phintBW phintWB i.plevel fef) post
+eststo m6: margins, dydx(phintBW phintWB highprob high_phintBW high_phintWB fef) post
 estadd scalar p = `p'
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ phintBW phintWB FPFN i.plevel fef i.subject_id if blackhint==0, vce(cluster subject_id)
-test phintBW=phintWB
-local p=r(p)
-local r2p=e(r2_p)
-local llike=e(ll)
-eststo m7: margins, dydx(phintBW phintWB FPFN i.plevel fef) post
-estadd scalar p = `p'
-estadd scalar r2p = `r2p'
-estadd scalar llike = `llike'
-
-eststo: logit ip_ phintBW phintWB FPFN i.plevel fef i.subject_id if blackhint==1, vce(cluster subject_id)
-test phintBW=phintWB
-local p=r(p)
-local r2p=e(r2_p)
-local llike=e(ll)
-eststo m8: margins, dydx(phintBW phintWB FPFN i.plevel fef) post
-estadd scalar p = `p'
-estadd scalar r2p = `r2p'
-estadd scalar llike = `llike'
-
-esttab m1 m2 m3 m4 m5 m6 m7 m8 using "./Tables/table_ip0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) stats(p N r2p llike, labels("P(FP rate $\neq$ FN rate)" "N" "Pseudo R-squared" "Log-likelihood")) indicate(Subject FE = fef) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black" "S=White" "W=Black") title(Informed protection response: logistical regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip0.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) stats(p N r2p llike, labels("P(FP rate $\neq$ FN rate)" "N" "Pseudo R-squared" "Log-likelihood")) indicate(Subject FE = fef) label addnotes("Errors are clustered by subject, average marginal treatment effects") mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: logistic regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 eststo: logit ip_ phintBW phintWB, vce(cluster subject_id)
@@ -997,12 +980,12 @@ esttab m1 m2 m3 m4 m5 m6 using "./Tables/table_ip0x.tex", b(%9.3g) t(%9.1f) ar2(
 
 
 eststo clear
-eststo: reg ip_ phintBW phintWB  i.plevel, vce(cluster subject_id)
-eststo: reg ip_ phintBW phintWB  i.plevel if blackhint==0, vce(cluster subject_id)
-eststo: reg ip_ phintBW phintWB i.plevel if blackhint==1, vce(cluster subject_id)
-eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id, vce(cluster subject_id)
-eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if blackhint==0, vce(cluster subject_id)
-eststo: reg ip_ phintBW phintWB  i.plevel i.subject_id if blackhint==1, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB i.subject_id highprob, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB  highprob i.subject_id if blackhint==0, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB highprob i.subject_id if blackhint==1, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB highprob high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB highprob high_phintBW high_phintWB i.subject_id if blackhint==0, vce(cluster subject_id)
+eststo: reg ip_ phintBW phintWB highprob high_phintBW high_phintWB i.subject_id if blackhint==1, vce(cluster subject_id)
 esttab using "./Tables/table_ip0_lin.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label addnotes("Errors are clustered by subject") indicate(Subject FE = *.subject_id) mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: linear regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
@@ -1017,7 +1000,7 @@ reg ip_ post_prob if plevel<300, vce(cluster subject_id)
 eststo clear
 eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint, vce(cluster subject_id)
 eststo m1: margins, dydx(phintBW phintWB highprob blackhint) post
-eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
+eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
 eststo m2: margins, dydx(phintBW phintWB highprob blackhint black_phintBW black_phintWB) post
 
 eststo: logit ip_ post_prob0* phintBW phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
@@ -1142,10 +1125,10 @@ esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3g) t(%9.1f) label a
   
  **Robustness: LINEAR! flexible control both for beliefs and posteriors:
 eststo clear
-eststo: reg ip_ post_prob0* white_phintBW white_phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
-eststo: reg ip_ post_prob0* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
-eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
-eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
+eststo: reg ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob i.subject_id, vce(cluster subject_id)
+eststo: reg ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
+eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint i.subject_id, vce(cluster subject_id)
+eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
 esttab using "./Tables/table_ip_flexlin.tex", b(%9.3g) t(%9.1f)  ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
   "Subject FE, errors are clustered by subject, average marginal treatment effects") drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") title(Informed Protection Response: flexible control for posteriors and beliefs, LPM) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
@@ -1416,7 +1399,11 @@ gen psignalblack=p*phintBB+(1-p)*phintBW
 gen psignalwhite=1-psignalblack
 gen pifsignblack=p*phintBB/psignalblack
 
+local c=0.43
+local d=0.25
+gen pseudo_psign=phintBB^`c'*p^`d'+phintBW^`c'*(1-p)^`d'
 
+gen xt1=be_*
 **********************************************
 ****-- Main Regressions: WTP FOR INFORMATION --****
 **********************************************

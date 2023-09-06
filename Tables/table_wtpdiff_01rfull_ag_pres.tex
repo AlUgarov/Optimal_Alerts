@@ -1,0 +1,34 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{5}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
+\hline
+FP costs        &     .237\sym{*}  &     .231\sym{*}  &     .204         &     .448\sym{***}&     .412\sym{***}\\
+FN costs        &     .353\sym{***}&     .319\sym{***}&     .232         &     .337\sym{***}&    -.635\sym{***}\\
+Risk-loving $\times$ FP costs&                  &                  &     .165         &                  &                  \\
+Risk-averse $\times$ FP costs&                  &                  &   -.0197         &                  &                  \\
+No risk av. measure $\times$ FP costs&                  &                  &    .0244         &                  &                  \\
+Risk-loving $\times$ FN costs&                  &                  &     .177         &                  &                  \\
+Risk-averse $\times$ FN costs&                  &                  &    .0608         &                  &                  \\
+No risk av. measure $\times$ FN costs&                  &                  &     .114         &                  &                  \\
+Inaccurate beliefs $\times$ FP costs&                  &                  &                  &    -.197         &                  \\
+Inaccurate beliefs $\times$ FN costs&                  &                  &                  &     .309         &                  \\
+plevel=200 $\times$ FP costs&                  &                  &                  &                  &     .162         \\
+plevel=300 $\times$ FP costs&                  &                  &                  &                  &    -.417\sym{***}\\
+plevel=500 $\times$ FP costs&                  &                  &                  &                  &    -.755\sym{*}  \\
+plevel=200 $\times$ FN costs&                  &                  &                  &                  &     .828\sym{***}\\
+plevel=300 $\times$ FN costs&                  &                  &                  &                  &     .886\sym{***}\\
+plevel=500 $\times$ FN costs&                  &                  &                  &                  &     1.02\sym{***}\\
+Constant        &    -.207         &    -.182\sym{**} &    -.184\sym{**} &    -.409\sym{***}&     .575\sym{***}\\
+Risk pref dummies &       No         &       No         &      Yes         &       No         &       No         \\
+Prior dummies   &       No         &       No         &       No         &       No         &      Yes         \\
+Belief accuracy &       No         &       No         &       No         &      Yes         &       No         \\
+\hline
+Observations    &      624         &      624         &      624         &      624         &      624         \\
+Adjusted \(R^{2}\)&     0.05         &     0.38         &     0.37         &     0.38         &     0.58         \\
+\hline\hline
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}
