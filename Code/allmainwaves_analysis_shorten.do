@@ -1208,7 +1208,7 @@ replace signal="White" if signal=="0"
 replace signal="Black" if signal=="1"
 bro
 format posterior bel_err ptest %9.3f
-listtex using "./Tables/bigpicture_bel.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{Posterior}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_bel.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccccc} \hline \hline" `" &\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{Posterior}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 order nrow false_pos false_neg signal posterior bel_err ptest
 listtex using "./Tables/bigpicture_bel_AU.tex", type rstyle(tabular) replace
@@ -1751,13 +1751,40 @@ esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) labe
 
 
 
-*By prior prob:
+*By prior prob for FP and FN costs:
 eststo clear
 eststo: reghdfe wtp_diff false_pos false_neg if plevel==100, abs(subject_id) vce(cluster subject_id)
 eststo: reghdfe wtp_diff false_pos false_neg if plevel==200, abs(subject_id) vce(cluster subject_id)
 eststo: reghdfe wtp_diff false_pos false_neg if plevel==300, abs(subject_id) vce(cluster subject_id)
 eststo: reghdfe wtp_diff false_pos false_neg if plevel==500, abs(subject_id) vce(cluster subject_id)
 esttab using "./Tables/table_wtpdiff_03.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP - Value of Information, by prior) addnotes("Subject fixed effects are included.") mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+*By prior prob for FP and FN rates:
+eststo clear
+eststo: tobit wtp phintBW phintWB if plevel==100, ll(0) ul(5)
+test phintBW=phintWB
+local p=r(p)
+estadd scalar p = `p'
+estadd scalar adj_r= e(r2_a)
+eststo: tobit wtp phintBW phintWB if plevel==200, ll(0) ul(5)
+test phintBW=phintWB
+local p=r(p)
+estadd scalar p = `p'
+estadd scalar adj_r= e(r2_a)
+eststo: tobit wtp phintBW phintWB if plevel==300, ll(0) ul(5)
+test phintBW=phintWB
+local p=r(p)
+estadd scalar p = `p'
+estadd scalar adj_r= e(r2_a)
+eststo: tobit wtp phintBW phintWB if plevel==500, ll(0) ul(5)
+test phintBW=phintWB
+local p=r(p)
+estadd scalar p = `p'
+estadd scalar adj_r= e(r2_a)
+esttab using "./Tables/table_wtpdiff_04tob.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label stats(p adj_r N, labels("P(FP rate=FN rate)" "Adjusted \(R^{2}\)" "Observations")) title(WTP for Information, by prior (tobit)) mtitles("0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_wtpdiff_04tob_pres.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) drop(_cons) stats(p adj_r N, labels("P(FP rate=FN rate)" "Adjusted \(R^{2}\)" "Observations")) eqlabels(none) label mtitles("0.1" "0.2" "0.3" "0.5") addnotes("Tobit regression of WTP, constant omitted") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
 
 
 

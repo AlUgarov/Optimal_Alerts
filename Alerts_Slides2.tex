@@ -1,0 +1,621 @@
+\documentclass[11pt,hyperref={bookmarks=false}]{beamer}
+\usetheme{Warsaw}
+%\usetheme{Madrid}
+%\usecolortheme{beaver}
+\usefonttheme{professionalfonts}
+ \usepackage[usenames,dvipsnames]{pstricks}
+ \usepackage{wallpaper}
+ \usepackage{epsfig}
+\definecolor{UniBlue}{RGB}{157,34,53}
+\setbeamercolor{block title}{bg=UniBlue!70,fg=black}
+
+\usepackage{psfrag,graphicx}
+\usepackage{amsmath,amsfonts}
+\usepackage{lscape}
+\usepackage{array,epsfig}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsxtra}
+\usepackage{amsthm}
+\usepackage{makecell}
+\usepackage[skip=0pt, belowskip=-10pt]{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{booktabs}
+%\usepackage{subfigure}
+\usepackage{eso-pic}
+\usepackage{transparent}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{longtable}
+\newtheorem{df}{Definition}
+\newtheorem{lm}{Lemma}
+\newtheorem{prp}{Proposition}
+\newtheorem{sprf}{Sketch of Proof}
+\newtheorem{prf}{Proof}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{suffc}{Sufficient Condition}
+\setbeameroption{hide notes}
+\newcommand{\threelinebracer}{$\left. \begin{array}{c} \\ \\ \\ \end{array} \right\rbrace$}
+\newcommand{\threelinebracel}{$\left. \begin{array}{c} \\ \\ \\ \end{array} \right\lbrace$}
+\newcommand{\twolinebracer}{$\left. \begin{array}{c} \\ \\ \end{array} \right\rbrace$}
+\newcommand{\twolinebracel}{$\left. \begin{array}{c} \\ \\ \end{array} \right\lbrace$}
+\newcommand{\bd}{\partial}
+\usepackage{threeparttable}
+\usepackage{pgf}  
+%\logo{\pgfputat{\pgfxy(-1.2,-0.2)}{\pgfbox[center,base]{\includegraphics[height=12pt, keepaspectratio]{UA_Logo_Horizontal.eps}}} }
+
+%\usebackgroundtemplate
+%{
+  %  \node[opacity=0.3, at=(current page.south east),anchor=south east,inner sep=0pt] 
+    %\includegraphics[width=\paperwidth,height=20pt]{UA_Logo_Horizontal.eps}%
+%}
+
+\linespread{1}
+\usepackage{parskip}
+%\setlength{\itemsep}{1em} 
+%\addtolength{\parskip}{5pt}
+\DeclareMathSizes{12}{10}{8}{6}
+%  \begin{itemize}}{\end{itemize}}
+% Separate slides by \begin{frame} and \end{frame}.
+\title[Willingness-to-pay for Warnings]{Willingness-to-pay for Warnings}
+\author[A. Gaduh, P. McGee and A. Ugarov]{A. Gaduh, P. McGee and A. Ugarov}
+\institute[]{}
+\date{\today}
+
+
+\begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{frame}
+\frametitle{Motivation}
+\begin{itemize}
+\item Many real-life situations require alarm designers to determine risk thresholds for sounding alarms: medical tests, fire alarms, extreme weather warnings, etc
+\item This requires balancing the costs of false-positive and false-negative events
+\item There is little theory and even less empirical studies on people preferences over signal characteristics
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Research Questions}
+\begin{enumerate}
+\item How do signal characteristics affect protective response?
+\item Which signal characteristics people prefer? Two hypotheses:
+\begin{itemize}
+\item Risk-neutral decision model provides a good description of user's preferences
+\item Subjects put equal weights on costs coming from false-positive and false-negative events
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Findings}
+\begin{itemize}
+\item There are significant deviations from the risk-neutral model both for protective decisions and for willingness-to-pay for signals
+\item WTP has excess sensitivity to false-negative rates for low priors, and lower sensitivity for high priors (vice versa for false-positive)
+\item Subjects tend to have excessive reactions to false-positive rates with negative signals and excessive reactions to false-negative rates for positive signals (alarms)
+\item This effect partially comes from distorted beliefs on posterior chances of false-positive/false-negative event conditional on a signal
+\item This patter is not consistent with EU framework, but most consistent with decision-making heuristic in which subjects do not differentiate between false-positive and false-negative rates when choosing signals
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Overview of the Experiment}
+\framesubtitle{Willingness to pay (WTP) for signals}
+\begin{itemize}
+	\item An insurance experiment:
+		\begin{itemize}
+			\item Two states of the world: bad ($\omega=1$) and good ($\omega=0$)
+			\item Probability of a bad state is $P (\omega=1) = \pi$
+			\item Bad state $\implies$ loss of \$$L$
+			\item A perfectly protective insurance can be purchased for \$$c$
+		\end{itemize}
+	\item Subject can purchase a signal $s$ before purchasing the insurance:
+		\begin{itemize}
+			\item A signal is characterized by its true-positive ($P(s=1|\omega=1)$) and true-negative rates ($P(s=0|\omega=0)$) 
+		\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for Signals}
+\framesubtitle{Theory}
+
+\begin{itemize}
+	\item Theoretically, what should be the WTP for a signal?
+	\item If bad states are a priori rare ($\pi L<<c$) $\implies$ never protect without a signal
+	\item The theoretical WTP $b$ for an expected utility maximizer given a signal $s$ is a solution $b^*$ to the following:
+	\[
+	\small
+	\begin{split}
+		P(s=1) &u(Y_0-b^*-c) + \pi P(s=0|\omega=1)u(Y_0-b^*-L)+\\ 
+		&+(1-\pi)P(s=0|\omega=0)u(Y_0-b^*) =\\
+		&=(1-\pi)u(Y_0)+\pi u(Y_0-L)
+	\end{split}
+	\]
+	\normalsize
+	\item A risk-neutral agent would therefore pay:
+		\[b^*=\pi(1-P(s=0|\omega=1))L-P(s=1)c\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experiment Basics}
+\begin{enumerate}
+\item Box with 20 white and black balls (black ball=bad state)
+\item Assumptions:
+\begin{itemize}
+\item Protection cost is \$5
+\item Loss without protection is \$20
+\item Cost-loss ratio is $c/L=5/20=0.25$
+\end{itemize}
+\item Signal is an unreliable hint about the ball color
+\item Vary the prior probability of bad state and the signal's information structure
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Representing Signals}
+\begin{itemize}
+\item A subject receives a noisy signal as a hint from one of the gremlins:
+\end{itemize}
+\begin{center}
+\newcolumntype{C}{ >{\centering\arraybackslash} m{2cm} }
+%\newcolumntype{L}{ >{\left\arraybackslash} m{4cm} }
+
+\small
+\begin{tabular}{l|C|C|C|C}
+\hline
+Ball/Gremlin & \includegraphics[width=0.15\textwidth]{Instructions/honest.png} &  \includegraphics[width=0.15\textwidth]{Instructions/whiteswamp.png} &  \includegraphics[width=0.15\textwidth]{Instructions/blackswamp.png} \\
+ \hline
+  &  & &  \\
+\includegraphics[width=0.1\textwidth]{Instructions/whiteball.png}  & The Ball is white! \vspace{10pt} &The Ball is white! \vspace{10pt} & The Ball is black! \vspace{10pt}\\
+\hline
+  &  & &  \\
+\includegraphics[width=0.1\textwidth]{Instructions/blackball.png}  & The Ball is black! \vspace{10pt} & The Ball is white! \vspace{10pt}& The Ball is black! \vspace{10pt} \\
+\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Experiment Progression}
+\begin{enumerate}
+\item \textbf{Blind Protection Game:} Protection response conditional on prior probability
+\item \textbf{Informed Protection Game:} Protection response conditional on prior probability and signal
+\item \textbf{Belief Elicitation:} Subjects beliefs about the bad state's probability conditional on prior and signal
+\item \textbf{WTP Elicitation:} Willingness-to-pay for each signal
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Going over all the treatments}
+\begin{itemize}
+\item Out of 4 tasks, two are novel (informed protection and WTP elicitation for a signal)
+\item We report basic results to show that the subjects' behavior is largely sensible in all the tasks
+\item Responses demonstrate known biases in existing tasks
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Blind Protection (No Signal)}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item There is more protection when the probability of black ball is higher
+\item Responses are mostly monotonic in probability
+\item There are both risk-averse and risk-loving subjects
+\end{itemize}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+%\begin{figure}
+\includegraphics[width=\textwidth]{Graphs/blind_prot_sta.png}
+%\end{figure}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Informed Protection}
+\begin{itemize}
+\item Protection rates increase with the posterior probability of a bad event (black ball)
+\item Average protection probability is no longer monotonic in posteriors due to lower N of obs per prob and due to posterior estimation mistakes 
+\end{itemize}
+\begin{figure}[h]
+\includegraphics[scale=0.15]{Graphs/ip_response_comp.png}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{IP Big Picture}
+\begin{itemize}
+\item Overprotect in response to white signals, underprotect in response to black signals without false-positive: can be explained by risk preferences
+\item Overprotect in response to white signals with FP (cannot be explained by risk preferences)!
+\end{itemize}
+\scriptsize
+\input{Tables/bigpicture_IP_pres.tex}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Belief Elicitation}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Correlation between beliefs and posteriors
+\item Large dispersion of errors
+\item Includes surprisingly large errors even for certain signals
+\end{itemize}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{Graphs/updating_s1.png}
+\end{figure}
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{Graphs/updating_s4.png}
+\end{figure}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{BE Big Picture}
+\begin{itemize}
+\item Overestimating chances of negative events for white signals, including the cases without FN
+\item Underestimating chances of negative events for black signals both for honest signals and when only FN events are possible
+\end{itemize}
+\scriptsize
+\input{Tables/bigpicture_bel_pres.tex}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Distribution of WTP Discrepancies}
+\begin{figure}[h]
+\includegraphics[scale=0.2]{Graphs/hist_WTP_discr1.png}
+\end{figure}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{WTP for Signals: Big Picture}
+\begin{itemize}
+\item Overpaying for signals when both false-positive and false-negative events are possible
+\item Small and insignificant discrepancies for other signal types
+\end{itemize}
+\small
+\input{Tables/bigpicture_wtp_pres.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP for Signals}
+\begin{itemize}
+\item Next, we test main hypotheses of this study
+\item Calculate the difference between reported WTP and theoretical WTP
+\item Regress the difference on FP costs ($(1-p)P(s=1|\omega=0)c$) and FN costs ($pP(s=0|\omega=1)L$)
+\item Coefficients should be zero if the theoretical model is correct
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{WTP for Signals: Determinants}
+<Table 3 from the latest paper draft goes here>
+%\scriptsize
+
+%\input{Tables/table_wtpdiff_01rfull_ag_pres.tex}
+%\begin{figure}
+%\includegraphics[width=0.9\textwidth]{WTP_determ.png}
+%\end{figure}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{WTP Anomalies}
+\begin{itemize}
+\item No evidence of relative underweighting of FP or FN signals on average ($\beta_{FP}=\beta_{FN}$)
+\item Our results exhibit the following anomaly:
+\begin{enumerate}
+\item Excess sensitivity to false-negative costs for low priors; lack of sensitivity for high priors
+\item Underresponse to false-positive costs for low priors; excess sensitivity for high priors
+\end{enumerate}
+\item Risk preferences does not explain FP/FN sensitivity and at best only partially explains the pattern of changing sensitivity with priors
+\item Next, we explore potential explanations for the anomaly
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Anomaly Reframed}
+\begin{itemize}
+\item Note that the apparent heterogeneity comes from contrasting with the theoretical value! The sensitivity of WTP to FP/FN rates shows little variation by prior.
+\item The coefficients on FP/FN rates are also surprisingly close and their differences are statistically insignificant
+\item $\implies$ Suggests that subjects poorly differentiate between FP and FN rates when choosing WTP
+\end{itemize}
+\scriptsize
+\begin{center}
+\input{Tables/table_wtpdiff_04tob_pres.tex}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Potential Explanation for the Anomaly}
+\begin{enumerate}
+\item If subjects do not differentiate between FP and FN rates when choosing WTP that would explain both the anomaly and will be consistent with FP/FN coefficients being equal to each other:
+\begin{itemize}
+\item Priors have opposite effects on the frequency of FP/FN events and these effects partially cancel each other if we treat them as the same thing
+\end{itemize}
+\item Several subjects report this verbal explanation for IP choices post the experiment: e.g. \textit{"I trusted honest golems fully, and did not put much stock in the swamp golems."}; \textit{"If the hint was from one of the honest gremlins then I didn't choose to protect because they could only tell the truth. If there were any just black or just white gremlins then I decided to protect because the information they give isn't helpful"}
+\item If this explanation is true, then we should expect that subjects in other treatments also react to FP/FN rates in ways consistent with this heuristic
+\item Choices in BE and IP tasks are indeed mostly consistent with it
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Belief Biases by FP/FN rates}
+\begin{itemize}
+\item If subjects confuse FP/FN rates, then FP rates would increase beliefs when the signal is white and FN rates would decrease beliefs when the signal is black
+\item Estimation results for belief error indeed demonstrate this pattern
+\end{itemize}
+\scriptsize
+\input{Tables/table_be_err.tex}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Informed Protection Biases by FP/FN rates}
+\begin{itemize}
+\item If subjects confuse FP and FN rates, we should also expect excessive positive reaction to FP rates for white signals and excessive negative sensitivity to FN rates for black signals
+\item Note: excessive reaction here is any reaction to FP/FN rates happening conditional on posteriors. 
+\item We find the positive significant coefficient for FP rates for white signals, but the FN rate coeff for black signals is insignificant (though negative as predicted)
+\item Controlling for reported beliefs (which are already erroneous in the same direction) reduces the magnitude of excess FP rate sensitivity but it still remains significant: either the bias is not completely due to beliefs or beliefs drift between treatment
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IP Biases by FP/FN rates: Results}
+\scriptsize
+\begin{center}
+\input{Tables/table_ip_flexlin_pres.tex}
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Taking Stock on Explaining the Anomaly}
+\begin{itemize}
+\item Risk preferences do not seem to explain the anomaly
+\item Poor differentiation between FP and FN rates is obvious in the WTP task (coeffs are equal for each prior) and can completely explain the anomaly
+\item Choices in BE and IP task exhibit patterns consistent with this explanation
+\item Tailored experimental tests are needed to confirm that belief biases are indeed responsible for the anomaly
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Alternative Explanations}
+\begin{itemize}
+\item At the end, we agreed to go over other less likely explanations which can pop up in discussions:
+\begin{itemize}
+\item Neglecting the frequency of FP/FN events
+\item Value of non-instrumental information
+\item Anchoring (not added here)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Do Subjects Neglect to Account for Frequency of FP/FN events?}
+\begin{itemize}
+\item The anomaly is also consistent with subject neglecting prior probabilities when evaluating the effects of FP and FN rates:
+\begin{itemize}
+\item For the same FN rate $P(s=0|\omega=1)$, FN event is more likely when the priors are high as its probability is $pP(s=0|\omega=1)$ (the reverse is true for FP)
+\item In contrast, experimental subjects reduce WTP with FP/FN rates but do it uniformly for all the priors
+\item Priors still affect demand but only directly
+\end{itemize}
+\item This is a reasonable heuristic to evaluate the value of information: account for priors, and correct according to false-positive and false-negative rates (these variables are immediately given and do not require extra computation)
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Neglecting Frequency of FP/FN events}
+\begin{itemize}
+\item We can test this explanation using WTP data in two ways:
+\begin{itemize}
+\item Rewrite the interaction as the base rate plus interaction and test the joint significance of the interaction terms
+\item Test for joint significance of the full set of flexible interactions betwen prior levels and FP/FN rates
+\end{itemize}
+\item The first test cannot reject the null hypothesis, but the interaction terms are jointly significant (with or without FE) at 5\%
+\item The change in explanatory power is very small and coefficient magnitudes are non-sensical (smaller for 0.3 rather than for 0.5)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Neglecting Frequency of FP/FN events}
+\scriptsize
+\begin{center}
+\input{Tables/wtp_het_test_pres.tex}
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Alternative Explanations: Paying for non-instrumental information}
+\begin{itemize}
+\item Humans often put positive value on information not changing their decisions (citations)
+\item Signals with zero theoretical value can have positive elicited WTP
+\item We see subjects paying positive amounts for signals with zero theoretical value as well as paying for signals not affecting their decisions in IP task, but it is not clear if those are reasoning mistakes or genuine preferences
+\item Explaining the pattern would require non-instrumental part of value to have positive sensitivity to FP/FN rates for some priors and negative for others
+\item A priori there is no reason for the non-instrumental value to \textbf{decrease} with either FP or FN costs
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Potential Further Tests}
+\begin{itemize}
+\item Extra treatment: provide natural frequencies of false-positive/false-negative events before eliciting WTP
+\begin{itemize}
+\item Example: \textit{"out of 1000 experimental runs, roughly 250 involve a gremlin saying "Black" while the ball is white"}
+\end{itemize}
+\item Elicit the probability of a black signal $P(S=B)$ within the belief elicitation task to see if beliefs on FP/FN events signals are biased
+\item Practice rounds so that subjects learn the frequencies of FP/FN events for each signal
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\iffalse
+
+
+\begin{frame}
+\frametitle{Potential Explanations: Reacting to Low-quality Signals}
+\begin{itemize}
+\item The signal's value for a risk-neutral agent is bounded below at zero: 
+$$b^*=\max[0,\min(\pi L, c)-\pi P(s=0|\omega=1)L-P(s=1)c]$$
+\item It is easy to prove that any signal with zero value $\pi P(s=0|\omega=1)L+P(s=1)c\leq \min(\pi L, c)$ has either always (for any hint given) too low posterior probabilities to respond or too high to not respond
+\item Potential issue: subjects are sensitive to signal's quality even for worthless signals
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Potential Explanations: Reacting to Low-quality Signals}
+\begin{itemize}
+\item Suppose the signal is low quality $b^*\leq 0$
+\item $\implies$ theoretical sensiivity to FP or FN is zero for any signal's deterioration
+\item If WTP sensitivity is still non-zero (negative) - the difference has \textbf{negative} sensitivity
+\item If the prior is low ($\pi L<c$) - most bad signals have high FP, so high negative sensitivity to FP
+\item If the prior is high ($\pi L\geq c$) -most bad signals come from FN, so high negative sensitivity to FN
+\item This prediction goes contrary to the observed pattern in which extra-negative sensitivity to FN emerges for low probs and vice versa 
+\item Dropping obs with zero theoretical value or "forgetting" about bounds does not explain away the pattern
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Discussion: Belief Updating}
+\begin{itemize}
+\item Observe: base-rate neglect $\beta<0.3$ and the signal underweighting $0.3<\alpha<0.6$
+\item Signal underweighting is much smaller
+\item These findings are consistent with the meta-analysis in Benjamin (2018)
+\item How does it affect WTP? 
+\item Posterior probs do not enter the equation for the signal's value, but posteriors affect signal's responses
+\item Approach: estimate posterior probs using the estimated quasi-bayesian equation above, find optimal responses and calculate the value of information for risk-neutral subject based on that
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{WTP difference: accounting for belief updating}
+\footnotesize
+\input{Tables/table_wtpdiff_bel.tex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Alternative: Probability weighting}
+\begin{itemize}
+\item In EU framework subject weight outcome by their probabilities (or their beliefs)
+\item In the prob. weighting framework the probabilities are rescaled towards the middle:
+\item Example (Tversky and Kahneman, 1992):
+$$\pi(\mu)={\mu^{\gamma}\over [\mu^{\gamma}+(1-\mu)^\gamma]^{1/\gamma}}, 0<\gamma\leq 1$$
+\item Difference: base-rate neglect affects only the probabilities not given directly, probability weighting affects all the probabilities
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Results: Probability weighting}
+\begin{itemize}
+\item Heterogeneity can be completely explained by neglecting prior probabilities when evaluating the effects of FP and FN rates:
+\begin{itemize}
+\item For the same FN rate, FP event is more likely when the priors are high (the reverse is true for FN)
+\item In contrast, subjects reduce WTP with FP/FN rates but the change stays the same at each prior
+\item Priors affect demand only directly
+\item This is similar to base-rate neglect
+\end{itemize}
+\item We can test it formally in two ways:
+\begin{itemize}
+\item Rewrite the interaction as the base rate plus interaction and test the joint significance of the interaction terms
+\item Test for joint significance of the full set of flexible interactions betwen prior levels and FP/FN rates
+\end{itemize}
+\item Both tests cannot reject the hypothesis that the interaction terms are not significant (with or without FE)
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Informed Protection: Correlation}
+\footnotesize
+\input{Tables/table_ip1.tex}
+\end{frame}
+
+\fi
+
+\end{document}

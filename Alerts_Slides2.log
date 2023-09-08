@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  7 SEP 2023 16:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  7 SEP 2023 20:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./Alerts_Slides1.tex
-(Alerts_Slides1.tex
+**./Alerts_Slides2.tex
+(Alerts_Slides2.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-02> (C:\MiKTeX\tex/latex/beamer\beamer.cls
 Document Class: beamer 2023/02/20 v3.69 A class for typesetting presentations
@@ -1009,8 +1009,8 @@ Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count395
 \l__pdf_internal_box=\box94
-) (Alerts_Slides1.aux)
-\openout1 = `Alerts_Slides1.aux'.
+) (Alerts_Slides2.aux)
+\openout1 = `Alerts_Slides2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 68.
 LaTeX Font Info:    ... okay on input line 68.
@@ -1114,7 +1114,7 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: threeparttable package is loaded.
 Package caption Info: End \AtBeginDocument code.
- (Alerts_Slides1.nav) [1
+ (Alerts_Slides2.nav) [1
 Non-PDF special ignored!
 <special> header=pstricks.pro
 Non-PDF special ignored!
@@ -1260,36 +1260,28 @@ Overfull \hbox (8.59187pt too wide) in paragraph at lines 1--7
 
 ] [18
 
-] (Tables/table_wtpdiff_01rfull_ag_pres.tex)
-Overfull \hbox (19.85718pt too wide) in paragraph at lines 3--349
-[][] 
- []
-
-
-Overfull \vbox (7.7972pt too high) detected at line 349
- []
-
-[19
+] [19
 
 ] [20
 
-] (Tables/table_wtpdiff_03.tex) [21
+] (Tables/table_wtpdiff_04tob_pres.tex)
+Overfull \vbox (1.02661pt too high) detected at line 383
+ []
+
+[21
 
 ]
-(Tables/table_wtpdiff_04tob_pres.tex) [22
+Overfull \vbox (36.25768pt too high) detected at line 397
+ []
 
-] [23
+[22
+
+] (Tables/table_be_err.tex) [23
 
 ] [24
 
-]
-(Tables/wtp_het_risk_pres.tex)
-Overfull \hbox (5.38521pt too wide) in paragraph at lines 3--424
-[][] 
- []
-
-
-Overfull \vbox (17.29718pt too high) detected at line 424
+] (Tables/table_ip_flexlin_pres.tex)
+Overfull \vbox (6.7972pt too high) detected at line 430
  []
 
 [25
@@ -1298,93 +1290,53 @@ Overfull \vbox (17.29718pt too high) detected at line 424
 
 ] [27
 
-]
+] [28
 
-Package amsmath Warning: Foreign command \over;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 468.
+] [29
 
-[28
-
-] (Tables/table_be3.tex)
-Overfull \hbox (24.93916pt too wide) in paragraph at lines 3--475
-[][] 
- []
-
-[29
-
-] (Tables/table_be_err.tex) [30
+] (Tables/wtp_het_test_pres.tex) [30
 
 ] [31
 
-] (Tables/table_ip_flexlin_pres.tex)
-Overfull \vbox (6.7972pt too high) detected at line 513
- []
-
-[32
-
-] [33
-
-] (Tables/wtp_fpvsfn_test_pres.tex) [34
-
-] [35
-
-] (Tables/table_ip0_lin.tex
-Overfull \hbox (41.11615pt too wide) in paragraph at lines 4--31
- [] 
- []
-
-) [36
-
-] [37
-
-] [38
-
-] (Tables/wtp_het_test_pres.tex) [39
-
-] [40
-
-] [41
+] [32
 
 ]
 \tf@nav=\write6
-\openout6 = `Alerts_Slides1.nav'.
+\openout6 = `Alerts_Slides2.nav'.
 
 \tf@toc=\write7
-\openout7 = `Alerts_Slides1.toc'.
+\openout7 = `Alerts_Slides2.toc'.
 
 \tf@snm=\write8
-\openout8 = `Alerts_Slides1.snm'.
+\openout8 = `Alerts_Slides2.snm'.
 
 
-(Alerts_Slides1.aux) ) 
+(Alerts_Slides2.aux) ) 
 Here is how much of TeX's memory you used:
- 29883 strings out of 476374
- 582744 string characters out of 5805269
- 1879340 words of memory out of 5000000
- 49509 multiletter control sequences out of 15000+600000
- 524238 words of font info for 77 fonts, out of 8000000 for 9000
+ 29818 strings out of 476374
+ 581298 string characters out of 5805269
+ 1875340 words of memory out of 5000000
+ 49480 multiletter control sequences out of 15000+600000
+ 524594 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,16n,122p,540b,717s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\aluga\AppData\Local\MiKTeX\fonts/pk/ljfour/jkn
-appen/ec/dpi600\tcss1000.pk><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pf
-b><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmmi8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb
-><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmr6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmr9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmss8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmssi10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmsy6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/
-MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmsy9.pfb>
-Output written on Alerts_Slides1.pdf (41 pages, 896041 bytes).
+appen/ec/dpi600\tcss1000.pk><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pf
+b><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmmi9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+<C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmss10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmss9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmssi9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmsy7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on Alerts_Slides2.pdf (32 pages, 811816 bytes).
 PDF statistics:
- 1259 PDF objects out of 1440 (max. 8388607)
- 83 named destinations out of 1000 (max. 500000)
+ 1008 PDF objects out of 1200 (max. 8388607)
+ 65 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 
