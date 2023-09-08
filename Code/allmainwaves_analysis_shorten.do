@@ -1237,6 +1237,17 @@ eststo: reg bel_err phintBW phintWB i.subject_id if blackhint==1, vce(cluster su
 esttab using "./Tables/table_be_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
 
 
+*Testing FP/FN confusion:
+eststo clear
+eststo: reg be_ phintBW phintWB i.plevel i.subject_id, vce(cluster subject_id)
+eststo: reg be_ phintBW phintWB i.plevel if blackhint==0, vce(cluster subject_id)
+eststo: reg be_ phintBW phintWB i.plevel if blackhint==1, vce(cluster subject_id)
+esttab using "./Tables/table_be_err1.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+
+
+
+
+
 
 
 eststo clear
