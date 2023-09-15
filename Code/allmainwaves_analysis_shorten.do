@@ -675,27 +675,27 @@ graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replac
 
 qui reg be_ post_prob
 local r2 : display %5.3f = e(r2)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs including pilot") text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) legend(off)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs including pilot, R-squared=`r2'") legend(off)
 graph export "./Graphs/updating_s1.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&goodquiz==1
 local r2 : display %5.3f = e(r2)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only, good quiz")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, good quiz, R-squared=`r2'")
 graph export "./Graphs/updating_s2.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&honest==0
 local r2 : display %5.3f = e(r2)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only, excluding certain signals")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, excluding certain signals // R-squared=`r2'")
 graph export "./Graphs/updating_s3.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499
 local r2 : display %5.3f = e(r2)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only")
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, R-squared=`r2'")
 graph export "./Graphs/updating_s4.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)>0.499
 local r2 : display %5.3f = e(r2)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) text(0.6 0.5 "R-squared=`r2'", box size(.3cm)) note("Main waves only")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, R-squared=`r2'")
 graph export "./Graphs/updating_s5.png", width(1200) height(800) replace
 
 
@@ -1748,8 +1748,8 @@ esttab using "./Tables/table_wtpdiff_01r_ag.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) 
 
 *Demographic variables:
 eststo clear
-eststo: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.sex##c.false_pos i.sex##c.false_neg, vce(cluster subject_id)
+*eststo: reg wtp_diff false_pos false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff false_pos false_neg i. sex i.sex#c.false_pos i.sex#c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.sex##i.plevel i.sex##c.false_pos i.sex##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
@@ -1758,6 +1758,31 @@ eststo: reg wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, vce(
 eststo: reg wtp_diff i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.goodquiz##i.plevel i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
 esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP minus Value of Information: demographic determinants) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+*Prior heterogeneity and instructions understanding:
+eststo clear
+eststo: reg wtp_diff i.plevel i.highprob##c.false_neg i.goodquiz#i.highprob#c.false_neg i.highprob##c.false_pos i.goodquiz#i.highprob#c.false_pos, vce(cluster subject_id)
+eststo: reg wtp_diff i.plevel i.goodquiz##i.highprob##c.false_neg i.goodquiz##i.highprob##c.false_pos, vce(cluster subject_id)
+*eststo: reg wtp_diff i.highprob##c.false_neg c.totprot#i.highprob#c.false_neg i.highprob##c.false_pos c.totprot#i.highprob#c.false_pos, vce(cluster subject_id)
+
+eststo: reghdfe wtp_diff i.plevel i.highprob##c.false_neg i.goodquiz#i.highprob#c.false_neg i.highprob##c.false_pos i.goodquiz#i.highprob#c.false_pos, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff i.plevel i.goodquiz##i.highprob##c.false_neg i.goodquiz##i.highprob##c.false_pos, abs(subject_id) vce(cluster subject_id)
+
+esttab using "./Tables/table_wtpdiff_instr.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP minus Value of Information: instructions understanding) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+eststo clear
+eststo: reg wtp_diff i.highprob##c.false_neg i.highprob##c.false_pos if goodquiz==0, vce(cluster subject_id)
+eststo: reg wtp_diff i.highprob##c.false_neg i.highprob##c.false_pos if goodquiz==1, vce(cluster subject_id)
+
+eststo: reg wtp_diff i.plevel i.highprob##c.false_neg i.highprob##c.false_pos if goodquiz==0, vce(cluster subject_id)
+eststo: reg wtp_diff i.plevel i.highprob##c.false_neg i.highprob##c.false_pos if goodquiz==1, vce(cluster subject_id)
+*eststo: reg wtp_diff i.highprob##c.false_neg c.totprot#i.highprob#c.false_neg i.highprob##c.false_pos c.totprot#i.highprob#c.false_pos, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_instr.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP minus Value of Information: instructions understanding) mtitles("Bad" "Good" "Bad" "Good") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
 
 
 

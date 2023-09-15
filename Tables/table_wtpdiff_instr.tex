@@ -1,0 +1,29 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{WTP minus Value of Information: instructions understanding}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                &\multicolumn{1}{c}{Bad}&\multicolumn{1}{c}{Good}&\multicolumn{1}{c}{Bad}&\multicolumn{1}{c}{Good}\\
+\hline
+p$>$0.2         &    -.346         &     .128         &        0         &        0         \\
+                &    (0.3)         &    (0.3)         &      (.)         &      (.)         \\
+FN costs        &    -.037         &    -.392\sym{**} &     .223         &    -.131         \\
+                &    (0.2)         &    (0.2)         &    (0.2)         &    (0.1)         \\
+p$>$0.2 $\times$ FN costs&     .682\sym{***}&     .743\sym{***}&     .269\sym{*}  &     .344\sym{***}\\
+                &    (0.2)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+FP costs        &      .66\sym{***}&     .465\sym{***}&     .591\sym{***}&     .413\sym{***}\\
+                &    (0.2)         &    (0.1)         &    (0.2)         &    (0.2)         \\
+p$>$0.2 $\times$ FP costs&    -.574\sym{**} &    -1.29\sym{***}&     -.19         &    -.968\sym{***}\\
+                &    (0.3)         &    (0.2)         &    (0.2)         &    (0.2)         \\
+Constant        &    -.279         &    .0686         &    .0568         &      .47\sym{*}  \\
+                &    (0.3)         &    (0.2)         &    (0.3)         &    (0.3)         \\
+Prior dummies   &       No         &       No         &      Yes         &      Yes         \\
+\hline
+Observations    &      288         &      336         &      288         &      336         \\
+Adjusted \(R^{2}\)&     0.10         &     0.07         &     0.22         &     0.24         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}
