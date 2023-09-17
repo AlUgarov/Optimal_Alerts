@@ -271,7 +271,7 @@ gen se=sqrt(mean*(1-mean)/n)
 
 
 *Blind protection average response diagram (Fig. 1)
-serrbar mean se p, scale (1.96) title("Blind Protection Response") lwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices") ysc(r(0 1)) ylabel(0(0.2)1.0) note("Here is some note")
+serrbar mean se p, scale (1.96) title("Blind Protection Response") lwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices") ysc(r(0 1)) ylabel(0(0.2)1.0) note("The bars show 95% confidence intervals for the mean proportion of subjects choosing " "protection at each probability.")
 graph export "./Graphs/blind_prot_sta.png", width(1000) height(1000) replace
 
 gen task_type="Blind"
@@ -675,27 +675,37 @@ graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replac
 
 qui reg be_ post_prob
 local r2 : display %5.3f = e(r2)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs including pilot, R-squared=`r2'") legend(off)
+corr be_ post_prob
+local rho:  display %5.3f = r(rho)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs including pilot, correlation=`rho'") legend(off)
 graph export "./Graphs/updating_s1.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&goodquiz==1
 local r2 : display %5.3f = e(r2)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, good quiz, R-squared=`r2'")
+corr be_ post_prob if pilot==0&goodquiz==1
+local rho:  display %5.3f = r(rho)
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, good quiz, correlation=`rho'")
 graph export "./Graphs/updating_s2.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&honest==0
 local r2 : display %5.3f = e(r2)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, excluding certain signals // R-squared=`r2'")
+corr be_ post_prob if pilot==0&honest==0
+local rho:  display %5.3f = r(rho)
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, excluding certain signals, correlation=`rho'")
 graph export "./Graphs/updating_s3.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499
 local r2 : display %5.3f = e(r2)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, R-squared=`r2'")
+corr be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499
+local rho:  display %5.3f = r(rho)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, correlation=`rho'")
 graph export "./Graphs/updating_s4.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)>0.499
 local r2 : display %5.3f = e(r2)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, R-squared=`r2'")
+corr be_ post_prob if pilot==0&abs(0.5-post_prob)>0.499
+local rho:  display %5.3f = r(rho)
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, correlation=`rho'")
 graph export "./Graphs/updating_s5.png", width(1200) height(800) replace
 
 
@@ -1755,8 +1765,6 @@ eststo: reg wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(clus
 eststo: reg wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
-eststo: reg wtp_diff i.goodquiz##i.plevel i.goodquiz##c.false_pos i.goodquiz##c.false_neg, vce(cluster subject_id)
 esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP minus Value of Information: demographic determinants) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
