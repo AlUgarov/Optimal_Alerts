@@ -271,7 +271,7 @@ gen se=sqrt(mean*(1-mean)/n)
 
 
 *Blind protection average response diagram (Fig. 1)
-serrbar mean se p, scale (1.96) title("Blind Protection Response") lwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices") ysc(r(0 1)) ylabel(0(0.2)1.0) note("The bars show 95% confidence intervals for the mean proportion of subjects choosing " "protection at each probability.")
+serrbar mean se p, scale (1.96) title("Blind Protection Response") lwidth(thick) xtitle("Probability of a black ball") ytitle("Proportion of protection choices") ysc(r(0 1)) ylabel(0(0.2)1.0) note("The bars show 95% confidence intervals for the mean proportion of subjects " "choosing protection at each probability.")
 graph export "./Graphs/blind_prot_sta.png", width(1000) height(1000) replace
 
 gen task_type="Blind"
@@ -762,7 +762,7 @@ gen task_type="Informed"
 
 gen post_prob=0.001*post_probi
 append using "./Temp/bp_graph_data.dta"
-serrbar mean se post_prob if task_type=="Informed", scale (1.96) title("Informed Protection Response") mlwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")
+serrbar mean se post_prob if task_type=="Informed", scale (1.96) title("Informed Protection Response") lwidth(thick) xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")  note("The bars show 95% confidence intervals for the mean proportion of subjects " "choosing protection at each probability.")
 graph export "./Graphs/ip_response.png", width(1000) height(1000) replace
 
 
@@ -772,6 +772,10 @@ gen high=mean+1.96*se
 twoway (rcap high low post_prob if task_type=="Blind", lwidth(thick)) (rcap high low post_prob if task_type=="Informed"), title("Protection Response") xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices") legend(label(1 "Blind") label(2 "Informed"))
 graph export "./Graphs/ip_response_comp.png", width(1200) height(800) replace
 
+replace high=1 if high>1
+replace low=0 if low<0
+twoway (rcap high low post_prob if task_type=="Informed", mlwidth(thick)), title("Protection Response") xtitle("Posterior probability of a black ball") ytitle("Proportion of protection choices")  note("The bars show 95% confidence intervals for the mean proportion of subjects " "choosing protection at each probability.")
+graph export "./Graphs/ip_response.png", width(1000) height(1000) replace
 
 
 use "./Temp/long_ip_dat.dta", replace
