@@ -11,7 +11,7 @@
 \usepackage{multirow}
 \usepackage{makecell}
 \usepackage{adjustbox}
-\usepackage{ulem}
+\usepackage[normalem]{ulem}
 \usepackage{threeparttable}
 \usepackage{prettyref}
 
@@ -358,11 +358,12 @@ Figure~\ref{fig:ProtResponse} shows that protection actions are increasing in th
 %\pmt{Eventually we need to add notes to the figures}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In Table~\ref{tab:nonparIP} we break out average protection decisions by signal characteristics. The first three columns summarize the information available to the subject, i.e., the signal as well as whether the signal might be either a false positive or false negative. Column 4 shows the posterior probability of a black ball averaged across all the treatments within a group, Column 5 the share protection among actual IP responses, Column 6 the share of protection under the RN optimum, and Column 7 the p-value of a \emph{t-}test that actual and optimal choices use the same probability of protection.
+Table~\ref{tab:nonparIP} presents the average protection decisions by signal characteristics. The first three columns summarize the signal characteristics information that is available to the subject. Column 4 shows the posterior probability of a black ball averaged across all the treatments within a group. Column 5 shows the subjects' share of empirical protection responses, next to the theoretical optimum for risk-neutral subjects in Column 6. Column 7 presents the $p$-value for a test of equality between empirical and theoretical protection responses.
 
-First, we note that regardless of FP and FN rates, a hint that the ball is black substantially increases the share of protection decisions.  \textbf{Second, subjects' protection decisions in the majority of treatments significantly deviate from what is optimal for risk-neutral subjects.}  In general, subjects tend to overprotect when facing white signals (rows 1--4) and underprotect when facing black signals (rows 5--8). The exceptions are treatments with black signals and positive FP rates in which we cannot reject the hypothesis that the protection responses matches the response of a risk-neutral subject. 
+We have three main findings. First, we find that regardless of FP and FN rates, a black signal substantially increases the share of protection decisions.  Second, subjects' protection decisions in most treatments significantly deviate from what is optimal for risk-neutral subjects, evidenced by column 7. Subjects tend to overprotect when facing white signals (rows 1--4) and underprotect when facing black signals (rows 5--8). The exceptions are treatments with a black signal and positive FP rates where the statistical equality of columns 5 and 6 cannot be rejected (rows 7--8).
 
-\textbf{In light of BP decisions it is not surprising that subjects do not behave as risk-neutral agents, but some biases cannot be explained by the expected utility maximization for any degree of risk aversion.} For example, consider the change in the protection rates between rows 1 and 3: the signal is white, so an increase in the signal's FP rate does not change the posterior, but the protection rate increases by 6 percentage points (pp.). Similarly, row 4 shows that when both FP and FN are positive, the protection rate increases to 56 percent --- even though the average (maximum) posterior probability for the signal characteristics is just 13 percent. As a benchmark, with no signal in the BP task, only 13~(32) percent of subjects chose to protect when the probability is 10~(15) percent. 
+%\textbf{In light of BP decisions it is not surprising that subjects do not behave as risk-neutral agents, but some biases cannot be explained by the expected utility maximization for any degree of risk aversion.} 
+Finally, we find that some deviations cannot be explained by the expected utility maximization for any degree of risk aversion. For example, consider rows 1 and 3: even though an increase in the signal's FP rate does not change the posterior (because the signal is white), the protection rate increases by 6 percentage points (pp.). Similarly, row 4 shows that when both FP and FN are positive, the protection rate increases to 56 percent --- even though the average (maximum) posterior probability for the signal characteristics is just 13 percent. As a benchmark, with no signal in the BP task, only 13~(32) percent of subjects chose to protect when the probability is 10~(15) percent. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -376,16 +377,16 @@ First, we note that regardless of FP and FN rates, a hint that the ball is black
 			&\multicolumn{3}{c}{\centering \textbf{Signal Characteristics}} 
 			& \multirow{3}{10ex}{\centering \textbf{Posterior}} & \multirow{3}{10ex}{\centering \textbf{Share Protect}} 
 			& \multirow{3}{10ex}{\centering \textbf{Share Optimal}} 
-			& \multirow{3}{13ex}{\centering \textbf{P-val $(H_0: ShProt=ShOptimal)$}} \\ 
+			& \multirow{3}{13ex}{\centering \textbf{P-val $(H_0: (5)=(6))$}} \\ 
 			\cmidrule(lr){2-4}
-		&\multirow{2}{10ex}{\centering \textbf{Signal}} & \multirow{2}{12ex}{\centering \textbf{False Positive}} 
-			& \multirow{2}{10ex}{\centering \textbf{False Negative}} 
+		&\multirow{2}{12ex}{\centering \textbf{Signal}} & \multirow{2}{12ex}{\centering \textbf{False Positive}} 
+			& \multirow{2}{12ex}{\centering \textbf{False Negative}} 
 		\\
 		\\
 		&(1) & (2) & (3) & (4) & (5) & (6) & (7) \\
 		\hline
 			\input{Tables/bigpicture_IP_AU.tex}
-			\\
+			\\[-1em]
 		\hline\hline 
 	\end{tabular} 
 	\begin{tablenotes}[flushleft]
@@ -399,13 +400,8 @@ First, we note that regardless of FP and FN rates, a hint that the ball is black
 
 %\bigskip\noindent\textbf{Belief Elicitation.}\ \ \ 
 \subsection{Belief Elicitation}
-While the IP task gives us a sense for how subjects utilize signals in making protection decisions, we observe only whether or not they choose to protect, which conflates preferences with potential errors in updating posteriors.  The BP task gives provides insight into subjects' risk preferences, while the BE task allows us to better understand to what extent updating errors influence decisions.  
+Subject decisions in the IP task capture how signals are used to make protection decisions, but conflate risk preferences with potential errors in updating posteriors.  The BP task can be used to construct a measure of the former. Here, we use the BE task to measure the latter.  
 
-We define updating errors as the difference between the posterior and subjects' elicited belief on the posterior probability of a black ball for a given signal.  We plot the distribution of the updating errors in the left hand column of Figure~\ref{fig:BeliefUpdate}, while the right hand column provides a scatter plot of the elicited beliefs against the true posterior with a fitted line.
-%Since subjects were only given signal characteristics and not true posteriors, their IP responses reflect, inter alia, their ability to infer the true posteriors from signal characteristics. (I'm not sure I like my sentence better)
-Panel A of Figure~\ref{fig:BeliefUpdate} uses all elicited beliefs and suggests that, while errors occur, beliefs are still sensible. The distribution of updating errors is centered at 0, with roughly one-half (51\%) concentrated within +/- 0.1 interval around zero. Overall, the correlation between the elicited beliefs and the true posteriors was 0.653.  
-
-Using all the observations, however, obscures an important distinction: in many cases the ball color is completely certain based on priors and signals and so the updating should be trivial.  Panel B of Figure~\ref{fig:BeliefUpdate} includes only those 44\% beliefs elicited for an uncertain posterior. The median error is now -0.12, with with 90\% of errors between -0.48 and 0.3, suggesting that subjects tend to overestimate the likelihood of adverse events for uncertain posteriors. The correlation between beliefs and posteriors in this subset of observations is only 0.571.  Panel C of Figure~\ref{fig:BeliefUpdate} plots the distribution of updating errors with certain posteriors, which includes: (i) treatments with all-honest gremlins; and (ii) treatments with obviously irrelevant dishonest gremlins (e.g., a group with honest and white-eyed gremlins with a hint that the ball is black --- or vice versa). Reassuringly, 69\% of reported beliefs are correct, but subjects still err in about 30\% of cases. About half of these errors involve reporting a probability of between one and zero, with the other half reporting a probability of one when it should have been zero.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -416,10 +412,12 @@ Using all the observations, however, obscures an important distinction: in many 
 	\hfill
 	\subcaptionbox{Error v. Posterior}{\includegraphics[width=.48\textwidth]{Graphs/updating_s3.png}}
 	\hfill
+	\vspace{2em}
 	\subcaptionbox{Error Distribution, Uncertain Color}{\includegraphics[width=.48\textwidth]{Graphs/hist_belief_error_s4.png}}
 	\hfill
 	\subcaptionbox{Error v. Posterior, Uncertain Color}{\includegraphics[width=.48\textwidth]{Graphs/updating_s4.png}}
 	\hfill
+	\vspace{2em}
 	\subcaptionbox{Error Distribution, Certain Color}{\includegraphics[width=.48\textwidth]{Graphs/hist_belief_error_s5.png}}
 	\hfill
 	\subcaptionbox{Error v. Posterior, Certain Color}{\includegraphics[width=.48\textwidth]{Graphs/updating_s5.png}}
@@ -427,13 +425,13 @@ Using all the observations, however, obscures an important distinction: in many 
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Overall, the pattern of belief updating is consistent with previous literature which finds that while humans usually update beliefs in a correct direction, they tend to underreact both to priors and the signals. The effect of underweighting priors, first noted in the psychology literature \citep*{phillips_conservatism_1966-1, tversky_belief_1971, kahneman_subjective_1972}, and is known under the names of representativeness bias or base rate neglect. Using the regression approach of \citet{grether_bayes_1980} we find both base-rate neglect and signal underweighting. Our estimates of these parameters are significantly below one with $\hat \alpha=0.43$ $\hat \beta=0.25$ (see Column 1 in \ref{belief_decomposition}). This is consistent with the meta-analysis in \citet{benjamin_chapter_2019} which calculates the average $\hat \alpha$ estimate to be around 0.22 (0.4 for incentivized studies only) and the average $\hat \beta$ to be 0.6 (0.43 for incentivized) for studies presenting signals simultaneously (consistent with this study)\footnote{The common name for this kinds of experiments is \textit{bookbag-and-poker-chip experiments}}. 
+We define updating errors as the difference between the posterior and subjects' elicited belief on the posterior probability of a black ball for a given signal.  We plot the distribution of the updating errors in the left hand column of Figure~\ref{fig:BeliefUpdate}, while the right hand column provides a scatter plot of the elicited beliefs against the true posterior with a fitted line.
+%Since subjects were only given signal characteristics and not true posteriors, their IP responses reflect, inter alia, their ability to infer the true posteriors from signal characteristics. (I'm not sure I like my sentence better)
+Panel A of Figure~\ref{fig:BeliefUpdate} uses all elicited beliefs and suggests that, while errors occur, beliefs are still sensible. The distribution of updating errors is centered at 0, with roughly one-half (51\%) concentrated within +/- 0.1 interval around zero. Overall, the correlation between the elicited beliefs and the true posteriors was 0.653.  
 
-Table~\ref{tab:nonparError} summarizes how the updating errors vary with signal characteristics. We find that subjects overestimate the probability of a black ball with a white signal. Introducing FP rates to the signal exacerbated their upward bias. To illustrate, consider the change between rows 1 and 3, where introducing a FP rate would not change the posterior because the signal is white. Yet, subjects update their posterior upward, magnifying their updating error. The FN rates also have a similar effect of exacerbating this upward bias for a white signal.
+With all observations, we include the many cases with completely certain posterior (based on priors and signals) where updating should be trivial.  Panel B includes only the 44\% beliefs elicited for an uncertain posterior. The median error is now -0.12, with with 90\% of errors between -0.48 and 0.3, suggesting that subjects tend to overestimate the likelihood of adverse events for uncertain posteriors. The correlation between beliefs and posteriors in this sub-sample falls to 0.571.  Panel C plots the distribution of updating errors with certain posteriors, which includes: (i) treatments with all-honest gremlins; and (ii) treatments with obviously irrelevant dishonest gremlins (e.g., a group with honest and white-eyed gremlins with a hint that the ball is black --- or vice versa). Reassuringly, 69\% of reported beliefs are correct. About half of the errors involve reporting a probability of one when it should have been zero.
 
-The updating bias for black signals, however, varies by information structure. Subjects slightly underestimate the probability even when the signal is honest, but introducing FN rates lead subjects to underestimate it further. To illustrate, the introduction of a FN rate given a black signal does not change the posterior rows 5 and 6, but subjects decrease their beliefs. When there is a risk of a false-positive (i.e., FP$>$0), subjects again overestimate the probability of a black ball with little difference in errors between treatments with FP events only and with both FP and FN events. It seems that, because the false-positive rate negatively affects the posterior, subjects fail to adjust their beliefs enough in response to FP rates.
-
-
+Overall, the pattern of belief updating is consistent with previous literature which finds that while people usually update beliefs in the correct direction, they tend to underreact both to priors and the signals. The effect of underweighting priors --- first noted in the psychology literature \citep*{phillips_conservatism_1966-1, tversky_belief_1971, kahneman_subjective_1972} --- is known under the names of representativeness bias or base-rate neglect. Using the regression approach of \citet{grether_bayes_1980} we find both base-rate neglect and signal underweighting. Our estimates of these parameters are significantly below one with $\hat \alpha=0.43$ $\hat \beta=0.25$ (see Column 1 in \ref{belief_decomposition}). This is consistent with the meta-analysis in \citet{benjamin_chapter_2019} which calculates the average $\hat \alpha$ estimate to be around 0.22 (0.4 for incentivized studies only) and the average $\hat \beta$ to be 0.6 (0.43 for incentivized) for studies presenting signals simultaneously (consistent with this study)\footnote{The common name for this kinds of experiments is \textit{bookbag-and-poker-chip experiments}}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -466,8 +464,16 @@ The updating bias for black signals, however, varies by information structure. S
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Table~\ref{tab:nonparError} summarizes how the updating errors vary with signal characteristics. We find that subjects overestimate the probability of a black ball with a white signal. Introducing FP rates to the signal exacerbated their upward bias. To illustrate, consider the change between rows 1 and 3, where introducing a FP rate would not change the posterior because the signal is white. Yet, subjects update their posterior upward, magnifying their updating error. The FN rates also have a similar effect of exacerbating this upward bias for a white signal.
 
-\bf Willingness-to-pay for Signals Elicitation. \rm We first examine basic correlations between the WTP and signal characteristics to show that subjects understand the WTPE task reasonably well. One of the model's basic prediction is that signal value decreases with false positive and false negative rates. If subjects understands the basic premise of the WTPE, then we expect a negative correlation between the WTP and the signal's false positive and false negative rate. 
+The updating bias for black signals, however, varies by information structure. Subjects slightly underestimate the probability even when the signal is honest, but introducing FN rates lead subjects to underestimate it further. To illustrate, the introduction of a FN rate given a black signal does not change the posterior rows 5 and 6, but subjects decrease their beliefs. When there is a risk of a false-positive (i.e., FP$>$0), subjects again overestimate the probability of a black ball with little difference in errors between treatments with FP events only and with both FP and FN events. It seems that, because the false-positive rate negatively affects the posterior, subjects fail to adjust their beliefs enough in response to FP rates.
+
+
+
+
+
+\subsection{Willingness to-Pay for Signals Elicitation.} 
+We first examine basic correlations between the WTP and signal characteristics to show that subjects understand the WTPE task reasonably well. One of the model's basic prediction is that signal value decreases with false positive and false negative rates. If subjects understands the basic premise of the WTPE, then we expect a negative correlation between the WTP and the signal's false positive and false negative rate. 
 
 
 The theoretical value of a signal for a utility maximizing risk-neutral subject (hereafter, risk-neutral signal value) derived in equation~\ref{eq:rnWTP} provides a useful benchmark of our subjects' WTP. Figure~\ref{fig:WTPhist} plots the distribution of the differences between subjects' WTP and the signal value.  
