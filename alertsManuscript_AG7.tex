@@ -118,8 +118,6 @@ Our work also relates to the vast literature on demand for insurance and protect
 The bias we are finding is similar to the base-rate and signal neglect phenomenons. Psychology researchers \citet{hammerton_case_1973} and \citet{kahneman_psychology_1973} first observed that subjects underweighted prior probabilities (base rates) when calculating posteriors. This phenomenon had received the name of \textit{base-rate neglect}. Multiple studies in economics then confirmed \citep*{grether_testing_1992, holt_update_2009} this phenomenon in incentivized laboratory experiments. Most of these studies find that subjects also underweight signals on top of priors.  We observe both phenomenons in responses to our belief elicitation task, but the calculation of signals' values differs substantially from the calculation of posterior probabilities. While the calculation of posterior probabilities would require using a Bayes formula, signal's value depends only on products of prior probabilities. However, we observe that subjects underestimate the effect of priors compared to theoretical predictions for an expected-utility decision-maker.
 
 
-\vspace{20pt}
-
 \section{Model}
 \paragraph{Environment.} Consider an agent's purchase of threat assessment information. Let $\omega \in \{0,1\}$ denote the state of world, where 1 corresponds to an adverse event happening with probability $\pi$. Without a protective action, the agent has a lower utility in the adverse state. The protective action $a\in\{0,1\}$ employs a perfect technology: agents bear no losses when protected. Its cost is $c$. Preferences are described by the utility function which depends on the state of the world $\omega$, wealth $Y$, protective action $a$, and the potential loss in an adverse state $L > c$. Utility is separable in wealth, protection cost and the potential loss in the adverse state:\footnote{Separability condition does not impose additional restrictions on the utility function $U$ as long as the variation in wealth has limited range. More specifically, if $Y \in [Y_{min},Y_{max}]$ and $c<Y_{max}-Y_{min}, L<c+(Y_{max}-Y_{min})$, then the function $u(\cdot)$ can be constructed from segments of $U(\cdot,0,0), U(\cdot,1,0), U(\cdot,0,1)$.  While the resulting function $u(\cdot)$ is not necessarily monotonic, it is likely to be monotonic if protective actions and potential damages are relatively high.}
 \begin{equation}
@@ -302,13 +300,7 @@ To elicit incentive-compatible responses, we follow the stochastic version of th
 
 \vspace{10pt} 
 
-After completing the WTPE task, subjects were asked a few demographic questions. The session concluded with the random selection and realization of the payment round, after which subjects were paid and dismissed.
-
-We use the BP, IP, and BE tasks to construct measures of the different components of WTP. Using BP, we construct a measure subjects' responses to the prior and their risk preference. We use the IP task to examine how signals affect protection decisions. Finally, we use the BE task to construct a measure of their Bayesian updating ability given signal quality. Table~\ref{tab:treatments} shows the values of the different priors in our treatments, as well as the gremlin groupings (along with the associated false positive and false positive rates) that we used for the different tasks.
-
-We conducted this experiment in the Behavioral Business Research Lab (BBRL) at the University of Arkansas between October and November 2021.  The experiment was implemented using Qualtrics. There were a total of 105 subjects. 84 percent of the subjects were university students and 41 percent were male.  About 60 percent of the subjects had taken at least one statistics course. On average, including the show-up fee, subjects received around USD 26 for a session lasting around 45 minutes.  
-
-
+After completing the WTPE task, subjects were asked a few demographic questions. The session concluded with the random selection and realization of the payment round, after which subjects were paid and dismissed. Table~\ref{tab:treatments} shows the values of the different priors in our treatments, as well as the gremlin groupings (along with the associated false positive and false positive rates) that we used for the different tasks.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[h!]
@@ -318,8 +310,13 @@ We conducted this experiment in the Behavioral Business Research Lab (BBRL) at t
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+We conducted this experiment in the Behavioral Business Research Lab (BBRL) at the University of Arkansas between October and November 2021.  The experiment was implemented using Qualtrics. There were a total of 105 subjects. 84 percent of the subjects were university students and 41 percent were male.  About 60 percent of the subjects had taken at least one statistics course. On average, including the show-up fee, subjects received around USD 26 for a session lasting around 45 minutes.  
+
+
 \vspace{20pt}
 \section{Subject Decisions By Task}\label{sec:sanity}
+
+We use the BP, IP, and BE tasks to construct measures of the components of WTP suggested by our model. The BP task reveals subjects' responses to the prior and their risk preference. The IP task provides insights into how signal characteristics affect their protection decisions. Finally, the BE task shows how subjects would update for a given signal quality. Some of these tasks can be quite challenging. However, we show below that on average, subjects appear to exhibit a reasonable understanding of these tasks.
 
 \subsection{Blind Protection}
 
@@ -475,14 +472,37 @@ The updating bias for black signals, however, varies by the information structur
 
 
 
+\section{WTP and Signal Characteristics}\label{sec:results}
 
-\subsection{Willingness to Pay for Signals} 
+\subsection{Are Subjects Risk Neutral, Expected Utility Maximizers?} 
 
-We next examine whether subjects understand the WTPE task. One of the model's basic prediction is that signal value decreases with false positive and false negative rates. If subjects understand the basic premise of the WTPE, then we expect a negative correlation between the WTP and the signal's false positive and false negative rate. 
+\begin{hypothesis}\label{hyp:eqRN} 
+Subjects' WTPs for signals are equal to their value for risk-neutral agents. 
+\end{hypothesis}
+
+\begin{hypothesis}\label{hyp:eqSen} 
+Subjects' preferences demonstrate equal sensitivity to costs generated by false-positive and false-negative events. 
+\end{hypothesis}
+
+\begin{result} 
+XXXXXXXXXXXXXXXXXXXXX
+\end{result}
+
+\begin{result} 
+On average for our signal and sample structure, we cannot reject the hypothesis of equal sensitivity. However, we observe significant heterogeneity with respect to priors: subjects tend to overvalue false-negative costs for low probability events and overvalue false-positive costs for high probability events. 
+\end{result}
+
+
+
+
+
+%The model provides a simple benchmark to evaluate potential welfare gains from the signal. Depending on the assumptions on signal characteristics and risk preferences, agents can pay more or less than the risk-neutral benchmark.
+%
+%We next examine whether subjects understand the WTPE task. One of the model's basic prediction is that signal value decreases with false positive and false negative rates. If subjects understand the basic premise of the WTPE, then we expect a negative correlation between the WTP and the signal's false positive and false negative rate. 
 
 The theoretical value of a signal for a utility maximizing risk-neutral subject (hereafter, risk-neutral signal value) in equation~\ref{eq:rnWTP} provides a useful benchmark of our subjects' WTP. Figure~\ref{fig:WTPhist} plots the distribution of the differences between subjects' WTP and the signal value.  
 %WTP is bounded between \$0 and \$5, where the latter is because protection can be purchased for \$5 so if information were that valuable, an individual would just choose to protect.  
-The WTP is centered around the risk-neutral signal value, which provides reassurance that on average, subjects understand the task. However, there is substantial variation: only 25\% of actual WTP are within \$0.50 of the risk-neutral signal value, and subjects overvalue by at least \$1.5 in 22\% of cases and undervalue it  by at least \$1.5 in 19\% of cases. 
+The WTP is centered around the risk-neutral signal value, which is suggestive that subjects approximates a risk-neutral utility maximizing agent. However, there is substantial variation: only 25\% of actual WTP are within \$0.50 of the risk-neutral signal value, and subjects overvalue by at least \$1.5 in 22\% of cases and undervalue it by at least \$1.5 in 19\% of cases. 
 
 \begin{figure}[H]\centering 
 	\includegraphics[scale=0.2]{Graphs/hist_WTP_discr1.png}
@@ -490,22 +510,27 @@ The WTP is centered around the risk-neutral signal value, which provides reassur
 \caption{Discrepancy (Observed WTP - Signal value)}\label{fig:WTPhist}
 \end{figure}
 
-Our non-parametric analysis in Table~\ref{WTP_nonpar} also finds no differences between willingness-to-pay and theoretical value for 3 out of 4 large categories of signals: honest signals; signals with only false-positive events; and signals with only false-negative events. When there are both false positives and false negatives, however, subjects significantly overvalue signals relative to the theoretical benchmark.\pmt{Can we plot the distributions of deviations for these 4 cases?}. These signals also tend to cause overprotection in the IP task.
+Our non-parametric analysis in Table~\ref{WTP_nonpar} also finds no differences between the (empirical) WTP and the risk-neutral signal value for 3 out of 4 broad categories of signal characteristics: honest signals; signals with only false-positive events; and signals with only false-negative events. When there are both false positives and false negatives, however, subjects significantly overvalue signals relative to the theoretical benchmark. These signals also tend to cause overprotection in the IP task.
 
-
-\noindent\agt{XXX Is a false positive event = having a black gremlin in the group? Should we write false positive rate or is there a distinction you want to highlight? XXX}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{Tables/bigpicture_wtp_edit.tex}
 
+%To understand how subjects' WTP deviates from these risk-neutral signal value, we use a regression analysis of discrepancies between reported WTP and theoretical values to understand, first, the validity of a risk-neutral model and, second, relative weights put on false-negative and false-positive costs. 
 
-\vspace{20pt}
-\section{WTP and Signal Characteristics}\label{sec:results}
-
-To understand how subjects' WTP deviates from these risk-neutral signal value, we use a regression analysis of discrepancies between reported WTP and theoretical values to understand, first, the validity of a risk-neutral model and, second, relative weights put on false-negative and false-positive costs. Our main regression has the following form:
+We estimate these relationships more formally with the following regression:
 \[\Delta b_{is} = \beta_0 + \beta_1 FP + \beta_2 FN + \varepsilon_{is}\]
-where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between the WTP of individual $i$ for signal $s$ and $b^*_s$ is the signal value; FP (FN) is the false positive (false negative) cost. All specifications include subject fixed effects, with standard errors clustered at the subject level. If subjects are risk-neutral expected-utility-maximizing subjects, we expect $\beta_1=0$ and $\beta_2=0$.  
+where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between the WTP of individual $i$ for signal $s$ and $b^*_s$ is the signal value; FP (FN) is the false positive (false negative) cost. All specifications include subject fixed effects, with standard errors clustered at the subject level. If subjects are risk-neutral expected-utility-maximizing subjects, we expect $\beta_1=0$ and $\beta_2=0$. The result, reported in column 1 of Table~\ref{tab:wtp_ols}, shows positive and statistically significant coefficients for both FP and FN costs. In other words, subjects deviate from the benchmark model and overpay for inaccurate signals. 
+
+
+\begin{itemize}
+	\item\pmt{PETE's OLD COMMENT: Can we plot the distributions of deviations for these 4 cases?}. 
+	\item\agt{XXX Is a false positive event = having a black gremlin in the group? Should we write false positive rate or is there a distinction you want to highlight? XXX}
+\end{itemize}
+
+
+%\subsection{The (As-)symetry of False Positive and False Negative Signals} 
 
 %First, subjects' WTPs for a signal are equal to its value for risk-neutral agents. The model provides a simple benchmark to evaluate potential welfare gains from the signal. Depending on the assumptions on signal characteristics and risk preferences, agents can pay more or less than the risk-neutral benchmark.
 %
@@ -514,14 +539,6 @@ where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between the WTP of in
 %\begin{hypothesis}\label{hyp:eqRN} 
 %Subjects' WTPs for a signal are equal to its value for risk-neutral agents. 
 %\end{hypothesis}
-
-\begin{hypothesis}\label{hyp:eqSen} 
-Subjects' preferences demonstrate equal sensitivity to costs generated by false-positive and false-negative events. 
-\end{hypothesis}
-
-\begin{result} On average for our signal and sample structure, we cannot reject the hypothesis of equal sensitivity. However, we observe significant heterogeneity with respect to priors: subjects tend to overvalue false-negative costs for low probability events and overvalue false-positive costs for high probability events. \end{result}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -557,20 +574,26 @@ Subjects' preferences demonstrate equal sensitivity to costs generated by false-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Table~\ref{tab:wtp_ols} shows that on average subjects underreact to both FP and FN cost when choosing their willingness-to-pay as compared to a risk-neutral decision maker. If subjects were to behave consistently with our (oversimplified) model, the coefficients on FP and FN costs should equal zero. And yet, Column 1 reports positive statistically significant coefficients for both FP and FN costs indicating that subjects tend to overpay for inaccurate signals. At the same time, a negative and statistically significant constant suggests underpayment for honest signals. 
+The model of a risk-neutral agent suggests that subjects' preferences value the marginal costs from false-negative and false-positive information symmetrically. 
+%Our derivations above indicate that the relative weight of false-negative costs can be either below or above one depending on risk preferences only. 
+%Table~\ref{tab:wtp_ols} shows that on average subjects underreact to both FP and FN cost when choosing their willingness-to-pay as compared to a risk-neutral decision maker. If subjects were to behave consistently with our (oversimplified) model, the coefficients on FP and FN costs should equal zero. And yet, 
+%At the same time, a negative and statistically significant constant suggests underpayment for honest signals. 
+We find that the coefficients on FN costs is slightly larger indicating higher sensitivity to FP costs, but we cannot reject the hypothesis that the two coefficients are equal. It means that on average and given our priors (!), the risk-neutral model still provides good guidance with choosing optimal trade-off between false-positive and false-negative costs. However later we note that this equivalency breaks down when considering specific priors. 
 
-With regards to Hypothesis~\ref{hyp:eqSen}, we find that the coefficients on FN costs is slightly larger indicating higher sensitivity to FP costs, but we cannot reject the hypothesis that the two coefficients are equal. It means that on average and given our priors (!), the risk-neutral model still provides good guidance with choosing optimal trade-off between false-positive and false-negative costs. However later we note that this equivalency breaks down when considering specific priors. 
+\subsection{Risk Preference and Belief Accuracy}
 
-Our baseline estimation in Column 1 indicates significant deviations from the model's predictions. Since the benchmark signal value is based on the optimal choice of a risk-neutral Bayesian updater, deviations can arise from at least two sources. First, Proposition~\ref{thm:riskAverse} suggests that individual risk preference can influence the sensitivity of WTP to these signal characteristics. Second, systematic belief biases can also lead to deviations. 
+Our baseline estimation in column 1 indicates significant deviations from the model's predictions. Since the benchmark signal value is based on the optimal choice of a risk-neutral Bayesian updater, deviations can arise from at least two sources. First, Proposition~\ref{thm:riskAverse} suggests that risk preferences can influence the sensitivity of WTP to these signal characteristics. Second, systematic biases during the updating process can also lead to deviations. 
 
-We find that risk preferences have limited explanatory power for sensitivity to signal characteristics. We use data from the BP game to categorize subjects by their risk preference. We classify all the subjects with internally consistent BP choices into three risk-preference categories: risk averse, risk neutral, and risk loving.\footnote{Subjects who switched from no protection to protection at exactly the cost-loss ratio $\pi=0.2$ are considered risk-neutral, while switching at lower (higher) levels indicates risk aversion (risk-loving). In addition, we created a dummy variable for subjects whose BP choices are inconsistent.}  Column 2 explores the heterogeneity of subject responses to FP and FN costs by their risk preference, with risk-neutral as the default category. The point estimates of sensitivities among risk-neutral subjects are about 1/3 smaller than for the baseline results in Column 1 but enough to become statistically significant. This indeed indicates convergence towards prediction of a risk-neutral model, but with still sizable remaining discrepancies. Given the magnitudes of coefficients on the interaction of risk preferences with FP and FN costs, only risk-loving subjects have plausibly different sensitivities though the interaction terms are not statistically significant.
+We find that risk preferences have limited explanatory power for sensitivity to signal characteristics. We use data from the BP game to categorize subjects by their risk preference. We classify all the subjects with internally consistent BP choices into three risk-preference categories: risk averse, risk neutral, and risk loving.\footnote{Subjects who switched from no protection to protection at exactly the cost-loss ratio $\pi=0.2$ are considered risk-neutral, while switching at lower (higher) levels indicates risk aversion (risk-loving). In addition, we created a dummy variable for subjects whose BP choices are inconsistent.}  Column 2 explores the heterogeneity of subject responses to FP and FN costs by their risk preference, with risk-neutral as the default category. The point estimates of sensitivities among risk-neutral subjects are about 1/3 smaller than those in column 1 and statistically insignificant. This indeed indicates convergence towards prediction of a risk-neutral model, but with still sizable remaining discrepancies. Given the magnitudes of coefficients on the interaction of risk preferences with FP and FN costs, only risk-loving subjects have plausibly different sensitivities though the interaction terms are not statistically significant.
 
-Accounting both for belief accuracy and for risk preferences also does little to explain the pattern of underreacting to FP and FN rates. To study the role of subjects' ability to Bayesian update, we use data from the BE task to categorize the WTP responses by belief accuracy. We calculate a belief error as the absolute value of the difference between the subject's belief and the true posterior probability and then average these errors across all the decisions with identical priors, false positive and false negative rates. A subject's posterior belief for a decision is accurate if the error is less than the median error across all the subjects going through the same decision. For column 3, we present the most flexible specification to control for accuracy and risk preference by including triple interactions of belief accuracy, risk preference, and the signal characteristics. The baseline group is the group of risk-neutral subjects with relatively accurate beliefs, but for that group deviations from the risk-neutral model become even larger in terms of (lack of) sensitivity to FP costs.
+Accounting both for belief accuracy and for risk preferences also does little to explain the pattern of underreacting to FP and FN rates. To study the role of subjects' ability to Bayesian update, we use data from the BE task to categorize the WTP responses by belief accuracy.\footnote{We calculate a belief error as the absolute value of the difference between the subject's belief and the true posterior probability and then average these errors across all the decisions with identical priors, false positive and false negative rates. A subject's posterior belief for a decision is defined as accurate if its error is less than the median error across all the subjects making the same decision.} Column 3 presents the most flexible specification that controls for belief accuracy and risk preference by including triple interactions of belief accuracy, risk preference, and signal characteristics. The baseline group is the group of risk-neutral subjects with relatively accurate beliefs. We find that baseline subjects' sensitivity to FN costs declined (and remained insignificant), but their sensitivity to FP costs increased.
 %Column 3 presents the heterogeneity analysis by belief accuracy. It suggests that inaccurate beliefs primarily lead to the undervaluation of an honest signal.
 
 \iffalse Column 4 shows when based on an accurate belief, risk-neutral subjects' WTPs align well with the theoretical signal value for honest and false negative signals. Risk-neutral subjects are willing to pay a significant premium for false positive signals by a quite large amount --- around 0.7 to a dollar of the false positive cost. Our estimates are not precise enough to detect differences by risk preferences. However, the total coefficients for risk-averse and risk-loving subjects (presented at the bottom of the table) suggest that non-risk-neutral subjects responses to signal characteristics are opposite those who are risk neutral: they are unwilling to pay a premium for false positive signals, but willing to pay a premium for false negative signals. \fi
 
 %These results suggest that, on average, subjects failed to fully account for signal quality, resulting in overpaying for signals with high false-positive and false-negative costs.  FP/FN cost significantly impact the deviation from the theoretical value no matter what else is included.  
+
+\subsection{Heterogeneity by Prior}
 
 Finally, we investigate the role of the prior probability. We motivate our experiment with real world problems of designing signals for low-probability disasters. With a low prior, the default action of risk-neutral subject would be not to protect, and vice versa with a high prior. The signal would help risk-neutral subjects decide whether to keep the default action or to switch. Since the cost to protect is equal to ($0.2 \times$ the loss from the adverse effect), we split the sample using $0.2$ as the cutoff. Here, we use a regression specification that includes prior probability fixed effects. 
 
