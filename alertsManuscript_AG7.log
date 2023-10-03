@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  28 SEP 2023 17:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  3 OCT 2023 16:35
 entering extended mode
 **./alertsManuscript_AG7.tex
 (alertsManuscript_AG7.tex
@@ -603,8 +603,118 @@ Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
  [1
 
-{C:/Users/gaduh/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2]
-[3] [4]
+{C:/Users/gaduh/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+
+Package natbib Warning: Citation `xu_revealed_2020' on page 2 undefined on inpu
+t line 102.
+
+
+Package natbib Warning: Citation `hoffman_how_2016' on page 2 undefined on inpu
+t line 104.
+
+
+Package natbib Warning: Citation `ambuehl_belief_2018' on page 2 undefined on i
+nput line 104.
+
+
+Package natbib Warning: Citation `xu_revealed_2020' on page 2 undefined on inpu
+t line 104.
+
+[2]
+
+Package natbib Warning: Citation `ambuehl_belief_2018' on page 3 undefined on i
+nput line 106.
+
+
+Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
+t line 106.
+
+
+Package natbib Warning: Citation `ambuehl_belief_2018' on page 3 undefined on i
+nput line 106.
+
+
+Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
+t line 106.
+
+
+Package natbib Warning: Citation `eliaz_paying_2010' on page 3 undefined on inp
+ut line 108.
+
+
+Package natbib Warning: Citation `masatlioglu_intrinsic_2017' on page 3 undefin
+ed on input line 108.
+
+
+Package natbib Warning: Citation `eil_good_2011' on page 3 undefined on input l
+ine 110.
+
+
+Package natbib Warning: Citation `coutts_good_2019' on page 3 undefined on inpu
+t line 110.
+
+
+Package natbib Warning: Citation `bornstein_rationality_2001' on page 3 undefin
+ed on input line 112.
+
+
+Package natbib Warning: Citation `gigerenzer_helping_2007' on page 3 undefined 
+on input line 112.
+
+[3]
+
+Package natbib Warning: Citation `liang_acceptability_2003' on page 4 undefined
+ on input line 114.
+
+
+Package natbib Warning: Citation `howard_does_2009' on page 4 undefined on inpu
+t line 114.
+
+
+Package natbib Warning: Citation `neumann_willingness--pay_2012' on page 4 unde
+fined on input line 114.
+
+
+Package natbib Warning: Citation `schwartz_enthusiasm_2004' on page 4 undefined
+ on input line 114.
+
+
+Package natbib Warning: Citation `neumann_willingness--pay_2012' on page 4 unde
+fined on input line 114.
+
+
+Package natbib Warning: Citation `schwartz_enthusiasm_2004' on page 4 undefined
+ on input line 114.
+
+
+Package natbib Warning: Citation `howard_does_2009' on page 4 undefined on inpu
+t line 114.
+
+
+Package natbib Warning: Citation `laury_insurance_2009' on page 4 undefined on 
+input line 116.
+
+
+Package natbib Warning: Citation `volkman-wise_representativeness_2015' on page
+ 4 undefined on input line 116.
+
+
+Package natbib Warning: Citation `hammerton_case_1973' on page 4 undefined on i
+nput line 118.
+
+
+Package natbib Warning: Citation `kahneman_psychology_1973' on page 4 undefined
+ on input line 118.
+
+
+Package natbib Warning: Citation `grether_testing_1992' on page 4 undefined on 
+input line 118.
+
+
+Package natbib Warning: Citation `holt_update_2009' on page 4 undefined on inpu
+t line 118.
+
+[4]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
@@ -620,64 +730,76 @@ Overfull \hbox (44.78745pt too wide) detected at line 257
 [] \OT1/cmr/m/n/12 = [] []
  []
 
-[9] [10] (Tables/table_treatments.tex)
+[9]
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Package natbib Warning: Citation `coutts_good_2019' on page 10 undefined on inp
+ut line 287.
 
-[11]
+
+Package natbib Warning: Citation `grether_testing_1992' on page 10 undefined on
+ input line 296.
+
+
+Package natbib Warning: Citation `holt_update_2009' on page 10 undefined on inp
+ut line 296.
+
+
+Package natbib Warning: Citation `karni_mechanism_2009-1' on page 10 undefined 
+on input line 296.
+
+[10] (Tables/table_treatments.tex) [11]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
 (Font)              size <12> substituted on input line 321.
 
-[12]
-<Graphs/blind_prot_sta.png, id=242, 1003.75pt x 1003.75pt>
+<Graphs/blind_prot_sta.png, id=147, 1003.75pt x 1003.75pt>
 File: Graphs/blind_prot_sta.png Graphic file (type png)
 <use Graphs/blind_prot_sta.png>
 Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 342.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
 Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
 put line 343.
-<Graphs/ip_response.png, id=243, 1003.75pt x 1003.75pt>
+<Graphs/ip_response.png, id=148, 1003.75pt x 1003.75pt>
 File: Graphs/ip_response.png Graphic file (type png)
 <use Graphs/ip_response.png>
 Package pdftex.def Info: Graphs/ip_response.png  used on input line 346.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
- [13 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response.png (PNG co
-py)>]
+[12] [13 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response.png (PN
+G copy)>]
 Overfull \hbox (2.19304pt too wide) in paragraph at lines 375--375
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 (Tables/bigpicture_IP_AU.tex)
-<Graphs/hist_belief_error_s3.png, id=254, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s3.png, id=166, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s3.png Graphic file (type png)
 <use Graphs/hist_belief_error_s3.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 40
 8.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s3.png, id=255, 1204.5pt x 803.0pt>
+<Graphs/updating_s3.png, id=167, 1204.5pt x 803.0pt>
 File: Graphs/updating_s3.png Graphic file (type png)
 <use Graphs/updating_s3.png>
 Package pdftex.def Info: Graphs/updating_s3.png  used on input line 410.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s5.png, id=256, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s5.png, id=168, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s5.png Graphic file (type png)
 <use Graphs/hist_belief_error_s5.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 41
 3.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s5.png, id=257, 1204.5pt x 803.0pt>
+<Graphs/updating_s5.png, id=169, 1204.5pt x 803.0pt>
 File: Graphs/updating_s5.png Graphic file (type png)
 <use Graphs/updating_s5.png>
 Package pdftex.def Info: Graphs/updating_s5.png  used on input line 415.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s4.png, id=258, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s4.png, id=170, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s4.png Graphic file (type png)
 <use Graphs/hist_belief_error_s4.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 41
 8.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s4.png, id=259, 1204.5pt x 803.0pt>
+<Graphs/updating_s4.png, id=171, 1204.5pt x 803.0pt>
 File: Graphs/updating_s4.png Graphic file (type png)
 <use Graphs/updating_s4.png>
 Package pdftex.def Info: Graphs/updating_s4.png  used on input line 420.
@@ -703,6 +825,10 @@ Package natbib Warning: Citation `grether_bayes_1980' on page 16 undefined on i
 nput line 435.
 
 
+LaTeX Warning: Reference `belief_decomposition' on page 16 undefined on input l
+ine 435.
+
+
 Package natbib Warning: Citation `benjamin_chapter_2019' on page 16 undefined o
 n input line 435.
 
@@ -712,46 +838,84 @@ Overfull \hbox (2.19304pt too wide) in paragraph at lines 447--447
  []
 
 (Tables/bigpicture_bel_AU.tex) [16]
-<Graphs/hist_WTP_discr1.png, id=285, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1.png, id=195, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 508.
 (pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
  [17] (Tables/bigpicture_wtp_edit.tex)
 (Tables/wtpdiff_ols.tex) [18 <./Graphs/hist_WTP_discr1.png (PNG copy)>]
-[19] [20] [21] (Tables/table_wtpdiff_04tob.tex) [22]
-(Tables/table_be_err_AU.tex) [23] (Tables/table_ip_flex_AU.tex) [24] [25]
-[26] (alertsManuscript_AG7.bbl [27
+[19] [20]
 
-]) [28] (Tables/table_summary.tex)
-(Tables/table_be3.tex) (Tables/table_ip5.tex) (Tables/table_wtpdiff_02.tex)
+LaTeX Warning: Reference `wtp_dem' on page 21 undefined on input line 619.
+
+[21]
+
+LaTeX Warning: Reference `tobit_het' on page 22 undefined on input line 637.
+
+(Tables/table_wtpdiff_04tob.tex)
+
+LaTeX Warning: Reference `tobit_het' on page 22 undefined on input line 641.
+
+[22]
+
+LaTeX Warning: Reference `updateErrorReg' on page 23 undefined on input line 64
+7.
+
+(Tables/table_be_err_AU.tex)
+
+LaTeX Warning: Reference `tab:protectReg' on page 23 undefined on input line 68
+7.
+
+[23] [24] (Tables/table_ip_flex_AU.tex) [25] [26] (alertsManuscript_AG7.bbl
+[27
+
+]) [28] (Tables/table_summary.tex) (Tables/table_be3.tex)
+(Tables/table_ip5.tex) (Tables/table_wtpdiff_02.tex)
 
 Package natbib Warning: There were undefined citations.
 
 
-Package caption Warning: Unused \captionsetup[figure] on input line 763.
+Package caption Warning: Unused \captionsetup[figure] on input line 783.
 See the caption package documentation for explanation.
 
 
-Package caption Warning: Unused \captionsetup[table] on input line 764.
+Package caption Warning: Unused \captionsetup[table] on input line 784.
 See the caption package documentation for explanation.
 
-[29] [30] [31] (alertsManuscript_AG7.aux)
+[29] [30] [31] (alertsManuscript_AG7.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package rerunfilecheck Info: File `alertsManuscript_AG7.out' has not changed.
-(rerunfilecheck)             Checksum: 03825DC5B0D74033F38143601302536C;2074.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `alertsManuscript_AG7.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `alertsManuscript_AG7.out':
+(rerunfilecheck)             Before: D04AEC9459E5D14AB38D7F2E09422BB1;2109
+(rerunfilecheck)             After:  8819AD407371EAF3727EDEEAA52D9F5F;2642.
  ) 
 Here is how much of TeX's memory you used:
- 13558 strings out of 478927
- 210601 string characters out of 2852535
- 557471 words of memory out of 3000000
+ 13560 strings out of 478927
+ 210637 string characters out of 2852535
+ 556021 words of memory out of 3000000
  31034 multiletter control sequences out of 15000+600000
- 412209 words of font info for 58 fonts, out of 8000000 for 9000
+ 412517 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,15n,117p,1363b,583s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,15n,117p,1459b,583s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not ex
 ist, replaced by a fixed one
 
@@ -815,9 +979,9 @@ uh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/
 Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12
 .pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
 cm/cmtt12.pfb>
-Output written on alertsManuscript_AG7.pdf (31 pages, 895562 bytes).
+Output written on alertsManuscript_AG7.pdf (31 pages, 882177 bytes).
 PDF statistics:
- 521 PDF objects out of 1000 (max. 8388607)
- 121 named destinations out of 1000 (max. 500000)
- 150 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 450 PDF objects out of 1000 (max. 8388607)
+ 123 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 
