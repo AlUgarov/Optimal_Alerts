@@ -1502,6 +1502,19 @@ graph export "./Graphs/hist_WTP_discr1.png", width(1200) height(800) replace
 
 
 
+*Plotting discrepancies by signal type:
+hist wtp_diff if fp_env==0&fn_env==0, title("Distribution of WTP discrepancies (WTP - Value)") xtitle("USD") fraction note("Honest signals") color(navy)
+graph export "./Graphs/hist_WTP_discr1h.png", width(1200) height(800) replace
+
+
+hist wtp_diff if fp_env==1&fn_env==0, title("Distribution of WTP discrepancies (WTP - Value)") xtitle("USD") fraction note("False-positive only signals") color(navy)
+graph export "./Graphs/hist_WTP_discr1fp.png", width(1200) height(800) replace
+
+hist wtp_diff if fp_env==0&fn_env==1, title("Distribution of WTP discrepancies (WTP - Value)") xtitle("USD") fraction note("False-negative only signals") color(navy)
+graph export "./Graphs/hist_WTP_discr1fn.png", width(1200) height(800) replace
+
+hist wtp_diff if fp_env==1&fn_env==1, title("Distribution of WTP discrepancies (WTP - Value)") xtitle("USD") fraction note("Positive false-positive and false-negative rates") color(navy)
+graph export "./Graphs/hist_WTP_discr1fpfn.png", width(1200) height(800) replace
 
 
 
@@ -1659,7 +1672,7 @@ esttab using "./Tables/wtp_het_risk_pres.tex", b(%9.3g) ar2(%9.2f) not label dro
 
 
 sort subject_id plevel
-by plevel: reghdfe wtp phintWB phintBW, abs(subject_id) vce(cluster subject_id)
+reghdfe wtp phintWB phintBW if plevel==100, abs(subject_id) vce(cluster subject_id)
 
 
 *Analyzing changes in WTP across prior by subject to find if heterogeneous risk preferences can explain the pattern
@@ -1686,8 +1699,8 @@ gen delta_v22=value4-value6
 sum delta_b11 delta_b12
 sum delta_b21 delta_b22
 
-test delta_b11 delta_b12
-test delta_b21 delta_b22
+ttest delta_b11==delta_b12
+ttest delta_b21==delta_b22
 
 gen fp_env2=phintBW2>0
 gen fn_env2=phintWB2>0
@@ -1696,6 +1709,17 @@ gen fp_env3=phintBW3>0
 gen fn_env3=phintWB3>0
 tab fp_env2 fn_env2
 
+ttest delta_b11==delta_b12 if fn_env2==1
+ttest delta_v11==delta_v12 if fn_env2==1
+
+ttest delta_b11==delta_b12 if fp_env2==1
+ttest delta_v11==delta_v12 if fp_env2==1
+
+ttest delta_b21==delta_b22 if fn_env3==1
+ttest delta_v21==delta_v22 if fn_env3==1
+
+ttest delta_b11==delta_b12 if fp_env2==1
+ttest delta_v11==delta_v12 if fp_env2==1
 
 
 stop
