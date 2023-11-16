@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  22 OCT 2023 15:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  16 NOV 2023 11:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,41 +395,28 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \sift@deathcycles=\count290
 \@vwid@loff=\dimen185
 \@vwid@roff=\dimen186
-)) (C:\MiKTeX\tex/latex/ulem\ulem.sty
-\UL@box=\box58
-\UL@hyphenbox=\box59
-\UL@skip=\skip65
-\UL@hook=\toks34
-\UL@height=\dimen187
-\UL@pe=\count291
-\UL@pixel=\dimen188
-\ULC@box=\box60
-Package: ulem 2019/11/18
-\ULdepth=\dimen189
-) (C:\MiKTeX\tex/latex/threeparttable\threeparttable.sty
+))
+(C:\MiKTeX\tex/latex/threeparttable\threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box61
-)
-(C:\MiKTeX\tex/latex/prettyref\prettyref.sty
-Package: prettyref 1998/07/09 v3.0
+\@tempboxb=\box58
 )
 (C:\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2022/03/01 v3.6b Customizing captions (AR)
 
 (C:\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
-\caption@tempdima=\dimen190
-\captionmargin=\dimen191
-\caption@leftmargin=\dimen192
-\caption@rightmargin=\dimen193
-\caption@width=\dimen194
-\caption@indent=\dimen195
-\caption@parindent=\dimen196
-\caption@hangindent=\dimen197
+\caption@tempdima=\dimen187
+\captionmargin=\dimen188
+\caption@leftmargin=\dimen189
+\caption@rightmargin=\dimen190
+\caption@width=\dimen191
+\caption@indent=\dimen192
+\caption@parindent=\dimen193
+\caption@hangindent=\dimen194
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count292
-\c@continuedfloat=\count293
+\c@caption@flags=\count291
+\c@continuedfloat=\count292
 Package caption Info: hyperref package is loaded.
 Package caption Info: threeparttable package is loaded.
 )
@@ -457,31 +444,31 @@ File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 ))
 (C:\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen198
-\lightrulewidth=\dimen199
-\cmidrulewidth=\dimen256
-\belowrulesep=\dimen257
-\belowbottomsep=\dimen258
-\aboverulesep=\dimen259
-\abovetopsep=\dimen260
-\cmidrulesep=\dimen261
-\cmidrulekern=\dimen262
-\defaultaddspace=\dimen263
-\@cmidla=\count294
-\@cmidlb=\count295
-\@aboverulesep=\dimen264
-\@belowrulesep=\dimen265
-\@thisruleclass=\count296
-\@lastruleclass=\count297
-\@thisrulewidth=\dimen266
+\heavyrulewidth=\dimen195
+\lightrulewidth=\dimen196
+\cmidrulewidth=\dimen197
+\belowrulesep=\dimen198
+\belowbottomsep=\dimen199
+\aboverulesep=\dimen256
+\abovetopsep=\dimen257
+\cmidrulesep=\dimen258
+\cmidrulekern=\dimen259
+\defaultaddspace=\dimen260
+\@cmidla=\count293
+\@cmidlb=\count294
+\@aboverulesep=\dimen261
+\@belowrulesep=\dimen262
+\@thisruleclass=\count295
+\@lastruleclass=\count296
+\@thisrulewidth=\dimen263
 )
 (C:\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count298
-\float@exts=\toks35
-\float@box=\box62
-\@float@everytoks=\toks36
-\@floatcapt=\box63
+\c@float@type=\count297
+\float@exts=\toks34
+\float@box=\box59
+\@float@everytoks=\toks35
+\@floatcapt=\box60
 )
 (C:\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
@@ -491,38 +478,38 @@ Package: placeins 2005/04/18  v 2.2
 )
 (C:\MiKTeX\tex/latex/caption\subcaption.sty
 Package: subcaption 2022/01/07 v1.5 Sub-captions (AR)
-\c@subfigure=\count299
-\c@subtable=\count300
+\c@subfigure=\count298
+\c@subtable=\count299
 )
-\c@theorem=\count301
-\c@hypothesis=\count302
-\c@result=\count303
+\c@theorem=\count300
+\c@hypothesis=\count301
+\c@result=\count302
 
 (C:\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count304
-\l__pdf_internal_box=\box64
+\l__color_backend_stack_int=\count303
+\l__pdf_internal_box=\box61
 ) (alertsManuscript_AU8.aux)
 \openout1 = `alertsManuscript_AU8.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -557,7 +544,7 @@ LaTeX Font Info:    ... okay on input line 77.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 77.
+Package hyperref Info: Link coloring OFF on input line 76.
 (alertsManuscript_AU8.out) (alertsManuscript_AU8.out)
 \@outlinefile=\write3
 \openout3 = `alertsManuscript_AU8.out'.
@@ -565,17 +552,17 @@ Package hyperref Info: Link coloring OFF on input line 77.
 
 (C:\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count305
-\scratchdimen=\dimen267
-\scratchbox=\box65
-\nofMPsegments=\count306
-\nofMParguments=\count307
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count308
-\MPscratchDim=\dimen268
-\MPnumerator=\count309
-\makeMPintoPDFobject=\count310
-\everyMPtoPDFconversion=\toks38
+\scratchcounter=\count304
+\scratchdimen=\dimen264
+\scratchbox=\box62
+\nofMPsegments=\count305
+\nofMParguments=\count306
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count307
+\MPscratchDim=\dimen265
+\MPnumerator=\count308
+\makeMPintoPDFobject=\count309
+\everyMPtoPDFconversion=\toks37
 ) (C:\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -592,193 +579,193 @@ Package caption Info: End \AtBeginDocument code.
 {C:/Users/aluga/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 
 Package natbib Warning: Citation `xu_revealed_2020' on page 2 undefined on inpu
-t line 102.
+t line 101.
 
 
 Package natbib Warning: Citation `hoffman_how_2016' on page 2 undefined on inpu
-t line 104.
+t line 103.
 
 
 Package natbib Warning: Citation `ambuehl_belief_2018' on page 2 undefined on i
-nput line 104.
+nput line 103.
 
 
 Package natbib Warning: Citation `xu_revealed_2020' on page 2 undefined on inpu
-t line 104.
+t line 103.
 
 [2]
 
 Package natbib Warning: Citation `ambuehl_belief_2018' on page 3 undefined on i
-nput line 106.
+nput line 105.
 
 
 Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
-t line 106.
+t line 105.
 
 
 Package natbib Warning: Citation `ambuehl_belief_2018' on page 3 undefined on i
-nput line 106.
+nput line 105.
 
 
 Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
-t line 106.
+t line 105.
 
 
 Package natbib Warning: Citation `eliaz_paying_2010' on page 3 undefined on inp
-ut line 108.
+ut line 107.
 
 
 Package natbib Warning: Citation `masatlioglu_intrinsic_2017' on page 3 undefin
-ed on input line 108.
+ed on input line 107.
 
 
 Package natbib Warning: Citation `eil_good_2011' on page 3 undefined on input l
-ine 110.
+ine 109.
 
 
 Package natbib Warning: Citation `coutts_good_2019' on page 3 undefined on inpu
-t line 110.
+t line 109.
 
 
 Package natbib Warning: Citation `bornstein_rationality_2001' on page 3 undefin
-ed on input line 112.
+ed on input line 111.
 
 
 Package natbib Warning: Citation `gigerenzer_helping_2007' on page 3 undefined 
-on input line 112.
+on input line 111.
 
 [3]
 
 Package natbib Warning: Citation `liang_acceptability_2003' on page 4 undefined
- on input line 114.
+ on input line 113.
 
 
 Package natbib Warning: Citation `howard_does_2009' on page 4 undefined on inpu
-t line 114.
+t line 113.
 
 
 Package natbib Warning: Citation `neumann_willingness--pay_2012' on page 4 unde
-fined on input line 114.
+fined on input line 113.
 
 
 Package natbib Warning: Citation `schwartz_enthusiasm_2004' on page 4 undefined
- on input line 114.
+ on input line 113.
 
 
 Package natbib Warning: Citation `neumann_willingness--pay_2012' on page 4 unde
-fined on input line 114.
+fined on input line 113.
 
 
 Package natbib Warning: Citation `schwartz_enthusiasm_2004' on page 4 undefined
- on input line 114.
+ on input line 113.
 
 
 Package natbib Warning: Citation `howard_does_2009' on page 4 undefined on inpu
-t line 114.
+t line 113.
 
 
 Package natbib Warning: Citation `laury_insurance_2009' on page 4 undefined on 
-input line 116.
+input line 115.
 
 
 Package natbib Warning: Citation `volkman-wise_representativeness_2015' on page
- 4 undefined on input line 116.
+ 4 undefined on input line 115.
 
 
 Package natbib Warning: Citation `hammerton_case_1973' on page 4 undefined on i
-nput line 118.
+nput line 117.
 
 
 Package natbib Warning: Citation `kahneman_psychology_1973' on page 4 undefined
- on input line 118.
+ on input line 117.
 
 
 Package natbib Warning: Citation `grether_testing_1992' on page 4 undefined on 
-input line 118.
+input line 117.
 
 
 Package natbib Warning: Citation `holt_update_2009' on page 4 undefined on inpu
-t line 118.
+t line 117.
 
 [4]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 129.
+(amsmath)                 on input line 128.
 
 [5] [6] [7]
 
 Package natbib Warning: Citation `coutts_good_2019' on page 8 undefined on inpu
-t line 245.
+t line 243.
 
 
 Package natbib Warning: Citation `grether_testing_1992' on page 8 undefined on 
-input line 254.
+input line 252.
 
 
 Package natbib Warning: Citation `holt_update_2009' on page 8 undefined on inpu
-t line 254.
+t line 252.
 
 
 Package natbib Warning: Citation `karni_mechanism_2009-1' on page 8 undefined o
-n input line 254.
+n input line 252.
 
 [8] (Tables/table_treatments.tex) [9]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
-(Font)              size <12> substituted on input line 279.
+(Font)              size <12> substituted on input line 277.
 
-<Graphs/blind_prot_sta.png, id=163, 1003.75pt x 1003.75pt>
+<Graphs/blind_prot_sta.png, id=159, 1003.75pt x 1003.75pt>
 File: Graphs/blind_prot_sta.png Graphic file (type png)
 <use Graphs/blind_prot_sta.png>
-Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 300.
+Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 298.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
 Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
-put line 301.
-<Graphs/ip_response.png, id=164, 1003.75pt x 1003.75pt>
+put line 299.
+<Graphs/ip_response.png, id=160, 1003.75pt x 1003.75pt>
 File: Graphs/ip_response.png Graphic file (type png)
 <use Graphs/ip_response.png>
-Package pdftex.def Info: Graphs/ip_response.png  used on input line 304.
+Package pdftex.def Info: Graphs/ip_response.png  used on input line 302.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
 [10] [11 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response.png (PN
 G copy)>]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 333--333
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 331--331
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 (Tables/bigpicture_IP_AU.tex)
-<Graphs/hist_belief_error_s3.png, id=181, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s3.png, id=177, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s3.png Graphic file (type png)
 <use Graphs/hist_belief_error_s3.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 36
-6.
+4.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s3.png, id=182, 1204.5pt x 803.0pt>
+<Graphs/updating_s3.png, id=178, 1204.5pt x 803.0pt>
 File: Graphs/updating_s3.png Graphic file (type png)
 <use Graphs/updating_s3.png>
-Package pdftex.def Info: Graphs/updating_s3.png  used on input line 368.
+Package pdftex.def Info: Graphs/updating_s3.png  used on input line 366.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s5.png, id=183, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s5.png, id=179, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s5.png Graphic file (type png)
 <use Graphs/hist_belief_error_s5.png>
-Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 37
-1.
+Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 36
+9.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s5.png, id=184, 1204.5pt x 803.0pt>
+<Graphs/updating_s5.png, id=180, 1204.5pt x 803.0pt>
 File: Graphs/updating_s5.png Graphic file (type png)
 <use Graphs/updating_s5.png>
-Package pdftex.def Info: Graphs/updating_s5.png  used on input line 373.
+Package pdftex.def Info: Graphs/updating_s5.png  used on input line 371.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s4.png, id=185, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s4.png, id=181, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s4.png Graphic file (type png)
 <use Graphs/hist_belief_error_s4.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 37
-6.
+4.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s4.png, id=186, 1204.5pt x 803.0pt>
+<Graphs/updating_s4.png, id=182, 1204.5pt x 803.0pt>
 File: Graphs/updating_s4.png Graphic file (type png)
 <use Graphs/updating_s4.png>
-Package pdftex.def Info: Graphs/updating_s4.png  used on input line 378.
+Package pdftex.def Info: Graphs/updating_s4.png  used on input line 376.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
  [12] [13 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
 png (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/updati
@@ -786,85 +773,89 @@ ng_s5.png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/
 updating_s4.png (PNG copy)>]
 
 Package natbib Warning: Citation `phillips_conservatism_1966-1' on page 14 unde
-fined on input line 393.
+fined on input line 391.
 
 
 Package natbib Warning: Citation `tversky_belief_1971' on page 14 undefined on 
-input line 393.
+input line 391.
 
 
 Package natbib Warning: Citation `kahneman_subjective_1972' on page 14 undefine
-d on input line 393.
+d on input line 391.
 
 
 Package natbib Warning: Citation `grether_bayes_1980' on page 14 undefined on i
-nput line 393.
+nput line 391.
 
 
 Package natbib Warning: Citation `benjamin_chapter_2019' on page 14 undefined o
-n input line 393.
+n input line 391.
 
 
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 405--405
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 403--403
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 (Tables/bigpicture_bel_AU.tex) [14]
-<Graphs/hist_WTP_discr1.png, id=213, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1.png, id=209, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 468.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fp.png, id=214, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fp.png, id=210, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fp.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fp.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1fp.png  used on input line 470.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fn.png, id=215, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fn.png, id=211, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fn.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1fn.png  used on input line 473.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fpfn.png, id=216, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fpfn.png, id=212, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fpfn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fpfn.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1fpfn.png  used on input line 475
 .
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
- [15] (Tables/bigpicture_wtp_edit.tex)
-[16 <./Graphs/hist_WTP_discr1.png (PNG copy)> <./Graphs/hist_WTP_discr1fp.png (
-PNG copy)> <./Graphs/hist_WTP_discr1fn.png (PNG copy)> <./Graphs/hist_WTP_discr
-1fpfn.png (PNG copy)>] (Tables/wtpdiff_ols.tex) [17] [18] [19]
-(Tables/table_wtpdiff_04tob.tex) [20]
+ [15]
 
-LaTeX Warning: Reference `wtp_het_risk' on page 21 undefined on input line 602.
+LaTeX Warning: Reference `WTP_nonpar' on page 16 undefined on input line 480.
+
+(Tables/bigpicture_wtp_det.tex) [16 <./Graphs/hist_WTP_discr1.png (PNG copy)> <
+./Graphs/hist_WTP_discr1fp.png (PNG copy)> <./Graphs/hist_WTP_discr1fn.png (PNG
+ copy)> <./Graphs/hist_WTP_discr1fpfn.png (PNG copy)>] (Tables/wtpdiff_ols.tex)
+[17] [18] [19]
+<Graphs/sensit_comparison.png, id=252, 1003.75pt x 602.25pt>
+File: Graphs/sensit_comparison.png Graphic file (type png)
+<use Graphs/sensit_comparison.png>
+Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 594.
+(pdftex.def)             Requested size: 386.95897pt x 232.1748pt.
+ [20]
+
+LaTeX Warning: Reference `wtp_het_risk' on page 21 undefined on input line 604.
 
 
-[21] [22] (Tables/table_be_err_AU.tex) [23] (Tables/table_ip_flex_AU.tex)
-[24] [25] [26]
+
+LaTeX Warning: Reference `tobit_het' on page 21 undefined on input line 606.
+
+[21 <./Graphs/sensit_comparison.png (PNG copy)>] (Tables/table_be_err_AU.tex)
+[22] [23] (Tables/table_ip_flex_AU.tex) [24] [25]
 No file alertsManuscript_AU8.bbl.
 (Tables/table_summary.tex) (Tables/table_be3.tex) (Tables/table_ip5.tex)
-(Tables/table_wtpdiff_02.tex) (Tables/wtp_het_risk.tex) [27
+(Tables/table_wtpdiff_02.tex) (Tables/wtp_het_risk.tex) [26
 
-] [28] [29] [30]
-[31]
-Overfull \hbox (14.3382pt too wide) detected at line 821
+] [27] [28] [29]
+[30]
+Overfull \hbox (14.3382pt too wide) detected at line 806
 [] \OT1/cmr/m/n/10.95 = [] []
  []
 
-[32]
+[31]
 
 Package natbib Warning: There were undefined citations.
 
-
-Package caption Warning: Unused \captionsetup[figure] on input line 833.
-See the caption package documentation for explanation.
-
-
-Package caption Warning: Unused \captionsetup[table] on input line 834.
-See the caption package documentation for explanation.
-
-[33] (alertsManuscript_AU8.aux)
+[32] (alertsManuscript_AU8.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -873,16 +864,16 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `alertsManuscript_AU8.out' has not changed.
-(rerunfilecheck)             Checksum: D4104825D592E1D01361F7FC1D2E8A29;3098.
+(rerunfilecheck)             Checksum: DDB04B2F873F325BCE6344E875830A6A;3004.
  ) 
 Here is how much of TeX's memory you used:
- 14268 strings out of 476374
- 228241 string characters out of 5805269
+ 14142 strings out of 476374
+ 226304 string characters out of 5805269
  1894340 words of memory out of 5000000
- 34280 multiletter control sequences out of 15000+600000
- 522045 words of font info for 66 fonts, out of 8000000 for 9000
+ 34167 multiletter control sequences out of 15000+600000
+ 521939 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,15n,117p,1420b,603s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,15n,117p,1436b,603s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.14} has been referenced but does not exis
 t, replaced by a fixed one
@@ -953,9 +944,9 @@ ic/amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/MiKTeX/fonts/type1/publi
 c/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C
 :/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on alertsManuscript_AU8.pdf (33 pages, 1006867 bytes).
+Output written on alertsManuscript_AU8.pdf (32 pages, 1130756 bytes).
 PDF statistics:
- 448 PDF objects out of 1000 (max. 8388607)
- 111 named destinations out of 1000 (max. 500000)
- 213 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 438 PDF objects out of 1000 (max. 8388607)
+ 109 named destinations out of 1000 (max. 500000)
+ 210 words of extra memory for PDF output out of 10000 (max. 10000000)
 

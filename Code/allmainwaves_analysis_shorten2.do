@@ -1722,7 +1722,6 @@ ttest delta_b11==delta_b12 if fp_env2==1
 ttest delta_v11==delta_v12 if fp_env2==1
 
 
-stop
 
 gen delta_b11x=(wtp[_n-1]-wtp)-1000*(round~=2)
 gen delta_b12x=(wtp[_n-1]-wtp)-1000*(round~=5)
@@ -1935,7 +1934,7 @@ esttab using "./Tables/table_wtpdiff_04tob_pres.tex", b(%9.3g) se(%9.1f) ar2(%9.
 
 
 
-save  "./Temp/wtp_discrepancy0.dta", replace
+save "./Temp/wtp_discrepancy0.dta", replace
 
 use "./Temp/wtp_discrepancy0.dta", replace
 drop highprob
@@ -2089,6 +2088,10 @@ eststo: tobit wtp p freqBW freqWB i.stat_educ##c.phintBW i.stat_educ##c.phintWB 
 *eststo: tobit value p freqBW freqWB phintBW phintWB, ll(0) ul(5)
 *eststo: tobit value p freqBW freqWB phintBW phintWB ps2 freqBWs freqWBs, ll(0) ul(5)
 esttab using "./Tables/table_wtp_val1.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(p freqBW freqWB ps2 freqWBs) indicate(With squares=freqBWs) title() note("Controlling for priors and total probabilities of false-posiive and false-negative outcomes. Standard errors in parentheses.") mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
 
 
 *Paying positive amounts for signals not affecting their protection choices:
