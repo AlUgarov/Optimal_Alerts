@@ -1,4 +1,5 @@
 **PRODUCES ALL THE TABLES AND GRAPHS FOR THE PROJECT**
+*requires moremata, estout, reghdfe libraries
 cd C:\Tornado_warnings\Experiment\Alerts_Experiment
 do ".\Code\prep_and_clean.do"
 do ".\Code\bp_analysis.do"

@@ -19,8 +19,8 @@ merge m:1 participant_id p using "./Temp/bp_val.dta" //risk aversion, blind prot
 drop if _merge==2
 drop _merge
 
-merge m:1 subject_id using "./Temp/ipclasses.dta" //risk aversion, blind prot choices and demographic vars
-drop _merge
+*merge m:1 subject_id using "./Temp/ipclasses.dta" //risk aversion, blind prot choices and demographic vars
+*drop _merge
 
 drop if pilot==1 //dropping the pilot
 
@@ -258,26 +258,9 @@ label value accur_bel1 accur_bel1l
 replace accur_bel2=1-round(accur_bel2)
 label value accur_bel2 accur_bel1l
 
-*Self-reported strategies
-*gen strategy_short=strategy_ip
-*replace strategy_short=3 if strategy_short>3
-label var strategy_short "Strategy"
-label define strategy_short_l 1 "Rational" 2 "Seek honest" 3 "Other"
-label values strategy_short strategy_short_l
-
 
 label var be_change "Belief change"
 label var confid "Certainty"
-
-
-
-**Baseline WTP regs: tobit
-gen class_alt=2-class
-
-tab class class_alt
-label var class_alt "IP strategy class"
-label define clsnames 0 "Bayesians" 1 "Simpletons"
-label values class_alt clsnames
 
 
 gen resp_freqBW=ip_b*freqBW
@@ -293,11 +276,8 @@ eststo clear
 eststo: reg wtp_diff i.highprob##c.false_neg i.highprob##c.false_pos, vce(cluster subject_id)
 eststo: reg wtp_diff i.highprob##c.false_neg i.risk_pref#i.highprob#c.false_neg i.highprob##c.false_pos i.risk_pref#i.highprob#c.false_pos, vce(cluster subject_id)
 eststo: reg wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.highprob##c.false_pos, vce(cluster subject_id)
-*eststo: reg wtp_diff i.highprob##c.false_neg c.totprot#i.highprob#c.false_neg i.highprob##c.false_pos c.totprot#i.highprob#c.false_pos, vce(cluster subject_id)
-
 eststo: reghdfe wtp_diff i.highprob##c.false_neg i.risk_pref#i.highprob#c.false_neg i.highprob##c.false_pos i.risk_pref#i.highprob#c.false_pos, abs(subject_id) vce(cluster subject_id)
 eststo: reghdfe wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.highprob##c.false_pos, abs(subject_id) vce(cluster subject_id)
-*eststo: reghdfe wtp_diff i.highprob##c.false_neg c.totprot#i.highprob#c.false_neg i.highprob##c.false_pos c.totprot#i.highprob#c.false_pos, abs(subject_id) vce(cluster subject_id)
 
 esttab using "./Tables/wtp_het_risk.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 esttab using "./Tables/wtp_het_risk_pres.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons *.risk_pref#*.highprob *.risk_pref#*.highprob  *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
@@ -566,21 +546,51 @@ foreach var of varlist false_pos false_neg{
   replace `var'="Yes" if `var'=="1"
 }
 bro
+save "./Temp/wtp_by_environment.dta", replace
 format wtp_diff ptest %9.3f
 listtex using "./Tables/bigpicture_wtp.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{cccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Mean WTP discrepancy}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 listtex using "./Tables/bigpicture_wtp_pres.tex", type rstyle(tabular) head("\begin{table}[H]\centering \begin{tabular}{cccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Mean WTP discrepancy}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 use "./Temp/wtp_by_environment_det.dta", replace
 
-tostring false_pos false_neg, replace
+tostring false_pos false_neg highprob, replace
 foreach var of varlist false_pos false_neg highprob{
   replace `var'="No" if `var'=="0"
   replace `var'="Yes" if `var'=="1"
 }
 bro
+save "./Temp/wtp_by_environment_det.dta", replace
 format wtp_diff ptest %9.3f
-listtex using "./Tables/bigpicture_wtp_det.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{cccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Mean WTP discrepancy}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
-listtex using "./Tables/bigpicture_wtp_det_pres.tex", type rstyle(tabular) head("\begin{table}[H]\centering \begin{tabular}{cccc} \hline \hline" `"\textbf{False-positive}&\textbf{False-negative}&\textbf{Mean WTP discrepancy}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+
+use "./Temp/wtp_by_environment.dta", replace
+gen highprob="All priors"
+append using "./Temp/wtp_by_environment_det.dta"
+generate sigtype=10*(false_pos=="Yes")+(false_neg=="Yes")
+drop false_pos false_neg
+reshape wide wtp_diff ptest, i(highprob) j(sigtype)
+format wtp_diff* ptest* %9.3f
+tostring wtp_diff*, format(%9.3f) replace force
+
+foreach v of varlist wtp_diff*{
+   sum `v'
+   local num=substr("`v'", 9, .)
+   sum ptest`num'
+   di "Extracted number: `num'"
+   foreach th in 0.05 0.01 0.001 {
+        replace `v'=`v'+cond(ptest`num' < `th', "*", "")
+		di `th'
+		di cond(`= ptest`num' < `th'', "*", "")
+   }
+   
+}
+
+
+drop ptest*
+replace highprob="Low priors" if highprob=="No"
+replace highprob="High priors ($>$0.2)" if highprob=="Yes"
+
+listtex using "./Tables/bigpicture_wtp_det.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \multicolumn{5}{l}{\footnotesize *The number of stars represents statistical significance (0.05, 0.01, 0.001)} \\ \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_wtp_det_pres.tex", type rstyle(tabular) head("\begin{table}[H]\centering \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 
 

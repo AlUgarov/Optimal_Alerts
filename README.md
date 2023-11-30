@@ -2,11 +2,11 @@
 ## *LABORATORY EXPERIMENT ANALYSIS*
 
 ## Overview
-
+This is the code and the original data for the laboratory experiment to measure human preferences over different information designs of alert signals.
 
 ## Setup
-Launch rundirectory.bat to produce all the results in the paper. Note: both Stata and R should be in the path variable.
-Launch runstataonly.bat to produce all the results produced in Stata (later in the pipeline). Note: Stata should be in the path variable.
+Launch Code/master_script.do to produce all the results in the paper.
+
 
 ## Software Requirements
 * Stata 14 or above

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  16 NOV 2023 11:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  29 NOV 2023 21:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -578,284 +578,162 @@ Package caption Info: End \AtBeginDocument code.
 
 {C:/Users/aluga/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 
-Package natbib Warning: Citation `xu_revealed_2020' on page 2 undefined on inpu
-t line 101.
+Package natbib Warning: Citation `xu_revealed_2022' on page 2 undefined on inpu
+t line 102.
 
 
-Package natbib Warning: Citation `hoffman_how_2016' on page 2 undefined on inpu
-t line 103.
-
-
-Package natbib Warning: Citation `ambuehl_belief_2018' on page 2 undefined on i
-nput line 103.
-
-
-Package natbib Warning: Citation `xu_revealed_2020' on page 2 undefined on inpu
-t line 103.
+Package natbib Warning: Citation `xu_revealed_2022' on page 2 undefined on inpu
+t line 104.
 
 [2]
 
-Package natbib Warning: Citation `ambuehl_belief_2018' on page 3 undefined on i
-nput line 105.
+Package natbib Warning: Citation `xu_revealed_2022' on page 3 undefined on inpu
+t line 106.
 
 
-Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
-t line 105.
+Package natbib Warning: Citation `xu_revealed_2022' on page 3 undefined on inpu
+t line 106.
 
-
-Package natbib Warning: Citation `ambuehl_belief_2018' on page 3 undefined on i
-nput line 105.
-
-
-Package natbib Warning: Citation `xu_revealed_2020' on page 3 undefined on inpu
-t line 105.
-
-
-Package natbib Warning: Citation `eliaz_paying_2010' on page 3 undefined on inp
-ut line 107.
-
-
-Package natbib Warning: Citation `masatlioglu_intrinsic_2017' on page 3 undefin
-ed on input line 107.
-
-
-Package natbib Warning: Citation `eil_good_2011' on page 3 undefined on input l
-ine 109.
-
-
-Package natbib Warning: Citation `coutts_good_2019' on page 3 undefined on inpu
-t line 109.
-
-
-Package natbib Warning: Citation `bornstein_rationality_2001' on page 3 undefin
-ed on input line 111.
-
-
-Package natbib Warning: Citation `gigerenzer_helping_2007' on page 3 undefined 
-on input line 111.
-
-[3]
-
-Package natbib Warning: Citation `liang_acceptability_2003' on page 4 undefined
- on input line 113.
-
-
-Package natbib Warning: Citation `howard_does_2009' on page 4 undefined on inpu
-t line 113.
-
-
-Package natbib Warning: Citation `neumann_willingness--pay_2012' on page 4 unde
-fined on input line 113.
-
-
-Package natbib Warning: Citation `schwartz_enthusiasm_2004' on page 4 undefined
- on input line 113.
-
-
-Package natbib Warning: Citation `neumann_willingness--pay_2012' on page 4 unde
-fined on input line 113.
-
-
-Package natbib Warning: Citation `schwartz_enthusiasm_2004' on page 4 undefined
- on input line 113.
-
-
-Package natbib Warning: Citation `howard_does_2009' on page 4 undefined on inpu
-t line 113.
-
-
-Package natbib Warning: Citation `laury_insurance_2009' on page 4 undefined on 
-input line 115.
-
-
-Package natbib Warning: Citation `volkman-wise_representativeness_2015' on page
- 4 undefined on input line 115.
-
-
-Package natbib Warning: Citation `hammerton_case_1973' on page 4 undefined on i
-nput line 117.
-
-
-Package natbib Warning: Citation `kahneman_psychology_1973' on page 4 undefined
- on input line 117.
-
-
-Package natbib Warning: Citation `grether_testing_1992' on page 4 undefined on 
-input line 117.
-
-
-Package natbib Warning: Citation `holt_update_2009' on page 4 undefined on inpu
-t line 117.
-
-[4]
+[3] [4]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 128.
+(amsmath)                 on input line 131.
 
-[5] [6] [7]
+[5] [6] [7] [8] (Tables/table_treatments.tex)
 
-Package natbib Warning: Citation `coutts_good_2019' on page 8 undefined on inpu
-t line 243.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-Package natbib Warning: Citation `grether_testing_1992' on page 8 undefined on 
-input line 252.
-
-
-Package natbib Warning: Citation `holt_update_2009' on page 8 undefined on inpu
-t line 252.
-
-
-Package natbib Warning: Citation `karni_mechanism_2009-1' on page 8 undefined o
-n input line 252.
-
-[8] (Tables/table_treatments.tex) [9]
+[9]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
-(Font)              size <12> substituted on input line 277.
+(Font)              size <12> substituted on input line 282.
 
-<Graphs/blind_prot_sta.png, id=159, 1003.75pt x 1003.75pt>
+[10]
+<Graphs/blind_prot_sta.png, id=248, 1003.75pt x 1003.75pt>
 File: Graphs/blind_prot_sta.png Graphic file (type png)
 <use Graphs/blind_prot_sta.png>
-Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 298.
+Package pdftex.def Info: Graphs/blind_prot_sta.png  used on input line 303.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
 Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
-put line 299.
-<Graphs/ip_response.png, id=160, 1003.75pt x 1003.75pt>
+put line 304.
+<Graphs/ip_response.png, id=249, 1003.75pt x 1003.75pt>
 File: Graphs/ip_response.png Graphic file (type png)
 <use Graphs/ip_response.png>
-Package pdftex.def Info: Graphs/ip_response.png  used on input line 302.
+Package pdftex.def Info: Graphs/ip_response.png  used on input line 307.
 (pdftex.def)             Requested size: 217.66211pt x 217.65527pt.
-[10] [11 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response.png (PN
-G copy)>]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 331--331
+ [11 <./Graphs/blind_prot_sta.png (PNG copy)> <./Graphs/ip_response.png (PNG co
+py)>]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 336--336
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 (Tables/bigpicture_IP_AU.tex)
-<Graphs/hist_belief_error_s3.png, id=177, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s3.png, id=260, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s3.png Graphic file (type png)
 <use Graphs/hist_belief_error_s3.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 36
-4.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s3.png, id=178, 1204.5pt x 803.0pt>
-File: Graphs/updating_s3.png Graphic file (type png)
-<use Graphs/updating_s3.png>
-Package pdftex.def Info: Graphs/updating_s3.png  used on input line 366.
-(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s5.png, id=179, 1204.5pt x 803.0pt>
-File: Graphs/hist_belief_error_s5.png Graphic file (type png)
-<use Graphs/hist_belief_error_s5.png>
-Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 36
 9.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s5.png, id=180, 1204.5pt x 803.0pt>
+<Graphs/updating_s3.png, id=261, 1204.5pt x 803.0pt>
+File: Graphs/updating_s3.png Graphic file (type png)
+<use Graphs/updating_s3.png>
+Package pdftex.def Info: Graphs/updating_s3.png  used on input line 371.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+<Graphs/hist_belief_error_s5.png, id=262, 1204.5pt x 803.0pt>
+File: Graphs/hist_belief_error_s5.png Graphic file (type png)
+<use Graphs/hist_belief_error_s5.png>
+Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 37
+4.
+(pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
+<Graphs/updating_s5.png, id=263, 1204.5pt x 803.0pt>
 File: Graphs/updating_s5.png Graphic file (type png)
 <use Graphs/updating_s5.png>
-Package pdftex.def Info: Graphs/updating_s5.png  used on input line 371.
+Package pdftex.def Info: Graphs/updating_s5.png  used on input line 376.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s4.png, id=181, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s4.png, id=264, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s4.png Graphic file (type png)
 <use Graphs/hist_belief_error_s4.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 37
-4.
+9.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s4.png, id=182, 1204.5pt x 803.0pt>
+<Graphs/updating_s4.png, id=265, 1204.5pt x 803.0pt>
 File: Graphs/updating_s4.png Graphic file (type png)
 <use Graphs/updating_s4.png>
-Package pdftex.def Info: Graphs/updating_s4.png  used on input line 376.
+Package pdftex.def Info: Graphs/updating_s4.png  used on input line 381.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
  [12] [13 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
 png (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/updati
 ng_s5.png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/
 updating_s4.png (PNG copy)>]
-
-Package natbib Warning: Citation `phillips_conservatism_1966-1' on page 14 unde
-fined on input line 391.
-
-
-Package natbib Warning: Citation `tversky_belief_1971' on page 14 undefined on 
-input line 391.
-
-
-Package natbib Warning: Citation `kahneman_subjective_1972' on page 14 undefine
-d on input line 391.
-
-
-Package natbib Warning: Citation `grether_bayes_1980' on page 14 undefined on i
-nput line 391.
-
-
-Package natbib Warning: Citation `benjamin_chapter_2019' on page 14 undefined o
-n input line 391.
-
-
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 403--403
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 408--408
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 (Tables/bigpicture_bel_AU.tex) [14]
-<Graphs/hist_WTP_discr1.png, id=209, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1.png, id=308, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 468.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 473.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fp.png, id=210, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fp.png, id=309, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fp.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fp.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1fp.png  used on input line 470.
+Package pdftex.def Info: Graphs/hist_WTP_discr1fp.png  used on input line 475.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fn.png, id=211, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fn.png, id=310, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fn.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1fn.png  used on input line 473.
+Package pdftex.def Info: Graphs/hist_WTP_discr1fn.png  used on input line 478.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fpfn.png, id=212, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fpfn.png, id=311, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fpfn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fpfn.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1fpfn.png  used on input line 475
+Package pdftex.def Info: Graphs/hist_WTP_discr1fpfn.png  used on input line 480
 .
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
  [15]
 
-LaTeX Warning: Reference `WTP_nonpar' on page 16 undefined on input line 480.
+LaTeX Warning: Reference `WTP_nonpar' on page 16 undefined on input line 485.
 
 (Tables/bigpicture_wtp_det.tex) [16 <./Graphs/hist_WTP_discr1.png (PNG copy)> <
 ./Graphs/hist_WTP_discr1fp.png (PNG copy)> <./Graphs/hist_WTP_discr1fn.png (PNG
  copy)> <./Graphs/hist_WTP_discr1fpfn.png (PNG copy)>] (Tables/wtpdiff_ols.tex)
 [17] [18] [19]
-<Graphs/sensit_comparison.png, id=252, 1003.75pt x 602.25pt>
+<Graphs/sensit_comparison.png, id=351, 1003.75pt x 602.25pt>
 File: Graphs/sensit_comparison.png Graphic file (type png)
 <use Graphs/sensit_comparison.png>
-Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 594.
+Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 599.
 (pdftex.def)             Requested size: 386.95897pt x 232.1748pt.
  [20]
 
-LaTeX Warning: Reference `wtp_het_risk' on page 21 undefined on input line 604.
+LaTeX Warning: Reference `wtp_het_risk' on page 21 undefined on input line 609.
 
 
 
-LaTeX Warning: Reference `tobit_het' on page 21 undefined on input line 606.
+LaTeX Warning: Reference `tobit_het' on page 21 undefined on input line 611.
 
 [21 <./Graphs/sensit_comparison.png (PNG copy)>] (Tables/table_be_err_AU.tex)
-[22] [23] (Tables/table_ip_flex_AU.tex) [24] [25]
-No file alertsManuscript_AU8.bbl.
-(Tables/table_summary.tex) (Tables/table_be3.tex) (Tables/table_ip5.tex)
-(Tables/table_wtpdiff_02.tex) (Tables/wtp_het_risk.tex) [26
+[22] [23] (Tables/table_ip_flex_AU.tex) [24] [25] (alertsManuscript_AU8.bbl
+[26
 
-] [27] [28] [29]
-[30]
-Overfull \hbox (14.3382pt too wide) detected at line 806
+] [27]) [28] (Tables/table_summary.tex) (Tables/table_be3.tex)
+(Tables/table_ip5.tex) (Tables/table_wtpdiff_02.tex) (Tables/wtp_het_risk.tex)
+[29] [30] [31] [32] [33]
+Overfull \hbox (14.3382pt too wide) detected at line 811
 [] \OT1/cmr/m/n/10.95 = [] []
  []
 
-[31]
+[34]
 
 Package natbib Warning: There were undefined citations.
 
-[32] (alertsManuscript_AU8.aux)
+[35] (alertsManuscript_AU8.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -867,11 +745,11 @@ Package rerunfilecheck Info: File `alertsManuscript_AU8.out' has not changed.
 (rerunfilecheck)             Checksum: DDB04B2F873F325BCE6344E875830A6A;3004.
  ) 
 Here is how much of TeX's memory you used:
- 14142 strings out of 476374
- 226304 string characters out of 5805269
- 1894340 words of memory out of 5000000
- 34167 multiletter control sequences out of 15000+600000
- 521939 words of font info for 65 fonts, out of 8000000 for 9000
+ 14264 strings out of 476374
+ 229571 string characters out of 5805269
+ 1895340 words of memory out of 5000000
+ 34253 multiletter control sequences out of 15000+600000
+ 521800 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,15n,117p,1436b,603s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
@@ -943,10 +821,11 @@ e1/public/amsfonts/cm/cmr10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12
 ic/amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/MiKTeX/fonts/type1/publi
 c/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C
-:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on alertsManuscript_AU8.pdf (32 pages, 1130756 bytes).
+:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmtt12.pfb>
+Output written on alertsManuscript_AU8.pdf (35 pages, 1177050 bytes).
 PDF statistics:
- 438 PDF objects out of 1000 (max. 8388607)
- 109 named destinations out of 1000 (max. 500000)
+ 592 PDF objects out of 1000 (max. 8388607)
+ 142 named destinations out of 1000 (max. 500000)
  210 words of extra memory for PDF output out of 10000 (max. 10000000)
 
