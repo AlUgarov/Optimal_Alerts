@@ -112,8 +112,10 @@ set scheme modern
 twoway (line val_FP p, lcolor(dknavy) lwidth(thick)) (line val_FN p, lcolor(red) lwidth(thick))
  (scatter wtp_FP p, mcolor(dknavy)) (scatter wtp_FN p, mcolor(red)),
  xtitle("Prior probability")
- legend(ring(0) position(10) bmargin(large) cols(2))
- note("OLS estimates of sensitivity to FP and FN rates by prior probability of a black ball.");
+ xlabel(#5, labsize(medium))
+ ylabel(#5, labsize(medium))
+ legend(ring(0) position(10) bmargin(large) cols(2) size(medium))
+ note("OLS estimates of sensitivity to FP and FN rates by prior probability of a black ball.", size(medium));
  
 #delimit cr
 graph export "./Graphs/sensit_comparison.png", width(1000) height(600) replace

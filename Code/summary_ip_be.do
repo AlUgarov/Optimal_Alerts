@@ -202,7 +202,9 @@ gen accur_bel=tot_bel_err<`err_med' //error is less than the median
 bys round: sum absbel_err
 bys subject_id round: egen v1=sum(absbel_err)
 bys p phintWB phintBW:egen med_bel_err=median(v1)
+bys p phintWB phintBW:egen sd_bel_err=sd(v1)
 gen accur_bel2=abs(bel_err)<med_bel_err
+gen accur_bel3=abs(bel_err)<0.1*sd_bel_err
 
 sort  subject_id round hint
 order subject_id round phintWB phintBW bel_err absbel_err accur_bel med_bel_err accur_bel2
@@ -312,7 +314,7 @@ graph export "./Graphs/hist_bigerrors.png", width(1200) height(800) replace
 
 
 use "./Temp/base_main_waves.dta", replace
-collapse (mean) accur_bel accur_bel2 be_change confid, by(subject_id round)
+collapse (mean) accur_bel accur_bel2 accur_bel3 be_change confid, by(subject_id round)
 save "./Temp/bel_accuracy.dta", replace
 use "./Temp/base_main_waves.dta", replace
 

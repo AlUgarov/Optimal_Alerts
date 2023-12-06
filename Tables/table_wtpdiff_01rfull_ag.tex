@@ -6,57 +6,69 @@
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
                 &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
 \hline
-FP costs        &     .237\sym{*}  &     .231\sym{*}  &     .204         &     .448\sym{***}&     .412\sym{***}\\
-                &    (0.1)         &    (0.1)         &    (0.3)         &    (0.2)         &    (0.1)         \\
-FN costs        &     .353\sym{***}&     .319\sym{***}&     .232         &     .337\sym{***}&    -.635\sym{***}\\
-                &    (0.1)         &    (0.1)         &    (0.3)         &    (0.1)         &    (0.2)         \\
-Risk-loving     &                  &                  &        0         &                  &                  \\
-                &                  &                  &      (.)         &                  &                  \\
-Risk-averse     &                  &                  &        0         &                  &                  \\
-                &                  &                  &      (.)         &                  &                  \\
-No risk av. measure&                  &                  &        0         &                  &                  \\
-                &                  &                  &      (.)         &                  &                  \\
-Risk-loving $\times$ FP costs&                  &                  &     .165         &                  &                  \\
-                &                  &                  &    (0.4)         &                  &                  \\
-Risk-averse $\times$ FP costs&                  &                  &   -.0197         &                  &                  \\
-                &                  &                  &    (0.4)         &                  &                  \\
-No risk av. measure $\times$ FP costs&                  &                  &    .0244         &                  &                  \\
-                &                  &                  &    (0.5)         &                  &                  \\
-Risk-loving $\times$ FN costs&                  &                  &     .177         &                  &                  \\
-                &                  &                  &    (0.3)         &                  &                  \\
-Risk-averse $\times$ FN costs&                  &                  &    .0608         &                  &                  \\
-                &                  &                  &    (0.3)         &                  &                  \\
-No risk av. measure $\times$ FN costs&                  &                  &     .114         &                  &                  \\
-                &                  &                  &    (0.3)         &                  &                  \\
-Inaccurate beliefs&                  &                  &                  &     .293\sym{**} &                  \\
-                &                  &                  &                  &    (0.1)         &                  \\
-Inaccurate beliefs $\times$ FP costs&                  &                  &                  &    -.197         &                  \\
-                &                  &                  &                  &    (0.5)         &                  \\
-Inaccurate beliefs $\times$ FN costs&                  &                  &                  &     .309         &                  \\
-                &                  &                  &                  &    (0.2)         &                  \\
-plevel=200      &                  &                  &                  &                  &    -1.39\sym{***}\\
-                &                  &                  &                  &                  &    (0.2)         \\
-plevel=300      &                  &                  &                  &                  &    -1.37\sym{***}\\
-                &                  &                  &                  &                  &    (0.1)         \\
+FP costs        &     .231\sym{*}  &     .204         &      .33         &     .503         &    -.104         \\
+                &    (0.1)         &    (0.3)         &    (0.4)         &    (0.4)         &    (0.5)         \\
+FN costs        &     .319\sym{***}&     .232         &   -.0945         &    -.428         &   -.0848         \\
+                &    (0.1)         &    (0.3)         &    (0.2)         &    (0.7)         &    (0.3)         \\
+Risk-loving     &                  &        0         &        0         &        0         &        0         \\
+                &                  &      (.)         &      (.)         &      (.)         &      (.)         \\
+Risk-averse     &                  &        0         &        0         &        0         &        0         \\
+                &                  &      (.)         &      (.)         &      (.)         &      (.)         \\
+No risk av. measure&                  &        0         &        0         &        0         &        0         \\
+                &                  &      (.)         &      (.)         &      (.)         &      (.)         \\
+Risk-loving $\times$ FP costs&                  &     .165         &    .0118         &    -.134         &     .561         \\
+                &                  &    (0.4)         &    (0.5)         &    (0.6)         &    (0.7)         \\
+Risk-averse $\times$ FP costs&                  &   -.0197         &    -.119         &    .0754         &    .0223         \\
+                &                  &    (0.4)         &    (0.4)         &    (0.5)         &    (0.7)         \\
+No risk av. measure $\times$ FP costs&                  &    .0244         &   -.0557         &     -.31         &    -.215         \\
+                &                  &    (0.5)         &    (0.5)         &    (0.7)         &    (1.1)         \\
+Risk-loving $\times$ FN costs&                  &     .177         &     .474\sym{*}  &      .66         &     .527\sym{*}  \\
+                &                  &    (0.3)         &    (0.3)         &    (0.8)         &    (0.3)         \\
+Risk-averse $\times$ FN costs&                  &    .0608         &     .369         &     .533         &     .437         \\
+                &                  &    (0.3)         &    (0.3)         &    (0.7)         &    (0.3)         \\
+No risk av. measure $\times$ FN costs&                  &     .114         &     .411         &     .372         &     .367         \\
+                &                  &    (0.3)         &    (0.3)         &    (0.9)         &    (0.4)         \\
+Inaccurate beliefs $\times$ Risk-loving $\times$ FP costs&                  &                  &     .803         &      3.5\sym{***}&    -.376         \\
+                &                  &                  &    (0.7)         &    (0.4)         &    (1.2)         \\
+Inaccurate beliefs $\times$ Risk-averse $\times$ FP costs&                  &                  &    -2.27\sym{***}&        0         &    -2.83\sym{**} \\
+                &                  &                  &    (0.3)         &      (.)         &    (1.2)         \\
+Inaccurate beliefs $\times$ No risk av. measure $\times$ FP costs&                  &                  &    -3.12\sym{***}&        0         &    -5.06\sym{***}\\
+                &                  &                  &    (0.4)         &      (.)         &    (1.7)         \\
+FP costs        &                  &                  &                  &        0         &                  \\
+                &                  &                  &                  &      (.)         &                  \\
+Inaccurate beliefs $\times$ Risk-loving $\times$ FN costs&                  &                  &     .178         &        0         &    -.956\sym{*}  \\
+                &                  &                  &    (0.2)         &      (.)         &    (0.6)         \\
+Inaccurate beliefs $\times$ Risk-averse $\times$ FN costs&                  &                  &      .43\sym{***}&        0         &    -1.02\sym{*}  \\
+                &                  &                  &    (0.1)         &      (.)         &    (0.5)         \\
+Inaccurate beliefs $\times$ No risk av. measure $\times$ FN costs&                  &                  &        0         &        0         &        0         \\
+                &                  &                  &      (.)         &      (.)         &      (.)         \\
+FN costs        &                  &                  &                  &        0         &                  \\
+                &                  &                  &                  &      (.)         &                  \\
+plevel=200      &                  &                  &                  &        0         &                  \\
+                &                  &                  &                  &      (.)         &                  \\
+Inaccurate beliefs&                  &                  &                  &     .148         &    -.314         \\
+                &                  &                  &                  &    (0.6)         &    (0.5)         \\
+Inaccurate beliefs $\times$ Risk-loving&                  &                  &                  &    -.294         &     .772         \\
+                &                  &                  &                  &    (0.7)         &    (0.6)         \\
+Inaccurate beliefs $\times$ Risk-averse&                  &                  &                  &   -.0224         &     .576         \\
+                &                  &                  &                  &    (0.6)         &    (0.6)         \\
+Inaccurate beliefs $\times$ No risk av. measure&                  &                  &                  &    -.253         &    -.119         \\
+                &                  &                  &                  &    (1.1)         &    (1.1)         \\
+Inaccurate beliefs $\times$ FP costs&                  &                  &                  &    -.396\sym{*}  &     1.26         \\
+                &                  &                  &                  &    (0.2)         &    (1.0)         \\
+FP costs        &                  &                  &                  &                  &        0         \\
+                &                  &                  &                  &                  &      (.)         \\
+Inaccurate beliefs $\times$ FN costs&                  &                  &                  &   .00343         &     1.07\sym{**} \\
+                &                  &                  &                  &    (0.4)         &    (0.5)         \\
+FN costs        &                  &                  &                  &                  &        0         \\
+                &                  &                  &                  &                  &      (.)         \\
 plevel=500      &                  &                  &                  &                  &        0         \\
                 &                  &                  &                  &                  &      (.)         \\
-plevel=200 $\times$ FP costs&                  &                  &                  &                  &     .162         \\
-                &                  &                  &                  &                  &    (0.2)         \\
-plevel=300 $\times$ FP costs&                  &                  &                  &                  &    -.417\sym{***}\\
-                &                  &                  &                  &                  &    (0.2)         \\
-plevel=500 $\times$ FP costs&                  &                  &                  &                  &    -.755\sym{*}  \\
-                &                  &                  &                  &                  &    (0.4)         \\
-plevel=200 $\times$ FN costs&                  &                  &                  &                  &     .828\sym{***}\\
-                &                  &                  &                  &                  &    (0.2)         \\
-plevel=300 $\times$ FN costs&                  &                  &                  &                  &     .886\sym{***}\\
-                &                  &                  &                  &                  &    (0.2)         \\
-plevel=500 $\times$ FN costs&                  &                  &                  &                  &     1.02\sym{***}\\
-                &                  &                  &                  &                  &    (0.2)         \\
-Constant        &    -.207         &    -.182\sym{**} &    -.184\sym{**} &    -.409\sym{***}&     .575\sym{***}\\
-                &    (0.2)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+Constant        &    -.182\sym{**} &    -.184\sym{**} &    -.174\sym{**} &    -.172         &     -.27         \\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.2)         &    (0.2)         \\
 \hline
-Observations    &      624         &      624         &      624         &      624         &      624         \\
-Adjusted \(R^{2}\)&     0.05         &     0.38         &     0.37         &     0.38         &     0.58         \\
+Observations    &      624         &      624         &      624         &      312         &      312         \\
+Adjusted \(R^{2}\)&     0.38         &     0.37         &     0.38         &     0.58         &     0.59         \\
 \hline\hline
 \multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
