@@ -1,0 +1,62 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: alertsManuscript_AG10.aux
+Reallocating 'name_of_file' (item size: 1) to 5 items.
+The style file: econ.bst
+Illegal, another \bibstyle command---line 117 of file alertsManuscript_AG10.aux
+ : \bibstyle
+ :          {econ}
+I'm skipping whatever remains of this command
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: Alerts4.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--there is no volume, number, and pages in aina_contingent_2023
+You've used 29 entries,
+            6826 wiz_defined-function locations,
+            1531 strings with 16873 characters,
+and the built_in function-call counts, 40568 in all, are:
+= -- 6986
+> -- 1574
+< -- 83
++ -- 508
+- -- 591
+* -- 2390
+:= -- 5179
+add.period$ -- 29
+call.type$ -- 29
+change.case$ -- 215
+chr.to.int$ -- 29
+cite$ -- 30
+duplicate$ -- 979
+empty$ -- 1762
+format.name$ -- 489
+if$ -- 10720
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 100
+num.names$ -- 299
+pop$ -- 318
+preamble$ -- 1
+purify$ -- 215
+quote$ -- 0
+skip$ -- 3078
+stack$ -- 0
+substring$ -- 3280
+swap$ -- 203
+text.length$ -- 209
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 496
+warning$ -- 1
+while$ -- 282
+width$ -- 0
+write$ -- 493
+(There was 1 error message)
