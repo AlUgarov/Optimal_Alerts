@@ -39,11 +39,6 @@ Bornstein, B.~H. and A.~C. Emler (2001) ``Rationality in medical decision
   \href{http://dx.doi.org/10.1046/j.1365-2753.2001.00284.x}{\urlstyle{rm}
   \nolinkurl{10.1046/j.1365-2753.2001.00284.x}}, Number: 2.
 
-\harvarditem[Brown]{Brown}{2010}{brown_oil_2010}
-Brown, Robbie (2010) ``Oil {Rig}’s {Siren} {Was} {Kept} {Silent},
-  {Technician} {Says},'' \textit{New York Times}, ~1,
-  \url{https://www.nytimes.com/2010/07/24/us/24hearings.html}.
-
 \harvarditem[Coutts]{Coutts}{2019}{coutts_good_2019}
 Coutts, Alexander (2019) ``Good news and bad news are still news: experimental
   evidence on belief updating,'' \textit{Experimental Economics}, 22 (2),
@@ -122,6 +117,14 @@ Hoffman, Mitchell (2016) ``How is {Information} {Valued}? {Evidence} from
   1884--1911, \href{http://dx.doi.org/10.1111/ecoj.12401}{\urlstyle{rm}
   \nolinkurl{10.1111/ecoj.12401}}, Number: 595.
 
+\harvarditem[Hoffrage et~al.]{Hoffrage, Krauss, Martignon and
+  Gigerenzer}{2015}{hoffrage_natural_2015}
+Hoffrage, Ulrich, Stefan Krauss, Laura Martignon, and Gerd Gigerenzer (2015)
+  ``Natural frequencies improve {Bayesian} reasoning in simple and complex
+  inference tasks,'' \textit{Frontiers in Psychology}, 6,
+  \href{http://dx.doi.org/10.3389/fpsyg.2015.01473}{\urlstyle{rm}
+  \nolinkurl{10.3389/fpsyg.2015.01473}}, Publisher: Frontiers.
+
 \harvarditem[Holt and Smith]{Holt and Smith}{2009}{holt_update_2009}
 Holt, Charles~A. and Angela~M. Smith (2009) ``An update on {Bayesian}
   updating,'' \textit{Journal of Economic Behavior \& Organization}, 69 (2),
@@ -154,8 +157,8 @@ Kahneman, Daniel and Amos Tversky (1972) ``Subjective probability: {A} judgment
 \harvarditem[Karni]{Karni}{2009}{karni_mechanism_2009-1}
 Karni, Edi (2009) ``A {Mechanism} for {Eliciting} {Probabilities},''
   \textit{Econometrica}, 77 (2),  603--606,
-  \url{https://ideas.repec.org/a/ecm/emetrp/v77y2009i2p603-606.html}, Number: 2
-  Publisher: Econometric Society.
+  \url{https://www.jstor.org/stable/40263877}, Number: 2 Publisher: [Wiley, The
+  Econometric Society].
 
 \harvarditem[Laury et~al.]{Laury, McInnes and
   Swarthout}{2009}{laury_insurance_2009}
@@ -180,6 +183,15 @@ Masatlioglu, Yusufcan, A.~Yesim Orhun, and Collin Raymond (2017) ``Intrinsic
   {Information} {Preferences} and {Skewness},'' September,
   \href{http://dx.doi.org/10.2139/ssrn.3232350}{\urlstyle{rm}
   \nolinkurl{10.2139/ssrn.3232350}}, Issue: 3232350.
+
+\harvarditem[McDowell and Jacobs]{McDowell and
+  Jacobs}{2017}{mcdowell_meta-analysis_2017}
+McDowell, Michelle and Perke Jacobs (2017) ``Meta-analysis of the effect of
+  natural frequencies on {Bayesian} reasoning,'' \textit{Psychological
+  Bulletin}, 143 (12),  1273--1312,
+  \href{http://dx.doi.org/10.1037/bul0000126}{\urlstyle{rm}
+  \nolinkurl{10.1037/bul0000126}}, Place: US Publisher: American Psychological
+  Association.
 
 \harvarditem[Neumann et~al.]{Neumann, Cohen, Hammitt, Concannon, Auerbach, Fang
   and Kent}{2012}{neumann_willingness--pay_2012}
