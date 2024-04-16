@@ -96,7 +96,7 @@
 The 2010 gas blowout on Deep Horizon oil rig killed 11 workers and caused one of the largest oil spills in history. The death toll was possibly aggravated by the switching off the general safety alarm because the rig ``did not want people woke up at 3 a.m. from false alarms” \citep{brown_oil_2010}. The United States Preventive Services Task Force has to periodically update its cancer screening guidelines as it weighs the costs from failing to detect cancer early against the potential harms from overdiagnosis or overtreatment due to false positive results.
 These are real-world examples of the trade-off from the two types of errors inherent to all probabilistic warning systems, namely false-positive and false-negative rates.
 
-Most real-world warning systems --- e.g., medical diagnostics, security alarms, or extreme weather alerts --- transform continuous signals about the likelihood of an adverse state into a yes/no binary signal. This transformation requires choosing a threshold for a positive classification. A lower threshold lowers the probability of failing to trigger in an adverse state (false-negative rate) but increases the probability of incorrect trigger in a safe state (false-positive rate). 
+Most real-world warning systems --- e.g., medical diagnostics, security alarms, or extreme weather alerts --- transform continuous signals about the likelihood of an adverse state into a yes/no binary signal. This transformation requires choosing a threshold for a positive classification. A lower threshold lowers the probability of failing to warn about an adverse state (false-negative rate) but increases the probability of warning in a safe state (false-positive rate). 
 %This trade-off motivates multiple discussions in medical diagnostics, alarm systems and extreme weather alerts. 
 %Despite ubiquity of binary alarms, there is little empirical evidence on how users evaluate alarms with different false-positive and false-negative rates. 
 
@@ -110,9 +110,9 @@ Our setup differs in two important aspects from \citep*{ambuehl_belief_2018, xu_
 
 Due to its applicability for studying preferences over expectations, there is a larger stream of literature on the demand for non-instrumental information. \citet{eliaz_paying_2010} find that subjects are willing to pay for signals even when these signals are excessive for making optimal choices. Their design involves subjects choosing between two boxes with one box containing a prize of \$20. Most subjects pay just to know the probability of finding \$20 in box A even if this box is more likely to contain a prize in all the possible states. This finding is inconsistent with expected utility maximization but indicates instead having preferences for certainty before making choices.  Similar to this paper, \citet{masatlioglu_intrinsic_2017} also study preferences over information structures differing in false-positive and false-negative rates but their setup allows for a larger role of expectations. They find that for a positive potential outcome, most subjects prefer facing high false-negative rates rather than high false-positive rates. In other words, they tolerate uncertainty after negative signals better than uncertainty after positive signals. These preferences are salient: subjects require an average payment of 18-35 cents to switch to their least preferred information structure.
 
-There is some mixed evidence that people update beliefs differently when these beliefs are ego-relevant or concern future gains and losses. \citet{eil_good_2011} find asymmetry in updating ego-relevant beliefs such as beauty and IQ. Subjects update more after receiving positive signals and do not update enough after negative signals. Additionally, subjects with high posterior ego-relevant beliefs are willing to pay to receive a more precise signals, but require a compensation for learning when their beliefs are low. In contrast, \citet{coutts_good_2019} does not find any updating asymmetry with respect to either ego-relevant beliefs or beliefs about future payoffs. 
+There is some mixed evidence that people update beliefs differently when these beliefs are ego-relevant or concern future gains and losses. \citet{eil_good_2011} find asymmetry in how subjects update ego-relevant beliefs about their own beauty and IQ. Subjects update more after receiving positive signal and do not update enough after negative signals. Additionally, subjects with high posterior ego-relevant beliefs are willing to pay to receive more precise signals, but require a compensation for learning when their beliefs are low. In contrast, \citet{coutts_good_2019} does not find any updating asymmetry with respect to either ego-relevant beliefs or beliefs about future payoffs. 
 
-Our paper is the first to measure value of information in the experimental setting of diagnostic tests or alarms. Previous work studies the use of alarms in context of medical testing, medical monitoring, safety alarms and extreme weather. Early literature on decision-making of medical professionals finds that doctors suffer from multiple biases when ordering testing, including  inaccurate posterior probability estimation due to availability heuristics, hindsight bias and regret \citep{bornstein_rationality_2001}. \citet{gigerenzer_helping_2007} find that most mammologists tend to overestimate the probability of cancer based on a positive result. Providing practitioners with natural frequencies instead of probabilities tends to reduce this bias.  
+We measure the value of diagnostic tests or alarms in the setting of incentivized experiment. Previous work studies the use of alarms in context of medical testing, medical monitoring, safety alarms and extreme weather. Early literature on decision-making of medical professionals finds that doctors suffer from multiple biases when ordering testing, including  inaccurate posterior probability estimation due to availability heuristics, hindsight bias and regret \citep{bornstein_rationality_2001}. \citet{gigerenzer_helping_2007} find that most mammologists tend to overestimate the probability of cancer based on a positive result. Providing practitioners with natural frequencies instead of probabilities tends to reduce this bias.  
 
 Patients' willingness-to-pay for medical tests is large and sensitive to test accuracy \citep{liang_acceptability_2003, howard_does_2009, neumann_willingness--pay_2012}. But test preferences also exhibit several abnormalities. First, users are willing to pay for tests having little or zero diagnostic value \citep{schwartz_enthusiasm_2004, neumann_willingness--pay_2012}. For example, \citet{schwartz_enthusiasm_2004} find that 73\% of Americans in their survey prefer a free full-body CT scan versus one thousand USD cash. However, medical professional do not recommend full-body CT scans for healthy people due to extreme likelihood of false-positive findings. Second, the framing of test accuracy seems to matter a lot. \citet{howard_does_2009} conduct a discrete-choice experiment to measure willingness-to-pay for the colorectal cancer screening. Their subjects agree to get 23 unnecessary colonoscopies in order to find one additional true cancer, but only 10.4 for reducing the number of cancers missed by one even though these descriptions are equivalent. Surprisingly, the perceived risk of cancer (prior) did not significantly affect the WTP in their study.
 
@@ -131,23 +131,23 @@ The agent's preferences are described by a utility function which depends on inc
 U=U(Y,a,\omega(1-a))=u(Y-ac-\omega(1-a)L)
 \]
 
-The agent considers a purchase of a testing instrument (hereafter, a tester) that produces a binary signal $s\in\{0,1\}$ about the state of the world. Let $P_{ij}\equiv P(s=i|\omega=j)$ be the probability that signal $s$ takes the value $i$ conditional on the state of the world being $j$.  After receiving the signal, the agent updates her belief on the likelihood of the adverse event to $\mu(s)$. We assume that she is Bayesian and her posterior belief equals to:
+The agent can purchase information in the form of a binary signal $s\in\{0,1\}$ about the state of the world. Let $P_{ij}\equiv P(s=i|\omega=j)$ be the probability that signal $s$ takes the value $i$ conditional on the state of the world being $j$.  After learning the signal's value, the agent updates her belief on the likelihood of the adverse event to $\mu(s)$. We assume that she is Bayesian and her posterior belief equals to:
 \[
 \mu(s)= {\pi P_{s1} \over \pi P_{s1}+(1-\pi)P_{s0}}
 \]
 where a larger $\mu(s)$ implies a higher posterior probability of the adverse event.
 
 \vspace{10pt}
-\paragraph{Preferences.} Without a tester, the agent protects if and only if it increases her expected utility:
+\paragraph{Preferences.} Without a signal, the agent protects if and only if it increases her expected utility:
 \[
 EU_0=\max[u(Y-c),\pi u(Y-L)+(1-\pi) u(Y)]
 \]
-The tester can increase expected utility if its signal informs her posterior. Under these assumptions, her expected utility with a signal is:
+Access to the signal can increase expected utility if the signal affects her posterior. Under these assumptions, her expected utility with a signal is:
 \[
 EU_s=\pi P_{11}u(Y-c)+\pi P_{01}u(Y-L)+(1-\pi)P_{10}u(Y-c)+(1-\pi)P_{00}u(Y)
 \]
 
-Denote as $b$ the agent's willingness to pay for the tester, to wit, she is indifferent between purchasing it at price $b$ and not having its signal. Its value is equal to the maximum between zero and the solution to the following equation:
+Denote as $b$ the agent's willingness to pay for the signal, to wit, she is indifferent between purchasing it at price $b$ and not purchasing it and not learning its realization. The signal's value is equal to the maximum between zero and the solution to the following equation:
 \begin{equation}\label{eq:devVal}
 \begin{split}
 P(s=1)u(Y-b-c)+\pi P_{01}u(Y-b-L)+(1-\pi)P_{00}u(Y-b)=\\=\max[u(Y-c),\pi u(Y-L)+(1-\pi) u(Y)] 
@@ -155,20 +155,20 @@ P(s=1)u(Y-b-c)+\pi P_{01}u(Y-b-L)+(1-\pi)P_{00}u(Y-b)=\\=\max[u(Y-c),\pi u(Y-L)+
 \end{equation}
 where $P(s=1)\equiv \pi P_{11}+(1-\pi)P_{10}$. The left-hand side expression of this equation is a strictly decreasing function of $b$. Additionally, for $b\rightarrow \infty$ the left-hand side is smaller than the right-hand side. It implies that equation~(\ref{eq:devVal}) has at most one positive solution.
 
-Obviously, $b>0$ for a perfectly accurate tester because the payoff distribution with the signal first-order stochastically dominates the distribution without the signal. 
+Obviously, $b>0$ for a perfectly accurate signal because the payoff distribution with the signal first-order stochastically dominates the distribution without it. 
 %If the agent protects without a signal, a perfect signal reduces the protection costs and if she takes chances, then it reduces losses in the adverse outcome from $L$ to $c<L$.  
-However, determining the value of an imperfect tester is non-trivial, as it requires more restrictions on preferences to allow weighing $u(Y-L)$ against $u(Y-c)$.
+However, determining the value of an imperfect signal is non-trivial, as it requires more restrictions on preferences to allow weighing $u(Y-L)$ against $u(Y-c)$.
 
 
 \paragraph{Risk-neutral agent.} If the agent is risk-neutral, the expression above collapses to:
 \[b+P(s=1)c+\pi P_{01}L=\min[c,\pi L]
 \]
-The tester's value is just:
+The signal's value is just:
 \[
 b=\max[0,\min[c,\pi L]-P(s=1)c-\pi P_{01}L]
 \]
 
-We can express the WTP for the tester, $b$, as a function of priors, false-positive (FP), and false-negative rates (FN) denoted correspondingly as $P_{10}$ and $P_{01}$. This is the equation we use in our empirical work:
+We can express the WTP for the signal, $b$, as a function of priors, false-positive (FP), and false-negative rates (FN) denoted correspondingly as $P_{10}$ and $P_{01}$. This is the equation we use in our empirical work:
 \begin{equation}
 b=\max[0,\min[c,\pi L]-\pi (1-P_{01})c-(1-\pi)P_{10}c-\pi P_{01}L]
 \end{equation}\label{eq:rnWTP}
@@ -182,9 +182,9 @@ When $b>0$, its with respect to FP ($P_{10}$) and FN ($P_{01}$) rates is given b
 \end{equation}
 \vspace{10pt}
 
-The tester's value is decreasing in both FP and FN rates. The effect is proportional to the non-adverse (adverse) state probability for the false-positive (false-negative) rate.
+The signal's value is decreasing in both FP and FN rates. The effect is proportional to the non-adverse (adverse) state probability for the false-positive (false-negative) rate.
 
-\paragraph{Risk Aversion Effects.} In an expected utility framework, risk aversion can both increase and decrease an agent's valuation of the tester. More specifically, risk aversion decreases her WTP when protection costs are low: 
+\paragraph{Risk Aversion Effects.} In an expected utility framework, risk aversion can both increase and decrease an agent's valuation of the signal. More specifically, risk aversion decreases her WTP when protection costs are low: 
 
 \begin{theorem}
  If protection costs are low $c<\pi L$, then a strictly risk-averse decision-maker pays less than a risk-neutral one.
@@ -194,16 +194,16 @@ See the Appendix.
 \end{proof}
 
 %\normalsize
-Things are more ambiguous when risks are low or protection costs are high. For example, risk aversion increases the value of a perfect tester as long as a risk-averse decision-maker still chooses to not protect without a signal. This follows from the standard argument that demand for insurance increases with risk aversion, and the fact that the protection problem with a perfect tester is isomorphic to the insurance problem with deductible $c$. 
+Things are more ambiguous when risks are low or protection costs are high. For example, risk aversion increases the value of a perfect signal as long as a risk-averse decision-maker still chooses to not protect without a signal. This follows from the standard argument that demand for insurance increases with risk aversion, and the fact that the protection problem with a perfect signal is isomorphic to the insurance problem with deductible $c$. 
 
-Next, we study the effect of a tester's false-positive and false-negative rates on the WTP, $b$. Assuming a differentiable utility function $u(.)$, we use implicit differentiation to derive sensitivities of $b$ to false-positive and false-negative rates:
+Next, we study the effect of a signal's false-positive and false-negative rates on the WTP, $b$. Assuming a differentiable utility function $u(.)$, we use implicit differentiation to derive sensitivities of $b$ to false-positive and false-negative rates:
 
 $${db\over dP_{10}}=-{(1-\pi)(u(Y-b)-u(Y-c-b))\over D(\pi, P_{01}, P_{10}, b)}$$
 $${db\over dP_{01}}=-{\pi(u(Y-c-b)-u(Y-L-b))\over D(\pi, P_{01}, P_{10}, b)}$$
 with the denominator equal to the expected marginal utility:
 $$D(\pi, P_{01}, P_{10}, b)\equiv P(S=1)u'(Y-c-b)+\pi P_{01}u'(Y-L-b)+$$
 $$+(1-\pi)P_{00}u'(Y-b)=E[MU]>0$$
-The tester's value decreases with FP and FN rates ${db\over dP_{10}},{db\over dP_{01}}<0$. We can also say a bit more about the sensitivity to FN rates:
+The signal's value decreases with FP and FN rates ${db\over dP_{10}},{db\over dP_{01}}<0$. We can also say a bit more about the sensitivity to FN rates:
 \begin{theorem}
 Risk-averse and imprudent decision-maker has higher sensitivity to FN rates as compared to a risk-neutral one.
 \end{theorem}\label{thm:riskAverse}  
@@ -213,7 +213,7 @@ See the Appendix.
 \end{proof}
 %\normalsize
 
-However, risk aversion can both increase and decrease subject's sensitivity to FP rates depending on the utility function's curvature and the signal's characteristics. Intuitively, an expected marginal utility of a strongly risk-averse subject with a bad tester can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to FP rates. It can also be higher if either the tester is good or the curvature is small. We can only say that it is very likely that for low protection costs and small priors $\pi$ (leading to no automatic blind protection) the ratio of sensitivities to FP rates over FN rates should be lower for risk-averse subjects. 
+However, risk aversion can both increase and decrease subject's sensitivity to FP rates depending on the utility function's curvature and the signal's characteristics. Intuitively, an expected marginal utility of a strongly risk-averse subject with an imperfect signal can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to FP rates. It can also be higher if either the signal is perfect or the curvature is small. We can only say that it is very likely that for low protection costs and small priors $\pi$ (leading to no automatic blind protection) the ratio of sensitivities to FP rates over FN rates should be lower for risk-averse subjects. 
 
 \begin{theorem}
 For low protection costs $c$ and small risks $\pi$, risk aversion lowers relative sensitivity to FP rates. 
@@ -238,14 +238,14 @@ See the Appendix.
 We conduct the experiment in the Behavioral Business Research Lab (BBRL) at the University of Arkansas between October and November 2021.  A total of 105 subjects participated in an individual decision task implemented using Qualtrics.  On average, including a \$5 show-up fee, subjects earned \$26 for a session lasting around 45 minutes. 
 %84 percent of the subjects were university students and 41 percent were male.  About 60 percent of the subjects had taken at least one statistics course. 
  
-Subjects were endowed with \$25 (on top of the show-up fee) that they could potentially lose in the experiment. The experimental outcome was determined by decisions in four sets of tasks played in the following order: (i) Blind Protection; (ii) Informed Protection; (iii) Belief Elicitation; and (iv) Willingness to Pay Elicitation. Subjects took a quiz of understanding prior to each task; the correct answer and an explanation were provided if a subject answered a question incorrectly.\footnote{Incorrect quiz answers for the Informed Protection section results in subjects facing additional questions. In our opinion, clear understanding of the Informed Protection task is essential for subsequent tasks, hence the added requirement.  These questions consist of XXX; complete details are in the appendix.} Each task consisted of 6 rounds, resulting in 24 total rounds. At the end of the experiment, one of these 24 rounds is is randomly selected as the payment round. The instructions can be found in the appendix.
+Subjects were endowed with \$25 (on top of the show-up fee) that they could potentially lose in the experiment. The experimental outcome was determined by decisions in four sets of tasks played in the following order: (i) Blind Protection; (ii) Informed Protection; (iii) Belief Elicitation; and (iv) Willingness to Pay Elicitation. Subjects took a quiz of understanding prior to each task; the correct answer and an explanation were provided if a subject answered a question incorrectly.\footnote{Incorrect quiz answers for the Informed Protection section results in subjects facing additional questions. In our opinion, clear understanding of the Informed Protection task is essential for subsequent tasks, hence the added requirement.  There are three additional multiple-choice questions, complete details are in the appendix.} Each task consisted of 6 rounds, resulting in 24 total rounds. At the end of the experiment, one of these 24 rounds is is randomly selected as the payment round. The instructions can be found in the appendix.
 
 
 \bigskip
 \noindent\textbf{Blind Protection (BP)}.\ \ \ Subjects must decide whether to protect against an adverse event: a random draw of a black ball.  Subjects know the prior probability that a black ball is drawn. Protection costs \$5. A subject who draws a black ball will lose nothing if they chose to protect and \$20 if they did not. The prior probability of drawing a black ball across the 6 rounds is denoted as $p \in \{0.05,0.10,...,0.3\}$. The order was common for all the subjects and started at the lowest probability. Subjects did not receive feedback on the realization of the decision.
 
 \bigskip
-\noindent\textbf{Informed Protection (IP)}.\ \ \ Similar to the BP task, subjects must make a protection decision given the prior probability of drawing a black ball. Subjects receive a prior and a signal produced by a tester with varying degrees of inaccuracy. Following \citet{coutts_good_2019}, we use a group of hinting gremlins to convey tester accuracy: a gremlin, randomly drawn from a group, gives out the signal. The gremlin is one of three types: (i) honest; (ii) ``black-swamp'' who always says that the ball is black; and (iii) ``white-swamp'' who always says that the ball is white. Figure~\ref{fig:Gremlins} illustrates how the different gremlin types were presented to the subjects. The composition of the group of gremlins determines tester accuracy: a higher share of black(white)-swamp gremlins produces a signal with higher FP (FN) rate. Subjects know the group composition, but do not know which gremlin provides the hint. We vary the proportion of prior probability of drawing a black ball and the composition of gremlins across rounds.  
+\noindent\textbf{Informed Protection (IP)}.\ \ \ Similar to the BP task, subjects must make a protection decision given the prior probability of drawing a black ball. Subjects receive a prior and a signal of varying degrees of accuracy. Following \citet{coutts_good_2019}, we use a group of hinting gremlins to convey the signal's accuracy: a randomly selected gremlin from a group provides a hint (mapping to a signal realization in the model). The gremlin is one of three types: (i) honest; (ii) ''black-swamp'' who always hints that the ball is black; and (iii) ''white-swamp'' who always says that the ball is white. Figure~\ref{fig:Gremlins} illustrates how the different gremlin types were presented to the subjects. The composition of the group of gremlins determines signal's accuracy: a higher share of black(white)-swamp gremlins produces a signal with higher FP (FN) rate. Subjects know the group composition, but do not know which gremlin provides a hint in any particular round. We vary the prior probability of drawing a black ball and the composition of gremlins across the rounds.  
 
 \begin{figure}[H]
 \centering
@@ -299,8 +299,8 @@ Risk-neutral agents who maximize their expected utility should start protecting 
 
 \subsection{Informed Protection}
 
-Recall that, in the IP task, subjects receive a signal about the ball color in addition to the prior. 
-Figure~\ref{fig:ProtResponse} shows that protection actions are increasing in the posteriors, though roughly 28\% of subjects break monotonicity in their protection responses with respect to posterior probabilities --- approximately the percentage of non-monotonic responses in the BP task.\footnote{That is, subjects do not protect for some treatments with posterior probability $P$ while protecting for a posterior probability $P'<P$.}  Breaking monotonicity here is not particularly surprising as subjects are not directly given their posterior probabilities and can estimate them incorrectly. At the individual level, we also find that the total number of times subjects protect in the BP task significantly correlates with their likelihood to protect in the IP task conditional on posteriors, but this explains only a very small part ($<$1\%) of variation in the IP decisions.\footnote{We use a linear probability model to estimate this relationship, and while the coefficient on the total number of protection choices is significant at the 1\% level, the $R^2$ only increases from 0.295 to 0.3.} 
+Recall that, in the IP task, subjects not only know the prior but also receive a signal (hint) about the ball color. 
+Figure~\ref{fig:ProtResponse} shows that protection actions are increasing in the posterior probability of an adverse event, though roughly 28\% of subjects break monotonicity in their protection responses with respect to posterior probabilities --- approximately the percentage of non-monotonic responses in the BP task.\footnote{That is, subjects do not protect for some treatments with posterior probability $P$ while protecting for a posterior probability $P'<P$.}  Breaking monotonicity here is not particularly surprising as subjects are not directly given their posterior probabilities and can estimate them incorrectly. At the individual level, we also find that the total number of times subjects protect in the BP task significantly correlates with their likelihood to protect in the IP task conditional on posteriors, but this explains only a very small part ($<$1\%) of variation in the IP decisions.\footnote{We use a linear probability model to estimate this relationship, and while the coefficient on the total number of protection choices is significant at the 1\% level, the $R^2$ only increases from 0.295 to 0.3.} 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -326,13 +326,13 @@ Figure~\ref{fig:ProtResponse} shows that protection actions are increasing in th
 %\pmt{Eventually we need to add notes to the figures}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Table~\ref{tab:nonparIP} presents the average protection decisions by signal type and tester characteristics. The first three columns summarize the tester accuracy information by the signal produced. Column 4 shows the posterior probability of a black ball averaged across all the treatments within a group. Column 5 shows the subjects' share of empirical protection responses, next to the theoretical optimum for risk-neutral subjects in Column 6. Column 7 presents the $p$-value for a test of equality between empirical and theoretical protection responses.
+Table~\ref{tab:nonparIP} presents the average protection decisions by prior and signal type. \aut{The first three columns indicate the signal's characteristics and its realization (hint).} Column 4 shows the posterior probability of a black ball averaged across all the treatments within a group. Column 5 shows the subjects' share of empirical protection responses, next to the theoretical optimum for risk-neutral subjects in Column 6. Column 7 presents the $p$-value for a test of equality between empirical and theoretical protection responses.
 
-We make three notable observations. First, regardless of the tester's FP and FN rates, black signals substantially increase the likelihood of protection.  Second, subjects' protection decisions deviate significantly from what is optimal for risk-neutral subjects in most treatments, as evidenced by column 7. Subjects tend to overprotect when facing white signals (rows 1--4). Subjects underprotect when facing black signals, except if the signals were produced by a tester with positive FP rates (rows 5--8). 
+We make three notable observations. First, regardless of the signal's FP and FN rates, black hints substantially increase the likelihood of protection.  Second, subjects' protection decisions deviate significantly from what is optimal for risk-neutral subjects in most treatments, as evidenced by column 7. Subjects tend to overprotect when facing white hints (rows 1--4). Subjects underprotect when facing black hints, except when facing positive FP rates (rows 5--8). 
 %with the exceptions of a black signal from a tester with positive FP rates, where the statistical equality of columns 5 and 6 cannot be rejected (rows 7--8).
 
 %\textbf{In light of BP decisions it is not surprising that subjects do not behave as risk-neutral agents, but some biases cannot be explained by the expected utility maximization for any degree of risk aversion.} 
-Third, we find that some deviations cannot be explained by the expected utility maximization for any degree of risk aversion. For example, consider rows 1 and 3: even though an increase in the tester's FP rate does not change the posterior (because the signal is white), the protection rate increases by 6 percentage points (pp). Similarly, row 4 shows that when both FP and FN are positive, the protection rate increases to 56 percent --- even though the average posterior probability given the tester characteristics is merely 13 percent. As a benchmark, with no signal in the BP task, only 13~(32) percent of subjects choose to protect when the probability is 10~(15) percent. 
+Third, we find that some deviations cannot be explained by the expected utility maximization for any degree of risk aversion. For example, consider rows 1 and 3: even though an increase in the FP rate does not change the posterior (because the hint is white), the protection rate increases by 6 percentage points (pp). Similarly, row 4 shows that when both FP and FN are positive, the protection rate increases to 56 percent --- even though the average posterior probability given the signal's characteristics is merely 13 percent. As a benchmark, with no signal in the BP task, only 13~(32) percent of subjects choose to protect when the probability is 10~(15) percent. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -343,7 +343,7 @@ Third, we find that some deviations cannot be explained by the expected utility 
 	\begin{threeparttable}
 	\begin{tabular}{cccccccc} \hline \hline
 	\multirow{4}{6ex}{\centering \textbf{Row}}
-			&\multicolumn{2}{c}{\centering \textbf{Tester Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Signal}} 
+			&\multicolumn{2}{c}{\centering \textbf{Signal Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Hint}} 
 			& \multirow{3}{10ex}{\centering \textbf{Posterior}} & \multirow{3}{10ex}{\centering \textbf{Share Protect}} 
 			& \multirow{3}{10ex}{\centering \textbf{Share Optimal}} 
 			& \multirow{3}{13ex}{\centering \textbf{P-val $(H_0: (5)=(6))$}} \\ 
@@ -414,7 +414,7 @@ Meanwhile, Panel~C plots the remaining observations (i.e., with uncertain poster
 	\begin{tabular}{ccccccc} 
 	\hline \hline
 		\multirow{4}{6ex}{\centering \textbf{Row}}
-			&\multicolumn{2}{c}{\centering \textbf{Tester Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Signal}} 
+			&\multicolumn{2}{c}{\centering \textbf{Signal Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Hint}} 
 			& \multirow{3}{10ex}{\centering \textbf{Posterior}} 
 			& \multirow{3}{12ex}{\centering \textbf{Updating Error$^*$}} & \multirow{3}{12ex}{\centering \textbf{P-val $(H_0: Error = 0)$}}  \\ \cmidrule(lr){2-3}
 		& \multirow{2}{10ex}{\centering \textbf{False Positive}} & \multirow{2}{12ex}{\centering \textbf{False Negative}} 
@@ -437,9 +437,9 @@ Meanwhile, Panel~C plots the remaining observations (i.e., with uncertain poster
 
 
 
-Table~\ref{tab:nonparError} summarizes how updating errors vary with tester characteristics. We find that subjects overestimate the probability of a black ball when given a white signal. This upward bias for a white signal increases in the FP/FN rate of the tester. To illustrate, consider the change between rows 1 and 3, where introducing a FP rate would not change the posterior because the signal is white. Yet, subjects update their posterior upward, magnifying their updating error. We find a similar effect for the introduction of the FN rate (row 1 v. 2).
+Table~\ref{tab:nonparError} summarizes how updating errors vary with the signal's characteristics. We find that subjects overestimate the probability of a black ball when receiving a white hint. This upward bias for a white hint increases in the FP/FN rate of the signal. To illustrate, consider the change between rows 1 and 3, where introducing a FP rate would not change the posterior because the signal realization is white. Yet, subjects update their posterior upward, magnifying their updating error. We find a similar effect for the introduction of the FN rate (row 1 v. 2).
 
-The updating bias for black signals, however, varies by the information structure. Subjects slightly underestimate the probability with a perfectly accurate tester, but introducing FN rates exacerbates subjects' underestimation. Rows 5 and 6 suggest that the introduction of a FN rate without changing the posterior further reduces subjects' belief. With non-zero FP rate, subjects again overestimate the probability of a black ball. The difference in the updating errors for black signals coming from FP-only (row 7) v. FP-FN testers (row 8) is negligible. 
+The updating bias for black signal realizations (hints), however, varies by information structure. Subjects slightly underestimate the probability with a perfectly accurate signal, but introducing FN rates exacerbates subjects' underestimation. Rows 5 and 6 suggest that the introduction of a FN rate without changing the posterior further reduces subjects' beliefs. With non-zero FP rate, subjects again overestimate the probability of a black ball. The difference in the updating errors for black hints coming from FP-only (row 7) v. FP-FN signals (row 8) is negligible. 
 The magnitude of subjects' adjustments to their beliefs was smaller than the actual change to the posteriors due to the FP rates.
 
 
@@ -454,7 +454,7 @@ Subjects' WTPs for signals are equal to their value for risk-neutral agents.
 \end{hypothesis}
 
 \begin{result} 
-On average, there are no significant discrepancies between WTP and predicted value for risk-neutral agents. When splitting by a signal type, the difference emerges only for signals produced by testers with both false-positive and false-negative rates.
+On average, there are no significant discrepancies between WTP and predicted value for risk-neutral agents. When splitting by a signal type, the difference emerges only for signals with both false-positive and false-negative rates.
 \end{result}
 
 
@@ -463,9 +463,9 @@ On average, there are no significant discrepancies between WTP and predicted val
 %
 %We next examine whether subjects understand the WTPE task. One of the model's basic prediction is that signal value decreases with false positive and false negative rates. If subjects understand the basic premise of the WTPE, then we expect a negative correlation between the WTP and the signal's false positive and false negative rate. 
 
-Overall, the theoretical value of a tester for a utility maximizing risk-neutral subject (hereafter, the risk-neutral WTP) in equation~\ref{eq:rnWTP} is a useful benchmark of our subjects' WTP. Figure~\ref{fig:WTPhist} plots the distribution of the differences between subjects' WTP and this value.  
+Overall, the theoretical signal's value for a utility maximizing risk-neutral subject (hereafter, the risk-neutral WTP) in equation~\ref{eq:rnWTP} is a useful benchmark of our subjects' WTP. Figure~\ref{fig:WTPhist} plots the distribution of the differences between subjects' WTP and this value.  
 %WTP is bounded between \$0 and \$5, where the latter is because protection can be purchased for \$5 so if information were that valuable, an individual would just choose to protect.  
-The WTP is centered around the risk-neutral WTP, indicating that average choices do not fall far from the choices of a risk-neutral utility maximizer. However, there is substantial variation: only 25\% of reported WTP are within \$0.50 of the risk-neutral signal value, and subjects overvalue signals by at least \$1.5 in 22\% of cases and undervalue by at least \$1.5 in 19\% of cases. Introducing FP and FN rates does not increase the range or variation of discrepancies, but introduces a long tail of positive discrepancies that shift the average upward.
+The WTP is centered around the risk-neutral WTP, indicating that average choices do not fall far from the choices of a risk-neutral utility maximizer. However, there is substantial variation: only 25\% of reported WTP are within \$0.50 of the risk-neutral signal value, and subjects overvalue signals by at least \$1.5 in 22\% of cases and undervalue by at least \$1.5 in 19\% of cases. Introducing FP and FN rates does not increase the range or variation of discrepancies, but introduces a long tail of positive discrepancies shifting the average upward.
 
 
 \begin{figure}[H]\centering 
@@ -482,7 +482,7 @@ The WTP is centered around the risk-neutral WTP, indicating that average choices
 
 \end{figure}
 
-Our non-parametric analysis in Table~\ref{tab:WTP_nonpar} also finds no differences on average between the observed WTP and the risk-neutral WTP for 3 out of 4 tester categories: honest (i.e., perfectly accurate), FP-only, and FN-only. With both FP and FN rates, however, subjects' WTPs are significantly higher than the risk-neutral WTP. Subjects overvaluations were similar for both low and high priors. Note, that these tester characteristics induce overprotection in the IP task. Subjects tend to overpay for testers with positive FP rates when the prior is low ($\in \{0.1,0.2\}$), and for testers with positive FN rates when the prior is high ($\in \{0.3,0.5\}$).
+Our non-parametric analysis in Table~\ref{tab:WTP_nonpar} also finds no differences on average between the observed WTP and the risk-neutral WTP for 3 out of 4 signal's types: honest (i.e., perfectly accurate), FP-only, and FN-only. With both FP and FN rates, however, subjects' WTPs are significantly higher than the risk-neutral WTP. Subjects overvaluations were similar for both low and high priors. Note, that these signal characteristics induce overprotection in the IP task. Subjects tend to overpay for signals with positive FP rates when the prior is low ($\in \{0.1,0.2\}$), and for signals with positive FN rates when the prior is high ($\in \{0.3,0.5\}$).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -504,7 +504,7 @@ On average for our signal and sample structure, we cannot reject the hypothesis 
 \end{result}
 
 
-Next, we examine how the WTP responds to tester quality. We estimate the relationship between WTP biases and signal characteristics with the following regression:
+Next, we examine how the WTP responds to signal's quality. We estimate the relationship between WTP biases and signal characteristics with the following regression:
 \[\Delta b_{is} = \beta_0 + \beta_1 FP + \beta_2 FN + \varepsilon_{is}\]
 where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between the WTP of individual $i$ for signal $s$ and $b^*_s$ is the risk-neutral WTP; FP (FN) is the false positive (false negative) cost. All specifications include subject fixed effects, with standard errors clustered at the subject level. If subjects are risk-neutral expected-utility-maximizers, we expect $\beta_1=0$ and $\beta_2=0$. The result, reported in column 1 of Table~\ref{tab:wtp_ols}, shows positive and statistically significant coefficients for both FP and FN costs. In other words, subjects deviate by overpaying for inaccurate testers. 
 
@@ -557,11 +557,11 @@ The risk-neutral model predicts that subjects should value the marginal costs of
 
 \subsection{Risk Preference and Belief Accuracy}
 
-Our baseline estimation in column 1 indicates significant deviations from the model's predictions. Positive and significant coefficients on FP and FN costs indicate that subjects reduce their WTP with growing FP and FN rates by less than a risk-neutral decision-maker would, i.e., subjects' WTP did not adjust enough to decreasing tester quality.
+Our baseline estimation in column 1 indicates significant deviations from the model's predictions. Positive and significant coefficients on FP and FN costs indicate that subjects reduce their WTP with growing FP and FN rates by less than a risk-neutral decision-maker would, i.e., subjects' WTP did not adjust enough to decreasing quality.
 
-As our benchmark model assumes both perfect updating and risk neutrality, assumptions which open two channels through which deviations could occur. First, Proposition~\ref{thm:riskAverse} suggests that risk preferences can influence the sensitivity of WTP to these tester characteristics. Second, systematic biases during updating can also lead to deviations. 
+As our benchmark model assumes both perfect updating and risk neutrality, assumptions which open two channels through which deviations could occur. First, Proposition~\ref{thm:riskAverse} suggests that risk preferences can influence the sensitivity of WTP to these signal's characteristics. Second, systematic biases during updating can also lead to deviations. 
 
-We find that risk preferences matter for sensitivity to tester quality. We use data from the BP task to categorize subjects by their risk preference. We classify all the subjects with internally consistent BP choices into three categories: risk averse, risk neutral, and risk loving.\footnote{We classify subjects based on the total number of protection choices made in the BP task with 2 or 3 choices corresponding to risk-neutrality (protecting starting from 0.2 or 0.25), but exclude subjects making more than one choice at odds with a consistent risk preference.} Column 2 explores the heterogeneity of subject responses to FP and FN costs by their risk preferences, with risk-neutral as the default category. 
+We find that risk preferences matter for sensitivity to signal's quality. We use data from the BP task to categorize subjects by their risk preference. We classify all the subjects with internally consistent BP choices into three categories: risk averse, risk neutral, and risk loving.\footnote{We classify subjects based on the total number of protection choices made in the BP task with 2 or 3 choices corresponding to risk-neutrality (protecting starting from 0.2 or 0.25), but exclude subjects making more than one choice at odds with a consistent risk preference.} Column 2 explores the heterogeneity of subject responses to FP and FN costs by their risk preferences, with risk-neutral as the default category. 
 %The coefficients for risk-neutral subjects are a bit larger than those of the average subjects (column 1), indicating a higher bias. 
 The WTPs of both risk-neutral and risk-loving subjects increase with FP/FN costs --- suggesting that they did not downward-adjust their WTP enough to account for lower quality testers. In contrast, the WTPs of risk-averse subjects show hardly any sensitivity to FP and FN costs.  
 
@@ -689,7 +689,7 @@ In Table~\ref{tab:protectReg}, we regress IP decisions on FP and FN rates and fl
 	\[Prob(s_{ij}=1)=\alpha_i+\beta_1 P_{10}+\beta_2 P_{01} +Z(P_{ij})+Z(\mu_{ij})+\epsilon_{ij} \]
 Here $s_{ij}$ is the protection decision of subject $i$ in treatment $j$, $\alpha_i$ is subject FE, $P_{10}$, $P_{01}$ are FP and FN rates and $Z(P_{ij})$ and $Z(\mu_{ij})$ are the splines of FP/FN rates  and reported beliefs $\mu_{ij}$ to control for these variables in a flexible way. Each spline is a function $Z(x)$ which is just linear $x+C$ within one interval, and constant everywhere else. The splines are constructed so that their linear intervals cover the whole domain of probabilities and beliefs $[0,1]$.\footnote{We use Stata mkspline command to create 5 splines $z_1(x),z_2(x),..z_5(x)$ of initial variable $x$ over the range $[0,1]$ such that $z_k(x)=\min[0,x-x_{k-1},x_k-x_{k-1}]$ with $x_k$ being equally spaced knot values. Splines account for potential nonlinear effects of posteriors and beliefs on protection decision with limited effect on degrees of freedom.} Columns 1 and 2 include only the flexible controls of the true posteriors. Columns 3 and 4 add further flexible controls to account for subjects' (often incorrect) beliefs, inferred from their BE responses.
 
-Columns 1 and 2 show that even conditional on posterior and subject FEs that account for risk preferences, IP responses are still affected by FP and FN rates. For a white signal, FP and FN rates increase the tendency to overprotect while the FP rate had an opposite effect with comparable magnitude but without statistical significance for a black signal. Hence the first prediction of a conjecture of indiscriminate FP/FN rate use holds: FP rates increase protection when the signal is white conditional on the posterior. The effect holds if allowing for heterogeneity of sensitivities to FP and FN rates with respect to priors (Column 2), though the effect of the FN rate for black signals is small in magnitude and not statistically significant at conventional levels. Adding flexible controls for subjects' beliefs reduces the coefficient magnitude on FP rate for white signals (Columns 3 and 4), but the coefficients still remains significant. This indicates that while beliefs partially contribute to these protection anomalies, they cannot explain them completely.
+Columns 1 and 2 show that even conditional on posterior and subject FEs that account for risk preferences, IP responses are still affected by FP and FN rates. For a white hint, FP and FN rates increase the tendency to overprotect while the FP rate had an opposite effect with comparable magnitude but without statistical significance for a black hint. Hence the first prediction of a conjecture of indiscriminate FP/FN rate use holds: FP rates increase protection when the signal realization is white conditional on the posterior. The effect holds if allowing for heterogeneity of sensitivities to FP and FN rates with respect to priors (Column 2), though the effect of the FN rate for black hints is small in magnitude and not statistically significant at conventional levels. Adding flexible controls for subjects' beliefs reduces the coefficient magnitude on FP rate for white hints (Columns 3 and 4), but the coefficients still remains significant. This indicates that while beliefs partially contribute to these protection anomalies, they cannot explain them completely.
 % (possibly due to subjects re-evaluating their beliefs between tasks). 
 
 
@@ -820,7 +820,7 @@ Now let $X$ denote a random payoff of the agent with a signal. A risk-averse dec
 \end{proof}
 %\normalsize
 
-However, risk aversion can both increase and decrease subject's sensitivity to false-positive rates depending on the utility function curvature and signal's characteristics. Intuitively, an expected marginal utility of a strongly risk-averse subject with a bad signal can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to false-positive rates. It can also be higher if either the signal is good or the curvature is small. We can only say that it is very likely that for low protection costs and small priors $\pi$ (leading to no automatic blind protection) the ratio of sensitivities to FP rates over FN rates should be lower for risk-averse subjects. 
+However, risk aversion can both increase and decrease subject's sensitivity to false-positive rates depending on the utility function curvature and signal's characteristics. Intuitively, an expected marginal utility of a strongly risk-averse subject with an imperfect signal can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to false-positive rates. It can also be higher if either the signal is good or the curvature is small. We can only say that it is very likely that for low protection costs and small priors $\pi$ (leading to no automatic blind protection) the ratio of sensitivities to FP rates over FN rates should be lower for risk-averse subjects. 
 
 
 \subsection{Proposition 3}
