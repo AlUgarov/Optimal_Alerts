@@ -365,10 +365,16 @@ gen fn_fn_cost=false_neg*false_neg
 eststo clear
 
 eststo: reghdfe wtp_diff false_pos false_neg, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
 	test false_pos = false_neg
 	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
 	
 eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+	testparm *
+    estadd scalar p_value=r(p)
 	test false_pos = false_neg
 		estadd scalar test_eq=r(p)
 	lincom false_pos+1.risk_pref#c.false_pos
@@ -390,6 +396,9 @@ eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg, abs(
 
 
 eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
 	test false_pos = false_neg
 		estadd scalar test_eq=r(p)
 	lincom false_pos+1.risk_pref#c.false_pos
@@ -411,6 +420,9 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		
 		
 eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
 		test false_pos = false_neg
 		estadd scalar test_eq=r(p)
 	lincom false_pos+1.risk_pref#c.false_pos
@@ -431,6 +443,9 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
 		
 eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
 		test false_pos = false_neg
 		estadd scalar test_eq=r(p)
 	lincom false_pos+1.risk_pref#c.false_pos
@@ -458,10 +473,10 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		order(false_pos false_neg 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
 		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
 		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
-		stat(r2 N b_RA_fp_X se_RA_fp_X p_RA_fp_X b_RA_fn_X se_RA_fn_X p_RA_fn_X b_RL_fp_X se_RL_fp_X p_RL_fp_X b_RL_fn_X se_RL_fn_X p_RL_fn_X ,  
-		label("\midrule $ R^2$" "Obs"  "[1em] Risk-Averse Subjects: \\ \hspace{0.5em} False Positive" "\hspace{1em}  se" "\hspace{1em} $ p$-value" "[0.5em] \hspace{0.5em} False Negative" "\hspace{1em}  se" "\hspace{1em}  $ p$-value" 
+		stat(r2 p_value N b_RA_fp_X se_RA_fp_X p_RA_fp_X b_RA_fn_X se_RA_fn_X p_RA_fn_X b_RL_fp_X se_RL_fp_X p_RL_fp_X b_RL_fn_X se_RL_fn_X p_RL_fn_X ,  
+		label("\midrule $ R^2$" "Prob\$>\$F" "Obs"  "[1em] Risk-Averse Subjects: \\ \hspace{0.5em} False Positive" "\hspace{1em}  se" "\hspace{1em} $ p$-value" "[0.5em] \hspace{0.5em} False Negative" "\hspace{1em}  se" "\hspace{1em}  $ p$-value" 
 		"[1em] Risk-Loving Subjects: \\ \hspace{0.5em} False Positive" "\hspace{1em}  se" "\hspace{1em}  $ p$-value"  "[0.5em] \hspace{0.5em} False Negative" "\hspace{1em}  se" "\hspace{1em}  $ p$-value" ) 
-		fmt(3 0 3 3 3 3 3 3 3 3 3 3 3 3) layout(@ @ @ (@) [@] @ (@) [@] @ (@) [@] @ (@) [@]))
+		fmt(3 4 0 3 3 3 3 3 3 3 3 3 3 3 3) layout(@ @ @ @ (@) [@] @ (@) [@] @ (@) [@] @ (@) [@]))
 		substitute(_ \_ ) style(tex);
 #delimit cr
 

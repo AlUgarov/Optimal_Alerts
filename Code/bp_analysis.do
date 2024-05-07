@@ -77,7 +77,7 @@ gen pilot=0
 
 
 **Merge-in blind protection choices from the pilot
-append using "./Temp/blind_collapsed_pilot.dta"
+*append using "./Temp/blind_collapsed_pilot.dta"
 
 mata:
   function funk(V,p) return(blind_diff(V,30,5,20,p))

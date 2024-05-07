@@ -109,12 +109,13 @@ label var wtp_FN "FN sensitivity (empirics)"
 *net install scheme-modern, from("https://raw.githubusercontent.com/mdroste/stata-scheme-modern/master/")
 set scheme modern
 #delimit ;
-twoway (line val_FP p, lcolor(dknavy) lwidth(thick)) (line val_FN p, lcolor(red) lwidth(thick))
- (scatter wtp_FP p, mcolor(dknavy)) (scatter wtp_FN p, mcolor(red)),
+twoway (line val_FP p, lcolor(dknavy) lwidth(thick)  lpattern(".-")) (line val_FN p, lcolor(red) lwidth(thick) lpattern(dash))
+ (scatter wtp_FP p, mcolor(dknavy)  msize(medlarge)) (scatter wtp_FN p, mcolor(red) msymbol(d) msize(medlarge)),
  xtitle("Prior probability")
+ yscale(r(0 9))
  xlabel(#5, labsize(medium))
  ylabel(#5, labsize(medium))
- legend(ring(0) position(10) bmargin(large) cols(2) size(medium))
+ legend(ring(0) position(11) bmargin(large) cols(2) size(medium))
  note("OLS estimates of sensitivity to FP and FN rates by prior probability of a black ball.", size(medium));
  
 #delimit cr
