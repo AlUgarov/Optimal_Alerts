@@ -1,0 +1,65 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: alertsManuscript_AU13clean.aux
+Reallocating 'name_of_file' (item size: 1) to 5 items.
+The style file: econ.bst
+Illegal, another \bibstyle command---line 109 of file alertsManuscript_AU13clean.aux
+ : \bibstyle
+ :          {econ}
+I'm skipping whatever remains of this command
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: Alerts4.bib
+Warning--I'm ignoring danz_belief_2020's extra "doi" field
+--line 1160 of file Alerts4.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--there is no volume, number, and pages in aina_contingent_2023
+Warning--there is no volume, number, and pages in brown_oil_2010
+You've used 30 entries,
+            6826 wiz_defined-function locations,
+            1536 strings with 17303 characters,
+and the built_in function-call counts, 42437 in all, are:
+= -- 7325
+> -- 1689
+< -- 84
++ -- 543
+- -- 641
+* -- 2508
+:= -- 5422
+add.period$ -- 30
+call.type$ -- 30
+change.case$ -- 225
+chr.to.int$ -- 30
+cite$ -- 32
+duplicate$ -- 1008
+empty$ -- 1816
+format.name$ -- 527
+if$ -- 11226
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 103
+num.names$ -- 310
+pop$ -- 329
+preamble$ -- 1
+purify$ -- 225
+quote$ -- 0
+skip$ -- 3209
+stack$ -- 0
+substring$ -- 3389
+swap$ -- 206
+text.length$ -- 216
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 513
+warning$ -- 2
+while$ -- 289
+width$ -- 0
+write$ -- 509
+(There was 1 error message)
