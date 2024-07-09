@@ -121,6 +121,11 @@ Tests and alarms are used to inform demand insurance and protection, and a large
 
 \textcolor{green}{We need a short wrap-up paragraph.  I don't like roadmaps (section 1 does X, section 2 does Y), but I'm ok with it if you guys like them.  We should try to end with one pithy statement about the impact of the results}
 
+\aust{Our results provide some theoretical guidelines on the design of future alerts systems. Our paper indicates that users are not sensitive enough to the accuracy of alert signals, sometimes even paying for tests having no effect on their decisions. This is consistent with many real-world systems having too high false-positive rates which can result in alarm fatigue. As this bias is most consistent with failure of probabilistic reasoning, designers of alerts systems should give more attention to how the information on their accuracy is presented to their main users.}
+
+From here on, the paper proceeds in a mostly straightforward manner. We start by setting up a simple model and outlining our hypotheses in Section 2. Section 3 describes the experimental design. Next, given a novelty of some of the experimental tasks, we present our results in three consecutive sections. Section 4 gives theory-free exposition of subjects' choices in all the experimental treatments. Section 5 describes the results for main empirical tests of this paper with regards to the willingness-to-pay for signals. Finally, Section 6 explores potential explanations for the observed pattern of underreaction to false-positive rates for low initial probabilities.
+
+
 \vspace{20pt}
 \section{Model}
 \paragraph{Environment.} Let $\omega \in \{0,1\}$ denote the state of world, where 1 corresponds to an adverse event that happens with probability $\pi$ and induces a loss, $L$. An agent can take protective action $a\in\{0,1\}$ to avoid losing $L$ under the adverse state. The loss is only realized when $\omega(1-a)=1$.
