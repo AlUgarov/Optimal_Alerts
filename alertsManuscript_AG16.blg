@@ -1,0 +1,67 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: alertsManuscript_AG16.aux
+Reallocating 'name_of_file' (item size: 1) to 5 items.
+The style file: econ.bst
+Illegal, another \bibstyle command---line 117 of file alertsManuscript_AG16.aux
+ : \bibstyle
+ :          {econ}
+I'm skipping whatever remains of this command
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+Reallocating 'name_of_file' (item size: 1) to 19 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: Alerts4.bib
+Warning--I'm ignoring danz_belief_2020's extra "doi" field
+--line 1160 of file Alerts4.bib
+Database file #2: Nytimes_cancer.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--there is no volume, number, and pages in aina_contingent_2023
+Warning--there is no volume, number, and pages in brown_oil_2010
+You've used 26 entries,
+            6826 wiz_defined-function locations,
+            1511 strings with 16194 characters,
+and the built_in function-call counts, 35061 in all, are:
+= -- 6035
+> -- 1288
+< -- 73
++ -- 411
+- -- 465
+* -- 2026
+:= -- 4517
+add.period$ -- 26
+call.type$ -- 26
+change.case$ -- 185
+chr.to.int$ -- 26
+cite$ -- 28
+duplicate$ -- 869
+empty$ -- 1564
+format.name$ -- 393
+if$ -- 9240
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 91
+num.names$ -- 272
+pop$ -- 279
+preamble$ -- 1
+purify$ -- 185
+quote$ -- 0
+skip$ -- 2662
+stack$ -- 0
+substring$ -- 2902
+swap$ -- 175
+text.length$ -- 181
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 446
+warning$ -- 2
+while$ -- 252
+width$ -- 0
+write$ -- 441
+(There was 1 error message)

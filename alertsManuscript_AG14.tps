@@ -11,14 +11,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1715
-NormalPos.bottom=683
+NormalPos.right=1475
+NormalPos.bottom=653
 Class=LaTeXView
 Document=alertsManuscript_AG14.tex
 
 [Frame0_View0,0]
-TopLine=1271
-Cursor=87432
+TopLine=99
+Cursor=4099
 
 [SessionInfo]
 FrameCount=1
