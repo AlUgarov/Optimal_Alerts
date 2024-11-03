@@ -484,6 +484,132 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 
 
 
+**Baseline WTP difference (full printed table): risk-aversion and belief accuracy
+eststo clear
+
+eststo: reghdfe wtp_diff false_pos false_neg, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+	
+eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+	testparm *
+    estadd scalar p_value=r(p)
+	test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+
+
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+	test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+		
+		
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+		
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+
+		
+
+#delimit ;
+	esttab * using "./Tables/wtpdiff_ols_full.tex", replace label 
+		order(false_pos false_neg 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
+		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
+		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) noobs nonum noline noomit
+		substitute(_ \_ ) style(tex);
+#delimit cr
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 *Demographic variables:
 eststo clear
