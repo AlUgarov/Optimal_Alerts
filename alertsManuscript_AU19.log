@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  3 NOV 2024 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  5 NOV 2024 17:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -605,72 +605,71 @@ Package caption Info: End \AtBeginDocument code.
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 127.
+(amsmath)                 on input line 126.
 
 [4] [5] [6] [7]
 <Graphs/gremlins1.png, id=191, 560.8453pt x 273.27094pt>
 File: Graphs/gremlins1.png Graphic file (type png)
 <use Graphs/gremlins1.png>
-Package pdftex.def Info: Graphs/gremlins1.png  used on input line 237.
+Package pdftex.def Info: Graphs/gremlins1.png  used on input line 236.
 (pdftex.def)             Requested size: 290.22107pt x 141.4095pt.
  [8 <./Graphs/gremlins1.png>] (Tables/table_treatments.tex)
 [9]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
-(Font)              size <12> substituted on input line 274.
+(Font)              size <12> substituted on input line 273.
 
 [10]
 <Graphs/ip_response_comp.png, id=237, 1204.5pt x 803.0pt>
 File: Graphs/ip_response_comp.png Graphic file (type png)
 <use Graphs/ip_response_comp.png>
-Package pdftex.def Info: Graphs/ip_response_comp.png  used on input line 296.
+Package pdftex.def Info: Graphs/ip_response_comp.png  used on input line 295.
 (pdftex.def)             Requested size: 338.58632pt x 225.72067pt.
  [11 <./Graphs/ip_response_comp.png (PNG copy)>]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 317--317
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 316--316
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
 (Tables/bigpicture_IP_AG.tex)
-<Graphs/hist_belief_error_s3.png, id=247, 1204.5pt x 803.0pt>
-File: Graphs/hist_belief_error_s3.png Graphic file (type png)
-<use Graphs/hist_belief_error_s3.png>
-Package pdftex.def Info: Graphs/hist_belief_error_s3.png  used on input line 35
-0.
+<Graphs/hist_belief_error.png, id=247, 1204.5pt x 803.0pt>
+File: Graphs/hist_belief_error.png Graphic file (type png)
+<use Graphs/hist_belief_error.png>
+Package pdftex.def Info: Graphs/hist_belief_error.png  used on input line 349.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
-put line 350.
-<Graphs/updating_s3.png, id=248, 1204.5pt x 803.0pt>
-File: Graphs/updating_s3.png Graphic file (type png)
-<use Graphs/updating_s3.png>
-Package pdftex.def Info: Graphs/updating_s3.png  used on input line 352.
+put line 349.
+<Graphs/updating_s1.png, id=248, 1204.5pt x 803.0pt>
+File: Graphs/updating_s1.png Graphic file (type png)
+<use Graphs/updating_s1.png>
+Package pdftex.def Info: Graphs/updating_s1.png  used on input line 351.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 <Graphs/hist_belief_error_s5.png, id=249, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s5.png Graphic file (type png)
 <use Graphs/hist_belief_error_s5.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 35
-5.
+4.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 <Graphs/updating_s5.png, id=250, 1204.5pt x 803.0pt>
 File: Graphs/updating_s5.png Graphic file (type png)
 <use Graphs/updating_s5.png>
-Package pdftex.def Info: Graphs/updating_s5.png  used on input line 357.
+Package pdftex.def Info: Graphs/updating_s5.png  used on input line 356.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 <Graphs/hist_belief_error_s4.png, id=251, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s4.png Graphic file (type png)
 <use Graphs/hist_belief_error_s4.png>
-Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 36
-0.
+Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 35
+9.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 <Graphs/updating_s4.png, id=252, 1204.5pt x 803.0pt>
 File: Graphs/updating_s4.png Graphic file (type png)
 <use Graphs/updating_s4.png>
-Package pdftex.def Info: Graphs/updating_s4.png  used on input line 362.
+Package pdftex.def Info: Graphs/updating_s4.png  used on input line 361.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
- [12] [13 <./Graphs/hist_belief_error_s3.png (PNG copy)> <./Graphs/updating_s3.
-png (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/updati
-ng_s5.png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/
-updating_s4.png (PNG copy)>]
-Overfull \hbox (2.19304pt too wide) in paragraph at lines 386--386
+ [12] [13 <./Graphs/hist_belief_error.png (PNG copy)> <./Graphs/updating_s1.png
+ (PNG copy)> <./Graphs/hist_belief_error_s5.png (PNG copy)> <./Graphs/updating_
+s5.png (PNG copy)> <./Graphs/hist_belief_error_s4.png (PNG copy)> <./Graphs/upd
+ating_s4.png (PNG copy)>]
+Overfull \hbox (2.19304pt too wide) in paragraph at lines 385--385
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
@@ -678,22 +677,22 @@ Overfull \hbox (2.19304pt too wide) in paragraph at lines 386--386
 <Graphs/hist_WTP_discr1.png, id=295, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 435.
+Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 434.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 <Graphs/hist_WTP_discr1fp.png, id=296, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fp.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fp.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1fp.png  used on input line 437.
+Package pdftex.def Info: Graphs/hist_WTP_discr1fp.png  used on input line 436.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 <Graphs/hist_WTP_discr1fn.png, id=297, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fn.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1fn.png  used on input line 440.
+Package pdftex.def Info: Graphs/hist_WTP_discr1fn.png  used on input line 439.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 <Graphs/hist_WTP_discr1fpfn.png, id=298, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fpfn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fpfn.png>
-Package pdftex.def Info: Graphs/hist_WTP_discr1fpfn.png  used on input line 442
+Package pdftex.def Info: Graphs/hist_WTP_discr1fpfn.png  used on input line 441
 .
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
  [15] (Tables/bigpicture_wtp_det.tex)
@@ -703,7 +702,7 @@ PNG copy)> <./Graphs/hist_WTP_discr1fn.png (PNG copy)> <./Graphs/hist_WTP_discr
 <Graphs/sensit_comparison.png, id=345, 1003.75pt x 602.25pt>
 File: Graphs/sensit_comparison.png Graphic file (type png)
 <use Graphs/sensit_comparison.png>
-Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 537.
+Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 536.
 (pdftex.def)             Requested size: 386.95897pt x 232.1748pt.
  [20 <./Graphs/sensit_comparison.png (PNG copy)>] [21] [22] (Tables/table_be_er
 r_AU.tex)
@@ -723,7 +722,7 @@ th /
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [29] [30] [31] [32] [33]
-Overfull \hbox (14.3382pt too wide) detected at line 768
+Overfull \hbox (14.3382pt too wide) detected at line 767
 [] \OT1/cmr/m/n/10.95 = [] []
  []
 
@@ -737,7 +736,7 @@ Package rerunfilecheck Info: File `alertsManuscript_AU19.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  14632 strings out of 476374
- 234255 string characters out of 5805269
+ 234234 string characters out of 5805269
  1895340 words of memory out of 5000000
  34500 multiletter control sequences out of 15000+600000
  522756 words of font info for 68 fonts, out of 8000000 for 9000
@@ -827,7 +826,7 @@ r7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/MiKTeX/fonts/type
 /public/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.
 pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/MiKTeX/fonts/type1
 /public/amsfonts/cm/cmtt12.pfb>
-Output written on alertsManuscript_AU19.pdf (40 pages, 1248420 bytes).
+Output written on alertsManuscript_AU19.pdf (40 pages, 1228129 bytes).
 PDF statistics:
  774 PDF objects out of 1000 (max. 8388607)
  254 named destinations out of 1000 (max. 500000)

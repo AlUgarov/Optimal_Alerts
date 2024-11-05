@@ -4,7 +4,7 @@ set more off
 clear all
 
 *!!put your working folder below:
-*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+cd C:\Tornado_warnings\Experiment\Alerts_Experiment
 *cd C:\Tornado_warnings\Optimal_Alerts
 
 
@@ -352,17 +352,20 @@ tab seqtype
 sdtest bel_err, by(seqtype)  //the difference in variances is not significant
 
 
+
 hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
 graph export "./Graphs/hist_belief_error.png", width(1200) height(800) replace
 
-hist bel_err  if abs(0.5-post_prob)<0.499, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("Main waves only, excluding certain signals") color(navy)
+hist bel_err if abs(0.5-post_prob)<0.499, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("Excluding certain signals") color(navy)
 graph export "./Graphs/hist_belief_error_s3.png", width(1200) height(800) replace
 
-hist bel_err  if abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
+hist bel_err if abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") fraction color(navy)
 graph export "./Graphs/hist_belief_error_s4.png", width(1200) height(800) replace
 
-hist bel_err  if abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") fraction note("Main waves only") color(navy)
+hist bel_err if abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") fraction color(navy)
 graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replace
+
+
 
 qui reg be_ post_prob
 local r2 : display %5.3f = e(r2)
