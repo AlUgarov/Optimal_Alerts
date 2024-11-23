@@ -356,13 +356,10 @@ sdtest bel_err, by(seqtype)  //the difference in variances is not significant
 hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
 graph export "./Graphs/hist_belief_error.png", width(1200) height(800) replace
 
-hist bel_err if abs(0.5-post_prob)<0.499, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("Excluding certain signals") color(navy)
-graph export "./Graphs/hist_belief_error_s3.png", width(1200) height(800) replace
-
-hist bel_err if abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") fraction color(navy)
+hist bel_err if abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") note("By belief elicitation task, no aggregation to round or subjects") fraction color(navy)
 graph export "./Graphs/hist_belief_error_s4.png", width(1200) height(800) replace
 
-hist bel_err if abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") fraction color(navy)
+hist bel_err if abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") note("By belief elicitation task, no aggregation to round or subjects") fraction color(navy)
 graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replace
 
 
@@ -371,35 +368,35 @@ qui reg be_ post_prob
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob
 local rho:  display %5.3f = r(rho)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs including pilot, correlation=`rho'") legend(off)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs, correlation=`rho'") legend(off)
 graph export "./Graphs/updating_s1.png", width(1200) height(800) replace
 
-qui reg be_ post_prob if pilot==0&goodquiz==1
+qui reg be_ post_prob if goodquiz==1
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&goodquiz==1
 local rho:  display %5.3f = r(rho)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, good quiz, correlation=`rho'")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Good quiz, correlation=`rho'")
 graph export "./Graphs/updating_s2.png", width(1200) height(800) replace
 
-qui reg be_ post_prob if pilot==0&honest==0
+qui reg be_ post_prob if honest==0
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&honest==0
 local rho:  display %5.3f = r(rho)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, excluding certain signals, correlation=`rho'")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Excluding certain signals, correlation=`rho'")
 graph export "./Graphs/updating_s3.png", width(1200) height(800) replace
 
-qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499
+qui reg be_ post_prob if abs(0.5-post_prob)<0.499
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499
 local rho:  display %5.3f = r(rho)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, correlation=`rho'")
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Correlation=`rho'")
 graph export "./Graphs/updating_s4.png", width(1200) height(800) replace
 
-qui reg be_ post_prob if pilot==0&abs(0.5-post_prob)>0.499
+qui reg be_ post_prob if abs(0.5-post_prob)>0.499
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&abs(0.5-post_prob)>0.499
 local rho:  display %5.3f = r(rho)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Main waves only, correlation=`rho'")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Correlation=`rho'")
 graph export "./Graphs/updating_s5.png", width(1200) height(800) replace
 
 save "./Temp/base_main_waves.dta", replace
