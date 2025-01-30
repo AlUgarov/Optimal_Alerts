@@ -440,7 +440,7 @@ eststo clear
 eststo: reg bel_err phintBW phintWB i.subject_id, vce(cluster subject_id)
 eststo: reg bel_err phintBW phintWB i.subject_id if blackhint==0, vce(cluster subject_id)
 eststo: reg bel_err phintBW phintWB i.subject_id if blackhint==1, vce(cluster subject_id)
-esttab using "./Tables/table_be_err.tex", b(%9.3f) se(%9.3f) ar2(%9.3f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err.tex", b(%9.3f) se(%9.3f) ar2(%9.3f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 *Testing FP/FN confusion:
