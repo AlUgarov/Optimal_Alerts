@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  13 FEB 2025 09:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.23)  13 FEB 2025 10:35
 entering extended mode
 **./alertsManuscript_AG26.tex
 (alertsManuscript_AG26.tex
@@ -610,7 +610,7 @@ Package amsmath Warning: Foreign command \over;
 (amsmath)                 on input line 155.
 
 [4] [5] [6] [7]
-<Graphs/gremlins1.png, id=210, 560.8453pt x 273.27094pt>
+<Graphs/gremlins1.png, id=207, 560.8453pt x 273.27094pt>
 File: Graphs/gremlins1.png Graphic file (type png)
 <use Graphs/gremlins1.png>
 Package pdftex.def Info: Graphs/gremlins1.png  used on input line 269.
@@ -621,7 +621,7 @@ Package pdftex.def Info: Graphs/gremlins1.png  used on input line 269.
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
 (Font)              size <12> substituted on input line 304.
 
-<Graphs/ip_response_comp.png, id=246, 1204.5pt x 803.0pt>
+<Graphs/ip_response_comp.png, id=243, 1204.5pt x 803.0pt>
 File: Graphs/ip_response_comp.png Graphic file (type png)
 <use Graphs/ip_response_comp.png>
 Package pdftex.def Info: Graphs/ip_response_comp.png  used on input line 326.
@@ -632,36 +632,36 @@ Overfull \hbox (2.19304pt too wide) in paragraph at lines 347--347
  []
 
 (Tables/bigpicture_IP_AG.tex) [11 <./Graphs/ip_response_comp.png (PNG copy)>]
-<Graphs/hist_belief_error.png, id=266, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error.png, id=263, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error.png Graphic file (type png)
 <use Graphs/hist_belief_error.png>
 Package pdftex.def Info: Graphs/hist_belief_error.png  used on input line 380.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
 Package hyperref Info: bookmark level for unknown subfigure defaults to 0 on in
 put line 380.
-<Graphs/updating_s1.png, id=267, 1204.5pt x 803.0pt>
+<Graphs/updating_s1.png, id=264, 1204.5pt x 803.0pt>
 File: Graphs/updating_s1.png Graphic file (type png)
 <use Graphs/updating_s1.png>
 Package pdftex.def Info: Graphs/updating_s1.png  used on input line 382.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s5.png, id=268, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s5.png, id=265, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s5.png Graphic file (type png)
 <use Graphs/hist_belief_error_s5.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s5.png  used on input line 38
 5.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s5.png, id=269, 1204.5pt x 803.0pt>
+<Graphs/updating_s5.png, id=266, 1204.5pt x 803.0pt>
 File: Graphs/updating_s5.png Graphic file (type png)
 <use Graphs/updating_s5.png>
 Package pdftex.def Info: Graphs/updating_s5.png  used on input line 387.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_belief_error_s4.png, id=270, 1204.5pt x 803.0pt>
+<Graphs/hist_belief_error_s4.png, id=267, 1204.5pt x 803.0pt>
 File: Graphs/hist_belief_error_s4.png Graphic file (type png)
 <use Graphs/hist_belief_error_s4.png>
 Package pdftex.def Info: Graphs/hist_belief_error_s4.png  used on input line 39
 0.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/updating_s4.png, id=271, 1204.5pt x 803.0pt>
+<Graphs/updating_s4.png, id=268, 1204.5pt x 803.0pt>
 File: Graphs/updating_s4.png Graphic file (type png)
 <use Graphs/updating_s4.png>
 Package pdftex.def Info: Graphs/updating_s4.png  used on input line 392.
@@ -676,22 +676,22 @@ Overfull \hbox (2.19304pt too wide) in paragraph at lines 416--416
  []
 
 (Tables/bigpicture_bel_AU.tex) [14]
-<Graphs/hist_WTP_discr1.png, id=313, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1.png, id=310, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1.png  used on input line 465.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fp.png, id=314, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fp.png, id=311, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fp.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fp.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1fp.png  used on input line 467.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fn.png, id=315, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fn.png, id=312, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fn.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1fn.png  used on input line 470.
 (pdftex.def)             Requested size: 232.17242pt x 154.77708pt.
-<Graphs/hist_WTP_discr1fpfn.png, id=316, 1204.5pt x 803.0pt>
+<Graphs/hist_WTP_discr1fpfn.png, id=313, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1fpfn.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1fpfn.png>
 Package pdftex.def Info: Graphs/hist_WTP_discr1fpfn.png  used on input line 472
@@ -701,7 +701,7 @@ Package pdftex.def Info: Graphs/hist_WTP_discr1fpfn.png  used on input line 472
 [16 <./Graphs/hist_WTP_discr1.png (PNG copy)> <./Graphs/hist_WTP_discr1fp.png (
 PNG copy)> <./Graphs/hist_WTP_discr1fn.png (PNG copy)> <./Graphs/hist_WTP_discr
 1fpfn.png (PNG copy)>] (Tables/wtpdiff_ols.tex) [17] [18] [19]
-<Graphs/sensit_comparison.png, id=361, 1003.75pt x 602.25pt>
+<Graphs/sensit_comparison.png, id=358, 1003.75pt x 602.25pt>
 File: Graphs/sensit_comparison.png Graphic file (type png)
 <use Graphs/sensit_comparison.png>
 Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 568.
@@ -816,9 +816,9 @@ ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users
 C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmt
 i10.pfb><C:/Users/gaduh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmti12.pfb>
-Output written on alertsManuscript_AG26.pdf (40 pages, 1223080 bytes).
+Output written on alertsManuscript_AG26.pdf (40 pages, 1222467 bytes).
 PDF statistics:
- 765 PDF objects out of 1000 (max. 8388607)
+ 762 PDF objects out of 1000 (max. 8388607)
  257 named destinations out of 1000 (max. 500000)
  218 words of extra memory for PDF output out of 10000 (max. 10000000)
 
