@@ -1,34 +1,32 @@
 \begin{table}[htbp]\centering
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{Informed Protection Response: logit with flexible control for posteriors}
 \begin{tabular}{l*{4}{c}}
 \hline\hline
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
                 &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
 \hline
-FP rate         &    0.365\sym{***}&    0.472\sym{***}&    0.593\sym{***}&    0.573\sym{***}\\
-                &    (3.3)         &    (3.4)         &    (4.0)         &    (3.7)         \\
-FN rate         &    0.168\sym{*}  &    0.611\sym{***}&    0.150         &    0.565\sym{**} \\
-                &    (1.8)         &    (2.8)         &    (1.5)         &    (2.5)         \\
-p$>$0.2         &    0.026         &    0.066\sym{***}&    0.047\sym{*}  &    0.055\sym{*}  \\
-                &    (1.5)         &    (2.8)         &    (1.8)         &    (2.0)         \\
-S=Black         &    0.004         &    0.426\sym{**} &   -0.023         &    0.473\sym{**} \\
-                &    (0.1)         &    (2.5)         &   (-0.3)         &    (2.4)         \\
-FP rate x (S=Black)&                  &   -0.655         &                  &   -0.690         \\
-                &                  &   (-1.4)         &                  &   (-1.5)         \\
-FN rate x (S=Black)&                  &   -0.561\sym{**} &                  &   -0.608\sym{**} \\
-                &                  &   (-2.1)         &                  &   (-2.2)         \\
-FP rate x (p$>$0.2)&                  &                  &   -0.293\sym{**} &   -0.160         \\
-                &                  &                  &   (-2.3)         &   (-1.2)         \\
-FN rate x (p$>$0.2)&                  &                  &    0.084         &    0.264         \\
-                &                  &                  &    (0.5)         &    (1.6)         \\
+FP rate         &    0.365&    0.472&    0.593&    0.573\\
+                &  (0.111)&  (0.140)&  (0.147)&  (0.157)\\
+FN rate         &    0.168&    0.611&    0.150&    0.565\\
+                &  (0.093)&  (0.219)&  (0.098)&  (0.223)\\
+p$>$0.2         &    0.026&    0.066&    0.047&    0.055\\
+                &  (0.017)&  (0.024)&  (0.026)&  (0.028)\\
+S=Black         &    0.004&    0.426&   -0.023&    0.473\\
+                &  (0.063)&  (0.170)&  (0.067)&  (0.195)\\
+FP rate x (S=Black)&         &   -0.655&         &   -0.690\\
+                &         &  (0.472)&         &  (0.470)\\
+FN rate x (S=Black)&         &   -0.561&         &   -0.608\\
+                &         &  (0.267)&         &  (0.278)\\
+FP rate x (p$>$0.2)&         &         &   -0.293&   -0.160\\
+                &         &         &  (0.129)&  (0.136)\\
+FN rate x (p$>$0.2)&         &         &    0.084&    0.264\\
+                &         &         &  (0.155)&  (0.163)\\
 \hline
-Observations    &     1248         &     1224         &     1224         &     1224         \\
-Adjusted \(R^{2}\)&                  &                  &                  &                  \\
+Observations    &     1248&     1224&     1224&     1224\\
+Adjusted \(R^{2}\)&         &         &         &         \\
 \hline\hline
-\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{5}{l}{\footnotesize Reporting average marginal effects, subject FE, errors are clustered by subject.}\\
 \multicolumn{5}{l}{\footnotesize With flexible controls of posterior probability}\\
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}
