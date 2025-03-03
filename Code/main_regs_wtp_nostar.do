@@ -222,7 +222,7 @@ eststo: reg wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.highpro
 eststo: reghdfe wtp_diff i.highprob##c.false_neg i.risk_pref#i.highprob#c.false_neg i.highprob##c.false_pos i.risk_pref#i.highprob#c.false_pos, abs(subject_id) vce(cluster subject_id)
 eststo: reghdfe wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.highprob##c.false_pos, abs(subject_id) vce(cluster subject_id)
 
-esttab using "./Tables/wtp_het_risk.tex", b(%9.3g) se(%9.3f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") addnotes("Errors are clustered by subject") nostar nobaselevels compress nogaps replace
+esttab using "./Tables/wtp_het_risk.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") nonotes addnotes("* - Standard errors in parentheses (clustered by subject).") nostar nobaselevels compress nogaps replace
 esttab using "./Tables/wtp_het_risk_pres.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons *.risk_pref#*.highprob *.risk_pref#*.highprob  *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") mtitles("" "" "" "FE" "FE") nobaselevels compress nogaps replace
 
 sort subject_id plevel
@@ -619,7 +619,7 @@ eststo: reg wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(clus
 eststo: reg wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
 eststo: reg wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
-esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.3f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) addnotes("Errors are clustered by subject")  title(WTP minus Value of Information: demographic determinants) mtitles("" "" "" "" "" "" "" "" "") nobaselevels nostar compress nogaps replace
+esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) nonotes addnotes("* - Standard errors in parentheses (clustered by subject).")  title(WTP minus Value of Information: demographic determinants) mtitles("" "" "" "" "" "" "" "" "") nobaselevels nostar compress nogaps replace
 
 
 

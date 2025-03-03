@@ -174,7 +174,7 @@ eststo m3: margins, dydx(phintBW phintWB highprob blackhint high_phintBW high_ph
 
 eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
 eststo m4: margins, dydx(phintBW phintWB  highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB) post
-esttab m1 m2 m3 m4 using "./Tables/table_ip5.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label addnotes("Reporting average marginal effects, subject FE, errors are clustered by subject." "With flexible controls of posterior probability" ///
+esttab m1 m2 m3 m4 using "./Tables/table_ip5.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label nonotes addnotes("* - Reporting average marginal effects, subject FE, errors are clustered by subject." "** - Standard errors in parentheses." "*** - Specifications include flexible controls of posterior probability." ///
  ) mtitles("" "" "" "") title(Informed Protection Response: logit with flexible control for posteriors) nostar nobaselevels compress nogaps replace
 
  
@@ -237,7 +237,7 @@ eststo: reg ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_phin
 eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint i.subject_id, vce(cluster subject_id)
 eststo: reg ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
 esttab using "./Tables/table_ip_flexlin.tex", b(%9.3g) se(%9.3f) ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
-  "Subject FE, errors are clustered by subject") drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") title(Informed Protection Response: flexible control for posteriors and beliefs, LPM) nostar nobaselevels compress nogaps replace
+  "* - Standard errors in parentheses" "** - Subject FE, errors are clustered by subject") drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") title(Informed Protection Response: flexible control for posteriors and beliefs, LPM) nostar nobaselevels compress nogaps replace nonotes
 esttab using "./Tables/table_ip_flexlin_pres.tex", b(%9.3g) se(%9.3f) ar2(%9.2f) label drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") nostar nobaselevels compress nogaps replace
 
 
@@ -472,5 +472,5 @@ eststo: reg lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, no
 eststo: xtreg lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, fe vce(cluster subject_id)
 eststo: reg lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, noconstant vce(cluster subject_id)
 eststo: xtreg lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, fe vce(cluster subject_id)
-esttab using "./Tables/table_be3.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") note("Decomposition works only for imperfect signals") nostar nobaselevels compress nogaps replace
+esttab using "./Tables/table_be3.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") nonotes addnotes("* - Decomposition works only for imperfect signals" "** - Standard errors in parentheses (clustered by subject)") nostar nobaselevels compress nogaps replace
 
