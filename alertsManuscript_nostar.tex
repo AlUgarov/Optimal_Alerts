@@ -124,7 +124,7 @@ with a low (high) prior, their WTP does not fully adjust for the increase in the
 We provide evidence that this pattern is most consistent with a failure to estimate the effect of the frequencies of false-positive and false-negative outcomes on the potential costs of using the signal. 
 
 
-We contribute to the literature in two ways. First, we provide novel evidence on the demand for a warning system using an incentivized experiment. Existing studies of warning systems, which mostly focus on medical diagnostic tests, use unincentivized surveys to measure WTP and do not explore preferences over the tests' information structure. They find that preferences over diagnostic tests correlate with their accuracy, but respondents exhibit two significant biases. First, they are willing to pay for tests with little or no diagnostic value \citep{schwartz_enthusiasm_2004, neumann_willingness--pay_2012}. For example, \citet{schwartz_enthusiasm_2004} find that 73\% of Americans prefer a free full-body CT scan versus \$1,000 in cash even though full-body scans for healthy people are not recommended by physicians. Second, how the test's accuracy is presented strongly affects choices \citep{howard_does_2009}. We extend this literature using a context-neutral experiment to examine whether similar biases hold more generally and when choices are incentivized; and whether the demand elasticity for information responds symmetrically to false positive and false negative errors. 
+We contribute to the literature in two ways. First, we provide novel evidence on the demand for warning systems using an incentivized experiment. Existing studies of warning systems, which mostly focus on medical diagnostic tests, use unincentivized surveys to measure WTP and do not explore preferences over the tests' information structure. They find that preferences over diagnostic tests correlate with their accuracy, but respondents exhibit two significant biases. First, they are willing to pay for tests with little or no diagnostic value \citep{schwartz_enthusiasm_2004, neumann_willingness--pay_2012}. For example, \citet{schwartz_enthusiasm_2004} find that 73\% of Americans prefer a free full-body CT scan versus \$1,000 in cash even though full-body scans for healthy people are not recommended by physicians. Second, how the test's accuracy is presented strongly affects choices \citep{howard_does_2009}. We extend this literature using a context-neutral experiment to examine whether similar biases hold more generally and when choices are incentivized; and whether the demand elasticity for information responds symmetrically to false positive and false negative errors. 
 
 Second, we contribute to the emerging experimental literature on demand for information quality by studying a novel setting of demand for warnings. Previous studies in this literature employ prediction games, where subjects have to guess an optimal state under uncertainty \citep{hoffman_how_2016, ambuehl_belief_2018, xu_revealed_2022}. Generally, they find that while demand for information increases with signal quality, it increases more modestly than expected from a Bayesian decision maker. Two of these studies employed laboratory experiments. \citet{ambuehl_belief_2018} find that subjects underreact to the accuracy of a binary signal about the state of the world, but put a premium on completely certain signals. \citet{xu_revealed_2022} shows that many subjects choose non-instrumental over instrumental signals, consistent with failures of contingent reasoning about the future value of information.
 
@@ -468,12 +468,12 @@ The distribution is centered around 0, indicating that average choices do not fa
 
 \end{figure}
 
-Our comparisons in Table~\ref{tab:WTP_nonpar} also find no differences on average between the observed WTP and the risk-neutral WTP for 3 out of 4 signal types: honest (i.e., perfectly accurate), FP-only, and FN-only. For signals having both FP and FN rates, however, subjects' reported WTP is significantly higher than the risk-neutral WTP. Subjects' overvaluations were similar for both low and high priors. Note, that these signals also induce overprotection in the IP task. Additionally, subjects tend to overpay for signals with positive FP rates when the prior is low (0.1 or 0.2), and for signals with positive FN rates when the prior is high (0.3 or 0.5).
+Our comparisons in Table \ref{tab:WTPnonpar} also find no differences on average between the observed WTP and the risk-neutral WTP for 3 out of 4 signal types: honest (i.e., perfectly accurate), FP-only, and FN-only. For signals having both FP and FN rates, however, subjects' reported WTP is significantly higher than the risk-neutral WTP. Subjects' overvaluations were similar for both low and high priors. Note, that these signals also induce overprotection in the IP task. Additionally, subjects tend to overpay for signals with positive FP rates when the prior is low (0.1 or 0.2), and for signals with positive FN rates when the prior is high (0.3 or 0.5).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{Tables/bigpicture_wtp_det.tex}
+\input{Tables/bigpicture_wtp_det.tex} \label{WTPnonpar}
 
 
 
@@ -661,7 +661,7 @@ Columns 1 and 2 show that, even conditional on posterior and subject FEs that ac
 
 
 
-Overall, we observe a striking uniformity in sensitivity of WTP to both false-positive and false-negative rates that cannot be explained by risk preferences or anchoring. This pattern is, however, consistent with subjects neglecting the difference between false-positive and false-negative signals, a behavior that is supported by subjects' explanations explanations of their decision making and the odd sensitivities to false-positive and false-negative rates in other treatments in which they do not affect posterior probabilities.\footnote{This pattern is consistent with greater bias in belief elicitation when subjects have to engage in contingent reasoning versus smaller belief biases when eliciting responses after presenting a signal results, as \citet{aina_contingent_2023} found. This result implies that decisions to acquire information, such as decisions made in our experiment where subjects determining their WTP have to reason through contingencies, might suffer from persistent inherent biases. Indeed, we find that subjects commit reasoning errors which reduces the correlation between their WTP for a signal and its usefulness for decreasing expected potential costs.} 
+Overall, we observe a striking uniformity in sensitivity of WTP to both false-positive and false-negative rates that cannot be explained by risk preferences or anchoring. This pattern is, however, consistent with subjects neglecting the difference between false-positive and false-negative signals, a behavior that is supported by subjects' explanations of their decision making and the odd sensitivities to false-positive and false-negative rates in other treatments in which they do not affect posterior probabilities.\footnote{This pattern is consistent with greater bias in belief elicitation when subjects have to engage in contingent reasoning versus smaller belief biases when eliciting responses after presenting a signal results, as \citet{aina_contingent_2023} found. This result implies that decisions to acquire information, such as decisions made in our experiment where subjects determining their WTP have to reason through contingencies, might suffer from persistent inherent biases. Indeed, we find that subjects commit reasoning errors which reduces the correlation between their WTP for a signal and its usefulness for decreasing expected potential costs.} 
 
 \vspace{10pt}
 \section{Conclusion}\label{sec:conclusion}
@@ -702,29 +702,71 @@ Understanding the source of this asymmetry can improve social efficiency. As we 
 	\input{Tables/table_summary.tex}
 \end{table}
 
-\begin{table}[h!]
-\caption{Error Decomposition} \label{belief_decomposition}
-\input{Tables/table_be3.tex}
+
+\begin{table}[h!]\centering 
+\caption{Error Decomposition} 
+\label{belief_decomposition}
+\adjustbox{max width=\textwidth}{
+	\begin{threeparttable}	
+	\input{Tables/table_be3_AU.tex}
+	\begin{tablenotes}[flushleft]
+			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Decomposition works only for imperfect signals, hence the table excludes the responses to certain signals. Standard errors in parentheses (clustered at the subject level). 
+	\end{tablenotes}								
+	\end{threeparttable}
+	}
 \end{table}
 
-%\begin{table}[hbp!]
-\input{Tables/table_ip5.tex} \label{ip_tab}
-%\end{table}
-
-\input{Tables/table_wtpdiff_02.tex} \label{wtp_dem}
 
 
-%\begin{table}[h!]
-%\caption{WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs} 
-\input{Tables/wtp_het_risk.tex} \label{tab:wtp_risk}
-%\end{table}
+\begin{table}[h!]\centering 
+\caption{Informed Protection Response: Logit with Flexible Control for Posteriors} 
+\label{ip_tab}
+\adjustbox{max width=\textwidth}{
+	\begin{threeparttable}	
+	\input{Tables/table_ip5_AU.tex}
+	\begin{tablenotes}[flushleft]
+			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Specifications include flexible controls of posterior probability. The table reports average marginal effects, includes subject FE, errors are clustered by subject. Standard errors in parentheses.
+	\end{tablenotes}								
+	\end{threeparttable}
+	}
+\end{table}
+
+
+\begin{table}[h!]\centering 
+\caption{WTP minus Value of Information: Demographic Determinants} 
+\label{wtp_dem}
+\adjustbox{max width=\textwidth}{
+	\begin{threeparttable}	
+	\input{Tables/table_wtpdiff_02_AU.tex}
+	\begin{tablenotes}[flushleft]
+			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Standard errors in parentheses (clustered by subject).
+	\end{tablenotes}								
+	\end{threeparttable}
+	}
+\end{table}
 
 
 
+\begin{table}[htbp!]\centering 
+\caption{WTP minus Value of Information: Risk Aversion and Sensitivity to FP and FN Costs} 
+\label{tab:wtp_risk}
+\adjustbox{max width=\textwidth}{
+	\begin{threeparttable}	
+	\input{Tables/wtp_het_risk_AU.tex}
+	\begin{tablenotes}[flushleft]
+			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Standard errors in parentheses (clustered by subject).
+	\end{tablenotes}								
+	\end{threeparttable}
+	}
+\end{table}
+
+\vspace{20pt}
 
 
+\FloatBarrier
 
 %\resumetocwriting
+\newpage
 \newpage
 \section{Proofs}
 \small
