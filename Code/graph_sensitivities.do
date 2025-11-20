@@ -8,7 +8,8 @@ drop highprob
 gen highprob=p>0.201
 
 sum value wtp
-
+collapse (mean) wtp, by(phintBW phintWB p)
+stop
 
 **getting and storing WTP regression estimates (sensitivities)
 tempname p1
@@ -19,8 +20,10 @@ foreach plev of numlist 100 200 300 500{
     *tobit wtp phintBW phintWB if plevel==`plev', ll(0) ul(5)
 	reg wtp phintBW phintWB if plevel==`plev'
 	local wtp_FP=-_b[phintBW]
+	local wtp_FP_se=_se[phintBW]
 	local wtp_FN=-_b[phintWB]
-	post `p1' (`wtp_FP') (`wtp_FN') (`plev')
+	local wtp_FN_se=_se[phintWB]
+	post `p1' (`wtp_FP') (`wtp_FN') (`wtp_FP_se') (`wtp_FN_se')(`plev')
   }
 
 postclose `p1'

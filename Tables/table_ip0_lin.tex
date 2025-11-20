@@ -1,29 +1,31 @@
 \begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{Informed protection response: linear probability regression}
 \begin{tabular}{l*{6}{c}}
 \hline\hline
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
                 &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{S=Black}&\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{W=Black}\\
 \hline
-FP rate         &     .284&     .496&    .0725&     .259&     .613&   -.0949\\
-                &  (0.099)&  (0.130)&  (0.160)&  (0.118)&  (0.141)&  (0.199)\\
-FN rate         &     .596&     1.21&   -.0213&     .322&       .7&   -.0564\\
-                &  (0.082)&  (0.136)&  (0.112)&  (0.109)&  (0.173)&  (0.162)\\
-p$>$0.2         &     .119&     .138&    .0994&    .0475&    .0438&    .0512\\
-                &  (0.018)&  (0.025)&  (0.027)&  (0.023)&  (0.033)&  (0.036)\\
-FP rate x (p$>$0.2)&         &         &         &    .0508&    -.233&     .335\\
-                &         &         &         &  (0.124)&  (0.176)&  (0.194)\\
-FN rate x (p$>$0.2)&         &         &         &     .548&     1.03&    .0703\\
-                &         &         &         &  (0.138)&  (0.233)&  (0.166)\\
-Constant        &     .759&      .57&     .948&     .794&     .617&     .972\\
-                &  (0.016)&  (0.023)&  (0.022)&  (0.018)&  (0.026)&  (0.026)\\
-Subject FE      &      Yes&      Yes&      Yes&      Yes&      Yes&      Yes\\
+FP rate         &     .441\sym{***}&     .884\sym{***}& -.000734         &      .41\sym{***}&     .869\sym{***}&   -.0496         \\
+                &    (6.4)         &    (9.0)         &   (-0.0)         &    (5.1)         &    (7.7)         &   (-0.4)         \\
+FN rate         &     .413\sym{***}&      .72\sym{***}&     .105         &     .298\sym{***}&     .472\sym{***}&     .124         \\
+                &    (6.7)         &    (7.5)         &    (1.2)         &    (4.0)         &    (4.5)         &    (1.1)         \\
+p$>$0.2         &     .065\sym{***}&    .0764\sym{***}&    .0537\sym{***}&    .0298\sym{*}  &    .0133         &    .0462\sym{*}  \\
+                &    (5.2)         &    (4.4)         &    (2.9)         &    (1.7)         &    (0.6)         &    (1.8)         \\
+FP rate x (p$>$0.2)&                  &                  &                  &    .0633         &    .0287         &    .0978         \\
+                &                  &                  &                  &    (0.8)         &    (0.2)         &    (0.8)         \\
+FN rate x (p$>$0.2)&                  &                  &                  &      .23\sym{***}&     .496\sym{***}&   -.0362         \\
+                &                  &                  &                  &    (2.7)         &    (4.0)         &   (-0.3)         \\
+Constant        &       .8\sym{***}&      .64\sym{***}&     .959\sym{***}&     .817\sym{***}&     .672\sym{***}&     .963\sym{***}\\
+                &   (64.7)         &   (38.2)         &   (57.6)         &   (59.1)         &   (38.1)         &   (48.5)         \\
+Subject FE      &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
 \hline
-P(FP rate $\neq$ FN rate)&   .00659&  .000758&     .631&    .0025& .0000292&     .495\\
-Observations    &     1248&      624&      624&     1248&      624&      624\\
-Adjusted \(R^{2}\)&        .&        .&        .&        .&        .&        .\\
+P(FP rate $\neq$ FN rate)&     .717         &     .276         &      .39         &     .254         &   .00645         &     .518         \\
+Observations    &     2460         &     1230         &     1230         &     2460         &     1230         &     1230         \\
+Adjusted \(R^{2}\)&        .         &        .         &        .         &        .         &        .         &        .         \\
 \hline\hline
-\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
-\multicolumn{7}{l}{\footnotesize Errors are clustered by subject.}\\
+\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{7}{l}{\footnotesize Errors are clustered by subject}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

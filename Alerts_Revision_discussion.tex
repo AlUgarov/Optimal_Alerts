@@ -1,0 +1,329 @@
+\documentclass[11pt,hyperref={bookmarks=false}]{beamer}
+\usetheme{Warsaw}
+%\usetheme{Madrid}
+%\usecolortheme{beaver}
+\usefonttheme{professionalfonts}
+% \usepackage[usenames,dvipsnames]{pstricks}
+ %\usepackage{wallpaper}
+ \usepackage{epsfig}
+\definecolor{UniBlue}{RGB}{157,34,53}
+\setbeamercolor{block title}{bg=UniBlue!70,fg=black}
+
+\usepackage{psfrag,graphicx}
+\usepackage{amsmath,amsfonts}
+\usepackage{adjustbox}
+\usepackage{lscape}
+\usepackage{array,epsfig}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsxtra}
+\usepackage{amsthm}
+\usepackage{makecell}
+\usepackage[skip=0pt, belowskip=-10pt]{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{booktabs}
+%\usepackage{subfigure}
+\usepackage{eso-pic}
+%\usepackage{transparent}
+\usepackage{graphicx}
+\usepackage{tikz}
+%\usepackage{longtable}
+\usepackage{threeparttablex}
+
+\newtheorem{df}{Definition}
+\newtheorem{lm}{Lemma}
+\newtheorem{prp}{Proposition}
+\newtheorem{sprf}{Sketch of Proof}
+\newtheorem{prf}{Proof}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{suffc}{Sufficient Condition}
+\setbeameroption{hide notes}
+\newcommand{\threelinebracer}{$\left. \begin{array}{c} \\ \\ \\ \end{array} \right\rbrace$}
+\newcommand{\threelinebracel}{$\left. \begin{array}{c} \\ \\ \\ \end{array} \right\lbrace$}
+\newcommand{\twolinebracer}{$\left. \begin{array}{c} \\ \\ \end{array} \right\rbrace$}
+\newcommand{\twolinebracel}{$\left. \begin{array}{c} \\ \\ \end{array} \right\lbrace$}
+\newcommand{\bd}{\partial}
+
+\usepackage{pgf}  
+%\logo{\pgfputat{\pgfxy(-1.2,-0.2)}{\pgfbox[center,base]{\includegraphics[height=12pt, keepaspectratio]{UA_Logo_Horizontal.eps}}} }
+
+%\usebackgroundtemplate
+%{
+  %  \node[opacity=0.3, at=(current page.south east),anchor=south east,inner sep=0pt] 
+    %\includegraphics[width=\paperwidth,height=20pt]{UA_Logo_Horizontal.eps}%
+%}
+
+\linespread{1}
+\usepackage{parskip}
+%\setlength{\itemsep}{1em} 
+%\addtolength{\parskip}{5pt}
+\DeclareMathSizes{12}{10}{8}{6}
+%  \begin{itemize}}{\end{itemize}}
+% Separate slides by \begin{frame} and \end{frame}.
+\title[Willingness-to-pay for Warnings]{Willingness-to-pay for Warnings: Revision Discussion}
+\author[A. Gaduh, P. McGee and A. Ugarov]{A. Gaduh, P. McGee and A. Ugarov}
+\institute[]{}
+\date{\today}
+\newcommand{\sym}[1]{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+%\includegraphics[width=\paperwidth,height=\paperheight,%keepaspectratio]{sancho.png}%
+\vfill
+}}}
+
+
+\begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
+
+%\begin{frame}
+%\titlepage
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+\frametitle{Sample(s) Structure}
+\footnotesize
+\input{Tables/demography.tex}
+
+\end{frame}
+
+
+%knuckleheadness measures, summary tables, BP, IP protection, then WTP table, WTP table with Tobit, WTP table with other stuff (GPA, CRT)
+
+
+\begin{frame}
+\frametitle{Blind Protection}
+\footnotesize
+\begin{figure}[h]
+\includegraphics[scale=0.2]{Graphs/blind_prot_sta_all.png}
+\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{WTP Sensitivity}
+\footnotesize
+
+\input{Tables/wtpdiff_ols_pres.tex}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Protection Summary}
+\footnotesize
+
+\begin{table}[H]\centering 
+\caption{Average Protection by Signal Type} 
+\label{tab:nonparIP}
+\adjustbox{max width=\textwidth}{
+	\begin{threeparttable}
+	\begin{tabular}{cccccccc} \hline \hline
+	\multirow{4}{6ex}{\centering \textbf{Row}}
+			&\multicolumn{2}{c}{\centering \textbf{Signal Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Hint}} 
+			& \multirow{3}{10ex}{\centering \textbf{Posterior}} & \multirow{3}{10ex}{\centering \textbf{Share Protect}} 
+			& \multirow{3}{10ex}{\centering \textbf{Share Optimal}} 
+			& \multirow{3}{13ex}{\centering \textbf{$p$}} \\ %P-val $(H_0: (5)=(6))$
+			\cmidrule(lr){2-3}
+		& \multirow{2}{12ex}{\centering \textbf{False Positive}} 
+			& \multirow{2}{12ex}{\centering \textbf{False Negative}} 
+		\\
+		\\
+		&(1) & (2) & (3) & (4) & (5) & (6) & (7) \\
+		\hline
+			\input{Tables/bigpicture_IP_AU.tex}
+			\\[-1em]
+		\hline\hline 
+	\end{tabular} 
+	\begin{tablenotes}[flushleft]
+			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes: The p-value in column 7 is for the test of equality between the theoretical prediction (column 6) and the observed share of protection (column 5).} 
+	\end{tablenotes}								
+	\end{threeparttable}
+	}
+\end{table}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Protection Summary}
+\footnotesize
+
+\begin{table}[H]\centering 
+\caption{Average Protection by Signal Type} 
+\label{tab:nonparIP}
+\adjustbox{max width=\textwidth}{
+	\begin{threeparttable}
+	\begin{tabular}{cccccccc} \hline \hline
+	\multirow{4}{6ex}{\centering \textbf{Row}}
+			&\multicolumn{2}{c}{\centering \textbf{Signal Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Hint}} 
+			& \multirow{3}{10ex}{\centering \textbf{Posterior}} & \multirow{3}{10ex}{\centering \textbf{Share Protect}} 
+			& \multirow{3}{10ex}{\centering \textbf{Share Optimal}} 
+			& \multirow{3}{13ex}{\centering \textbf{$p$}} \\ %P-val $(H_0: (5)=(6))$
+			\cmidrule(lr){2-3}
+		& \multirow{2}{12ex}{\centering \textbf{False Positive}} 
+			& \multirow{2}{12ex}{\centering \textbf{False Negative}} 
+		\\
+		\\
+		&(1) & (2) & (3) & (4) & (5) & (6) & (7) \\
+		\hline
+			\input{Tables/bigpicture_IP_AU.tex}
+			\\[-1em]
+		\hline\hline 
+	\end{tabular} 
+	\begin{tablenotes}[flushleft]
+			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes: The p-value in column 7 is for the test of equality between the theoretical prediction (column 6) and the observed share of protection (column 5).} 
+	\end{tablenotes}								
+	\end{threeparttable}
+	}
+\end{table}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Belief Errrors Summary}
+\footnotesize
+\begin{table}[H]\centering 
+\caption{Average Updating Error by Signal Type} 
+\label{tab:nonparError}
+\adjustbox{max width=\textwidth}{
+	\begin{threeparttable}
+	\begin{tabular}{ccccccc} 
+	\hline \hline
+		\multirow{4}{6ex}{\centering \textbf{Row}}
+			&\multicolumn{2}{c}{\centering \textbf{Signal Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Hint}} %P-val $(H_0: Error = 0)$
+			& \multirow{3}{10ex}{\centering \textbf{Posterior}} 
+			& \multirow{3}{12ex}{\centering \textbf{Updating Error$^*$}} & \multirow{3}{12ex}{\centering \textbf{$p$}}  \\ \cmidrule(lr){2-3}
+		& \multirow{2}{10ex}{\centering \textbf{False Positive}} & \multirow{2}{12ex}{\centering \textbf{False Negative}} 
+		\\
+		\\
+		& (1) & (2) & (3) & (4) & (5) & (6) \\
+	
+		\hline	
+\input{Tables/bigpicture_bel_AU.tex}
+\\ 	[-1em]
+\hline\hline
+\end{tabular} 								
+	\end{threeparttable}
+	}
+\end{table}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{IP responses}
+\footnotesize
+
+\begin{table}[htbp]\centering 
+\caption{Informed Protection Response} 
+
+\adjustbox{width=0.7\textwidth, keepaspectratio}{
+	\begin{threeparttable}	
+	\begin{tabular}{l*{4}{c}}
+	\hline\hline
+									&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+	\hline
+		
+		\input{Tables/table_ip_flex_AU.tex}
+	
+	\\ [-1em]
+	\hline
+	Subject FE & Yes & Yes & Yes & Yes \\
+	Flexible controls for: \\
+	\hspace{1.5ex} Posterior & Yes & Yes & Yes & Yes \\
+	\hspace{1.5ex} Beliefs & No & No & Yes & Yes \\	
+	\hline\hline
+	\end{tabular}
+							
+	\end{threeparttable}
+	}
+\end{table}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{WTP Sensitivity}
+\footnotesize
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Graphs/sensit_comparison.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP Sensitivity (Tobit)}
+\footnotesize
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Graphs/sensit_comparison_tobit.png}
+\end{figure}
+\end{frame}
+
+
+
+
+
+		
+
+
+
+
+\begin{frame}
+\frametitle{}
+\begin{itemize}
+\item Comment: Cross-Task Consistency Checks
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Accounting for WTP bounds (Tobit)}
+\begin{itemize}
+\item Comment: Cross-Task Consistency Checks
+
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Figure 5 with confidence intervals (Tobit)}
+\begin{itemize}
+\item The authors write: “subjects tend to overvalue false-negative costs for low probability
+events and overvalue false-positive costs for high probability events.” Where do we see
+that in Table 5? The coefficients of FP costs, FN costs on column 4 and 5 are all positive.
+Should it be “subjects tend to overvalue more false-positive costs (coeff:0.800 vs 0.204) for
+low probability events and overvalue more false-negative (coeff: 0.407 vs 0.150) costs for
+high probability events.”? When comparing coefficients, the authors should also report
+results in statistical tests.
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+\end{document}

@@ -1,28 +1,30 @@
 \begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{Belief Elicitation: When Mistakes Happen}
 \begin{tabular}{l*{3}{c}}
 \hline\hline
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
                 &\multicolumn{1}{c}{All}&\multicolumn{1}{c}{S=White}&\multicolumn{1}{c}{S=Black}\\
 \hline
-FP rate         &    -.285&     .342&    -.791\\
-                &  (0.055)&  (0.062)&  (0.101)\\
-FN rate         &     .194&     .705&    -.336\\
-                &  (0.052)&  (0.054)&  (0.077)\\
-plevel=200      &   -.0224&    .0222&    .0311\\
-                &  (0.010)&  (0.019)&  (0.053)\\
-plevel=300      &    .0413&    .0447&    .0379\\
-                &  (0.011)&  (0.009)&  (0.018)\\
-plevel=500      &    .0337&    .0674&     .098\\
-                &  (0.010)&  (0.024)&  (0.046)\\
-Constant        &     .432&    .0134&     .781\\
-                &  (0.008)&  (0.015)&  (0.045)\\
-Subject FE      &      Yes&       No&       No\\
+FP rate         &    .0188         &     .538\sym{***}&    -.488\sym{***}\\
+                &    (0.0)         &    (0.0)         &    (0.1)         \\
+FN rate         &    -.108\sym{***}&     .435\sym{***}&    -.645\sym{***}\\
+                &    (0.0)         &    (0.0)         &    (0.1)         \\
+plevel=200      &   -.0225\sym{***}&     .053\sym{***}&    .0108         \\
+                &    (0.0)         &    (0.0)         &    (0.0)         \\
+plevel=300      &    .0252\sym{**} &    .0449\sym{***}&   .00538         \\
+                &    (0.0)         &    (0.0)         &    (0.0)         \\
+plevel=500      &    .0177\sym{**} &    .0861\sym{***}&     .058\sym{*}  \\
+                &    (0.0)         &    (0.0)         &    (0.0)         \\
+Constant        &      .46\sym{***}&   .00108         &     .817\sym{***}\\
+                &    (0.0)         &    (0.0)         &    (0.0)         \\
+Subject FE      &      Yes         &       No         &       No         \\
 \hline
-Observations    &     1248&      624&      624\\
-Adjusted \(R^{2}\)&     0.01&     0.38&     0.17\\
+Observations    &     2460         &     1230         &     1230         \\
+Adjusted \(R^{2}\)&    -0.02         &     0.30         &     0.14         \\
 \hline\hline
 \multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{4}{l}{\footnotesize Dep. variable: reported belief - posterior probability}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}
