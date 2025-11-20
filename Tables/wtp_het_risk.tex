@@ -1,37 +1,39 @@
 \begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs}
 \begin{tabular}{l*{5}{c}}
 \hline\hline
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
                 &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{FE}&\multicolumn{1}{c}{FE}\\
 \hline
-p$>$0.2         &   -0.094&   -0.110&   -0.041&   -0.127&   -0.058\\
-                &  (0.189)&  (0.189)&  (0.286)&  (0.188)&  (0.283)\\
-FN costs        &   -0.229&   -0.442&   -0.327&   -0.385&   -0.360\\
-                &  (0.131)&  (0.232)&  (0.239)&  (0.214)&  (0.217)\\
-p$>$0.2 $\times$ FN costs&    0.716&    0.977&    0.889&    0.949&    0.914\\
-                &  (0.104)&  (0.190)&  (0.191)&  (0.175)&  (0.177)\\
-FP costs        &    0.558&    0.690&    0.780&    0.652&    0.672\\
-                &  (0.118)&  (0.177)&  (0.188)&  (0.192)&  (0.191)\\
-p$>$0.2 $\times$ FP costs&   -0.933&   -0.879&   -0.899&   -0.863&   -0.910\\
-                &  (0.182)&  (0.299)&  (0.337)&  (0.299)&  (0.322)\\
-Risk-loving $\times$ p$>$0.2 $\times$ FN costs&         &    0.037&   -0.383&   -0.059&   -0.276\\
-                &         &  (0.145)&  (0.249)&  (0.151)&  (0.238)\\
-Risk-averse $\times$ p$>$0.2 $\times$ FN costs&         &   -0.245&   -0.279&   -0.372&   -0.198\\
-                &         &  (0.159)&  (0.242)&  (0.168)&  (0.252)\\
-Inconsistent $\times$ p$>$0.2 $\times$ FN costs&         &   -0.074&   -0.181&   -0.066&   -0.297\\
-                &         &  (0.174)&  (0.433)&  (0.160)&  (0.352)\\
-Risk-loving $\times$ p$>$0.2 $\times$ FP costs&         &   -0.287&    0.097&    0.179&    0.259\\
-                &         &  (0.385)&  (0.473)&  (0.552)&  (0.477)\\
-Risk-averse $\times$ p$>$0.2 $\times$ FP costs&         &   -0.323&    0.002&   -0.520&    0.029\\
-                &         &  (0.370)&  (0.483)&  (0.453)&  (0.461)\\
-Inconsistent $\times$ p$>$0.2 $\times$ FP costs&         &    0.108&   -0.210&   -0.480&   -0.372\\
-                &         &  (0.681)&  (0.464)&  (0.523)&  (0.473)\\
-Full risk pref interactions&       No&       No&      Yes&       No&      Yes\\
+p$>$0.2         &    -.513\sym{***}&    -.516\sym{***}&    -.363         &    -.523\sym{***}&     -.38         \\
+                &    (0.1)         &    (0.1)         &    (0.2)         &    (0.1)         &    (0.2)         \\
+FN costs        &    -.181\sym{**} &    -.249\sym{*}  &    -.134         &    -.311\sym{**} &     -.26\sym{*}  \\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+p$>$0.2 $\times$ FN costs&     .615\sym{***}&     .743\sym{***}&      .63\sym{***}&     .786\sym{***}&     .714\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+FP costs        &     .462\sym{***}&     .564\sym{***}&     .659\sym{***}&     .581\sym{***}&     .623\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+p$>$0.2 $\times$ FP costs&    -.501\sym{***}&    -.504\sym{***}&    -.591\sym{***}&    -.472\sym{***}&    -.572\sym{***}\\
+                &    (0.1)         &    (0.2)         &    (0.2)         &    (0.2)         &    (0.2)         \\
+Risk-loving $\times$ p$>$0.2 $\times$ FN costs&                  &   -.0371         &    -.183         &    .0365         &    -.278         \\
+                &                  &    (0.1)         &    (0.2)         &    (0.1)         &    (0.2)         \\
+Risk-averse $\times$ p$>$0.2 $\times$ FN costs&                  &    -.236\sym{**} &     .241         &     -.34\sym{***}&     .169         \\
+                &                  &    (0.1)         &    (0.2)         &    (0.1)         &    (0.2)         \\
+Inconsistent $\times$ p$>$0.2 $\times$ FN costs&                  &   -.0157         &    .0943         &    .0511         &   .00068         \\
+                &                  &    (0.1)         &    (0.3)         &    (0.2)         &    (0.3)         \\
+Risk-loving $\times$ p$>$0.2 $\times$ FP costs&                  &    -.186         &     .167         &      .21         &     .253         \\
+                &                  &    (0.2)         &    (0.3)         &    (0.3)         &    (0.3)         \\
+Risk-averse $\times$ p$>$0.2 $\times$ FP costs&                  &   -.0898         &      .16         &    -.442         &     .154         \\
+                &                  &    (0.2)         &    (0.3)         &    (0.3)         &    (0.3)         \\
+Inconsistent $\times$ p$>$0.2 $\times$ FP costs&                  &    -.112         &    .0194         &    -.201         &   -.0814         \\
+                &                  &    (0.4)         &    (0.3)         &    (0.4)         &    (0.3)         \\
+Full risk pref interactions&       No         &       No         &      Yes         &       No         &      Yes         \\
 \hline
-Observations    &      624&      624&      624&      624&      624\\
-Adjusted \(R^{2}\)&     0.08&     0.07&     0.07&     0.42&     0.42\\
+Observations    &     1230         &     1230         &     1230         &     1230         &     1230         \\
+Adjusted \(R^{2}\)&     0.08         &     0.08         &     0.08         &     0.43         &     0.43         \\
 \hline\hline
-\multicolumn{6}{l}{\footnotesize * - Standard errors in parentheses (clustered by subject).}\\
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

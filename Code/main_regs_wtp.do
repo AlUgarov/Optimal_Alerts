@@ -10,7 +10,8 @@ cd C:\Tornado_warnings\Experiment\Alerts_Experiment
 
 use "./Output/main_waves.dta", replace
 xtset subject_id round
-
+tab wave
+stop
 merge m:1 subject_id round using "./Temp/bel_accuracy.dta" //average belief accuracy by subject
 drop _merge
 

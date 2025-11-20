@@ -1,39 +1,41 @@
 \begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{WTP minus Value of Information: demographic determinants}
 \begin{tabular}{l*{6}{c}}
 \hline\hline
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
                 &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
 \hline
-FP costs        &    0.283&    0.352&    0.117&    0.215&    0.248&    0.291\\
-                &  (0.176)&  (0.180)&  (0.200)&  (0.207)&  (0.141)&  (0.142)\\
-FN costs        &    0.322&    0.247&    0.395&    0.303&    0.303&    0.249\\
-                &  (0.096)&  (0.090)&  (0.111)&  (0.104)&  (0.076)&  (0.068)\\
-Male            &   -0.193&   -0.157&         &         &         &         \\
-                &  (0.315)&  (0.404)&         &         &         &         \\
-Male $\times$ FP costs&   -0.153&   -0.193&         &         &         &         \\
-                &  (0.244)&  (0.248)&         &         &         &         \\
-Male $\times$ FN costs&    0.079&    0.114&         &         &         &         \\
-                &  (0.144)&  (0.127)&         &         &         &         \\
-Stat. class     &         &         &   -0.240&   -0.142&         &         \\
-                &         &         &  (0.324)&  (0.435)&         &         \\
-Stat. class $\times$ FP costs&         &         &    0.198&    0.124&         &         \\
-                &         &         &  (0.259)&  (0.266)&         &         \\
-Stat. class $\times$ FN costs&         &         &   -0.083&   -0.023&         &         \\
-                &         &         &  (0.146)&  (0.133)&         &         \\
-$>$23 yrs       &         &         &         &         &   -0.366&   -0.647\\
-                &         &         &         &         &  (0.400)&  (0.372)\\
-$>$23 yrs $\times$ FP costs&         &         &         &         &   -0.068&    0.024\\
-                &         &         &         &         &  (0.303)&  (0.345)\\
-$>$23 yrs $\times$ FN costs&         &         &         &         &    0.350&    0.277\\
-                &         &         &         &         &  (0.212)&  (0.209)\\
-Constant        &   -0.126&    0.391&   -0.058&    0.419&   -0.157&    0.397\\
-                &  (0.205)&  (0.266)&  (0.257)&  (0.361)&  (0.171)&  (0.221)\\
-Prior dummies   &       No&      Yes&       No&      Yes&       No&      Yes\\
+FP costs        &      .25\sym{**} &     .246\sym{**} &     .423\sym{***}&     .435\sym{***}&     .348\sym{***}&     .336\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+FN costs        &     .267\sym{***}&     .271\sym{***}&     .342\sym{***}&     .321\sym{***}&     .272\sym{***}&     .293\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.0)         &    (0.0)         \\
+Male            &    -.398\sym{*}  &     -.26         &                  &                  &                  &                  \\
+                &    (0.2)         &    (0.3)         &                  &                  &                  &                  \\
+Male $\times$ FP costs&     .196         &     .192         &                  &                  &                  &                  \\
+                &    (0.2)         &    (0.2)         &                  &                  &                  &                  \\
+Male $\times$ FN costs&    .0728         &     .089         &                  &                  &                  &                  \\
+                &    (0.1)         &    (0.1)         &                  &                  &                  &                  \\
+Stat. class     &                  &                  &     .218         &     .306         &                  &                  \\
+                &                  &                  &    (0.2)         &    (0.3)         &                  &                  \\
+Stat. class $\times$ FP costs&                  &                  &    -.122         &    -.152         &                  &                  \\
+                &                  &                  &    (0.2)         &    (0.2)         &                  &                  \\
+Stat. class $\times$ FN costs&                  &                  &   -.0727         &   -.0204         &                  &                  \\
+                &                  &                  &    (0.1)         &    (0.1)         &                  &                  \\
+$>$23 yrs       &                  &                  &                  &                  &    -.377         &    -.875\sym{***}\\
+                &                  &                  &                  &                  &    (0.3)         &    (0.3)         \\
+$>$23 yrs $\times$ FP costs&                  &                  &                  &                  &    -.117         &     .015         \\
+                &                  &                  &                  &                  &    (0.2)         &    (0.3)         \\
+$>$23 yrs $\times$ FN costs&                  &                  &                  &                  &     .393\sym{**} &     .257         \\
+                &                  &                  &                  &                  &    (0.2)         &    (0.2)         \\
+Constant        &   -.0972         &     .546\sym{***}&    -.418\sym{**} &     .222         &    -.252\sym{**} &     .491\sym{***}\\
+                &    (0.2)         &    (0.2)         &    (0.2)         &    (0.2)         &    (0.1)         &    (0.2)         \\
+Prior dummies   &       No         &      Yes         &       No         &      Yes         &       No         &      Yes         \\
 \hline
-Observations    &      624&      624&      624&      624&      624&      624\\
-Adjusted \(R^{2}\)&     0.05&     0.21&     0.05&     0.21&     0.05&     0.21\\
+Observations    &     1230         &     1230         &     1230         &     1230         &     1230         &     1230         \\
+Adjusted \(R^{2}\)&     0.05         &     0.19         &     0.04         &     0.20         &     0.04         &     0.19         \\
 \hline\hline
-\multicolumn{7}{l}{\footnotesize * - Standard errors in parentheses (clustered by subject).}\\
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}
