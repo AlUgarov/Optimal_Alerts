@@ -259,22 +259,26 @@
 
 
 
-
 \begin{frame}
-\frametitle{WTP Sensitivity}
+\frametitle{Comment: coefficients interpretation}
 \footnotesize
-\begin{figure}[h]
-\includegraphics[scale=0.3]{Graphs/sensit_comparison.png}
-\end{figure}
-\end{frame}
+\parbox{\textwidth}{
+
+\textit{The authors write: “subjects tend to overvalue false-negative costs for low probability
+events and overvalue false-positive costs for high probability events.” Where do we see
+that in Table 5? The coefficients of FP costs, FN costs on column 4 and 5 are all positive.
+Should it be “subjects tend to overvalue more false-positive costs (coeff:0.800 vs 0.204) for
+low probability events and overvalue more false-negative (coeff: 0.407 vs 0.150) costs for
+high probability events.”? When comparing coefficients, the authors should also report
+results in statistical tests}
+}
+
+\parbox{\textwidth}{
+
+The coefficients had changed, stil underreacting to FP for low priors, no real difference for high priors on average. Should be reframed+tests when needed.
+}
 
 
-\begin{frame}
-\frametitle{WTP Sensitivity (Tobit)}
-\footnotesize
-\begin{figure}[h]
-\includegraphics[scale=0.3]{Graphs/sensit_comparison_tobit.png}
-\end{figure}
 \end{frame}
 
 
@@ -308,6 +312,52 @@
 
 
 
+\begin{frame}
+\frametitle{Comment: coefficients interpretation}
+\footnotesize
+\parbox{\textwidth}{
+
+\textit{"Similarly, given the importance of Figure 5, it would be nice if the authors could
+include confidence interval of the regression coefficients, and present in more details
+the regression specification."}
+}
+
+\parbox{\textwidth}{
+
+See the graph with confidence intervals added. And also the same graph using Tobit to estimate sensitivities. Will add regression specification either into the figurenotes  or into the text.
+}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{WTP Sensitivity}
+\footnotesize
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Graphs/sensit_comparison.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{WTP Sensitivity (Tobit)}
+\footnotesize
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Graphs/sensit_comparison_tobit.png}
+\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+
+
 		
 
 
@@ -334,21 +384,7 @@
 
 
 
-\begin{frame}
-\frametitle{Figure 5 with confidence intervals (Tobit)}
-\begin{itemize}
-\item The authors write: “subjects tend to overvalue false-negative costs for low probability
-events and overvalue false-positive costs for high probability events.” Where do we see
-that in Table 5? The coefficients of FP costs, FN costs on column 4 and 5 are all positive.
-Should it be “subjects tend to overvalue more false-positive costs (coeff:0.800 vs 0.204) for
-low probability events and overvalue more false-negative (coeff: 0.407 vs 0.150) costs for
-high probability events.”? When comparing coefficients, the authors should also report
-results in statistical tests.
 
-\end{itemize}
-
-
-\end{frame}
 
 
 
