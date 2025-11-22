@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  20 NOV 2025 12:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  22 NOV 2025 13:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1035,71 +1035,106 @@ Package caption Info: float package is loaded.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-No file Alerts_Revision_discussionf.nav.
-(Tables/demography.tex
+(Alerts_Revision_discussionf.nav) (Tables/demography.tex
 LaTeX Font Info:    Trying to load font information for U+msa on input line 1.
- (C:\MiKTeX\tex/latex/amsfonts\umsa.fd
+
+(C:\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 1.
-
-(C:\MiKTeX\tex/latex/amsfonts\umsb.fd
+ (C:\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)) [1
+))
+[1
 Non-PDF special ignored!
 <special> header=psfrag.pro
 
 {C:/Users/aluga/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<Graphs/blind_prot_sta_all.png, id=54, 1003.75pt x 1003.75pt>
-File: Graphs/blind_prot_sta_all.png Graphic file (type png)
-<use Graphs/blind_prot_sta_all.png>
-Package pdftex.def Info: Graphs/blind_prot_sta_all.png  used on input line 109.
+(Tables/table_treatments_upd.tex
+Overfull \hbox (26.75581pt too wide) in paragraph at lines 1--27
+[][]  
+ []
 
+) [2
+
+]
+<Graphs/ip_response_comp.png, id=84, 1204.5pt x 803.0pt>
+File: Graphs/ip_response_comp.png Graphic file (type png)
+<use Graphs/ip_response_comp.png>
+Package pdftex.def Info: Graphs/ip_response_comp.png  used on input line 122.
+(pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
+ [3
+
+ <./Graphs/ip_response_comp.png (PNG copy)>] [4
+
+]
+<Graphs/posteriors_both.png, id=138, 1003.75pt x 1003.75pt>
+File: Graphs/posteriors_both.png Graphic file (type png)
+<use Graphs/posteriors_both.png>
+Package pdftex.def Info: Graphs/posteriors_both.png  used on input line 159.
 (pdftex.def)             Requested size: 200.74644pt x 200.74644pt.
- [2
+ [5
 
- <./Graphs/blind_prot_sta_all.png (PNG copy)>] [3
+ <./Graphs/posteriors_both.png (PNG copy)>]
+<Graphs/hist_value_by_wave.png, id=165, 1204.5pt x 803.0pt>
+File: Graphs/hist_value_by_wave.png Graphic file (type png)
+<use Graphs/hist_value_by_wave.png>
+Package pdftex.def Info: Graphs/hist_value_by_wave.png  used on input line 172.
 
-] (Tables/bigpicture_IP_AU.tex) [4
+(pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
+ [6
+
+ <./Graphs/hist_value_by_wave.png (PNG copy)>]
+<Graphs/hist_value_by_error.png, id=192, 1204.5pt x 803.0pt>
+File: Graphs/hist_value_by_error.png Graphic file (type png)
+<use Graphs/hist_value_by_error.png>
+Package pdftex.def Info: Graphs/hist_value_by_error.png  used on input line 184
+.
+(pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
+
+[7
+
+ <./Graphs/hist_value_by_error.png (PNG copy)>] [8
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{tab:nonparIP}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.193 \end{frame}
-                  (Tables/bigpicture_IP_AU.tex) [5
+(Tables/bigpicture_IP_AU.tex) [9
+
+] (Tables/bigpicture_bel_AU.tex) [10
 
 ]
-(Tables/bigpicture_bel_AU.tex) [6
-
-] (Tables/table_ip_flex_AU.tex) [7
-
-]
-<Graphs/sensit_comparison.png, id=218, 1003.75pt x 602.25pt>
-File: Graphs/sensit_comparison.png Graphic file (type png)
-<use Graphs/sensit_comparison.png>
-Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 269.
-(pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
- [8
-
- <./Graphs/sensit_comparison.png (PNG copy)>]
-<Graphs/sensit_comparison_tobit.png, id=245, 1003.75pt x 602.25pt>
-File: Graphs/sensit_comparison_tobit.png Graphic file (type png)
-<use Graphs/sensit_comparison_tobit.png>
-Package pdftex.def Info: Graphs/sensit_comparison_tobit.png  used on input line
- 278.
-(pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
- [9
-
- <./Graphs/sensit_comparison_tobit.png (PNG copy)>] (Tables/wtpdiff_ols_pres.te
-x) [10
-
-] [11
+(Tables/table_ip_flex_AU.tex) [11
 
 ] [12
 
-] [13
+] (Tables/wtpdiff_ols_pres.tex) [13
+
+]
+(Tables/wtp_tobit.tex)
+Overfull \vbox (3.66138pt too high) detected at line 385
+ []
+
+[14
+
+] [15
+
+]
+<Graphs/sensit_comparison.png, id=438, 1003.75pt x 602.25pt>
+File: Graphs/sensit_comparison.png Graphic file (type png)
+<use Graphs/sensit_comparison.png>
+Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 416.
+(pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
+ [16
+
+ <./Graphs/sensit_comparison.png (PNG copy)>]
+<Graphs/sensit_comparison_tobit.png, id=465, 1003.75pt x 602.25pt>
+File: Graphs/sensit_comparison_tobit.png Graphic file (type png)
+<use Graphs/sensit_comparison_tobit.png>
+Package pdftex.def Info: Graphs/sensit_comparison_tobit.png  used on input line
+ 425.
+(pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
+ [17
+
+ <./Graphs/sensit_comparison_tobit.png (PNG copy)>] [18
 
 ]
 \tf@nav=\write6
@@ -1111,30 +1146,28 @@ x) [10
 \tf@snm=\write8
 \openout8 = `Alerts_Revision_discussionf.snm'.
 
-
-(Alerts_Revision_discussionf.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+ (Alerts_Revision_discussionf.aux) ) 
 Here is how much of TeX's memory you used:
- 28444 strings out of 476374
- 560423 string characters out of 5805269
- 1879340 words of memory out of 5000000
- 48183 multiletter control sequences out of 15000+600000
- 518808 words of font info for 56 fonts, out of 8000000 for 9000
+ 28542 strings out of 476374
+ 562051 string characters out of 5805269
+ 1893340 words of memory out of 5000000
+ 48258 multiletter control sequences out of 15000+600000
+ 521599 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,553b,832s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmr9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb>
-<C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmss8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><
-C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmssi9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb
-><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on Alerts_Revision_discussionf.pdf (13 pages, 333439 bytes).
+<C:/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+r9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmss12.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cms
+s8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmssbx10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+ssi9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmsy6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+sy9.pfb>
+Output written on Alerts_Revision_discussionf.pdf (18 pages, 632901 bytes).
 PDF statistics:
- 429 PDF objects out of 1000 (max. 8388607)
- 30 named destinations out of 1000 (max. 500000)
- 88 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 581 PDF objects out of 1000 (max. 8388607)
+ 40 named destinations out of 1000 (max. 500000)
+ 103 words of extra memory for PDF output out of 10000 (max. 10000000)
 

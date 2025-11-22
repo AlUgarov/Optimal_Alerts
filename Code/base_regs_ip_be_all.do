@@ -80,6 +80,12 @@ graph export "./Graphs/ip_response.png", width(1000) height(1000) replace
 
 use "./Temp/long_ip_dat.dta", replace
 set more off
+local binwidth = 0.02
+twoway ///
+(histogram post_prob if !((bl_gr>0 & w_gr>0) | honest_treatment), width(`binwidth') color(navy) fcolor(navy) lcolor(navy)) ///
+(histogram post_prob if ((bl_gr>0) & (w_gr>0)), width(`binwidth') color(red) fcolor("220 50 80") lcolor("220 50 80")  ), ///
+legend(order(1 "One error" 2 "Both errors (FP and FN)") lcolor(none) position(2) ring(0)) ytitle(Frequency) xtitle("Posterior distribution for one error vs both error conditions")
+graph export "./Graphs/posteriors_both.png", width(1000) height(1000) replace
 
 
 ****-- INFORMED PROTECTION --****

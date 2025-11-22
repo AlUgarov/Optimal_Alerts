@@ -192,6 +192,13 @@ tab wave
 
 *Saving the cleaned dataset with the panel structure
 save "./Output/all_waves.dta", replace
+
+stop
+
+
+
+
+
 use "./Output/all_waves.dta", replace
 *stop
 **Create the summary statistics table:
