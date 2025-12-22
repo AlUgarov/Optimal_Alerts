@@ -1,0 +1,57 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{7}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}\\
+                &\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{}\\
+\hline
+model           &                  &                  &                  &                  &                  &                  &                  \\
+Male            &    -.388\sym{*}  &    -.341         &    -.567\sym{*}  &    -.381\sym{*}  &    -.401\sym{**} &     -.32         &    -.341         \\
+                &    (0.2)         &    (0.4)         &    (0.3)         &    (0.2)         &    (0.2)         &    (0.4)         &    (0.4)         \\
+Stat. class     &     .191         &     .433         &     .171         &     .145         &     .289         &     .466         &     .456         \\
+                &    (0.2)         &    (0.4)         &    (0.2)         &    (0.2)         &    (0.3)         &    (0.4)         &    (0.4)         \\
+ncorrect        &     .211\sym{***}&     .315\sym{***}&     .202\sym{***}&     .334\sym{***}&     .202\sym{***}&     .318\sym{***}&     .315\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+correctcrt      &                  &   -.0287         &                  &                  &                  &   -.0333         &   .00519         \\
+                &                  &    (0.1)         &                  &                  &                  &    (0.1)         &    (0.1)         \\
+gpa             &                  &     -.66         &                  &                  &                  &    -.423         &    -.572         \\
+                &                  &    (0.5)         &                  &                  &                  &    (0.6)         &    (0.5)         \\
+FP costs        &                  &                  &    -.859\sym{***}&    -.431\sym{***}&    -.633\sym{***}&    -.692\sym{***}&    -.581\sym{***}\\
+                &                  &                  &    (0.2)         &    (0.1)         &    (0.2)         &    (0.2)         &    (0.2)         \\
+FN costs        &                  &                  &    -.457\sym{***}&     -.28\sym{***}&    -.375\sym{***}&    -.279\sym{**} &    -.366\sym{***}\\
+                &                  &                  &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+Male $\times$ FP costs&                  &                  &     .264         &                  &                  &                  &                  \\
+                &                  &                  &    (0.2)         &                  &                  &                  &                  \\
+Male $\times$ FN costs&                  &                  &    .0869         &                  &                  &                  &                  \\
+                &                  &                  &    (0.1)         &                  &                  &                  &                  \\
+Good quiz $\times$ FP costs&                  &                  &                  &    -.686\sym{***}&                  &                  &                  \\
+                &                  &                  &                  &    (0.2)         &                  &                  &                  \\
+Good quiz $\times$ FN costs&                  &                  &                  &    -.285\sym{***}&                  &                  &                  \\
+                &                  &                  &                  &    (0.1)         &                  &                  &                  \\
+Stat. class $\times$ FP costs&                  &                  &                  &                  &     -.17         &                  &                  \\
+                &                  &                  &                  &                  &    (0.2)         &                  &                  \\
+Stat. class $\times$ FN costs&                  &                  &                  &                  &   -.0752         &                  &                  \\
+                &                  &                  &                  &                  &    (0.1)         &                  &                  \\
+GPA$>$3.5=1 $\times$ FP costs&                  &                  &                  &                  &                  &   .00127         &                  \\
+                &                  &                  &                  &                  &                  &    (0.3)         &                  \\
+GPA$>$3.5=1 $\times$ FN costs&                  &                  &                  &                  &                  &     -.21         &                  \\
+                &                  &                  &                  &                  &                  &    (0.2)         &                  \\
+$<$4 CRT errors=1 $\times$ FP costs&                  &                  &                  &                  &                  &                  &    -.305         \\
+                &                  &                  &                  &                  &                  &                  &    (0.3)         \\
+$<$4 CRT errors=1 $\times$ FN costs&                  &                  &                  &                  &                  &                  &   -.0989         \\
+                &                  &                  &                  &                  &                  &                  &    (0.2)         \\
+Constant        &    -.348         &     1.37         &     .333         &    -.808         &     .178         &        1         &     1.46         \\
+                &    (0.6)         &    (1.8)         &    (0.6)         &    (0.7)         &    (0.6)         &    (2.1)         &    (1.8)         \\
+\hline
+sigma           &                  &                  &                  &                  &                  &                  &                  \\
+Constant        &     2.01\sym{***}&     2.05\sym{***}&     1.92\sym{***}&     1.91\sym{***}&     1.92\sym{***}&     1.96\sym{***}&     1.96\sym{***}\\
+                &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         &    (0.1)         \\
+Prior dummies   &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+\hline
+Observations    &     1230         &      492         &     1230         &     1230         &     1230         &      492         &      492         \\
+Adjusted \(R^{2}\)&                  &                  &                  &                  &                  &                  &                  \\
+\hline\hline
+\multicolumn{8}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{8}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

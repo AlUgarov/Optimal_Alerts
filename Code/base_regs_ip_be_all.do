@@ -249,8 +249,33 @@ esttab using "./Tables/table_ip_flexlin.tex", b(%9.3g) t(%9.1f)  ar2(%9.2f) labe
 esttab using "./Tables/table_ip_flexlin_pres.tex", b(%9.3g) t(%9.1f)  ar2(%9.2f) label drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
-  
 
+**Calculating Mann-Witney statistic to measure the tightness of correlation between protection and beliefs:
+bysort subject_id: egen r_be = rank(be_)
+bysort subject_id: egen R1 = total(r_be*(ip_==1))
+bysort subject_id: egen n1 = total(ip_==1)
+bysort subject_id: egen n0 = total(ip_==0)
+gen mw_auc = (R1-n1*(n1+1)/2)/(n1*n0)
+sum mw_auc
+
+sort subject_id be_
+order subject_id round be_ r_be ip_ mw_auc
+
+
+lpoly ip_ be_, bwidth(0.1) ci noscatter title("Informed Protection Response") lineopt(lwidth(1)) mlwidth(thick) xtitle("Belief of a black ball") ytitle("Proportion of protection choices") legend(ring(0) bplacement(seast)) ysc(r(0 1)) ylabel(0(0.2)1)
+graph export "./Graphs/ip_response_be_lpoly.png", width(1000) height(1000) replace
+
+save "./Temp/prep_heter.dta", replace
+
+collapse (mean) mw_auc tot_bel_err ncorrect wtp totprot sex, by(subject_id)
+gen high_be_prot_consistent=mw_auc>0.925&!missing(mw_auc)
+tab high_be_prot_consistent
+ttest tot_bel_err, by(high_be_prot_consistent)
+ttest ncorrect, by(high_be_prot_consistent)
+keep subject_id mw_auc high_be_prot_consistent
+save "./Temp/mw_auc.dta", replace
+stop
+use "./Temp/prep_heter.dta", replace
 
 *Reacting to FP rates is still optimal even when the signal is white, because it lowers the probability of the white signal coming from the white state
 * and hence increases the black ball posterior

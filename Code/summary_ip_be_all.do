@@ -88,7 +88,6 @@ sort participant_id round
 
 save "./Output/all_waves.dta", replace
 
-
 collapse (first) p sex age educ stat_educ fpayoff crt_payoff correctcrt gpa totprot switchprob wave, by(participant_id)
 
 save "./Output/demography.dta", replace
@@ -193,7 +192,7 @@ tab wave
 *Saving the cleaned dataset with the panel structure
 save "./Output/all_waves.dta", replace
 
-stop
+
 
 
 
@@ -407,10 +406,11 @@ graph export "./Graphs/hist_bigerrors_test.png", width(1200) height(800) replace
 
 
 use "./Temp/base_second_wave.dta", replace
-collapse (mean) accur_bel accur_bel2 accur_bel3 be_change confid, by(subject_id round)
-save "./Temp/bel_accuracy_all.dta", replace
-use "./Temp/base_second_wave.dta", replace
+collapse (mean) accur_bel accur_bel2 accur_bel3 be_change confid absbel_err tot_bel_err, by(subject_id round)
 
+save "./Temp/bel_accuracy_all.dta", replace
+
+use "./Temp/base_second_wave.dta", replace
 
 
 label define accur_bel_l 0 "Inaccurate" 1 "Accur. beliefs"

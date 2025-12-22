@@ -19,6 +19,7 @@ merge m:1 subject_id round using "./Temp/bel_accuracy_all.dta" //average belief 
 drop _merge
 
 
+
 merge m:1 participant_id p using "./Temp/bp_val_all.dta" //risk aversion, blind prot choices and demographic vars
 drop if _merge==2
 drop _merge
@@ -106,6 +107,81 @@ label values accur_bel accur_bel_l //restoring lost value labels
 label value accur_bel2 accur_bel_l
 
 
+
+***Indicator of unused signals:
+gen unused=(ip_w==ip_b)&!missing(ip_w)&!missing(ip_b)
+gen positive_wtp=wtp>0
+label def unused_lab 0 "Protection affected by signal" 1 "Signal has no effect"
+label value unused unused_lab
+
+label def positive_wtp_lab 0 "WTP$=$0" 1 "WTP$>$0"
+label value positive_wtp positive_wtp_lab
+
+
+save "./Temp/wtp_prel_all.dta", replace
+
+tab unused positive_wtp
+
+table unused positive_wtp, c(freq mean wtp) name(tbl1, replace)
+
+tempname T
+matrix `T' = J(2,4,.)
+
+
+
+sum wtp if unused==0 & positive_wtp==0, detail
+matrix `T'[1,1] = r(N)
+matrix `T'[1,2] = r(mean)
+
+
+sum wtp if unused==0 & positive_wtp==1, detail
+matrix `T'[1,3] = r(N)
+matrix `T'[1,4] = r(mean)
+
+
+sum wtp if unused==1 & positive_wtp==0, detail
+matrix `T'[2,1] = r(N)
+matrix `T'[2,2] = r(mean)
+
+
+sum wtp if unused==1 & positive_wtp==1, detail
+matrix `T'[2,3] = r(N)
+matrix `T'[2,4] = r(mean)
+
+*------------------------------------------------------------*
+* Move matrix to dataset
+*------------------------------------------------------------*
+clear
+svmat double `T', names(T)
+
+gen rowlab = cond(_n==1, ///
+    "Protection affected by signal", ///
+    "Signal has no effect")
+order rowlab
+
+*------------------------------------------------------------*
+* Export LaTeX table (same layout as original)
+*------------------------------------------------------------*
+#delimit ;
+listtex rowlab T1 T2 T3 T4 using "./Tables/protection_to_wtp.tex", ///
+    replace rstyle(tabular) ///
+    head("\begin{tabular}{lcccc}
+\\toprule
+& \\multicolumn{2}{c}{WTP \$=\$ 0} & \\multicolumn{2}{c}{WTP \$>\$ 0} \\\\
+& Freq & Mean WTP & Freq & Mean WTP \\\\
+\\midrule") ///
+    foot("\\bottomrule
+\\end{tabular}");
+
+#delimit cr
+use "./Temp/wtp_prel_all.dta", replace
+gen inconsistent_wtp=!((wtp>0)==(unused==0))
+tab inconsistent_wtp
+
+merge m:1 subject_id using "./Temp/mw_auc.dta"
+drop _merge
+
+stop
 *Histograms:
 hist ip_val_diff, title("Distribution of expected costs discrepancies") xtitle("Discrepancy") fraction note("Difference between optimal and actual expected costs in the IP treatment (by round)") color(navy)
 graph export "./Graphs/hist_costs_discr.png", width(1200) height(800) replace
@@ -261,6 +337,30 @@ eststo: reghdfe wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.hig
 
 esttab using "./Tables/wtp_het_risk.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 esttab using "./Tables/wtp_het_risk_pres.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons *.risk_pref#*.highprob *.risk_pref#*.highprob  *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+*Analyzing the effects of WTp-protection consistency:
+gen consistent_wtp=!inconsistent_wtp
+label var consistent_wtp "Consistent WTP"
+eststo clear
+eststo: reg wtp_diff consistent_wtp i.highprob##c.false_neg i.highprob##c.false_pos, vce(cluster subject_id)
+eststo: reg wtp_diff consistent_wtp i.highprob##c.false_neg consistent_wtp#i.highprob#c.false_neg i.highprob##c.false_pos c.consistent_wtp#i.highprob#c.false_pos, vce(cluster subject_id)
+eststo: reg wtp_diff consistent_wtp c.consistent_wtp#i.highprob##c.false_neg c.consistent_wtp##i.highprob##c.false_pos, vce(cluster subject_id)
+eststo: reghdfe wtp_diff consistent_wtp i.highprob##c.false_neg consistent_wtp#i.highprob#c.false_neg i.highprob##c.false_pos c.consistent_wtp#i.highprob#c.false_pos, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff consistent_wtp c.consistent_wtp#i.highprob##c.false_neg c.consistent_wtp#i.highprob##c.false_pos, abs(subject_id) vce(cluster subject_id)
+esttab using "./Tables/wtp_consistent.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(_cons) title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/wtp_consistent_pres.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons) indicate("Prior-FP interactions=*.highprob#c.false_pos" "Prior-FN interactions=*.highprob#c.false_neg") mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+
+
+
+
+
+stop
+
+
 
 sort subject_id plevel
 
@@ -521,6 +621,82 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 
 
 
+**WTP difference: protection-WTP consistency:
+set more off
+eststo clear
+
+eststo: reghdfe wtp_diff false_pos false_neg consistent_wtp, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+	
+eststo: reghdfe false_pos false_neg consistent_wtp wtp_diff consistent_wtp#c.false_pos consistent_wtp#c.false_neg, abs(subject_id) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+	testparm *
+    estadd scalar p_value=r(p)
+	test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+consistent_wtp#c.false_pos
+		estadd scalar b_CO_fp_X=r(estimate)
+		estadd scalar se_CO_fp_X=r(se)
+		estadd scalar p_CO_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+consistent_wtp#c.false_neg
+		estadd scalar b_CO_fn_X=r(estimate)
+		estadd scalar se_CO_fn_X=r(se)
+		estadd scalar p_CO_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+
+		
+		
+eststo: reghdfe wtp_diff false_pos false_neg consistent_wtp consistent_wtp#c.false_pos consistent_wtp#c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+consistent_wtp#c.false_pos
+		estadd scalar b_CO_fp_X=r(estimate)
+		estadd scalar se_CO_fp_X=r(se)
+		estadd scalar p_CO_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+consistent_wtp#c.false_neg
+		estadd scalar b_CO_fn_X=r(estimate)
+		estadd scalar se_CO_fn_X=r(se)
+		estadd scalar p_CO_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+
+		
+eststo: reghdfe wtp_diff false_pos false_neg consistent_wtp consistent_wtp#c.false_pos consistent_wtp#c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+consistent_wtp#c.false_pos
+		estadd scalar b_CO_fp_X=r(estimate)
+		estadd scalar se_CO_fp_X=r(se)
+		estadd scalar p_CO_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+consistent_wtp#c.false_neg
+		estadd scalar b_CO_fn_X=r(estimate)
+		estadd scalar se_CO_fn_X=r(se)
+		estadd scalar p_Co_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+
+		
+
+#delimit ;
+	esttab * using "./Tables/wtpdiff_ols_consistency.tex", replace label 
+		drop(_cons 0.consistent_wtp)
+		order(false_pos false_neg consistent_wtp consistent_wtp#c.false_pos consistent_wtp#c.false_neg)
+		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
+		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
+		stat(r2 N b_CO_fp_X se_CO_fp_X p_CO_fp_X b_CO_fn_X se_CO_fn_X p_CO_fn_X ,  
+		label("\midrule $ R^2$" "Obs"   
+		"[1em] Consistent Subjects: \\ \hspace{0.5em} False Positive" "\hspace{1em}  se" "\hspace{1em}  $ p$-value"  "[0.5em] \hspace{0.5em} False Negative" "\hspace{1em}  se" "\hspace{1em}  $ p$-value" ) 
+		fmt(3 0 3 3 3 3 3 3) layout(@ @ @ (@) [@] @ (@) [@]))
+		substitute(_ \_ ) style(tex);
+#delimit cr
+
+
+
 
 
 
@@ -528,6 +704,7 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 
 
 **Baseline WTP difference (full printed table): risk-aversion and belief accuracy
+set more off
 eststo clear
 
 eststo: reghdfe wtp_diff false_pos false_neg, abs(subject_id) vce(cluster subject_id)
@@ -754,14 +931,76 @@ eststo: tobit wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac
 #delimit cr
 
 
+replace correctcrt=. if wave==1
+gen crt_errors=7-correctcrt
+sum crt_errors
+gen good_crt=crt_errors<=3&!missing(crt_errors)
+replace good_crt=. if wave==1
+tab good_crt
+
+gen high_gpa=gpa>3.5
+replace high_gpa=. if missing(gpa)
+tab high_gpa
+
+
+label var high_gpa "GPA$>$3.5"
+label var good_crt "$<$4 CRT errors"
+
+
+
+eststo clear
+eststo: reg wtp_diff i.high_gpa##c.false_pos i.high_gpa##c.false_neg high_gpa, vce(cluster subject_id)
+eststo: reg wtp_diff i.high_gpa##i.plevel i.high_gpa##c.false_pos i.high_gpa##c.false_neg high_gpa, vce(cluster subject_id)
+eststo: reg wtp_diff i.good_crt##c.false_pos i.good_crt##c.false_neg crt_errors, vce(cluster subject_id)
+eststo: reg wtp_diff i.good_crt##i.plevel i.good_crt##c.false_pos i.good_crt##c.false_neg crt_errors, vce(cluster subject_id)
+eststo: reg wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
+eststo: reg wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_crt.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+eststo clear
+eststo: tobit wtp i.plevel sex stat_educ ncorrect,  ll(0) ul(5) vce(cluster subject_id)
+eststo: tobit wtp i.plevel sex stat_educ ncorrect correctcrt gpa,  ll(0) ul(5) vce(cluster subject_id)
+eststo: tobit wtp i.plevel false_pos false_neg i.sex#c.false_pos i.sex#c.false_neg sex stat_educ ncorrect,  ll(0) ul(5) vce(cluster subject_id)
+eststo: tobit wtp i.plevel false_pos false_neg i.goodquiz#c.false_pos i.goodquiz#c.false_neg sex stat_educ ncorrect,  ll(0) ul(5) vce(cluster subject_id)
+eststo: tobit wtp i.plevel false_pos false_neg i.stat_educ#c.false_pos i.stat_educ#c.false_neg sex stat_educ ncorrect, ll(0) ul(5)  vce(cluster subject_id)
+eststo: tobit wtp i.plevel false_pos false_neg i.high_gpa#c.false_pos i.high_gpa#c.false_neg sex stat_educ correctcrt gpa ncorrect, ll(0) ul(5)  vce(cluster subject_id)
+eststo: tobit wtp i.plevel false_pos false_neg i.good_crt#c.false_pos i.good_crt#c.false_neg sex stat_educ correctcrt gpa ncorrect, ll(0) ul(5) vce(cluster subject_id)
+esttab using "./Tables/table_tobit_demo.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_tobit_demo_pres.tex", cells("b(fmt(%9.3g) star)") ar2(%9.2f) label indicate(Prior dummies=*.plevel) mtitles("" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+
+
+*Analyzing the effects of errors for the round on wtp
+*eststo: reghdfe wtp_diff false_pos false_neg, abs(subject_id) vce(cluster subject_id)
+
+label var absbel_err "Subject-round-specific belief error"
+eststo clear
+eststo: reghdfe wtp_diff absbel_err i.plevel, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff absbel_err false_pos false_neg i.plevel, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff absbel_err false_pos false_neg i.highprob#c.false_neg i.highprob#c.false_pos i.plevel, abs(subject_id) vce(cluster subject_id)
+esttab using "./Tables/wtp_bel_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label drop(_cons) title(WTP minus Value of Information: subject-round BE error) mtitles("" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
+**Removing subjects with inconsistent WTP - protection decisions:
+eststo clear
+eststo: reghdfe wtp_diff false_pos false_neg i.plevel if inconsistent_wtp==0, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff false_pos false_neg if plevel==100&nchanges>0, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff false_pos false_neg if plevel==200&nchanges>0, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff false_pos false_neg if plevel==300&nchanges>0, abs(subject_id) vce(cluster subject_id)
+eststo: reghdfe wtp_diff phintBW phintWB if plevel==500&nchanges>0, abs(subject_id) vce(cluster subject_id)
+esttab using "./Tables/table_wtpdiff_06s.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP - Value of Information, by prior) mtitles("All" "0.1" "0.2" "0.3" "0.5")  addnotes("Only subjects who change their decisions across priors") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+
+
+
 stop
-
-
-
-
-
-
-
 
 
 
@@ -776,6 +1015,12 @@ eststo: reg wtp_diff i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_
 eststo: reg wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, vce(cluster subject_id)
 esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP minus Value of Information: demographic determinants) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
+
+
+*merge belief errors:
+
+
+stop
 
 
 
@@ -886,6 +1131,10 @@ gen wtp_s_change=wtp~=wtp[_n-1]
 replace wtp_s_change=0 if inlist(round,1,2,4)
 bys subject_id: egen nchanges_s=sum(wtp_s_change)
 tab nchanges_s
+
+
+
+
 
 **Removing subjects which do not update their WTP after increasing priors:
 eststo clear

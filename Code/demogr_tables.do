@@ -17,6 +17,16 @@ tab sex
 tab stat_educ
 tab student
 
+hist correctcrt, width(`binwidth') fcolor(navy) lcolor(navy) title("Distribution of CRT scores") 
+graph export "./Graphs/hist_crt.png", width(1200) height(800) replace
+
+
+hist gpa, width(`binwidth') fcolor(navy) lcolor(navy) title("Distribution of GPA") 
+graph export "./Graphs/hist_gpa.png", width(1200) height(800) replace
+
+
+stop
+
 file open mytbl using "Tables/demography.tex", write replace
 file write mytbl "\begin{tabular}{l*{6}{c}}" _n
 file write mytbl "\hline\hline" _n
@@ -33,13 +43,7 @@ gen sample_13  = ((p==.1)|(p==.3))
 gen sample_25  = ((p==.2)|(p==.5))
 gen sample_all = (1==1)
 
-gen fuck=((abs(p-0.1)<0.01))
-tab fuck
 
-tab sample_13 sample_25
-sum p
-tab p
-sum p if p==.1
 //stop
 
 label var sex "Male"

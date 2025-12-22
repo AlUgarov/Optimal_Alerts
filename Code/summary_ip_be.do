@@ -198,6 +198,11 @@ gen accur_bel=tot_bel_err<`err_med' //error is less than the median
 
 
 
+**Evaluate subject-level belief accuracy by 
+
+
+
+
 *Evaluating relative belief accuracy conditional on tasks (prior x signal)
 bys round: sum absbel_err
 bys subject_id round: egen v1=sum(absbel_err)
@@ -314,7 +319,7 @@ graph export "./Graphs/hist_bigerrors.png", width(1200) height(800) replace
 
 
 use "./Temp/base_main_waves.dta", replace
-collapse (mean) accur_bel accur_bel2 accur_bel3 be_change confid, by(subject_id round)
+collapse (mean) accur_bel accur_bel2 accur_bel3 be_change confid absbel_err, by(subject_id round)
 save "./Temp/bel_accuracy.dta", replace
 use "./Temp/base_main_waves.dta", replace
 
