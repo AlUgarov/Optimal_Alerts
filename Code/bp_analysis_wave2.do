@@ -60,6 +60,9 @@ gen college=educ>4
 collapse (mean) bp submittime (first) sex age stat_educ ncorrect informed_correct wtpq_correct college (sum) totprot=bp (max) switcher backswitcher nbswitches repairable (min) maxspeed=submittime firstswitch=switchround backswitchround, by(participant_id)
 
 tab firstswitch
+tab backswitcher
+tab repairable if backswitcher==1
+stop
 replace firstswitch=. if backswitcher==1
 replace firstswitch=7-totprot if repairable==1
 tab firstswitch
@@ -73,7 +76,6 @@ gen byte allprotect=(totprot==6)
 gen switchprob=0.05*firstswitch
 replace switchprob=-0.5 if missing(switchprob)
 gen pilot=0
-
 
 
 **Merge-in blind protection choices from the pilot

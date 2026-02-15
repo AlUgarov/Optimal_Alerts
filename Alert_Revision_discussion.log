@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  22 DEC 2025 12:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  9 FEB 2026 11:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -935,7 +935,17 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count366
 \l__pdf_internal_box=\box88
 )
-(Alert_Revision_discussion.aux)
+(Alert_Revision_discussion.aux
+
+LaTeX Warning: Label `tab:nonparIP' multiply defined.
+
+
+LaTeX Warning: Label `tab:nonparIP' multiply defined.
+
+
+LaTeX Warning: Label `tab:nonparIP' multiply defined.
+
+)
 \openout1 = `Alert_Revision_discussion.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
@@ -1107,82 +1117,111 @@ Package pdftex.def Info: Graphs/hist_value_by_error.png  used on input line 200
 
 ] (Tables/bigpicture_IP_AU.tex) [11
 
-] (Tables/bigpicture_bel_AU.tex)
-[12
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tab:nonparIP}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.312 \end{frame}
+                  (Tables/bigpicture_IPd_AU.tex) [12
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tab:nonparIP}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.330 \end{frame}
+                  (Tables/bigpicture_IPdiff_compact_AU.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--330
+[][] 
+ []
+
+[13
+
+] (Tables/bigpicture_bel_AU.tex) [14
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tab:nonparIP}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.382 \end{frame}
+                  (Tables/bigpicture_BEdiff_compact_AU.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--382
+[][] 
+ []
+
+[15
 
 ] (Tables/bigpicture_wtp_det.tex
 Overfull \hbox (23.25188pt too wide) in paragraph at lines 1--6
  [] 
  []
 
-) [13
+) [16
 
-] (Tables/table_ip_flex_AU.tex) [14
+] (Tables/table_ip_flex_AU.tex) [17
 
-] [15
+] [18
 
 ] (Tables/wtpdiff_ols_pres.tex)
-[16
+[19
 
-] (Tables/wtp_tobit.tex) [17
+] (Tables/wtp_tobit.tex) [20
 
 ] (Tables/table_wtpdiff_crt.tex)
-Overfull \vbox (14.77751pt too high) detected at line 447
+Overfull \vbox (14.77751pt too high) detected at line 527
  []
 
-[18
+[21
 
-] (Tables/table_tobit_demo_pres.tex) [19
+] (Tables/table_tobit_demo_pres.tex) [22
 
-] [20
+] [23
 
 ]
-<Graphs/sensit_comparison.png, id=583, 1003.75pt x 602.25pt>
+<Graphs/sensit_comparison.png, id=661, 1003.75pt x 602.25pt>
 File: Graphs/sensit_comparison.png Graphic file (type png)
 <use Graphs/sensit_comparison.png>
-Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 493.
+Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 573.
 (pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
- [21
+ [24
 
  <./Graphs/sensit_comparison.png (PNG copy)>]
-<Graphs/sensit_comparison_tobit.png, id=610, 1003.75pt x 602.25pt>
+<Graphs/sensit_comparison_tobit.png, id=688, 1003.75pt x 602.25pt>
 File: Graphs/sensit_comparison_tobit.png Graphic file (type png)
 <use Graphs/sensit_comparison_tobit.png>
 Package pdftex.def Info: Graphs/sensit_comparison_tobit.png  used on input line
- 503.
+ 583.
 (pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
- [22
+ [25
 
  <./Graphs/sensit_comparison_tobit.png (PNG copy)>]
-[23
-
-] [24
-
-]
-Overfull \hbox (4.5607pt too wide) in paragraph at lines 575--575
-[]  
- []
-
-[25
-
-] (Tables/wtpdiff_ols_consistency.tex) [26
+[26
 
 ] [27
 
-] [28
+]
+Overfull \hbox (4.5607pt too wide) in paragraph at lines 655--655
+[]  
+ []
 
-] [29
+[28
+
+] (Tables/wtpdiff_ols_consistency.tex) [29
 
 ] [30
 
-]
-(Tables/wtp_bel_err.tex)
-Overfull \vbox (4.37004pt too high) detected at line 694
- []
-
-[31
+] [31
 
 ] [32
+
+] [33
+
+] [34
+
+]
+[35
 
 ]
 \tf@nav=\write6
@@ -1196,14 +1235,14 @@ Overfull \vbox (4.37004pt too high) detected at line 694
 
  (Alert_Revision_discussion.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 28805 strings out of 476374
- 568438 string characters out of 5805269
+ 28829 strings out of 476374
+ 569079 string characters out of 5805269
  1905340 words of memory out of 5000000
- 48477 multiletter control sequences out of 15000+600000
+ 48489 multiletter control sequences out of 15000+600000
  523247 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,551b,832s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1217,11 +1256,10 @@ iKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/MiKTeX/fonts/type1/public/am
 sfonts/cm/cmss9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/
 MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/
-MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmsy9.pfb>
-Output written on Alert_Revision_discussion.pdf (32 pages, 826204 bytes).
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
+Output written on Alert_Revision_discussion.pdf (35 pages, 836302 bytes).
 PDF statistics:
- 989 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
+ 1064 PDF objects out of 1200 (max. 8388607)
+ 74 named destinations out of 1000 (max. 500000)
  150 words of extra memory for PDF output out of 10000 (max. 10000000)
 

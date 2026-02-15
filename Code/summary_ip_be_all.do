@@ -55,7 +55,10 @@ gen gpa=.
 gen crt_payoff=.
 gen correctcrt=.
 
-reshape long ip_w_ ip_b_ ip_time_ be_w_ be_b_ be_time_w_ be_time_b_ wtp_1_ wtp_2_ wtp_3_ wtp_4_ wtp_5_ wtp_6_ wtp_7_ wtp_8_ wtp_9_ wtp_10_ wtp_11_ wtp_time_, i(participant_id sex age stat_educ gpa crt_payoff correctcrt) j(round)
+*to be consistent with the second wave:
+rename final_payoff fpayoff
+
+reshape long ip_w_ ip_b_ ip_time_ be_w_ be_b_ be_time_w_ be_time_b_ wtp_1_ wtp_2_ wtp_3_ wtp_4_ wtp_5_ wtp_6_ wtp_7_ wtp_8_ wtp_9_ wtp_10_ wtp_11_ wtp_time_, i(participant_id sex age stat_educ gpa fpayoff crt_payoff correctcrt) j(round)
 rename *_ *
 rename ip_time time_ip
 
@@ -116,6 +119,11 @@ replace be_b=0.01*be_b //rescale belief elicitation responses to probabilities
 
 
 
+merge m:1 participant_id p using "./Temp/bp_val_all.dta" //risk aversion, blind prot choices and demographic vars
+drop if _merge==2
+drop _merge
+
+
 **CRUCIAL VARIABLES***
 *ip_ - protection in response to seeing a hint in informed protection (0 - no protection, 1 - protection)
 *be_ - belief on prob that the ball is black after seeing a hint in the belief elicitation task
@@ -132,11 +140,16 @@ label var phintBW "False pos. rate"
 replace ip_w=. if ip_w==-99
 replace ip_b=. if ip_b==-99
 
+
 gen ip_val=-(p*(phintWB*(1-ip_w)+phintBB*(1-ip_b))*loss+p*(phintWB*ip_w+phintBB*ip_b)*protectioncost+(1-p)*(phintWW*ip_w+phintBW*ip_b)*protectioncost)
+replace ip_val=max(0,-(bp_val-ip_val))
+
 replace ip_val=. if ip_b==-99
 replace ip_val=. if ip_w==-99
 
 sum ip_val
+
+*stop
 
 
 
@@ -149,6 +162,9 @@ replace ip_b_o=1 if post_probB>=protectioncost/loss
 
 //Calculate exp. costs under the optimal strategy:
 gen ip_val_o=-(p*(phintWB*(1-ip_w_o)+phintBB*(1-ip_b_o))*loss+p*(phintWB*ip_w_o+phintBB*ip_b_o)*protectioncost+(1-p)*(phintWW*ip_w_o+phintBW*ip_b_o)*protectioncost)
+
+replace ip_val_o=min(p*loss,protectioncost)-(-ip_val_o)
+
 
 label var ip_val "Exp. costs"
 label var ip_val_o "Optimal exp. costs"
@@ -214,8 +230,8 @@ tabstat sex old college stat_educ, by(seq_type) statistics(sum mean) column(stat
 
 use "./Output/second_wave_test.dta", replace
 
-keep subject_id participant_id round time_ip honest ncorrect p phintBW phintWB phintBB rev_response treatm_type tot_liars bl_gr w_gr
-collapse (first) treatm_type participant_id time_ip honest ncorrect p phintBW phintWB phintBB rev_response tot_liars bl_gr w_gr, by(subject_id round)
+keep subject_id participant_id round time_ip honest ncorrect p phintBW phintWB phintBB rev_response treatm_type tot_liars bl_gr w_gr treatn
+collapse (first) treatm_type participant_id time_ip honest ncorrect p phintBW phintWB phintBB rev_response tot_liars bl_gr w_gr treatn, by(subject_id round)
 label values treatm_type treatm_typel
 
 duplicates list subject_id round //no duplicates
@@ -277,7 +293,7 @@ replace ip_=. if ip_==-99
 **Calculate subject-level accuracy of reported beliefs:
 gen bel_err=post_prob-be_
 label var bel_err "Belief error"
-
+stop
 gen absbel_err=abs(bel_err)
 sort subject_id
 by subject_id: egen tot_bel_err=sum(absbel_err) //total abs error per subject
@@ -425,6 +441,12 @@ gen certaincolor=abs(0.5-post_prob)>0.499
 
 sum absbel_err if abs(0.5-post_prob)<0.499, detail
 
+* Count observations per treatment
+bysort treatn: gen n_treat = _N
+
+* Generate equal-weight variable
+gen w_equal = 1 / n_treat
+
 **Exploring belief elicitation errors for both low and high priors:
 hist bel_err if p<0.299, title("Errors in elicited beliefs (low priors)") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
 graph export "./Graphs/hist_belief_error_low_w2.png", width(1200) height(800) replace
@@ -456,12 +478,21 @@ hist bel_err if abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color i
 graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replace
 
 
+twoway histogram bel_err if p < 0.299, ///
+    title("Errors in elicited beliefs (low priors)") ///
+    xtitle("Posterior - Belief") ///
+    fraction ///
+    note("Equal weight per treatment; no aggregation to round or subjects") ///
+    color(navy)
+
+graph export "./Graphs/hist_belief_error_low_w2.png", width(1200) height(800) replace
+
 
 qui reg be_ post_prob
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob
 local rho:  display %5.3f = r(rho)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) , title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs, correlation=`rho'") legend(off)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob), title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs, correlation=`rho'") legend(off)
 graph export "./Graphs/updating_s1.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if goodquiz==1
@@ -493,5 +524,98 @@ graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==
 graph export "./Graphs/updating_s5.png", width(1200) height(800) replace
 
 save "./Temp/base_main_waves.dta", replace
+
+drop n_treat
+*Graphs weighted by treatment:
+bysort treatn: gen n_treat = _N
+gen w_treat = 1/n_treat
+
+scalar NBINS_BEL = 20
+quietly sum bel_err, meanonly
+scalar BEL_MIN = r(min)
+scalar BEL_MAX = r(max)
+scalar BEL_BINWIDTH = (BEL_MAX - BEL_MIN)/NBINS_BEL
+
+capture drop bel_bin bel_xmid
+gen bel_bin  = floor((bel_err - BEL_MIN)/(BEL_MAX - BEL_MIN) * NBINS_BEL)
+replace bel_bin = NBINS_BEL - 1 if bel_bin == NBINS_BEL
+gen bel_xmid = BEL_MIN + (BEL_MAX - BEL_MIN)*(bel_bin+0.5)/NBINS_BEL
+
+*weighted prop btw -0.1 and 0.1:
+quietly sum w_treat if abs(bel_err) <= 0.2, meanonly
+local num = r(sum)
+
+quietly sum w_treat, meanonly
+local tot = r(sum)
+
+display "Weighted share in [-0.2,0.2] = " %6.4f (`num'/`tot')
+
+*weighted prop correct for certain signals:
+quietly sum w_treat if abs(0.5-post_prob) > 0.499&bel_err<0.0001, meanonly
+local num = r(sum)
+quietly sum w_treat if abs(0.5-post_prob) > 0.499, meanonly
+local tot = r(sum)
+
+display "Weighted share of correct for certain signals: " %6.4f (`num'/`tot')
+
+stop
+
+preserve
+    collapse (sum) w_treat, by(bel_bin bel_xmid)
+    egen totw = total(w_treat)
+    gen frac = w_treat/totw
+
+    twoway bar frac bel_xmid, ///
+        barwidth(`=BEL_BINWIDTH') ///
+        title("Errors in elicited beliefs") ///
+        xtitle("Posterior - Belief") ///
+        ytitle("Fraction") ///
+        note("By belief elicitation task, no aggregation to round or subjects") ///
+        color(navy)
+		
+
+	stop
+	
+
+    graph export "./Graphs/hist_belief_errorw.png", width(1200) height(800) replace
+restore
+
+
+preserve
+    keep if abs(0.5-post_prob) < 0.499
+
+    collapse (sum) w_treat, by(bel_bin bel_xmid)
+    egen totw = total(w_treat)
+    gen frac = w_treat/totw
+
+    twoway bar frac bel_xmid, ///
+        barwidth(`=BEL_BINWIDTH') ///
+        title("Errors in beliefs, ball color is uncertain") ///
+        xtitle("Posterior - Belief") ///
+        ytitle("Fraction") ///
+        note("By belief elicitation task, no aggregation to round or subjects") ///
+        color(navy)
+
+    graph export "./Graphs/hist_belief_error_s4w.png", width(1200) height(800) replace
+restore
+
+
+preserve
+    keep if abs(0.5-post_prob) > 0.499
+
+    collapse (sum) w_treat, by(bel_bin bel_xmid)
+    egen totw = total(w_treat)
+    gen frac = w_treat/totw
+
+    twoway bar frac bel_xmid, ///
+        barwidth(`=BEL_BINWIDTH') ///
+        title("Errors in beliefs, ball color is certain") ///
+        xtitle("Posterior - Belief") ///
+        ytitle("Fraction") ///
+        note("By belief elicitation task, no aggregation to round or subjects") ///
+        color(navy)
+
+    graph export "./Graphs/hist_belief_error_s5w.png", width(1200) height(800) replace
+restore
 
 

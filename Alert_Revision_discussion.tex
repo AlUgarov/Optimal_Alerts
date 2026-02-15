@@ -240,7 +240,7 @@ Response: Split it by prior too? Could be two tables. The danger is that readers
 \label{tab:nonparIP}
 \adjustbox{max width=\textwidth}{
 	\begin{threeparttable}
-	\begin{tabular}{cccccccc} \hline \hline
+	\begin{tabular}{ccccccccc} \hline \hline
 	\multirow{4}{6ex}{\centering \textbf{Row}}
 			&\multicolumn{2}{c}{\centering \textbf{Signal Characteristics}} &\multirow{3}{12ex}{\centering \textbf{Hint}} 
 			& \multirow{3}{10ex}{\centering \textbf{Posterior}} & \multirow{3}{10ex}{\centering \textbf{Share Protect}} 
@@ -265,6 +265,69 @@ Response: Split it by prior too? Could be two tables. The danger is that readers
 \end{table}
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Protection Summary detail}
+\begin{itemize}
+
+\item Similar: overprotection for white hints, underprotection for black hints with no FP; new - slight underprotection for FP$>$0,FP=0
+\end{itemize}
+
+\footnotesize
+\begin{table}[H]\centering
+\caption{Average Protection by Signal Type (Split by Priors)}
+\label{tab:nonparIP}
+\adjustbox{max width=\textwidth}{
+\begin{threeparttable}
+\begin{tabular}{ccccccccc}
+\hline\hline
+\multirow{4}{6ex}{\centering \textbf{Row}}
+& \multirow{3}{10ex}{\centering \textbf{Priors}}
+& \multicolumn{2}{c}{\centering \textbf{Signal Characteristics}}
+& \multirow{3}{12ex}{\centering \textbf{Hint}}
+& \multirow{3}{10ex}{\centering \textbf{Posterior}}
+& \multirow{3}{12ex}{\centering \textbf{Share Protect}}
+& \multirow{3}{12ex}{\centering \textbf{Share Optimal}}
+& \multirow{3}{8ex}{\centering \textbf{$p$}} \\
+\cmidrule(lr){3-4}
+& & \multirow{2}{12ex}{\centering \textbf{False Positive}}
+  & \multirow{2}{12ex}{\centering \textbf{False Negative}}
+  & & & & & \\
+\\
+& (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) \\
+\hline
+\input{Tables/bigpicture_IPd_AU.tex}
+\\[-1em]
+\hline\hline
+\end{tabular}
+
+\begin{tablenotes}[flushleft]
+\item\footnotesize \textit{Notes: Column (8) reports the p-value for the test of equality between the theoretical prediction (Share Optimal) and the observed share of protection (Share Protect). Priors are grouped as Low (plevel 100/200) vs High (plevel 300/500).}
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Protection Summary detail}
+
+\footnotesize
+\begin{table}[H]\centering
+\caption{IP decisions (actual minus optimal risk-neutral)}
+\label{tab:nonparIP}
+\input{Tables/bigpicture_IPdiff_compact_AU.tex}
+\begin{tablenotes}[flushleft]
+\item\footnotesize \textit{Notes: Priors are grouped as Low (plevel 100/200) vs High (plevel 300/500).}
+\end{tablenotes}
+\end{table}
+\end{frame}
 
 
 
@@ -299,6 +362,23 @@ Response: Split it by prior too? Could be two tables. The danger is that readers
 	\end{threeparttable}
 	}
 \end{table}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Belief Elicitation detail}
+
+\footnotesize
+\begin{table}[H]\centering
+\caption{Belief Elicitaion summary  (reported minus posterior)}
+\label{tab:nonparIP}
+\input{Tables/bigpicture_BEdiff_compact_AU.tex}
+\begin{tablenotes}[flushleft]
+\item\footnotesize \textit{Notes: Priors are grouped as Low (plevel 100/200) vs High (plevel 300/500).}
+\end{tablenotes}
+\end{table}
+
 \end{frame}
 
 
@@ -582,7 +662,7 @@ Don't react to a signal&101&0&295&1.97\\
 \frametitle{Consistent subjects are more sensitive to FN/FN costs}
 
 \begin{itemize}
-\item Consistent subjects do not show significant biases in either FP or FN sensitivity both an average and for low/high priors!
+\item Consistent subjects do not show significant biases in either FP or FN sensitivity both on average and for low/high priors!
 \end{itemize}
 \begin{table}[htbp!]
 \centering
@@ -605,8 +685,8 @@ Don't react to a signal&101&0&295&1.97\\
 \begin{frame}
 \frametitle{Potential implications for framing our results}
 \begin{itemize}
-\item The observed WTP biases we observe mostly come a large group of subjects making inconsistent choices 
-\item Indicates that biases have cognitive origins - paying for a signals and not using it is hard to explain just from preferences
+\item Highly consistent subjects are still vulnerable to the same bias: underreacting to FP for low priors (when FP are very likely) and underreacting to FN for high priors.
+\item Biases likely have cognitive origins - paying for a signal and not using it is hard to explain just from preferences
 \item Supported by the observed high correlations between protection-belief inconsistency, WTP-protection inconsistency, belief accuracy, and quiz results
 \end{itemize}
 \end{frame}
@@ -686,10 +766,10 @@ have different policy implications for encouraging the acquisition of warning si
 \end{itemize}
 \begin{table}[htbp]
 \caption{WTP minus Value of Information: subject-round BE error}
-\adjustbox{max width=0.8\textwidth}{
+%\adjustbox{max width=0.8\textwidth}{
 
-\input{Tables/wtp_bel_err.tex}
-}
+%\input{Tables/wtp_bel_err.tex}
+%}
 \end{table}
 \end{frame}
 

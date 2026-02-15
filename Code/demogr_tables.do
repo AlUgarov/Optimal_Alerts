@@ -10,7 +10,8 @@ cd C:\Tornado_warnings\Experiment\Alerts_Experiment
 set seed 135
 //use "./Temp/allwaves_wide.dta", replace
 use "./Output/demography.dta", replace
-
+sum fpayoff
+stop
 gen age23=age>23&!missing(age)
 gen student=((educ==3)|(educ==4))&!missing(educ)
 tab sex

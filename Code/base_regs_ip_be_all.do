@@ -236,6 +236,13 @@ estadd scalar llike = `llike'
 esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3f) t(%9.3f) label addnotes("With flexible controls of posterior probability and beliefs" ///
   "Subject FE, errors are clustered by subject, average marginal treatment effects") stats(N r2p llike, labels("N" "Pseudo R-squared" "Log-likelihood") fmt(0 3 3)) mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
+  
+**Measuring th effects of 
+
+reg ip_ post_prob be_ blackhint
+reg ip_ post_prob be_ blackhint totprot
+ 
+*stop
 
   
  **Robustness: LINEAR! flexible control both for beliefs and posteriors:
@@ -274,7 +281,7 @@ ttest tot_bel_err, by(high_be_prot_consistent)
 ttest ncorrect, by(high_be_prot_consistent)
 keep subject_id mw_auc high_be_prot_consistent
 save "./Temp/mw_auc.dta", replace
-stop
+
 use "./Temp/prep_heter.dta", replace
 
 *Reacting to FP rates is still optimal even when the signal is white, because it lowers the probability of the white signal coming from the white state
@@ -317,6 +324,7 @@ bys fp_env fn_env blackhint: sum ip_
 gen prot_cost=5
 gen loss=20
 gen ip_o=post_prob>(prot_cost/loss)
+gen highprob=p>0.201
 
 tempname p1
 postfile `p1' nrow signal false_pos false_neg prot posterior mean_opt ptest2 using "./Temp/ip_by_environment.dta", replace
@@ -354,10 +362,13 @@ replace testgroup=1 if fp_env==1&fn_env==0&blackhint==0
 ttest ip_, by(testgroup)
 
 
+
+
+
 use "./Temp/ip_by_environment.dta", replace
 tostring nrow, replace
 replace nrow="("+nrow+")"
-stop
+*stop
 
 tostring false_pos false_neg signal, replace
 foreach var of varlist false_pos false_neg{
@@ -376,6 +387,136 @@ listtex using "./Tables/bigpicture_IP_AU.tex", type rstyle(tabular) replace
 
 drop nrow
 listtex using "./Tables/bigpicture_IP_pres.tex", type rstyle(tabular) head("\begin{table}[H]\centering \scriptsize \begin{tabular}{ccccccc} \hline \hline" `"\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+
+
+
+
+
+use "./Temp/prep_beliefs.dta", replace
+**Comparison of protection by information (split by priors)
+gen fp_env=phintBW>0
+gen fn_env=phintWB>0
+bys fp_env fn_env blackhint: sum ip_ 
+gen prot_cost=5
+gen loss=20
+gen ip_o=post_prob>(prot_cost/loss)
+*gen highprob=p>0.201
+
+tempname p1
+postfile `p1' nrow prior signal false_pos false_neg prot posterior mean_opt ptest2 using "./Temp/ip_by_environment_det.dta", replace
+
+forvalues k=0/1{
+  forvalues i=0/1{
+  
+    forvalues j=0/1{
+	  forvalues f=0/1{
+		  if `k'==0{
+			ttest ip_==0 if fp_env==`i'&fn_env==`j'&blackhint==0&highprob==`f', level(95)
+			local ptest=r(p_u)
+			
+		  }
+		  else {
+			ttest ip_==1 if fp_env==`i'&fn_env==`j'&blackhint==1&highprob==`f', level(95)
+			local ptest=r(p_l)
+		  }
+		  local prot=r(mu_1)
+		  sum post_prob if fp_env==`i'&fn_env==`j'&blackhint==`k'&highprob==`f'
+		  local posterior=r(mean)
+		  ttest ip_==ip_o if fp_env==`i'&fn_env==`j'&blackhint==`k'&highprob==`f'
+		  local mean_opt=r(mu_2)
+		  local ptest2=r(p)
+		  local nrow=4*`k'+2*`i'+`j'+1
+		  post `p1' (`nrow') (`f') (`k') (`i') (`j') (`prot') (`posterior') (`mean_opt') (`ptest2')
+		}
+    }
+  }
+}
+
+postclose `p1'
+
+
+use "./Temp/ip_by_environment_det.dta", replace
+tostring nrow, replace
+replace nrow="("+nrow+")"
+*stop
+
+tostring false_pos false_neg signal, replace
+foreach var of varlist false_pos false_neg{
+  replace `var'="No" if `var'=="0"
+  replace `var'="Yes" if `var'=="1"
+}
+replace signal="White" if signal=="0"
+replace signal="Black" if signal=="1"
+
+gen priorlabel="Low" if prior==0
+replace priorlabel="High" if prior==1
+sort prior false_pos false_neg signal
+drop prior
+order nrow priorlabel false_pos false_neg signal
+bro
+
+format prot posterior mean_opt ptest2 %9.3f
+listtex using "./Tables/bigpicture_IPd.tex", type rstyle(tabular) head("\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline" `"\textbf{Row}&\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+
+
+order nrow priorlabel false_pos false_neg signal posterior prot mean_opt ptest2
+listtex using "./Tables/bigpicture_IPd_AU.tex", type rstyle(tabular) replace
+
+drop nrow
+listtex using "./Tables/bigpicture_IPd_pres.tex", type rstyle(tabular) head("\begin{table}[H]\centering \scriptsize \begin{tabular}{ccccccc} \hline \hline" `"\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+
+
+
+*Making a compact table with IP decision differences (actual vs risk-neutral optimal)
+use "./Temp/prep_beliefs.dta", replace
+
+* Setup
+gen fp = phintBW>0
+gen fn = phintWB>0
+gen ip_o = post_prob>(5/20)
+gen ip_diff = ip_ - ip_o
+*gen highprob = p>0.201
+gen env = 10*fp + fn   // 0=Honest, 1=FN only, 10=FP only, 11=FP&FN
+
+* Cell stats: Low/High priors × Signal × Env
+tempfile det all
+statsby mean=r(mu_1) p=r(p), by(highprob blackhint env) saving(`det', replace) : ttest ip_diff==0
+
+* Cell stats: All priors × Signal × Env
+preserve
+statsby mean=r(mu_1) p=r(p), by(blackhint env) saving(`all', replace) : ttest ip_diff==0
+use `all', clear
+gen highprob = 2
+save `all', replace
+restore
+
+
+* Combine, label, reshape wide
+use `det', clear
+append using `all'
+
+gen priors = cond(highprob==2,"All",cond(highprob==0,"Low","High"))
+gen signal = cond(blackhint==0,"White","Black")
+reshape wide mean p, i(priors signal) j(env)
+
+* Build display strings with stars (clean *** rule)
+foreach e in 0 1 10 11 {
+    tostring mean`e', format(%9.3f) replace force
+    replace mean`e' = mean`e' + cond(p`e'<0.001,"***", cond(p`e'<0.01,"**", cond(p`e'<0.05,"*","")))
+}
+keep priors signal mean0 mean1 mean10 mean11
+order priors signal mean0 mean1 mean10 mean11
+
+listtex using "./Tables/bigpicture_IPdiff_compact.tex", type rstyle(tabular) replace ///
+  head("\begin{table}[H]\centering \begin{tabular}{cccccc} \hline \hline" ///
+       `"\textbf{Priors}&\textbf{Signal}&\textbf{Honest}&\textbf{FN only}&\textbf{FP only}&\textbf{FP and FN}\\ \hline"') ///
+  foot("\hline \end{tabular} \end{table}")
+
+  
+ 
+
+
+
 
 
 
@@ -455,6 +596,69 @@ listtex using "./Tables/bigpicture_bel_AU.tex", type rstyle(tabular) replace
 
 
 
+
+
+  
+  *Making a compact table with BE decision differences (reported minus posterior):
+use "./Temp/prep_beliefs.dta", replace
+gen fp = phintBW>0
+gen fn = phintWB>0
+gen be_diff = be_ - post_prob
+*gen highprob = p>0.201
+gen env = 10*fp + fn   // 0=Honest, 1=FN only, 10=FP only, 11=FP&FN
+
+* Cell stats: Low/High priors × Signal × Env
+tempfile det all
+statsby mean=r(mu_1) p=r(p), by(highprob blackhint env) saving(`det', replace) : ttest be_diff==0
+
+* Cell stats: All priors × Signal × Env
+preserve
+statsby mean=r(mu_1) p=r(p), by(blackhint env) saving(`all', replace) : ttest be_diff==0
+use `all', clear
+gen highprob = 2
+save `all', replace
+restore
+
+
+* Combine, label, reshape wide
+use `det', clear
+append using `all'
+sort highprob
+gen priors = cond(highprob==2,"All",cond(highprob==0,"Low","High"))
+gen signal = cond(blackhint==0,"White","Black")
+reshape wide mean p, i(priors signal) j(env)
+
+* Build display strings with stars (clean *** rule)
+foreach e in 0 1 10 11 {
+    tostring mean`e', format(%9.3f) replace force
+    replace mean`e' = mean`e' + cond(p`e'<0.001,"***", cond(p`e'<0.01,"**", cond(p`e'<0.05,"*","")))
+}
+keep priors signal mean0 mean1 mean10 mean11
+order priors signal mean0 mean1 mean10 mean11
+
+listtex using "./Tables/bigpicture_BEdiff_compact.tex", type rstyle(tabular) replace ///
+  head("\begin{table}[H]\centering \begin{tabular}{cccccc} \hline \hline" ///
+       `"\textbf{Priors}&\textbf{Signal}&\textbf{Honest}&\textbf{FN only}&\textbf{FP only}&\textbf{FP and FN}\\ \hline"') ///
+  foot("\hline \end{tabular} \end{table}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 use "./Temp/prep_beliefs.dta", replace
 
 *merge m:1 subject_id using "./Temp/ipclasses.dta" //risk aversion, blind prot choices and demographic vars
@@ -508,3 +712,4 @@ eststo: reg lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, 
 eststo: xtreg lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, fe vce(cluster subject_id)
 esttab using "./Tables/table_be3.tex", b(%9.3f) t(%9.1f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) note("Decomposition works only for imperfect signals") nobaselevels compress nogaps replace
 
+stop
