@@ -291,9 +291,9 @@ replace ip_=. if ip_==-99
 
 
 **Calculate subject-level accuracy of reported beliefs:
-gen bel_err=post_prob-be_
+gen bel_err= be_-post_prob
 label var bel_err "Belief error"
-stop
+
 gen absbel_err=abs(bel_err)
 sort subject_id
 by subject_id: egen tot_bel_err=sum(absbel_err) //total abs error per subject
@@ -558,7 +558,6 @@ local tot = r(sum)
 
 display "Weighted share of correct for certain signals: " %6.4f (`num'/`tot')
 
-stop
 
 preserve
     collapse (sum) w_treat, by(bel_bin bel_xmid)
@@ -574,8 +573,6 @@ preserve
         color(navy)
 		
 
-	stop
-	
 
     graph export "./Graphs/hist_belief_errorw.png", width(1200) height(800) replace
 restore

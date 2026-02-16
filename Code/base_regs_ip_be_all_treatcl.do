@@ -313,7 +313,7 @@ eststo: semipar ip_ blackhint phintBW phintWB blackhintBW blackhintWB, nonpar(po
 eststo: semipar ip_ stat_educ phintBW phintWB statBW statWB, nonpar(post_prob)
 esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label mtitles("" "" "" "") title(Informed protection response: semiparametric control for posteriors) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
-replace bel_err=-bel_err
+*replace bel_err=-bel_err
 
 save "./Temp/prep_beliefs.dta", replace
 
@@ -574,6 +574,7 @@ tab nchanges_s nchanges_p
 
 
 use "./Temp/prep_beliefs.dta", replace
+
 gen fp_env=phintBW>0
 gen fn_env=phintWB>0
 
@@ -632,10 +633,10 @@ replace signal="White" if signal=="0"
 replace signal="Black" if signal=="1"
 bro
 format posterior bel_err ptest %9.3f
-listtex using "./Tables/bigpicture_bel.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccccc} \hline \hline" `" &\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{Posterior}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_bel_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccccc} \hline \hline" `" &\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{Posterior}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 order nrow false_pos false_neg signal posterior bel_err ptest
-listtex using "./Tables/bigpicture_bel_AU.tex", type rstyle(tabular) replace
+listtex using "./Tables/bigpicture_bel_AU_cl.tex", type rstyle(tabular) replace
 
 
 
@@ -721,7 +722,7 @@ eststo clear
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id if blackhint==0, cluster(subject_id treatn)
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id if blackhint==1, cluster(subject_id treatn)
-esttab using "./Tables/table_be_err.tex", b(%9.3f) se(%9.3f) ar2(%9.3f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err_cl.tex", b(%9.3f) se(%9.3f) ar2(%9.3f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 *Testing FP/FN confusion:
@@ -729,7 +730,7 @@ eststo clear
 eststo: ivreg2 be_ phintBW phintWB i.plevel i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 be_ phintBW phintWB i.plevel if blackhint==0, cluster(subject_id treatn)
 eststo: ivreg2 be_ phintBW phintWB i.plevel if blackhint==1, cluster(subject_id treatn)
-esttab using "./Tables/table_be_err1.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err1_cl.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
 
 
 **prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)
@@ -748,11 +749,11 @@ label var signal "Signal"
 *Decomposition of belief updating (coeffs should be all ones)***
 eststo clear
 eststo: ivreg2 lt_bel lt_prior signal, noconstant cluster(subject_id treatn)
-eststo: reghdfelt_bel lt_prior signal, fe vce(cluster subject_id treatn)
+eststo: reghdfe lt_bel lt_prior signal, abs(subject_id) vce(cluster subject_id treatn)
 eststo: ivreg2 lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, noconstant cluster(subject_id treatn)
-eststo: reghdfelt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, abs(subjet_id) vce(cluster subject_id treatn)
+eststo: reghdfe lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, abs(subject_id) vce(cluster subject_id treatn)
 eststo: ivreg2 lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, noconstant cluster(subject_id treatn)
-eststo: reghdfe lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, abs(subjet_id) vce(cluster subject_id treatn)
-esttab using "./Tables/table_be3.tex", b(%9.3f) t(%9.1f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) note("Decomposition works only for imperfect signals") nobaselevels compress nogaps replace
+eststo: reghdfe lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, abs(subject_id) vce(cluster subject_id treatn)
+esttab using "./Tables/table_be3_cl.tex", b(%9.3f) t(%9.1f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) note("Decomposition works only for imperfect signals") nobaselevels compress nogaps replace
 
 stop

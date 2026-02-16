@@ -353,7 +353,7 @@ preserve
         width(1200) height(800) replace
 restore
 
-stop
+*stop
 
 
 
@@ -1095,8 +1095,6 @@ eststo: tobit wtp i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2
 		fmt(3 0 3 3 3 3 3 3 3 3 3 3 3 3) layout(@ @ @ (@) [@] @ (@) [@] @ (@) [@] @ (@) [@]))
 		substitute(_ \_ ) style(tex);
 #delimit cr
-
-
 
 
 
