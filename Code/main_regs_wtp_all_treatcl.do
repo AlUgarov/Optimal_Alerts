@@ -1269,7 +1269,8 @@ eststo: reghdfe wtp_diff absbel_err false_pos false_neg i.plevel, abs(subject_id
 eststo: reghdfe wtp_diff absbel_err false_pos false_neg i.highprob#c.false_neg i.highprob#c.false_pos i.plevel, abs(subject_id) vce(cluster subject_id treatn)
 esttab using "./Tables/wtp_bel_err.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) indicate(Prior dummies=*.plevel) label drop(_cons) title(WTP minus Value of Information: subject-round BE error) mtitles("" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
-
+sum absbel_err
+*stop
 
 
 **Removing subjects with inconsistent WTP - protection decisions:
@@ -1312,6 +1313,8 @@ save "./Temp/wtp_discrepancy0.dta", replace
 
 use "./Temp/wtp_discrepancy0.dta", replace
 capture drop highprob
+capture drop n_treat
+cap drop w_treat
 gen highprob = p>0.201
 
 * Equal weight by treatment
@@ -1418,7 +1421,7 @@ foreach v of varlist wtp_diff*{
    local num=substr("`v'", 9, .)
    sum ptest`num'
    di "Extracted number: `num'"
-   foreach th in 0.05 0.01 0.001 {
+   foreach th in 0.1 0.05 0.01 {
         replace `v'=`v'+cond(ptest`num' < `th', "*", "")
 		di `th'
 		di cond(`= ptest`num' < `th'', "*", "")
@@ -1434,6 +1437,7 @@ replace highprob="High priors ($>$0.2)" if highprob=="Yes"
 listtex using "./Tables/bigpicture_wtp_det_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \multicolumn{5}{l}{\footnotesize *The number of stars represents statistical significance (0.05, 0.01, 0.001)} \\ \end{tabular} \end{table}") replace
 listtex using "./Tables/bigpicture_wtp_det_pres_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
+stop
 
 
 

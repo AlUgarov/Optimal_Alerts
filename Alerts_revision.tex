@@ -434,7 +434,7 @@ Meanwhile, Panel~C plots the remaining observations, i.e., those with uncertain 
 		& (1) & (2) & (3) & (4) & (5) & (6) \\
 	
 		\hline	
-\input{Tables/bigpicture_bel_AU.tex}
+\input{Tables/bigpicture_bel_AU_cl.tex}
 \\ 	[-1em]
 \hline\hline
 \end{tabular} 
@@ -689,11 +689,18 @@ Overall, we observe a striking uniformity in sensitivity of WTP to both false-po
 
 
 
-\paragraph{Bias.} Given that both Informed Protection and WTP task responses exhibit certan biased, it raises a question on whether the WTP bias can be explained by the IP bias. This assumes that subjects are aware of their biases which can happen in two different scenarios: subjects are aware both of the presence and direction of the bias, or subjects are only aware of the bias magnitude but not direction. For example, subjects might not know whether dusty outside air increases or decreases smoke alarm FP and FN rates and hence have lower willingness-to-pay for smoke alarms close to construction zones. While the first type of bias awareness is possible, it often requires the presence of significant 'irrational' factors affecting decisions (such as utility from holding certain beliefs), and testing it seems impossible without accepting a specific theory of the bias. Hence, we concentrate on the first type of bias, as it much easier to test and doesn't require a 
+\paragraph{Bias.} Given that both Informed Protection and WTP task responses exhibit certan biases, it begs a question on whether the WTP bias can be explained by the IP bias. In other words, do subjects adjust their bids accounting to projected distortions in signal's use. This assumes that subjects are aware of their biases which can happen in two different scenarios: subjects are aware both of the presence and direction of the bias, or subjects are only aware of the bias magnitude but not direction. An example of the first bias would be evacuating when hearing a smoke alarm while knowing it is triggered by your own smoking. As an example of the second type of bias, subjects might not know whether dusty outside air increases or decreases smoke alarm FP and FN rates and hence have lower willingness-to-pay for smoke alarms close to construction zones. While the first type of bias awareness is possible, it often requires the presence of significant 'irrational' factors affecting decisions (such as utility from holding certain beliefs), and testing it seems impossible without assuming a specific theory of the bias.
 
-We observe that subjects overprotect in response to white signals in informed protection, and underprotect in response to black signals. This pattern would reduce signal's value, and particularly for information structure with high priors and significant positive values. This can provide at least partial explanation for lower senstivity of WTP to FP and FN costs as compared to theoretical predictions.
+Note that any bias in informed protection can only We observe that subjects overprotect in response to white signals in informed protection, and underprotect in response to black signals. This pattern would reduce signal's value, and particularly for information structures with high priors and significant positive values. This can provide at least partial explanation for lower senstivity of WTP to FP and FN costs as compared to theoretical predictions.
 
-We find that the bias in IP provides little explanatory power for observed WTP sensitivity patterns. We calculate the measure of subjects' gain from having signal access accounting for their actual blind and informed protection decisions\footnote{The expected gain is calculated as the differnce between projected BP and IP protectio losses in the flollowing way: $\hat V_i=[ac+(1-a)pL]-[\pi(P_{11}(a_b c+(1-a_b) L)+P_{01}(a_w c+(1-a_w)L)+(1-\pi)(P_{00} a_w c+P_{10} a_b c)]$. Here $a$ is their reported blind protection action for a given prior $\pi$ and $a_w, a_b$ are the reported IP actions in response to white and black signals.} When we control for the subject's projected signal's gain in WTP regression, we find that the while the expected gain is singificant predictor, the magnitude of other coefficient estimates is practically unaffected.
+
+We find that the bias in IP provides little explanatory power for observed WTP sensitivity patterns. We calculate how much subjects gain from having signal access accounting for their actual blind and informed protection decisions\footnote{The expected gain is calculated as the differnce between projected BP and IP protection losses in the flollowing way: $\hat V_i=[ac+(1-a)pL]-[\pi(P_{11}(a_b c+(1-a_b) L)+P_{01}(a_w c+(1-a_w)L)+(1-\pi)(P_{00} a_w c+P_{10} a_b c)]$. Here $a$ is their reported blind protection action for a given prior $\pi$ and $a_w, a_b$ are the reported IP actions in response to white and black signals.} Note that this value does not account for risk aversion. 
+
+We also find that subjects pay significantly less for signals associated with high errors conditional on other signal's characteristics. Increasing error by one standard deviation corresponds to a decrease in WTP by roughly sixteen cents (pretty small though given that average WTP is about 2.5 USD). 
+
+When we control for the subject's projected signal's gain in WTP regression, we find that the while the expected gain is significant predictor of willingness-to-pay, the magnitude of other coefficient estimates is practically unaffected. This value
+
+However incresing the value of information 
 
 
 
@@ -843,6 +850,10 @@ Understanding the source of this asymmetry can improve social efficiency. As we 
 	\end{threeparttable}
 }
 \end{table}	
+
+
+\input{Tables/wtp_bel_err.tex}
+
 
 
 

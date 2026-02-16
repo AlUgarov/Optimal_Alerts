@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  11 FEB 2026 07:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  15 FEB 2026 22:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -799,7 +799,7 @@ Overfull \hbox (2.19304pt too wide) in paragraph at lines 429--429
  []|\OT1/cmr/bx/n/12 Posterior| 
  []
 
-(Tables/bigpicture_bel_AU.tex) [15]
+(Tables/bigpicture_bel_AU_cl.tex) [15]
 <Graphs/hist_WTP_discr1.png, id=243, 1204.5pt x 803.0pt>
 File: Graphs/hist_WTP_discr1.png Graphic file (type png)
 <use Graphs/hist_WTP_discr1.png>
@@ -859,11 +859,11 @@ Package natbib Warning: Citation `aina_contingent_2023' on page 25 undefined on
 [25] [26]
 
 Package natbib Warning: Citation `hoffrage_natural_2015' on page 27 undefined o
-n input line 708.
+n input line 715.
 
 
 Package natbib Warning: Citation `mcdowell_meta-analysis_2017' on page 27 undef
-ined on input line 708.
+ined on input line 715.
 
 [27]
 No file Alerts_revision.bbl.
@@ -877,21 +877,22 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 (Tables/wtp_tobit.tex)
 
-LaTeX Warning: Float too large for page by 10.73148pt on input line 815.
+LaTeX Warning: Float too large for page by 10.73148pt on input line 822.
 
 (Tables/wtp_tobit_valdiff.tex)
 
-LaTeX Warning: Float too large for page by 38.8544pt on input line 845.
+LaTeX Warning: Float too large for page by 38.8544pt on input line 852.
 
-[28
+(Tables/wtp_bel_err.tex) [28
 
-] [29] [30] [31] [32] [33
+] [29] [30] [31] [32] [33] [34
 
-] [34] [35] [36] [37] [38] [39]
+] [35] [36] [37]
+[38] [39] [40]
 
 Package natbib Warning: There were undefined citations.
 
-[40] (Alerts_revision.aux)
+[41] (Alerts_revision.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -906,10 +907,10 @@ Package rerunfilecheck Info: File `Alerts_revision.out' has not changed.
 (rerunfilecheck)             Checksum: EAD64FFD3D10041BB3B81DF0DD7D8FA1;3070.
  ) 
 Here is how much of TeX's memory you used:
- 14541 strings out of 476374
- 231293 string characters out of 5805269
+ 14548 strings out of 476374
+ 231491 string characters out of 5805269
  1940340 words of memory out of 5000000
- 34416 multiletter control sequences out of 15000+600000
+ 34418 multiletter control sequences out of 15000+600000
  522926 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,15n,117p,1575b,597s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1013,9 +1014,9 @@ s/type1/public/amsfonts/cm/cmsy6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmsy7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/
 type1/public/amsfonts/cm/cmti10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/c
 mti12.pfb>
-Output written on Alerts_revision.pdf (40 pages, 1279024 bytes).
+Output written on Alerts_revision.pdf (41 pages, 1276204 bytes).
 PDF statistics:
- 674 PDF objects out of 1000 (max. 8388607)
- 246 named destinations out of 1000 (max. 500000)
+ 680 PDF objects out of 1000 (max. 8388607)
+ 248 named destinations out of 1000 (max. 500000)
  226 words of extra memory for PDF output out of 10000 (max. 10000000)
 
