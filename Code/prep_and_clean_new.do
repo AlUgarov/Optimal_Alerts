@@ -5,7 +5,7 @@ clear all
 
 *!!put your working folder below:
 *cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-*cd C:\Tornado_warnings\Optimal_Alerts
+cd C:\Tornado_warnings\Optimal_Alerts
 
 set seed 135
 
@@ -39,6 +39,8 @@ gen post_probB=p*phintBB/(p*phintBB+(1-p)*phintBW) //posterior prob that the bal
 gen tot_liars=bl_gr+w_gr
 
 save "./Temp/exp_treatments.dta", replace
+
+
 
 
 *First importing the Qualtrics data
@@ -121,6 +123,13 @@ gen pilot=0
 
 save "./Temp/mainwaves_wide.dta", replace
 
+
+*Exporting IP explanations for the IP (wave 2 as wave 1 is alredy coded):
+keep if wave==2
+keep subject_id q105
+export delimited using "./Output/ip_explanations_wave2.csv"
+use "./Temp/mainwaves_wide.dta", replace
+stop
 
 
 import delimited using "./Input/coded_strategies.csv", clear

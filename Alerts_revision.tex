@@ -598,6 +598,8 @@ Most information in our experiment is instrumental by design, i.e., it informs t
 
 Preferences for non-instrumental information cannot, however, provide a full explanation of our results, mainly because there is no time delay between receiving a signal and learning the outcome. If the WTP task round is selected as a payment round, the subject receives a signal, chooses an action, and then immediately learns their payoffs. Hence, there is practically no window for subjects to experience any anticipatory feelings that the literature assumes to be the standard causal mechanism behind the demand for non-instrumental information. Additionally, the closeness of coefficients for FP and FN rates also seems a priori implausible based only on the non-instrumental information value story because, in contrast to our next explanation, no theory of preferences for non-instrumental information suggests the effects should be so similar to one another.
 
+\paragraph{Probability Weighting} 
+
 
 \paragraph{Failure to distinguish between FP and FN.} Instead, we argue that subjects' observed behaviors arise from treating FN and FP as the same thing. Subjects' own proffered explanations motivate our consideration of this possible mechanism.  At the end of the experiment, we asked subjects to explain to us how they made their protection choices.  Out of 105 subjects, 39 refer to the \textit{percentage} \normalfont  of dishonest gremlins as their rationale for choosing protection. For example:
 \begin{itemize}
@@ -689,18 +691,22 @@ Overall, we observe a striking uniformity in sensitivity of WTP to both false-po
 
 
 
-\paragraph{Bias.} Given that both Informed Protection and WTP task responses exhibit certan biases, it begs a question on whether the WTP bias can be explained by the IP bias. In other words, do subjects adjust their bids accounting to projected distortions in signal's use. This assumes that subjects are aware of their biases which can happen in two different scenarios: subjects are aware both of the presence and direction of the bias, or subjects are only aware of the bias magnitude but not direction. An example of the first bias would be evacuating when hearing a smoke alarm while knowing it is triggered by your own smoking. As an example of the second type of bias, subjects might not know whether dusty outside air increases or decreases smoke alarm FP and FN rates and hence have lower willingness-to-pay for smoke alarms close to construction zones. While the first type of bias awareness is possible, it often requires the presence of significant 'irrational' factors affecting decisions (such as utility from holding certain beliefs), and testing it seems impossible without assuming a specific theory of the bias.
+\paragraph{Bias.} Given that both Informed Protection and WTP task responses exhibit certan biases, it begs a question on whether the WTP bias can be explained by the IP bias. In other words, do subjects adjust their bids to account for projected distortions in signal's use? We find that their Informed Protection biases do affect their bid choices, but their explanatory power falls short of explaining the main patterns of sensitivities tp FP and FN costs. 
 
-Note that any bias in informed protection can only We observe that subjects overprotect in response to white signals in informed protection, and underprotect in response to black signals. This pattern would reduce signal's value, and particularly for information structures with high priors and significant positive values. This can provide at least partial explanation for lower senstivity of WTP to FP and FN costs as compared to theoretical predictions.
+In order to study the bias, we create two variables measuring respectively how the signal availability changes subjects' expected protection costs and expected losses using their eliicited BP ($a_i$) and IP responses ($a_{iw}$, $a_{ib}$ for respectively white and black signals)\footnote{Given that there is no elicited blind protection choice for prior of $\pi=0.5$, we assume full protection. For context, \% subjects protect when facing prior 0.3}: 
 
+\[
+\Delta^{\text{prot}}_{i}\equiv c\Big[a_i-\big(\pi(P_{11}a_{iw}+P_{01}a_{ib})+(1-\pi)(P_{10}a_{iw}+P_{00}a_{ib})\big)\Big]
+\]
 
-We find that the bias in IP provides little explanatory power for observed WTP sensitivity patterns. We calculate how much subjects gain from having signal access accounting for their actual blind and informed protection decisions\footnote{The expected gain is calculated as the differnce between projected BP and IP protection losses in the flollowing way: $\hat V_i=[ac+(1-a)pL]-[\pi(P_{11}(a_b c+(1-a_b) L)+P_{01}(a_w c+(1-a_w)L)+(1-\pi)(P_{00} a_w c+P_{10} a_b c)]$. Here $a$ is their reported blind protection action for a given prior $\pi$ and $a_w, a_b$ are the reported IP actions in response to white and black signals.} Note that this value does not account for risk aversion. 
+\[
+\Delta^{\text{loss}}_{i}\equiv L\pi\Big[(1-a_i)-\big(P_{11}(1-a_{iw})+P_{01}(1-a_{ib})\big)\Big]
+\]
 
-We also find that subjects pay significantly less for signals associated with high errors conditional on other signal's characteristics. Increasing error by one standard deviation corresponds to a decrease in WTP by roughly sixteen cents (pretty small though given that average WTP is about 2.5 USD). 
+The first component in square brackets represents blind protection, while the second component represents informed protection. The sum of these variables equals to the total expected benefit of having a signal given the strategy, but splitting the benefit in two parts allows to account asymmetry in responding to large losses versus relatively small protection costs.
 
-When we control for the subject's projected signal's gain in WTP regression, we find that the while the expected gain is significant predictor of willingness-to-pay, the magnitude of other coefficient estimates is practically unaffected. This value
+In Table X in Appendix we report estimation results of WTP difference with added controls of elicited expected protection and losses associated with actual subject's choices. The coefficients on new expected costs variables are strongly statistically significant but reatively small in magnitude. The magnitude of coefficients on FP and FN costs reduces by roughly one third in estimations including all priors, but both coefficients on FP costs for low priors and FN costs for high priors remain highly statistically significant. This indicates that subject's biases do not explain the observed pattern of sensitivities to FP and FN rates.
 
-However incresing the value of information 
 
 
 
@@ -837,7 +843,7 @@ Understanding the source of this asymmetry can improve social efficiency. As we 
 		&\multirow{1}{*}{(1)} & \multirow{1}{*}{(2)} & \multirow{1}{*}{(3)} & \multirow{1}{*}{(4)} & \multirow{1}{*}{(5)}\\
 	\hline
 	\\ [-0.5em]
-		\exInput{Tables/wtp_tobit_valdiff.tex}
+		\exInput{Tables/wtpdiff_ols_bias.tex}
 				\hline
 		Subject FE & Yes & Yes & Yes & Yes & Yes \\
 		Inaccurate Belief Interactions & No & No & Yes & Yes & Yes \\

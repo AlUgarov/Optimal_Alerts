@@ -7,8 +7,8 @@ clear all
 graph drop _all
 
 *!!put your working folder below:
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-*cd C:\Tornado_warnings\Optimal_Alerts
+*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+cd C:\Tornado_warnings\Optimal_Alerts
 
 use "./Temp/base_second_wave.dta", replace
 xtset subject_id question
@@ -160,7 +160,7 @@ eststo: ivreg2 ip_ phintBW phintWB highprob high_phintBW high_phintWB i.subject_
 test (phintBW=phintWB) (high_phintBW=high_phintWB)
 estadd scalar p = r(p)
 estadd scalar r2a = e(a_r)
-esttab using "./Tables/table_ip0_lin.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label stats(p N r2a, labels("P(FP rate $\neq$ FN rate)" "Observations" "Adjusted \(R^{2}\)")) addnotes("Errors are clustered by subject and treatment") indicate(Subject FE = *.subject_id) mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: linear probability regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_ip0_lin.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label stats(p N r2a, labels("P(FP rate $\neq$ FN rate)" "Observations" "Adjusted \(R^{2}\)")) addnotes("Errors are clustered by subject and treatment") indicate(Subject FE = *.subject_id) mtitles("All" "S=White" "S=Black" "All" "S=White" "W=Black") title(Informed protection response: linear probability regression) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -183,7 +183,7 @@ eststo m3: margins, dydx(phintBW phintWB highprob blackhint high_phintBW high_ph
 
 eststo: logit ip_ post_prob0* phintBW phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
 eststo m4: margins, dydx(phintBW phintWB  highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB) post
-esttab m1 m2 m3 m4 using "./Tables/table_ip5.tex", b(%9.3f) t(%9.1f) ar2(%9.2f) label addnotes("Reporting average marginal effects, subject FE, errors are clustered by subject." "With flexible controls of posterior probability" ///
+esttab m1 m2 m3 m4 using "./Tables/table_ip5.tex", b(%9.3f) se(%9.1f) ar2(%9.2f) label addnotes("Reporting average marginal effects, subject FE, errors are clustered by subject." "With flexible controls of posterior probability" ///
  ) mtitles("" "" "" "") title(Informed Protection Response: logit with flexible control for posteriors) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
  
@@ -230,11 +230,11 @@ estadd scalar llike = `llike'
 eststo: logit ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
 local r2p=e(r2_p)
 local llike=e(ll)
-eststo m4: margins, dydx(blackhint white_phintBW white_phintWB  black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
+eststo m4: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3f) t(%9.3f) label addnotes("With flexible controls of posterior probability and beliefs" ///
+esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3f) se(%9.3f) label addnotes("With flexible controls of posterior probability and beliefs" ///
   "Subject FE, errors are clustered by subject, average marginal treatment effects") stats(N r2p llike, labels("N" "Pseudo R-squared" "Log-likelihood") fmt(0 3 3)) mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
   
@@ -252,9 +252,9 @@ eststo: ivreg2 ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_p
 eststo: ivreg2 ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint high_phintBW high_phintWB i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint high_phintBW high_phintWB i.subject_id, cluster(subject_id treatn)
-esttab using "./Tables/table_ip_flexlin.tex", b(%9.3g) t(%9.1f)  ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
+esttab using "./Tables/table_ip_flexlin.tex", b(%9.3g) se(%9.1f)  ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
   "Subject FE, errors are clustered by subject and by treatment") drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") title(Informed Protection Response: flexible control for posteriors and beliefs, LPM) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
-esttab using "./Tables/table_ip_flexlin_pres.tex", b(%9.3g) t(%9.1f)  ar2(%9.2f) label drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_ip_flexlin_pres.tex", b(%9.3g) se(%9.13)  ar2(%9.2f) label drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -311,7 +311,7 @@ eststo: semipar ip_ phintBW phintWB, nonpar(post_prob)
 eststo: semipar ip_ highprob phintBW highprobBW phintWB highprobWB, nonpar(post_prob) 
 eststo: semipar ip_ blackhint phintBW phintWB blackhintBW blackhintWB, nonpar(post_prob)
 eststo: semipar ip_ stat_educ phintBW phintWB statBW statWB, nonpar(post_prob)
-esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) t(%9.1f) ar2(%9.2f) label mtitles("" "" "" "") title(Informed protection response: semiparametric control for posteriors) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label mtitles("" "" "" "") title(Informed protection response: semiparametric control for posteriors) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 *replace bel_err=-bel_err
 
@@ -730,7 +730,7 @@ eststo clear
 eststo: ivreg2 be_ phintBW phintWB i.plevel i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 be_ phintBW phintWB i.plevel if blackhint==0, cluster(subject_id treatn)
 eststo: ivreg2 be_ phintBW phintWB i.plevel if blackhint==1, cluster(subject_id treatn)
-esttab using "./Tables/table_be_err1_cl.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err1_cl.tex", b(%9.3g) se(%9.3f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
 
 
 **prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)
@@ -754,6 +754,6 @@ eststo: ivreg2 lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal,
 eststo: reghdfe lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, abs(subject_id) vce(cluster subject_id treatn)
 eststo: ivreg2 lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, noconstant cluster(subject_id treatn)
 eststo: reghdfe lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, abs(subject_id) vce(cluster subject_id treatn)
-esttab using "./Tables/table_be3_cl.tex", b(%9.3f) t(%9.1f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) note("Decomposition works only for imperfect signals") nobaselevels compress nogaps replace
+esttab using "./Tables/table_be3_cl.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) note("Decomposition works only for imperfect signals") nobaselevels compress nogaps replace
 
-stop
+*stop

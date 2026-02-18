@@ -5,8 +5,8 @@ clear all
 
 
 *!!put your working folder below:
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-*cd C:\Tornado_warnings\Optimal_Alerts
+*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+cd C:\Tornado_warnings\Optimal_Alerts
 
 set seed 135
 
@@ -49,6 +49,8 @@ gen repairable=0
 replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp[_n+1]!=bp)&(round>1)&(round<6)
 replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp==0)&(round==6)
 
+bys p: sum bp_
+stop
 
 save "./Temp/bp_val_all.dta", replace
 

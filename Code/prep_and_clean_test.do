@@ -4,8 +4,8 @@ clear all
 
 
 *!!put your working folder below:
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-*cd C:\Tornado_warnings\Optimal_Alerts
+*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+cd C:\Tornado_warnings\Optimal_Alerts
 
 set seed 135
 
@@ -155,6 +155,15 @@ save "./Temp/allwaves_wide.dta", replace
 duplicates list participant_id
 tab student if wave==1
 tab student
+
+
+*Exporting IP explanations for the IP (wave 2 as wave 1 is alredy coded):
+keep if wave==2
+keep participant_id q105
+order participant_id q105
+rename q105 ip_explanation
+export delimited using "./Output/ip_explanations_wave2.csv", replace
+use "./Temp/allwaves_wide.dta", replace
 stop
 
 
