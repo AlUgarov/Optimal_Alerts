@@ -904,7 +904,7 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		substitute(_ \_ ) style(tex);
 #delimit cr
 
-stop
+*stop
 
 **WTP difference: protection-WTP consistency:
 set more off
@@ -1443,7 +1443,7 @@ gen wtp_diffw = w_treat*wtp_diff
 
 ** Calculate average WTP discrepancy by signal type
 tempname p1
-postfile `p1' false_pos false_neg wtp_diff ptest using "./Temp/wtp_by_environment.dta", replace
+postfile `p1' false_pos false_neg wtp_diff ptest se using "./Temp/wtp_by_environment.dta", replace
 
 forvalues i=0/1{
   forvalues j=0/1{
@@ -1460,11 +1460,13 @@ forvalues i=0/1{
     gen d0 = wtp_diff
     reg d0 [pw=w_treat] if fp_env==`i' & fn_env==`j', ///
         vce(cluster treatn)
+	local se_cons = _se[_cons]
     test _cons = 0
+	
     local ptest = r(p)
     drop d0
 
-    post `p1' (`i') (`j') (`wtp_diff') (`ptest')
+    post `p1' (`i') (`j') (`wtp_diff') (`ptest') (`se_cons')
   }
 }
 
@@ -1473,7 +1475,7 @@ postclose `p1'
 
 ** Calculate average WTP discrepancy by signal type (by highprob)
 tempname p2
-postfile `p2' highprob false_pos false_neg wtp_diff ptest using "./Temp/wtp_by_environment_det.dta", replace
+postfile `p2' highprob false_pos false_neg wtp_diff ptest se using "./Temp/wtp_by_environment_det.dta", replace
 
 forvalues k=0/1{
   forvalues i=0/1{
@@ -1495,7 +1497,7 @@ forvalues k=0/1{
       local ptest = r(p)
       drop d0
 
-      post `p2' (`k') (`i') (`j') (`wtp_diff') (`ptest')
+      post `p2' (`k') (`i') (`j') (`wtp_diff') (`ptest') (`se_cons')
     }
   }
 }
@@ -1531,7 +1533,7 @@ gen highprob="All priors"
 append using "./Temp/wtp_by_environment_det.dta"
 generate sigtype=10*(false_pos=="Yes")+(false_neg=="Yes")
 drop false_pos false_neg
-reshape wide wtp_diff ptest, i(highprob) j(sigtype)
+reshape wide wtp_diff ptest se, i(highprob) j(sigtype)
 format wtp_diff* ptest* %9.3f
 tostring wtp_diff*, format(%9.3f) replace force
 
@@ -1552,6 +1554,21 @@ foreach v of varlist wtp_diff*{
 drop ptest*
 replace highprob="Low priors" if highprob=="No"
 replace highprob="High priors ($>$0.2)" if highprob=="Yes"
+gen ind0=_n
+expand 2
+sort ind0
+drop ind0
+gen ind=_n
+gen se_row = mod(ind, 2) == 0
+tostring wtp_diff*, replace force
+foreach v of varlist wtp_diff* {
+    local s = subinstr("`v'", "wtp_diff", "se", .)
+    replace `v' = "(" + string(`s', "%9.3f") + ")" if se_row
+}
+replace highprob = "\multirow{2}{*}{" + highprob + "}" if !se_row
+replace highprob = "" if se_row
+drop se* ind se_row
+
 
 listtex using "./Tables/bigpicture_wtp_det_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \multicolumn{5}{l}{\footnotesize *The number of stars represents statistical significance (0.05, 0.01, 0.001)} \\ \end{tabular} \end{table}") replace
 listtex using "./Tables/bigpicture_wtp_det_pres_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace

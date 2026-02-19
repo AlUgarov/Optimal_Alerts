@@ -230,7 +230,7 @@ tab wave
 save "./Output/all_waves.dta", replace
 
 
-stop
+*stop
 
 
 
@@ -575,6 +575,23 @@ display "Weighted share in [-0.2,0.2] = " %6.4f (`num'/`tot')
 quietly sum w_treat if abs(0.5-post_prob) > 0.499&bel_err<0.0001, meanonly
 local num = r(sum)
 quietly sum w_treat if abs(0.5-post_prob) > 0.499, meanonly
+local tot = r(sum)
+
+display "Weighted share of correct for certain signals: " %6.4f (`num'/`tot')
+
+qui _pctile bel_err [aw=w_treat] if abs(0.5-post_prob) < 0.499, p(5 50 95)
+local p5  = r(r1)
+local med = r(r2)
+local p95 = r(r3)
+
+display "Weighted post_prob (uncertain) p5/median/p95: " ///
+    %6.4f `p5' "  " %6.4f `med' "  " %6.4f `p95'
+
+stop
+*weighted prop correct for certain signals:
+quietly sum w_treat if abs(0.5-post_prob) < 0.499&bel_err<0.0001, meanonly
+local num = r(sum)
+quietly sum w_treat if abs(0.5-post_prob) < 0.499, meanonly
 local tot = r(sum)
 
 display "Weighted share of correct for certain signals: " %6.4f (`num'/`tot')

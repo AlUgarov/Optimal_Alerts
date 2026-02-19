@@ -49,7 +49,7 @@ gen repairable=0
 replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp[_n+1]!=bp)&(round>1)&(round<6)
 replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp==0)&(round==6)
 
-bys p: sum bp_
+bys p: sum bp
 stop
 
 save "./Temp/bp_val_all.dta", replace
