@@ -315,6 +315,9 @@ Response: Split it by prior too? Could be two tables. The danger is that readers
 
 
 
+
+
+
 \begin{frame}
 \frametitle{Protection Summary detail}
 
@@ -355,13 +358,58 @@ Response: Split it by prior too? Could be two tables. The danger is that readers
 		& (1) & (2) & (3) & (4) & (5) & (6) \\
 	
 		\hline	
-\input{Tables/bigpicture_bel_AU.tex}
+%\input{Tables/bigpicture_bel_AU.tex}
 \\ 	[-1em]
 \hline\hline
 \end{tabular} 								
 	\end{threeparttable}
 	}
 \end{table}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Protection Summary detail}
+\begin{itemize}
+
+\item Similar: overprotection for white hints, underprotection for black hints with no FP; new - slight underprotection for FP$>$0,FP=0
+\end{itemize}
+
+\footnotesize
+\begin{table}[H]\centering
+\caption{Average Protection by Signal Type (Split by Priors)}
+\label{tab:nonparIP}
+\adjustbox{max width=\textwidth}{
+\begin{threeparttable}
+\begin{tabular}{ccccccccc}
+\hline\hline
+\multirow{4}{6ex}{\centering \textbf{Row}}
+& \multirow{3}{10ex}{\centering \textbf{Priors}}
+& \multicolumn{2}{c}{\centering \textbf{Signal Characteristics}}
+& \multirow{3}{12ex}{\centering \textbf{Hint}}
+& \multirow{3}{10ex}{\centering \textbf{Posterior}}
+& \multirow{3}{12ex}{\centering \textbf{Share Protect}}
+& \multirow{3}{12ex}{\centering \textbf{Share Optimal}}
+& \multirow{3}{8ex}{\centering \textbf{$p$}} \\
+\cmidrule(lr){3-4}
+& & \multirow{2}{12ex}{\centering \textbf{False Positive}}
+  & \multirow{2}{12ex}{\centering \textbf{False Negative}}
+  & & & & & \\
+\\
+& (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) \\
+\hline
+\input{Tables/bigpicture_IPd_AU.tex}
+\\[-1em]
+\hline\hline
+\end{tabular}
+
+\begin{tablenotes}[flushleft]
+\item\footnotesize \textit{Notes: Column (8) reports the p-value for the test of equality between the theoretical prediction (Share Optimal) and the observed share of protection (Share Protect). Priors are grouped as Low (plevel 100/200) vs High (plevel 300/500).}
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table}
+
 \end{frame}
 
 

@@ -158,16 +158,21 @@ gen wtp_FP_ub=wtp_FPt+1.96*wtp_FP_set
 gen wtp_FN_lb=wtp_FNt-1.96*wtp_FN_set
 gen wtp_FN_ub=wtp_FNt+1.96*wtp_FN_set
 
+label var p_FP "Estimated FP sensitivity"
+label var p_FN "Estimated FN sensitivity"
+
 set scheme modern
 #delimit ;
 twoway (line sensFP p, lcolor(dknavy) lwidth(thick)  lpattern(".-")) (line sensFN p, lcolor(red) lwidth(thick) lpattern(dash))
- (scatter wtp_FPt p, mcolor(dknavy)  msize(medlarge)) (scatter wtp_FNt p, mcolor(red) msymbol(d) msize(medlarge)) (rcap wtp_FP_lb wtp_FP_ub p_FP, lcolor(dknavy) msize(medlarge)) (rcap wtp_FN_lb wtp_FN_ub p_FN, lcolor(red) msize(medlarge)),
+ (scatter wtp_FPt p, mcolor(dknavy)  msize(medlarge)  legend(label(3 "Estimated FP sensitivity")) )
+ (scatter wtp_FNt p, mcolor(red) msymbol(d) msize(medlarge) legend(label(4 "Estimated FN sensitivity")) )
+ (rcap wtp_FP_lb wtp_FP_ub p_FP, lcolor(dknavy) msize(medlarge) legend(label(5 "95% confidence interval (FP)")) )
+ (rcap wtp_FN_lb wtp_FN_ub p_FN, lcolor(red) msize(medlarge) legend(label(6 "95% confidence interval (FN)")) ),
  xtitle("Prior probability")
  yscale(r(0 9))
  xlabel(#5, labsize(medium))
  ylabel(#5, labsize(medium))
- legend(ring(0) position(11) bmargin(large) cols(2) size(medium))
- note("Estimates of sensitivity to FP and FN rates by prior probability of a black ball (tobit)", size(medium));
+ legend(ring(0) position(11) bmargin(large) cols(2) size(medium));
  
 #delimit cr
 graph export "./Graphs/sensit_comparison_tobit.png", width(1000) height(600) replace

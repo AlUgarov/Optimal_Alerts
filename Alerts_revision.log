@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  15 FEB 2026 22:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  23 FEB 2026 23:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -520,6 +520,9 @@ LaTeX Warning: Label `tab:wtp_ols' multiply defined.
 
 LaTeX Warning: Label `tab:wtp_ols' multiply defined.
 
+
+LaTeX Warning: Label `tab:wtp_ols' multiply defined.
+
 )
 \openout1 = `Alerts_revision.aux'.
 
@@ -854,16 +857,16 @@ Package natbib Warning: Citation `ganguly_fantasy_2017' on page 22 undefined on
 [22] [23] (Tables/table_be_err_AU.tex) [24] (Tables/table_ip_flex_AU.tex)
 
 Package natbib Warning: Citation `aina_contingent_2023' on page 25 undefined on
- input line 688.
+ input line 690.
 
 [25] [26]
 
 Package natbib Warning: Citation `hoffrage_natural_2015' on page 27 undefined o
-n input line 715.
+n input line 721.
 
 
 Package natbib Warning: Citation `mcdowell_meta-analysis_2017' on page 27 undef
-ined on input line 715.
+ined on input line 721.
 
 [27]
 No file Alerts_revision.bbl.
@@ -877,22 +880,26 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 (Tables/wtp_tobit.tex)
 
-LaTeX Warning: Float too large for page by 10.73148pt on input line 822.
+LaTeX Warning: Float too large for page by 10.73148pt on input line 828.
 
-(Tables/wtp_tobit_valdiff.tex)
+(Tables/wtpdiff_ols_bias.tex)
 
-LaTeX Warning: Float too large for page by 38.8544pt on input line 852.
+LaTeX Warning: Float too large for page by 67.81715pt on input line 858.
+
+(Tables/wtpdiff_ols_firstrounds.tex)
+
+LaTeX Warning: Float too large for page by 10.90135pt on input line 890.
 
 (Tables/wtp_bel_err.tex) [28
 
-] [29] [30] [31] [32] [33] [34
+] [29] [30] [31] [32] [33] [34] [35
 
-] [35] [36] [37]
-[38] [39] [40]
+] [36] [37]
+[38] [39] [40] [41]
 
 Package natbib Warning: There were undefined citations.
 
-[41] (Alerts_revision.aux)
+[42] (Alerts_revision.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -907,9 +914,9 @@ Package rerunfilecheck Info: File `Alerts_revision.out' has not changed.
 (rerunfilecheck)             Checksum: EAD64FFD3D10041BB3B81DF0DD7D8FA1;3070.
  ) 
 Here is how much of TeX's memory you used:
- 14548 strings out of 476374
- 231491 string characters out of 5805269
- 1940340 words of memory out of 5000000
+ 14555 strings out of 476374
+ 231678 string characters out of 5805269
+ 1956340 words of memory out of 5000000
  34418 multiletter control sequences out of 15000+600000
  522926 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1003,20 +1010,20 @@ pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 tcrm0700.pk> <C:\Users\aluga\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
 pi600\tcrm1000.pk><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmmi10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmmi8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmr17.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmr7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmr8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/MiKTeX/font
-s/type1/public/amsfonts/cm/cmsy6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmsy7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmti10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/c
-mti12.pfb>
-Output written on Alerts_revision.pdf (41 pages, 1276204 bytes).
+onts/cm/cmex10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmmi7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmr7.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/MiKTeX/font
+s/type1/public/amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmsy8.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mti10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on Alerts_revision.pdf (42 pages, 1268553 bytes).
 PDF statistics:
- 680 PDF objects out of 1000 (max. 8388607)
- 248 named destinations out of 1000 (max. 500000)
+ 692 PDF objects out of 1000 (max. 8388607)
+ 252 named destinations out of 1000 (max. 500000)
  226 words of extra memory for PDF output out of 10000 (max. 10000000)
 

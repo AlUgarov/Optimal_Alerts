@@ -5,8 +5,8 @@ set more off
 clear all
 
 *!!put your working folder below:
-*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-cd C:\Tornado_warnings\Optimal_Alerts
+cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+*cd C:\Tornado_warnings\Optimal_Alerts
 
 use "./Output/all_waves.dta", replace
 tab wave
@@ -489,8 +489,8 @@ eststo: ivreg2 wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.high
 eststo: ivreg2 wtp_diff i.highprob##c.false_neg i.risk_pref#i.highprob#c.false_neg i.highprob##c.false_pos i.risk_pref#i.highprob#c.false_pos, cluster(subject_id treatn)
 eststo: ivreg2 wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.highprob##c.false_pos, cluster(subject_id treatn)
 
-esttab using "./Tables/wtp_het_risk.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
-esttab using "./Tables/wtp_het_risk_pres.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons *.risk_pref#*.highprob *.risk_pref#*.highprob  *.risk_pref#c.false_pos *.risk_pref#c.false_neg) indicate("Full risk pref interactions=*.risk_pref") mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/wtp_het_risk.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg 3.risk_pref#*) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/wtp_het_risk_pres.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons *.risk_pref#*.highprob *.risk_pref#*.highprob  *.risk_pref#c.false_pos *.risk_pref#c.false_neg 3.risk_pref#*) indicate("Full risk pref interactions=*.risk_pref") mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 *Analyzing the effects of WTp-protection consistency:
@@ -516,7 +516,7 @@ esttab using "./Tables/wtp_consistent_pres.tex", b(%9.3g) ar2(%9.2f) not label d
 
 
 
-*stop
+stop
 
 
 
@@ -783,19 +783,20 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		substitute(_ \_ ) style(tex);
 #delimit cr
 
-*stop
 
-*WTP difference: IP bias
+
+
+*WTP difference - later rounds only for anchoring analysis:
 eststo clear
 
-eststo: reghdfe wtp_diff false_pos false_neg ip_prot ip_loss, abs(subject_id) vce(cluster subject_id treatn)
+eststo: reghdfe wtp_diff false_pos false_neg if round>3, abs(subject_id) vce(cluster subject_id treatn)
     estadd scalar F_value = e(F)
 	test false_pos = false_neg
 	estadd scalar test_eq=r(p)
 	testparm *
     estadd scalar p_value=r(p)
 	
-eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg ip_prot ip_loss, abs(subject_id) vce(cluster subject_id treatn)
+eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg if round<4, abs(subject_id) vce(cluster subject_id treatn)
     estadd scalar F_value = e(F)
 	testparm *
     estadd scalar p_value=r(p)
@@ -819,7 +820,7 @@ eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg ip_pr
 		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
 
 
-eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg ip_prot ip_loss , abs(subject_id) vce(cluster subject_id treatn)
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg if round<4, abs(subject_id) vce(cluster subject_id treatn)
     estadd scalar F_value = e(F)
 		testparm *
     estadd scalar p_value=r(p)
@@ -843,7 +844,7 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
 		
 		
-eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg  ip_prot ip_loss if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg if !phigh & round<4, abs(subject_id plevel) vce(cluster subject_id treatn)
     estadd scalar F_value = e(F)
 		testparm *
     estadd scalar p_value=r(p)
@@ -866,7 +867,143 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		estadd scalar se_RA_fn_X=r(se)
 		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
 		
-eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg ip_prot ip_loss if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg if phigh & round<4, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+
+		
+
+#delimit ;
+	esttab * using "./Tables/wtpdiff_ols_firstrounds.tex", replace label 
+		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac*)
+		order(false_pos false_neg 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
+		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
+		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
+		stat(r2 p_value N test_eq b_RA_fp_X se_RA_fp_X p_RA_fp_X b_RA_fn_X se_RA_fn_X p_RA_fn_X b_RL_fp_X se_RL_fp_X p_RL_fp_X b_RL_fn_X se_RL_fn_X p_RL_fn_X ,  
+		label("\midrule $ R^2$" "Prob\$>\$F" "Obs"  "FP=FN" "[1em] Risk-Averse Subjects: \\ \hspace{0.5em} False Positive" "\hspace{1em}  se" "\hspace{1em} $ p$-value" "[0.5em] \hspace{0.5em} False Negative" "\hspace{1em}  se" "\hspace{1em}  $ p$-value" 
+		"[1em] Risk-Loving Subjects: \\ \hspace{0.5em} False Positive" "\hspace{1em}  se" "\hspace{1em}  $ p$-value"  "[0.5em] \hspace{0.5em} False Negative" "\hspace{1em}  se" "\hspace{1em}  $ p$-value" ) 
+		fmt(3 4 0 3 3 3 3 3 3 3 3 3 3 3 3) layout(@ @ @ @ (@) [@] @ (@) [@] @ (@) [@] @ (@) [@]))
+		substitute(_ \_ ) style(tex);
+#delimit cr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*stop
+
+*WTP difference: IP bias
+eststo clear
+
+eststo: reghdfe wtp_diff false_pos false_neg ip_prot_diff ip_loss_diff, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+	
+eststo: reghdfe wtp_diff i.risk_pref##c.false_pos i.risk_pref##c.false_neg ip_prot_diff ip_loss_diff, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	testparm *
+    estadd scalar p_value=r(p)
+	test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+
+
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg ip_prot_diff ip_loss_diff , abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+	test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+		
+		
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg  ip_prot_diff ip_loss_diff if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+	lincom false_pos+1.risk_pref#c.false_pos
+		estadd scalar b_RL_fp_X=r(estimate)
+		estadd scalar se_RL_fp_X=r(se)
+		estadd scalar p_RL_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+1.risk_pref#c.false_neg
+		estadd scalar b_RL_fn_X=r(estimate)
+		estadd scalar se_RL_fn_X=r(se)
+		estadd scalar p_RL_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_pos+2.risk_pref#c.false_pos
+		estadd scalar b_RA_fp_X=r(estimate)
+		estadd scalar se_RA_fp_X=r(se)
+		estadd scalar p_RA_fp_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+	lincom false_neg+2.risk_pref#c.false_neg
+		estadd scalar b_RA_fn_X=r(estimate)
+		estadd scalar se_RA_fn_X=r(se)
+		estadd scalar p_RA_fn_X=2*ttail(r(df),abs(r(estimate)/r(se)))
+		
+eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2##c.false_neg ip_prot_diff ip_loss_diff if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
     estadd scalar F_value = e(F)
 		testparm *
     estadd scalar p_value=r(p)
@@ -894,7 +1031,7 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 #delimit ;
 	esttab * using "./Tables/wtpdiff_ols_bias.tex", replace label 
 		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac*)
-		order(false_pos false_neg  ip_prot ip_loss 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
+		order(false_pos false_neg  ip_prot_diff ip_loss_diff 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
 		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
 		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
 		stat(r2 p_value N test_eq b_RA_fp_X se_RA_fp_X p_RA_fp_X b_RA_fn_X se_RA_fn_X p_RA_fn_X b_RL_fp_X se_RL_fp_X p_RL_fp_X b_RL_fn_X se_RL_fn_X p_RL_fn_X ,  
@@ -1216,6 +1353,8 @@ eststo: tobit wtp i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2
 #delimit cr
 
 
+
+*stop
 
 
 **Study IP bias effects using ip_val variable (projected value of losses
@@ -1604,7 +1743,7 @@ esttab using "./Tables/table_wtpdiff_06s.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) lab
 
 
 *By prior prob with high/low prob: testing for the presentation order effect
-*No variation in the presentation order. Comparing 0.1 vs 0.2 and 0.3 vs 0.5
+
 gen highsession=seq>3
 gen firstorder=round<4
 
@@ -1615,6 +1754,99 @@ label value highsession highsessionl
 label var firstorder "First prior in the sequence"
 label define firstorderl 0 "Second prior" 1 "First prior"
 label value firstorder firstorderl
+
+
+*Testing if changing choices when changing priors:
+sort subject_id round
+cap drop noprior_response
+cap drop anchored
+
+gen noprior_response=wtp==wtp[_n-1]&round==4
+tab noprior_response
+
+bys wave: tab noprior_response
+
+bys subject_id: egen anchored=sum(noprior_response)
+tab anchored
+
+
+
+
+*comparing symmetric treatments (differing only by relabeling FP to FN)
+use "./Temp/wtp_discrepancy0.dta", replace
+*first, creating a frame of treatments to match
+keep plevel phintWB phintBW treatn wtp round subject_id value
+rename treatn treatn_match
+rename wtp wtp2
+rename value value2
+rename round round2
+
+gen phintWB2=phintWB
+gen phintBW2=phintBW
+gen phintWBr=round(100*phintBW2)
+gen phintBWr=round(100*phintWB2)
+
+drop if (phintWB==0) & (phintBW==0)
+drop phintWB phintBW
+
+drop if phintWBr==phintBWr
+
+save "./Temp/mirror_treatments.dta", replace
+
+
+
+use "./Temp/wtp_discrepancy0.dta", replace
+gen phintWBr=round(100*phintWB)
+gen phintBWr=round(100*phintBW)
+merge 1:1 phintWBr phintBWr plevel subject_id using "./Temp/mirror_treatments.dta"
+
+keep if _merge==3
+
+gen long pair_id = cond(treatn < treatn_match, treatn, treatn_match)
+tab pair_id
+
+
+drop if treatn == treatn_match 
+
+keep subject_id round value value2 wtp wtp2 phintWBr phintBWr phintWB phintBW phintWB2 phintBW2 p plevel treatn pair_id
+order subject_id round value value2 wtp wtp2 phintWBr phintBWr phintWB phintBW phintWB2 phintBW2 p plevel treatn pair_id
+
+
+*finding only the differences with positive WTP:
+gen value_min = min(value, value2)
+gen extra_pair=value>value_min
+
+
+
+
+
+
+tab phintWB phintBW
+drop if value>value_min
+tab phintWB phintBW
+
+tab pair_id
+
+*dropping mirror treatments if they have the same wtp but different inform structures
+*gen phintWBmin = min(phintWBr, phintBWr)
+*drop if phintWBr>phintWBmin
+
+gen delta=wtp2-wtp
+sum delta
+
+
+ivreg2 delta i.treatn, nocons cluster(subject_id)
+testparm i.treatn
+
+
+reg delta i.treatn, nocons vce(cluster subject_id)
+testparm i.treatn
+
+
+
+stop
+
+
 
 /*
 eststo clear

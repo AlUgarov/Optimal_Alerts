@@ -4,9 +4,9 @@ set more off
 clear all
 
 *!!put your working folder below:*
-*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-cd C:\Tornado_warnings\Optimal_Alerts
-
+cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+*cd C:\Tornado_warnings\Optimal_Alerts
+*cd "/Users/alexander/Optimal_Alerts"
 
 
 *CHANGE TO THE PANEL STRUCTURE FOR THE OTHER TASKS********************
@@ -157,6 +157,7 @@ gen ip_loss = loss*p*((1-bp)-(phintWB*(1-ip_w)+phintBB*(1-ip_b)))
 
 gen ip_val=-(p*(phintWB*(1-ip_w)+phintBB*(1-ip_b))*loss+p*(phintWB*ip_w+phintBB*ip_b)*protectioncost+(1-p)*(phintWW*ip_w+phintBW*ip_b)*protectioncost)
 *replace ip_val=max(0,-(bp_val-ip_val))
+gen ip_val0=ip_val
 replace ip_val=-(bp_val-ip_val)
 replace ip_val=. if ip_b==-99
 replace ip_val=. if ip_w==-99
@@ -179,15 +180,55 @@ replace ip_b_o=1 if post_probB>=protectioncost/loss
 
 
 //Calculate exp. costs under the optimal strategy:
-gen ip_val_o=-(p*(phintWB*(1-ip_w_o)+phintBB*(1-ip_b_o))*loss+p*(phintWB*ip_w_o+phintBB*ip_b_o)*protectioncost+(1-p)*(phintWW*ip_w_o+phintBW*ip_b_o)*protectioncost)
+gen ip_expcost_o=-(p*(phintWB*(1-ip_w_o)+phintBB*(1-ip_b_o))*loss+p*(phintWB*ip_w_o+phintBB*ip_b_o)*protectioncost+(1-p)*(phintWW*ip_w_o+phintBW*ip_b_o)*protectioncost)
 
-replace ip_val_o=min(p*loss,protectioncost)-(-ip_val_o)
+gen ip_val_o=min(p*loss,protectioncost)-(-ip_expcost_o)
+
+
+
+/*gen ip_prot_diff = protectioncost * ( ///
+      p*(phintWB*ip_w   + phintBB*ip_b) ///
+    + (1-p)*(phintWW*ip_w + phintBW*ip_b) ///
+    - p*(phintWB*ip_w_o + phintBB*ip_b_o) ///
+    - (1-p)*(phintWW*ip_w_o + phintBW*ip_b_o) ///
+)
+
+
+gen ip_loss_diff = loss * p * ( ///
+      (phintWB*(1-ip_w)   + phintBB*(1-ip_b)) ///
+    - (phintWB*(1-ip_w_o) + phintBB*(1-ip_b_o)) ///
+)*/
+
+gen bp_o=(p>=protectioncost/loss)
+
+
+gen ip_prot_diff = protectioncost*( ///
+      bp_o ///
+    - p*(phintWB*ip_w_o + phintBB*ip_b_o) ///
+    - (1-p)*(phintWW*ip_w_o + phintBW*ip_b_o) ///
+) - ip_prot
+
+gen ip_loss_diff = loss*p*( ///
+      (1-bp_o) ///
+    - (phintWB*(1-ip_w_o) + phintBB*(1-ip_b_o)) ///
+) - ip_loss
+
+
+
+sum ip_prot_diff ip_loss_diff
+
+reg ip_expcost_o ip_prot ip_loss ip_prot_diff ip_loss_diff
+
+gen resid=ip_val_o-ip_prot_diff-ip_loss_diff-ip_val
+sum resid
+
 
 
 label var ip_val "Exp. costs"
 label var ip_val_o "Optimal exp. costs"
-label var ip_prot "Extra empirical IP protection"
-label var ip_loss "Extra empirical IP loss"
+label var ip_prot_diff "Extra empirical IP protection"
+label var ip_loss_diff "Extra empirical IP loss"
+
 
 
 gen ip_val_diff=ip_val_o-ip_val //discrepancy between actual and optimal expected costs of informed protection
@@ -338,8 +379,12 @@ order subject_id round phintWB phintBW bel_err absbel_err accur_bel med_bel_err 
 
 
 *Are subjects accurate in the second part of the experiment if they are accurate in the first?
+*for anchoring analysis
 gen laterounds=round>3
 bys laterounds subject_id: egen sbel_err=sum(absbel_err)
+bys laterounds: sum absbel_err
+
+
 
 *How much the signal affects beliefs?
 gen be_w=be_
@@ -448,7 +493,7 @@ collapse (mean) accur_bel accur_bel2 accur_bel3 be_change confid absbel_err tot_
 save "./Temp/bel_accuracy_all.dta", replace
 
 use "./Temp/base_second_wave.dta", replace
-
+*stop
 
 label define accur_bel_l 0 "Inaccurate" 1 "Accur. beliefs"
 label values accur_bel accur_bel_l
@@ -469,10 +514,10 @@ bysort treatn: gen n_treat = _N
 gen w_equal = 1 / n_treat
 
 **Exploring belief elicitation errors for both low and high priors:
-hist bel_err if p<0.299, title("Errors in elicited beliefs (low priors)") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
+hist bel_err if p<0.299, xtitle("Posterior - Belief") fraction color(navy)
 graph export "./Graphs/hist_belief_error_low_w2.png", width(1200) height(800) replace
 
-hist bel_err if p>0.299, title("Errors in elicited beliefs (high priors)") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
+hist bel_err if p>0.299, xtitle("Posterior - Belief") fraction color(navy)
 graph export "./Graphs/hist_belief_error_high_w2.png", width(1200) height(800) replace
 
 
@@ -489,18 +534,17 @@ sdtest bel_err, by(seqtype)  //the difference in variances is not significant
 *stop
 
 
-hist bel_err, title("Errors in elicited beliefs") xtitle("Posterior - Belief") fraction note("By belief elicitation task, no aggregation to round or subjects") color(navy)
+hist bel_err, title("Errors in elicited beliefs") xtitle("Belief - Posterior") fraction color(navy)
 graph export "./Graphs/hist_belief_error.png", width(1200) height(800) replace
 
-hist bel_err if abs(0.5-post_prob)<0.499, title("Errors in beliefs, ball color is uncertain") xtitle("Posterior - Belief") note("By belief elicitation task, no aggregation to round or subjects") fraction color(navy)
+hist bel_err if abs(0.5-post_prob)<0.499, xtitle("Belief - Posterior") fraction color(navy)
 graph export "./Graphs/hist_belief_error_s4.png", width(1200) height(800) replace
 
-hist bel_err if abs(0.5-post_prob)>0.499, title("Errors in beliefs, ball color is certain") xtitle("Posterior - Belief") note("By belief elicitation task, no aggregation to round or subjects") fraction color(navy)
+hist bel_err if abs(0.5-post_prob)>0.499, xtitle("Belief - Posterior") fraction color(navy)
 graph export "./Graphs/hist_belief_error_s5.png", width(1200) height(800) replace
 
 
 twoway histogram bel_err if p < 0.299, ///
-    title("Errors in elicited beliefs (low priors)") ///
     xtitle("Posterior - Belief") ///
     fraction ///
     note("Equal weight per treatment; no aggregation to round or subjects") ///
@@ -513,35 +557,35 @@ qui reg be_ post_prob
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob
 local rho:  display %5.3f = r(rho)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob), title("Belief updating") xtitle("True probability") ytitle("Elicited belief")  note("All obs, correlation=`rho'") legend(off)
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob), xtitle("True probability") ytitle("Elicited belief")  note("All obs, correlation=`rho'") legend(off)
 graph export "./Graphs/updating_s1.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if goodquiz==1
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&goodquiz==1
 local rho:  display %5.3f = r(rho)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Good quiz, correlation=`rho'")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&goodquiz==1, xtitle("True probability") ytitle("Elicited belief") legend(off) note("Good quiz, correlation=`rho'")
 graph export "./Graphs/updating_s2.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if honest==0
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&honest==0
 local rho:  display %5.3f = r(rho)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, title("Belief updating") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Excluding certain signals, correlation=`rho'")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&honest==0, xtitle("True probability") ytitle("Elicited belief") legend(off) note("Excluding certain signals, correlation=`rho'")
 graph export "./Graphs/updating_s3.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if abs(0.5-post_prob)<0.499
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&abs(0.5-post_prob)<0.499
 local rho:  display %5.3f = r(rho)
-graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, title("Belief vs posterior, ball color is uncertain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Correlation=`rho'")
+graph twoway (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)<0.499, xtitle("True probability") ytitle("Elicited belief") legend(off) note("Correlation=`rho'")
 graph export "./Graphs/updating_s4.png", width(1200) height(800) replace
 
 qui reg be_ post_prob if abs(0.5-post_prob)>0.499
 local r2 : display %5.3f = e(r2)
 corr be_ post_prob if pilot==0&abs(0.5-post_prob)>0.499
 local rho:  display %5.3f = r(rho)
-graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, title("Belief vs posterior, ball color is certain") xtitle("True probability") ytitle("Elicited belief") legend(off) note("Correlation=`rho'")
+graph twoway  (scatter be_ post_prob, jitter(1)) (lfit be_ post_prob) if pilot==0&abs(0.5-post_prob)>0.499, xtitle("True probability") ytitle("Elicited belief") legend(off) note("Correlation=`rho'")
 graph export "./Graphs/updating_s5.png", width(1200) height(800) replace
 
 save "./Temp/base_main_waves.dta", replace
@@ -604,8 +648,7 @@ preserve
 
     twoway bar frac bel_xmid, ///
         barwidth(`=BEL_BINWIDTH') ///
-        title("Errors in elicited beliefs") ///
-        xtitle("Posterior - Belief") ///
+        xtitle("Belief - Posterior") ///
         ytitle("Fraction") ///
         note("By belief elicitation task, no aggregation to round or subjects") ///
         color(navy)
@@ -625,8 +668,7 @@ preserve
 
     twoway bar frac bel_xmid, ///
         barwidth(`=BEL_BINWIDTH') ///
-        title("Errors in beliefs, ball color is uncertain") ///
-        xtitle("Posterior - Belief") ///
+        xtitle("Belief - Posterior") ///
         ytitle("Fraction") ///
         note("By belief elicitation task, no aggregation to round or subjects") ///
         color(navy)
@@ -644,8 +686,7 @@ preserve
 
     twoway bar frac bel_xmid, ///
         barwidth(`=BEL_BINWIDTH') ///
-        title("Errors in beliefs, ball color is certain") ///
-        xtitle("Posterior - Belief") ///
+        xtitle("Belief - Posterior") ///
         ytitle("Fraction") ///
         note("By belief elicitation task, no aggregation to round or subjects") ///
         color(navy)

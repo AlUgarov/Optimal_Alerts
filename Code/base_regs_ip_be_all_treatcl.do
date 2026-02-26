@@ -7,8 +7,8 @@ clear all
 graph drop _all
 
 *!!put your working folder below:
-*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-cd C:\Tornado_warnings\Optimal_Alerts
+cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+*cd C:\Tornado_warnings\Optimal_Alerts
 
 use "./Temp/base_second_wave.dta", replace
 xtset subject_id question
@@ -84,10 +84,11 @@ local binwidth = 0.02
 twoway ///
 (histogram post_prob if !((bl_gr>0 & w_gr>0) | honest_treatment), width(`binwidth') color(navy) fcolor(navy) lcolor(navy)) ///
 (histogram post_prob if ((bl_gr>0) & (w_gr>0)), width(`binwidth') color(red) fcolor("220 50 80") lcolor("220 50 80")  ), ///
-legend(order(1 "One error" 2 "Both errors (FP and FN)") lcolor(none) position(2) ring(0)) ytitle(Frequency) xtitle("Posterior distribution for one error vs both error conditions")
-graph export "./Graphs/posteriors_both.png", width(1000) height(1000) replace
+legend(order(1 "One error" 2 "Both errors") lcolor(none) position(2) ring(0)) ytitle(Frequency) xtitle("Posterior distribution for one error vs both error conditions")
+graph export "./Graphs/posteriors_both.png", width(1200) height(800) replace
 
 
+*stop
 ****-- INFORMED PROTECTION --****
 *expected response by prior prob:
 gen highprob=p>0.201
@@ -205,14 +206,14 @@ mkspline bespline1 0.2 bespline2 0.4 bespline3 0.6 bespline4 0.8 bespline5 = be_
 set more off
 **Robustness: flexible control both for beliefs and posteriors:
 eststo clear:
-eststo: logit ip_ post_prob0* white_phintBW white_phintWB  highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
+logit ip_ post_prob0* white_phintBW white_phintWB  black_phintBW black_phintWB blackhint highprob i.subject_id, vce(cluster subject_id)
 local r2p=e(r2_p)
 local llike=e(ll)
 eststo m1: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob) post
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ post_prob0* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB  high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
+logit ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
 local r2p=e(r2_p)
 local llike=e(ll)
 eststo m2: margins, dydx(blackhint white_phintBW white_phintWB  black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
@@ -220,14 +221,14 @@ estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
 
-eststo: logit ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB i.subject_id, vce(cluster subject_id)
+logit ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob i.subject_id, vce(cluster subject_id)
 local r2p=e(r2_p)
 local llike=e(ll)
 eststo m3: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob) post
 estadd scalar r2p = `r2p'
 estadd scalar llike = `llike'
 
-eststo: logit ip_ post_prob0* bespline* white_phintBW white_phintWB highprob blackhint black_phintBW black_phintWB high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
+logit ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
 local r2p=e(r2_p)
 local llike=e(ll)
 eststo m4: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
@@ -254,7 +255,7 @@ eststo: ivreg2 ip_ post_prob0* bespline* white_phintBW white_phintWB black_phint
 eststo: ivreg2 ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB highprob blackhint high_phintBW high_phintWB i.subject_id, cluster(subject_id treatn)
 esttab using "./Tables/table_ip_flexlin.tex", b(%9.3g) se(%9.1f)  ar2(%9.2f) label addnotes("With flexible controls of posterior probability and beliefs" ///
   "Subject FE, errors are clustered by subject and by treatment") drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") title(Informed Protection Response: flexible control for posteriors and beliefs, LPM) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
-esttab using "./Tables/table_ip_flexlin_pres.tex", b(%9.3g) se(%9.13)  ar2(%9.2f) label drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_ip_flexlin_pres.tex", b(%9.3g) se(%9.1f)  ar2(%9.2f) label drop(_cons) indicate("Subject FE = *.subject_id" "Posterior=post_prob0*" "Beliefs=bespline*") mtitles("" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -318,7 +319,7 @@ esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label 
 save "./Temp/prep_beliefs.dta", replace
 
 use "./Temp/prep_beliefs.dta", replace
-**Comparison of protection by information 
+**Comparison of protection by information (weighted)
 gen fp_env=phintBW>0
 gen fn_env=phintWB>0
 bys fp_env fn_env blackhint: sum ip_ 
@@ -417,41 +418,64 @@ listtex using "./Tables/bigpicture_IP_pres.tex", type rstyle(tabular) head("\beg
 
 
 use "./Temp/prep_beliefs.dta", replace
-**Comparison of protection by information (split by priors)
-gen fp_env=phintBW>0
-gen fn_env=phintWB>0
-bys fp_env fn_env blackhint: sum ip_ 
-gen prot_cost=5
-gen loss=20
-gen ip_o=post_prob>(prot_cost/loss)
-*gen highprob=p>0.201
+
+**Comparison of protection by information (split by priors) — WEIGHTED + CLUSTERED
+gen fp_env = phintBW > 0
+gen fn_env = phintWB > 0
+bys fp_env fn_env blackhint: sum ip_
+
+gen prot_cost = 5
+gen loss      = 20
+gen ip_o      = post_prob > (prot_cost/loss)
+
+* gen highprob = p > 0.201
+
+* --- Equal weight by treatment arm (same as bigpicture_IP) ---
+bysort treatn: gen n_treat = _N
+gen w_treat = 1/n_treat
+
+* --- Precompute weighted components for fast cell means ---
+gen post_probw = w_treat * post_prob
+gen ipw        = w_treat * ip_
+gen ip_ow      = w_treat * ip_o
 
 tempname p1
-postfile `p1' nrow prior signal false_pos false_neg prot posterior mean_opt ptest2 using "./Temp/ip_by_environment_det.dta", replace
+postfile `p1' nrow prior signal false_pos false_neg prot posterior mean_opt ptest2 ///
+    using "./Temp/ip_by_environment_det.dta", replace
 
-forvalues k=0/1{
-  forvalues i=0/1{
-  
-    forvalues j=0/1{
-	  forvalues f=0/1{
-		  if `k'==0{
-			ttest ip_==0 if fp_env==`i'&fn_env==`j'&blackhint==0&highprob==`f', level(95)
-			local ptest=r(p_u)
-			
-		  }
-		  else {
-			ttest ip_==1 if fp_env==`i'&fn_env==`j'&blackhint==1&highprob==`f', level(95)
-			local ptest=r(p_l)
-		  }
-		  local prot=r(mu_1)
-		  sum post_prob if fp_env==`i'&fn_env==`j'&blackhint==`k'&highprob==`f'
-		  local posterior=r(mean)
-		  ttest ip_==ip_o if fp_env==`i'&fn_env==`j'&blackhint==`k'&highprob==`f'
-		  local mean_opt=r(mu_2)
-		  local ptest2=r(p)
-		  local nrow=4*`k'+2*`i'+`j'+1
-		  post `p1' (`nrow') (`f') (`k') (`i') (`j') (`prot') (`posterior') (`mean_opt') (`ptest2')
-		}
+forvalues k = 0/1 {
+  forvalues i = 0/1 {
+    forvalues j = 0/1 {
+      forvalues f = 0/1 {
+
+        * --- Total weights in cell ---
+        quietly sum w_treat if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f'
+        local totweights = r(sum)
+
+        * Guarding against empty cells
+        if (`totweights' > 0) {
+
+          quietly sum ipw if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f'
+          local prot = r(sum) / `totweights'
+
+          quietly sum post_probw if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f'
+          local posterior = r(sum) / `totweights'
+
+          quietly sum ip_ow if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f'
+          local mean_opt = r(sum) / `totweights'
+
+          * --- P(=optimal): test E[ip_ - ip_o] = 0, weighted, clustered on treatn ---
+          gen d_opt = ip_ - ip_o
+          reg d_opt [pw=w_treat] if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f', ///
+              vce(cluster treatn)
+          test _cons = 0
+          local ptest2 = r(p)
+          drop d_opt
+
+          local nrow = 4*`k' + 2*`i' + `j' + 1
+          post `p1' (`nrow') (`f') (`k') (`i') (`j') (`prot') (`posterior') (`mean_opt') (`ptest2')
+        }
+      }
     }
   }
 }
@@ -459,36 +483,48 @@ forvalues k=0/1{
 postclose `p1'
 
 
+* ----- Formatting/export
 use "./Temp/ip_by_environment_det.dta", replace
+
+sort prior signal false_pos false_neg
+
+* Consecutive row numbering in that order
+gen nrow = _n
 tostring nrow, replace
-replace nrow="("+nrow+")"
-*stop
+replace nrow = "(" + nrow + ")"
+
 
 tostring false_pos false_neg signal, replace
-foreach var of varlist false_pos false_neg{
-  replace `var'="No" if `var'=="0"
-  replace `var'="Yes" if `var'=="1"
+foreach var of varlist false_pos false_neg {
+  replace `var' = "No"  if `var' == "0"
+  replace `var' = "Yes" if `var' == "1"
 }
-replace signal="White" if signal=="0"
-replace signal="Black" if signal=="1"
+replace signal = "White" if signal == "0"
+replace signal = "Black" if signal == "1"
 
-gen priorlabel="Low" if prior==0
-replace priorlabel="High" if prior==1
+gen priorlabel = "Low" if prior == 0
+replace priorlabel = "High" if prior == 1
 sort prior false_pos false_neg signal
 drop prior
-order nrow priorlabel false_pos false_neg signal
-bro
 
+order nrow priorlabel signal false_pos false_neg
 format prot posterior mean_opt ptest2 %9.3f
-listtex using "./Tables/bigpicture_IPd.tex", type rstyle(tabular) head("\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline" `"\textbf{Row}&\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
+listtex using "./Tables/bigpicture_IPd_cl.tex", type rstyle(tabular) ///
+  head("\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline" ///
+  `"\textbf{Row}&\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') ///
+  foot("\hline \end{tabular} \end{table}") replace
 
 order nrow priorlabel false_pos false_neg signal posterior prot mean_opt ptest2
-listtex using "./Tables/bigpicture_IPd_AU.tex", type rstyle(tabular) replace
+listtex using "./Tables/bigpicture_IPd_AU_cl.tex", type rstyle(tabular) replace
 
 drop nrow
-listtex using "./Tables/bigpicture_IPd_pres.tex", type rstyle(tabular) head("\begin{table}[H]\centering \scriptsize \begin{tabular}{ccccccc} \hline \hline" `"\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_IPd_pres_cl.tex", type rstyle(tabular) ///
+  head("\begin{table}[H]\centering \scriptsize \begin{tabular}{ccccccc} \hline \hline" ///
+  `"\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') ///
+  foot("\hline \end{tabular} \end{table}") replace
 
+  
 
 
 *Making a compact table with IP decision differences (actual vs risk-neutral optimal)
@@ -572,7 +608,7 @@ by subject_id: egen nchanges_s=sum(be_s_change)
 tab nchanges_s nchanges_p
 
 
-
+** Calculating beliefs summary table (non-detailed first):
 use "./Temp/prep_beliefs.dta", replace
 
 gen fp_env=phintBW>0
@@ -635,11 +671,109 @@ bro
 format posterior bel_err ptest %9.3f
 listtex using "./Tables/bigpicture_bel_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{ccccccc} \hline \hline" `" &\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Signal}&\textbf{Posterior}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
-order nrow false_pos false_neg signal posterior bel_err ptest
+order nrow signal false_pos false_neg posterior bel_err ptest
 listtex using "./Tables/bigpicture_bel_AU_cl.tex", type rstyle(tabular) replace
 
 
 
+** Calculating beliefs summary table (detailed, split by prior:
+use "./Temp/prep_beliefs.dta", replace
+
+**Belief elicitation by information (split by priors) — WEIGHTED + CLUSTERED like bigpicture_bel_cl
+gen fp_env = phintBW > 0
+gen fn_env = phintWB > 0
+
+* If highprob is not already in the data, uncomment/adjust this:
+* gen highprob = p > 0.201
+
+* --- Equal weight by treatment arm ---
+bysort treatn: gen n_treat = _N
+gen w_treat = 1/n_treat
+
+* --- Preweight variables for fast numerator sums ---
+gen post_probw = w_treat * post_prob
+gen bel_errw   = w_treat * bel_err
+
+tempname p1
+postfile `p1' nrow prior false_pos false_neg signal posterior bel_err ptest ///
+    using "./Temp/bel_by_environment_det.dta", replace
+
+forvalues k = 0/1 {
+  forvalues i = 0/1 {
+    forvalues j = 0/1 {
+      forvalues f = 0/1 {
+
+        * denominator: total weight mass in this cell
+        quietly sum w_treat if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f', meanonly
+        local totweights = r(sum)
+
+        * skip empty cells
+        if (`totweights' > 0) {
+
+          * weighted posterior mean
+          quietly sum post_probw if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f', meanonly
+          local posterior = r(sum) / `totweights'
+
+          * weighted mean belief error
+          quietly sum bel_errw if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f', meanonly
+          local bel_err = r(sum) / `totweights'
+
+          * clustered test of E[bel_err] = 0 (one-sample)
+          gen d0 = bel_err
+          quietly reg d0 [pw=w_treat] if fp_env==`i' & fn_env==`j' & blackhint==`k' & highprob==`f', ///
+              vce(cluster treatn)
+          test _cons = 0
+          local ptest = r(p)
+          drop d0
+
+          local nrow = 4*`k' + 2*`i' + `j' + 1
+          post `p1' (`nrow') (`f') (`i') (`j') (`k') (`posterior') (`bel_err') (`ptest')
+        }
+      }
+    }
+  }
+}
+
+postclose `p1'
+
+
+* ----- Formatting/export-----
+use "./Temp/bel_by_environment_det.dta", replace
+sort prior signal false_pos false_neg
+
+replace nrow=_n
+tostring nrow, replace
+replace nrow = "(" + nrow + ")"
+
+tostring false_pos false_neg signal, replace
+foreach var of varlist false_pos false_neg {
+  replace `var' = "No"  if `var' == "0"
+  replace `var' = "Yes" if `var' == "1"
+}
+replace signal = "White" if signal == "0"
+replace signal = "Black" if signal == "1"
+
+gen priorlabel = "Low" if prior == 0
+replace priorlabel = "High" if prior == 1
+sort prior false_pos false_neg signal
+drop prior
+
+order nrow priorlabel signal false_pos false_neg
+format posterior bel_err ptest %9.3f
+
+listtex using "./Tables/bigpicture_beld_cl.tex", type rstyle(tabular) ///
+  head("\begin{table}[H]\centering \caption{Average Belief Error by Signal Type} \begin{tabular}{cccccccc} \hline \hline" ///
+  `" &\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Posterior}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') ///
+  foot("\hline \end{tabular} \end{table}") replace
+
+order nrow priorlabel signal false_pos false_neg posterior bel_err ptest
+listtex using "./Tables/bigpicture_beld_AU_cl.tex", type rstyle(tabular) replace
+
+drop nrow
+listtex using "./Tables/bigpicture_beld_pres_cl.tex", type rstyle(tabular) ///
+  head("\begin{table}[H]\centering \scriptsize \begin{tabular}{ccccccc} \hline \hline" ///
+  `"\textbf{Priors}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{Posterior}&\textbf{Belief error}& \textbf{P($=0$)}\\ \hline"') ///
+  foot("\hline \end{tabular} \end{table}") replace
 
 
   

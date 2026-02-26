@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  9 FEB 2026 11:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.16)  26 FEB 2026 10:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1088,11 +1088,11 @@ Package pdftex.def Info: Graphs/ip_response_comp.png  used on input line 138.
  <./Graphs/ip_response_comp.png (PNG copy)>] [6
 
 ]
-<Graphs/posteriors_both.png, id=204, 1003.75pt x 1003.75pt>
+<Graphs/posteriors_both.png, id=204, 1204.5pt x 803.0pt>
 File: Graphs/posteriors_both.png Graphic file (type png)
 <use Graphs/posteriors_both.png>
 Package pdftex.def Info: Graphs/posteriors_both.png  used on input line 175.
-(pdftex.def)             Requested size: 200.74644pt x 200.74644pt.
+(pdftex.def)             Requested size: 240.89574pt x 160.59715pt.
  [7
 
  <./Graphs/posteriors_both.png (PNG copy)>]
@@ -1130,87 +1130,93 @@ pdfTeX warning (ext4): destination with the same identifier (name{tab:nonparIP}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.330 \end{frame}
+l.333 \end{frame}
                   (Tables/bigpicture_IPdiff_compact_AU.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--330
+Underfull \hbox (badness 10000) in paragraph at lines 1--333
 [][] 
  []
 
 [13
 
-] (Tables/bigpicture_bel_AU.tex) [14
+] [14
 
 ]
 pdfTeX warning (ext4): destination with the same identifier (name{tab:nonparIP}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.382 \end{frame}
+l.413 \end{frame}
+                  (Tables/bigpicture_IPd_AU.tex) [15
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tab:nonparIP}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.430 \end{frame}
                   (Tables/bigpicture_BEdiff_compact_AU.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--382
+Underfull \hbox (badness 10000) in paragraph at lines 1--430
 [][] 
  []
 
-[15
+[16
 
 ] (Tables/bigpicture_wtp_det.tex
-Overfull \hbox (23.25188pt too wide) in paragraph at lines 1--6
+Overfull \hbox (7.73352pt too wide) in paragraph at lines 1--6
  [] 
  []
 
-) [16
+) [17
 
-] (Tables/table_ip_flex_AU.tex) [17
+] (Tables/table_ip_flex_AU.tex) [18
 
-] [18
+] [19
 
 ] (Tables/wtpdiff_ols_pres.tex)
-[19
+[20
 
-] (Tables/wtp_tobit.tex) [20
+] (Tables/wtp_tobit.tex) [21
 
 ] (Tables/table_wtpdiff_crt.tex)
-Overfull \vbox (14.77751pt too high) detected at line 527
+Overfull \vbox (20.9648pt too high) detected at line 575
  []
 
-[21
+[22
 
-] (Tables/table_tobit_demo_pres.tex) [22
+] (Tables/table_tobit_demo_pres.tex) [23
 
-] [23
+] [24
 
 ]
-<Graphs/sensit_comparison.png, id=661, 1003.75pt x 602.25pt>
+<Graphs/sensit_comparison.png, id=687, 1003.75pt x 602.25pt>
 File: Graphs/sensit_comparison.png Graphic file (type png)
 <use Graphs/sensit_comparison.png>
-Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 573.
-(pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
- [24
-
- <./Graphs/sensit_comparison.png (PNG copy)>]
-<Graphs/sensit_comparison_tobit.png, id=688, 1003.75pt x 602.25pt>
-File: Graphs/sensit_comparison_tobit.png Graphic file (type png)
-<use Graphs/sensit_comparison_tobit.png>
-Package pdftex.def Info: Graphs/sensit_comparison_tobit.png  used on input line
- 583.
+Package pdftex.def Info: Graphs/sensit_comparison.png  used on input line 621.
 (pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
  [25
 
- <./Graphs/sensit_comparison_tobit.png (PNG copy)>]
-[26
+ <./Graphs/sensit_comparison.png (PNG copy)>]
+<Graphs/sensit_comparison_tobit.png, id=715, 1003.75pt x 602.25pt>
+File: Graphs/sensit_comparison_tobit.png Graphic file (type png)
+<use Graphs/sensit_comparison_tobit.png>
+Package pdftex.def Info: Graphs/sensit_comparison_tobit.png  used on input line
+ 631.
+(pdftex.def)             Requested size: 301.12732pt x 180.67639pt.
+ [26
 
-] [27
+ <./Graphs/sensit_comparison_tobit.png (PNG copy)>]
+[27
+
+] [28
 
 ]
-Overfull \hbox (4.5607pt too wide) in paragraph at lines 655--655
+Overfull \hbox (4.5607pt too wide) in paragraph at lines 703--703
 []  
  []
 
-[28
+[29
 
-] (Tables/wtpdiff_ols_consistency.tex) [29
-
-] [30
+] (Tables/wtpdiff_ols_consistency.tex) [30
 
 ] [31
 
@@ -1220,8 +1226,10 @@ Overfull \hbox (4.5607pt too wide) in paragraph at lines 655--655
 
 ] [34
 
+] [35
+
 ]
-[35
+[36
 
 ]
 \tf@nav=\write6
@@ -1239,10 +1247,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 28829 strings out of 476374
- 569079 string characters out of 5805269
- 1905340 words of memory out of 5000000
- 48489 multiletter control sequences out of 15000+600000
+ 28828 strings out of 476374
+ 569013 string characters out of 5805269
+ 1904340 words of memory out of 5000000
+ 48487 multiletter control sequences out of 15000+600000
  523247 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,551b,832s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1257,9 +1265,9 @@ sfonts/cm/cmss9.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/
 MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmsy10.pfb><C:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/
 MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on Alert_Revision_discussion.pdf (35 pages, 836302 bytes).
+Output written on Alert_Revision_discussion.pdf (36 pages, 842736 bytes).
 PDF statistics:
- 1064 PDF objects out of 1200 (max. 8388607)
- 74 named destinations out of 1000 (max. 500000)
+ 1090 PDF objects out of 1200 (max. 8388607)
+ 76 named destinations out of 1000 (max. 500000)
  150 words of extra memory for PDF output out of 10000 (max. 10000000)
 

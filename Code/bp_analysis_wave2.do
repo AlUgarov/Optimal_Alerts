@@ -5,8 +5,8 @@ clear all
 
 
 *!!put your working folder below:
-*cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-cd C:\Tornado_warnings\Optimal_Alerts
+cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+*cd C:\Tornado_warnings\Optimal_Alerts
 
 set seed 135
 
