@@ -5,8 +5,7 @@ set more off
 clear all
 
 *!!put your working folder below:
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-*cd C:\Tornado_warnings\Optimal_Alerts
+cd <project_folder>
 
 use "./Output/all_waves.dta", replace
 tab wave
@@ -357,6 +356,22 @@ restore
 
 
 
+**Additional numbers appearing in the text (weighted):
+* Count observations per treatment
+sum w_treat if abs(wtp_diff)<0.5, meanonly
+local smalldev = r(sum)
+
+sum w_treat, meanonly
+local totw = r(sum)
+
+
+display `smalldev'/`totw'
+
+sum wtp_diff [aw=w_treat], detail
+
+*stop
+
+
 
 
 
@@ -489,9 +504,10 @@ eststo: ivreg2 wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.high
 eststo: ivreg2 wtp_diff i.highprob##c.false_neg i.risk_pref#i.highprob#c.false_neg i.highprob##c.false_pos i.risk_pref#i.highprob#c.false_pos, cluster(subject_id treatn)
 eststo: ivreg2 wtp_diff i.risk_pref##i.highprob##c.false_neg i.risk_pref##i.highprob##c.false_pos, cluster(subject_id treatn)
 
-esttab using "./Tables/wtp_het_risk.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg 3.risk_pref#*) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
-esttab using "./Tables/wtp_het_risk_pres.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons *.risk_pref#*.highprob *.risk_pref#*.highprob  *.risk_pref#c.false_pos *.risk_pref#c.false_neg 3.risk_pref#*) indicate("Full risk pref interactions=*.risk_pref") mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/wtp_het_risk_cl.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label drop(_cons *.risk_pref#*.highprob *.risk_pref#c.false_pos *.risk_pref#c.false_neg 3.risk_pref#*) indicate("Full risk pref interactions=*.risk_pref") title(WTP minus Value of Information, risk aversion and sensitivity to FP and FN costs) mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/wtp_het_risk_pres_cl.tex", b(%9.3g) ar2(%9.2f) not label drop(_cons *.risk_pref#*.highprob *.risk_pref#*.highprob  *.risk_pref#c.false_pos *.risk_pref#c.false_neg 3.risk_pref#*) indicate("Full risk pref interactions=*.risk_pref") mtitles("" "" "" "FE" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
+*stop
 
 *Analyzing the effects of WTp-protection consistency:
 *gen consistent_wtp=!inconsistent_wtp
@@ -516,7 +532,7 @@ esttab using "./Tables/wtp_consistent_pres.tex", b(%9.3g) ar2(%9.2f) not label d
 
 
 
-stop
+*stop
 
 
 
@@ -771,8 +787,8 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		
 
 #delimit ;
-	esttab * using "./Tables/wtpdiff_ols.tex", replace label 
-		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac*)
+	esttab * using "./Tables/wtpdiff_ols_cl.tex", replace label 
+		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac* 3.risk_pref#*)
 		order(false_pos false_neg 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
 		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
 		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
@@ -783,7 +799,7 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		substitute(_ \_ ) style(tex);
 #delimit cr
 
-
+*stop
 
 
 *WTP difference - later rounds only for anchoring analysis:
@@ -1030,7 +1046,7 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 
 #delimit ;
 	esttab * using "./Tables/wtpdiff_ols_bias.tex", replace label 
-		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac*)
+		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac* 3.risk_pref#*)
 		order(false_pos false_neg  ip_prot_diff ip_loss_diff 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
 		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
 		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
@@ -1040,6 +1056,8 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		fmt(3 4 0 3 3 3 3 3 3 3 3 3 3 3 3) layout(@ @ @ @ (@) [@] @ (@) [@] @ (@) [@] @ (@) [@]))
 		substitute(_ \_ ) style(tex);
 #delimit cr
+
+*stop
 
 *stop
 
@@ -1340,7 +1358,7 @@ eststo: tobit wtp i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.inac_bel2
 
 #delimit ;
 	esttab * using "./Tables/wtp_tobit.tex", replace label 
-		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac* *3.risk_pref*)
+		drop(?.risk_pref 0.inac_bel2 0.risk_pref#* ?.inac_bel2* ?.risk_pref#*inac* 3.risk_pref#*)
 		indicate(*.subject_id)
 		order(false_pos false_neg 2.risk_pref#c.false_pos 2.risk_pref#c.false_neg 1.risk_pref#c.false_pos 1.risk_pref#c.false_neg)
 		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
@@ -1556,7 +1574,7 @@ eststo: ivreg2 wtp_diff i.stat_educ##c.false_pos i.stat_educ##c.false_neg, clust
 eststo: ivreg2 wtp_diff i.stat_educ##i.plevel i.stat_educ##c.false_pos i.stat_educ##c.false_neg, cluster(subject_id treatn)
 eststo: ivreg2 wtp_diff i.old##c.false_pos i.old##c.false_neg, cluster(subject_id treatn)
 eststo: ivreg2 wtp_diff i.old##i.plevel i.old##c.false_pos i.old##c.false_neg, cluster(subject_id treatn)
-esttab using "./Tables/table_wtpdiff_02.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP minus Value of Information: demographic determinants) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_wtpdiff_02_cl.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label indicate(Prior dummies=*.plevel) title(WTP minus Value of Information: demographic determinants) mtitles("" "" "" "" "" "" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 
@@ -1842,50 +1860,4 @@ testparm i.treatn
 reg delta i.treatn, nocons vce(cluster subject_id)
 testparm i.treatn
 
-
-
-stop
-
-
-
-/*
-eststo clear
-eststo: reg wtp_diff phintBW phintWB if p<0.3, vce(cluster subject_id treatn)
-eststo: reg wtp_diff phintBW phintWB if p>0.25, vce(cluster subject_id treatn)
-eststo: reg wtp_diff i.highsession##c.phintBW i.highsession##c.phintWB if p<0.3, vce(cluster subject_id treatn)
-*eststo: reg wtp_diff phintBW phintWB if highsession==0, vce(cluster subject_id treatn)
-*eststo: reg wtp_diff phintBW phintWB if highsession==1, vce(cluster subject_id treatn)
-eststo: reg wtp_diff i.highsession##c.phintBW i.highsession##c.phintWB, vce(cluster subject_id treatn)
-eststo: reg wtp_diff i.firstorder##c.phintBW i.firstorder##c.phintWB, vce(cluster subject_id treatn)
-eststo: reg wtp_diff i.firstorder##c.phintBW i.firstorder##c.phintWB i.highsession#c.phintBW i.highsession#c.phintWB, vce(cluster subject_id treatn)
-esttab using "./Tables/table_wtpdiff_order.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP - Value of Information, by prior with order effects) mtitles( "p=0.1,0.2" "p=0.3,0.5" "p=0.1,0.2" "" "" "") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
-*/
-
-
-*Testing heterogeneity
-*reg wtp_diff i.plevel##c.false_pos i.plevel##c.false_neg, vce(cluster subject_id treatn)
-*contrast plevel plevel#c.false_pos plevel#c.false_neg, overall
-
-
-*By prior prob 2:
-/*
-eststo clear
-eststo: reghdfe  wtp_diff phintBW phintWB, abs(subject_id) vce(cluster subject_id treatn)
-eststo: reghdfe  wtp_diff phintBW phintWB if plevel==100, abs(subject_id) vce(cluster subject_id treatn)
-eststo: reghdfe  wtp_diff phintBW phintWB if plevel==200, abs(subject_id) vce(cluster subject_id treatn)
-eststo: reghdfe  wtp_diff phintBW phintWB if plevel==300, abs(subject_id) vce(cluster subject_id treatn)
-eststo: reghdfe  wtp_diff phintBW phintWB if plevel==500, abs(subject_id) vce(cluster subject_id treatn)
-esttab using "./Tables/table_wtpdiff_06.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label title(WTP - Value of Information, by prior) mtitles("All" "0.1" "0.2" "0.3" "0.5") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
-*/
-
-
-
-*Paying positive amounts for signals not affecting their protection choices:
-gen pay_notuse=(wtp>0)&(ip_b==ip_w)
-gen use_signal=(ip_b>ip_w)
-tab pay_notuse //many choices are inconsistent
-
-//most subjects make at least one inconsistent choice here:
-sort subject_id
-by subject_id: egen totpay_notuse=sum(pay_notuse)
 

@@ -2,7 +2,9 @@
 set more off
 clear all
 
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
+*!!put your working folder below:*
+cd <project_folder>
+
 use "./Temp/wtp_discrepancy0.dta", replace
 drop highprob
 gen highprob=p>0.201

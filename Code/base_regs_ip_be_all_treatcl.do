@@ -6,17 +6,16 @@ set more off
 clear all
 graph drop _all
 
-*!!put your working folder below:
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-*cd C:\Tornado_warnings\Optimal_Alerts
+*!!put your working folder below:*
+cd <project_folder>
 
 use "./Temp/base_second_wave.dta", replace
 xtset subject_id question
 drop if pilot==1 //now dropping the pilot
 
-merge m:1 participant_id using "./Temp/coded_strategies.dta"
-tab strategy_ip
-drop _merge
+*merge m:1 participant_id using "./Temp/coded_strategies.dta"
+*tab strategy_ip
+*drop _merge
 
 save "./Temp/long_ip_dat.dta", replace
 use "./Temp/long_ip_dat.dta", replace
@@ -307,12 +306,15 @@ gen statWB=stat_educ*phintWB
 label var statWB "FN rate x Stat. class"
 
 *Final robustness check: semiparametric control for posteriors
+/*
 eststo clear
 eststo: semipar ip_ phintBW phintWB, nonpar(post_prob)
 eststo: semipar ip_ highprob phintBW highprobBW phintWB highprobWB, nonpar(post_prob) 
 eststo: semipar ip_ blackhint phintBW phintWB blackhintBW blackhintWB, nonpar(post_prob)
 eststo: semipar ip_ stat_educ phintBW phintWB statBW statWB, nonpar(post_prob)
 esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label mtitles("" "" "" "") title(Informed protection response: semiparametric control for posteriors) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+*/
+
 
 *replace bel_err=-bel_err
 
@@ -404,14 +406,14 @@ replace signal="White" if signal=="0"
 replace signal="Black" if signal=="1"
 bro
 format prot posterior mean_opt ptest2 %9.3f
-listtex using "./Tables/bigpicture_IP.tex", type rstyle(tabular) head("\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline" `"\textbf{Row}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_IP_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \footnotesize \caption{Average Protection by Signal Type} \begin{tabular}{cccccccc} \hline \hline" `"\textbf{Row}&\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 
 order nrow signal false_pos false_neg posterior prot mean_opt ptest2
-listtex using "./Tables/bigpicture_IP_AU.tex", type rstyle(tabular) replace
+listtex using "./Tables/bigpicture_IP_AU_cl.tex", type rstyle(tabular) replace
 
 drop nrow
-listtex using "./Tables/bigpicture_IP_pres.tex", type rstyle(tabular) head("\begin{table}[H]\centering \scriptsize \begin{tabular}{ccccccc} \hline \hline" `"\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_IP_pres_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \scriptsize \begin{tabular}{ccccccc} \hline \hline" `"\textbf{Signal}&\textbf{False-pos.}&\textbf{False-neg.}&\textbf{\% protect}& \textbf{Posterior} & \textbf{Optimal} & \textbf{P(=optimal)} \\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 
 
@@ -489,7 +491,7 @@ use "./Temp/ip_by_environment_det.dta", replace
 sort prior signal false_pos false_neg
 
 * Consecutive row numbering in that order
-gen nrow = _n
+replace nrow = _n
 tostring nrow, replace
 replace nrow = "(" + nrow + ")"
 
@@ -504,7 +506,7 @@ replace signal = "Black" if signal == "1"
 
 gen priorlabel = "Low" if prior == 0
 replace priorlabel = "High" if prior == 1
-sort prior false_pos false_neg signal
+*sort prior false_pos false_neg signal
 drop prior
 
 order nrow priorlabel signal false_pos false_neg
@@ -755,7 +757,7 @@ replace signal = "Black" if signal == "1"
 
 gen priorlabel = "Low" if prior == 0
 replace priorlabel = "High" if prior == 1
-sort prior false_pos false_neg signal
+*sort prior false_pos false_neg signal
 drop prior
 
 order nrow priorlabel signal false_pos false_neg
@@ -856,7 +858,7 @@ eststo clear
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id if blackhint==0, cluster(subject_id treatn)
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id if blackhint==1, cluster(subject_id treatn)
-esttab using "./Tables/table_be_err_cl.tex", b(%9.3f) se(%9.3f) ar2(%9.3f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err_cl.tex", fragment b(%9.3f) se(%9.3f) ar2(%9.3f) label drop(_cons) addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 *Testing FP/FN confusion:
@@ -864,7 +866,7 @@ eststo clear
 eststo: ivreg2 be_ phintBW phintWB i.plevel i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 be_ phintBW phintWB i.plevel if blackhint==0, cluster(subject_id treatn)
 eststo: ivreg2 be_ phintBW phintWB i.plevel if blackhint==1, cluster(subject_id treatn)
-esttab using "./Tables/table_be_err1_cl.tex", b(%9.3g) se(%9.3f) ar2(%9.2f) label addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err1_cl.tex", fragment b(%9.3g) se(%9.3f) ar2(%9.2f) label drop(_cons) addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) indicate(Subject FE = *.subject_id) nobaselevels compress nogaps replace
 
 
 **prepare variables for belief updating responsiveness analysis (Mobius et al, 2011)

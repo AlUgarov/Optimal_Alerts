@@ -4,9 +4,8 @@ set more off
 clear all
 
 *!!put your working folder below:*
-cd C:\Tornado_warnings\Experiment\Alerts_Experiment
-*cd C:\Tornado_warnings\Optimal_Alerts
-*cd "/Users/alexander/Optimal_Alerts"
+cd <project_folder>
+
 
 
 *CHANGE TO THE PANEL STRUCTURE FOR THE OTHER TASKS********************
@@ -631,7 +630,7 @@ local p95 = r(r3)
 display "Weighted post_prob (uncertain) p5/median/p95: " ///
     %6.4f `p5' "  " %6.4f `med' "  " %6.4f `p95'
 
-stop
+*stop
 *weighted prop correct for certain signals:
 quietly sum w_treat if abs(0.5-post_prob) < 0.499&bel_err<0.0001, meanonly
 local num = r(sum)
