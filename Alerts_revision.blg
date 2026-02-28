@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Alerts_revision.aux
+Reallocating 'name_of_file' (item size: 1) to 4 items.
+The style file: aea.bst
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+Reallocating 'name_of_file' (item size: 1) to 19 items.
+Database file #1: Alerts4.bib
+Database file #2: Nytimes_cancer.bib
+You've used 37 entries,
+            2695 wiz_defined-function locations,
+            865 strings with 12112 characters,
+and the built_in function-call counts, 214156 in all, are:
+= -- 35724
+> -- 2362
+< -- 1
++ -- 17233
+- -- 738
+* -- 19234
+:= -- 41900
+add.period$ -- 276
+call.type$ -- 37
+change.case$ -- 481
+chr.to.int$ -- 37
+cite$ -- 37
+duplicate$ -- 553
+empty$ -- 1509
+format.name$ -- 747
+if$ -- 38449
+int.to.chr$ -- 5
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 118
+num.names$ -- 408
+pop$ -- 38
+preamble$ -- 1
+purify$ -- 555
+quote$ -- 0
+skip$ -- 457
+stack$ -- 0
+substring$ -- 51235
+swap$ -- 227
+text.length$ -- 519
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 148
+warning$ -- 0
+while$ -- 939
+width$ -- 0
+write$ -- 188
