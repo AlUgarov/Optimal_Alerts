@@ -1,0 +1,24 @@
+\contentsline {section}{\numberline {1}Associate Editor}{2}{section.1}%
+\contentsline {section}{\numberline {2}Referee 1}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}R1.1\hskip 1em\relax Incorrect and Inconsistent Definitions of FP and FN Costs}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}R1.2\hskip 1em\relax Interpretation of Table~5 and Figure~5}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}R1.3\hskip 1em\relax Mechanism Claim Should Be Softened}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}R1.4\hskip 1em\relax Proposition~2 Wording}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}R1.5\hskip 1em\relax Appendix~B: Proof Numbering}{4}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}R1.6\hskip 1em\relax Appendix~B.3: Algebra Error}{4}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}R1.7\hskip 1em\relax Cross-Reference Error}{4}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}R1.8\hskip 1em\relax Typos}{5}{subsection.2.8}%
+\contentsline {section}{\numberline {3}Referee 2}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}R2.1\hskip 1em\relax Treatments and Treatment Assignment}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}R2.2\hskip 1em\relax Description and Groupings in Tables~2, 3, and A4}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}R2.3\hskip 1em\relax Claim on Page~16 Regarding Introduction of the FN Rate}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}R2.4\hskip 1em\relax Section~4 Closing Summary Understates the Evidence}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}R2.5\hskip 1em\relax Hypothesis~1 and Result~1 Overstate the t-Test Evidence}{7}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}R2.6\hskip 1em\relax (Optional) Reorganise Section~5.3 to Lead with FP/FN Confusion}{7}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}R2.7\hskip 1em\relax Risk-Preference Discussion (pp.\ 23--24)}{7}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}R2.8\hskip 1em\relax Probability Weighting Discussion (pp.\ 24--25)}{7}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}R2.9\hskip 1em\relax Anticipation of Bias in Protection Decisions}{8}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.10}R2.10\hskip 1em\relax Cross-Task Consistency Analysis}{8}{subsection.3.10}%
+\contentsline {subsection}{\numberline {3.11}R2.11\hskip 1em\relax (Optional) ``Dishonest Gremlin'' Framing}{8}{subsection.3.11}%
+\contentsline {subsection}{\numberline {3.12}R2.12\hskip 1em\relax Exposition}{8}{subsection.3.12}%
+\contentsline {subsection}{\numberline {3.13}R2.13\hskip 1em\relax Typos}{9}{subsection.3.13}%

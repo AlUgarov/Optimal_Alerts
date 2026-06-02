@@ -1,0 +1,447 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+% -------------------------------------------------------
+% Styling
+% -------------------------------------------------------
+% Referee 1 — blue
+\definecolor{r1color}{RGB}{30, 80, 150}
+\definecolor{r1bg}{RGB}{240, 245, 255}
+% Referee 2 — teal
+\definecolor{r2color}{RGB}{0, 110, 100}
+\definecolor{r2bg}{RGB}{235, 248, 245}
+
+\newmdenv[
+  backgroundcolor=r1bg,
+  linecolor=r1color,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=10pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=8pt, skipbelow=4pt
+]{r1quote}
+
+\newmdenv[
+  backgroundcolor=r2bg,
+  linecolor=r2color,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=10pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=8pt, skipbelow=4pt
+]{r2quote}
+
+% Section formatting — colour changes per referee (set before each \section)
+\titleformat{\section}{\large\bfseries\color{currcolor}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+% Convenience commands
+\newcommand{\response}{\par\smallskip\noindent\textbf{Response:}\ }
+
+% -------------------------------------------------------
+% Document metadata
+% -------------------------------------------------------
+\newcommand{\manuscriptid}{YGAME-D-25-00181}
+\newcommand{\papertitle}{Preferences for Warning Signal Quality: Experimental Evidence}
+\newcommand{\journalname}{[Journal Name]}
+\newcommand{\submissiondate}{\today}
+
+% -------------------------------------------------------
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Response to Referee Reports}\\[6pt]
+  {\large Manuscript \manuscriptid}\\[4pt]
+  {\normalsize \textit{\papertitle}}\\[4pt]
+  {\normalsize \journalname\ $\cdot$ \submissiondate}
+\end{center}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+We thank both referees for their thorough and constructive reviews. The revised
+manuscript is stronger for it. Below we address each point in turn. Referee comments
+are shown in shaded boxes ({\color{r1color}blue} for Referee~1,
+{\color{r2color}teal} for Referee~2); our responses follow in plain text.
+
+\tableofcontents
+\newpage
+
+% ===============================================================
+\colorlet{currcolor}{black}
+\section{Associate Editor}
+% ===============================================================
+
+The Associate Editor has no additional comments.
+
+% ===============================================================
+\newpage
+\colorlet{currcolor}{r1color}
+\section{Referee 1}
+% ===============================================================
+
+We thank Referee~1 for the careful reading of both the original submission and the
+revision.
+
+%----------------------------------------------------------------
+\subsection{R1.1\quad Incorrect and Inconsistent Definitions of FP and FN Costs}
+
+\begin{r1quote}
+The paper now emphasizes the distinction between false-positive/false-negative rates and
+false-positive/false-negative costs. This is a useful clarification. However, the definitions
+given in the model and in Section~5.2 are not correct. The paper defines FP and FN costs
+on page~6 as $\pi(1-P_{01})c$ and $\pi P_{01}L$, respectively, and states that WTP is
+equally affected by both. There are two problems.
+
+\medskip
+\textit{FP cost:} The expression $\pi(1-P_{01})c$ is the expected cost of true positive
+protection, not the cost of false positives. The FP cost should be $(1-\pi)P_{10}c$,
+consistent with equation~(4) where $\partial b^*/\partial P_{10} = -(1-\pi)c$.
+
+\medskip
+\textit{FN cost:} The paper defines it as $\pi P_{01}L$ (gross expected loss). An
+alternative, $\pi P_{01}(L-c)$, captures the incremental cost: under a true-positive
+signal the agent would have paid $c$, so the net cost of a miss is $L-c$, consistent
+with equation~(5) where $\partial b^*/\partial P_{01} = -\pi(L-c)$.
+
+\medskip
+This matters for Table~5. The paper should explicitly define the regression variables,
+map them to equation~(3), and verify that the definitions do not affect the reported
+results.
+\end{r1quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R1.2\quad Interpretation of Table~5 and Figure~5}
+
+\begin{r1quote}
+The abstract states that subjects ``disproportionately reduce their demand for signals
+with high false negative rates for rare events.'' This is imprecise.
+
+Under the risk-neutral null, all Table~5 coefficients should be zero; positive coefficients
+mean WTP does not fall \emph{enough} as error costs rise. The actual finding is that
+subjects selectively under-react to the \emph{dominant} cost type:
+\begin{itemize}
+  \item Low priors $\Rightarrow$ FP costs dominate $\Rightarrow$ subjects fail to adjust for FP costs.
+  \item High priors $\Rightarrow$ FN costs dominate $\Rightarrow$ subjects fail to adjust for FN costs.
+\end{itemize}
+Figure~5 corroborates this: empirical sensitivity coefficients are flat across priors
+whereas theory predicts sharp divergence. The finding is not absolute over-penalisation
+of FN for rare events but a failure to \emph{differentially} weight FP and FN as the
+prior shifts. The abstract and conclusion should be rewritten accordingly, and the paper
+should use ``false alarm'' and ``missed detection'' alongside FP/FN notation.
+\end{r1quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R1.3\quad Mechanism Claim Should Be Softened}
+
+\begin{r1quote}
+Section~5.3 is much improved, but I remain unconvinced that the data uniquely identify a
+failure to distinguish FP and FN errors. The same pattern could reflect a total-error-rate
+heuristic, a ``dishonest gremlin'' heuristic, probability weighting, noisy Bayesian
+reasoning, task complexity, or some combination.
+
+A more defensible conclusion: many subjects use a simplified total-error or
+total-dishonesty heuristic rather than separately processing how FP and FN rates interact
+with the prior. Relatedly, Section~4 should not be framed only as reassurance that
+subjects understood the task — the BP, IP, and BE patterns are part of the behavioral
+phenomenon itself.
+\end{r1quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R1.4\quad Proposition~2 Wording}
+
+\begin{r1quote}
+Ensure the wording explicitly states that the proposition concerns the ratio of
+sensitivities $(\partial b/\partial P_{01})/(\partial b/\partial P_{10})$, not absolute
+levels. A brief economic interpretation would help: risk-averse agents are relatively
+more intolerant of missed detections but more forgiving of false alarms compared with
+risk-neutral agents.
+\end{r1quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R1.5\quad Appendix~B: Proof Numbering}
+
+\begin{r1quote}
+The main text has two propositions but the appendix has three proofs (B.1--B.3).
+Section~B.2 proves a result for imprudent agents that no longer corresponds to any
+proposition in the main text. B.2 should be dropped or the main text updated to match.
+\end{r1quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R1.6\quad Appendix~B.3: Algebra Error}
+
+\begin{r1quote}
+In equations~(13) and~(14) the denominator of the last expression is $(1-\pi)L$; it
+should be $(1-\pi)c$:
+\[
+  \frac{\pi}{1-\pi}\cdot\frac{u'(\xi_1)(L-c)}{u'(\xi_2)\,c}
+  = \frac{\pi(L-c)}{(1-\pi)\,c}\cdot\frac{u'(\xi_1)}{u'(\xi_2)}.
+\]
+\end{r1quote}
+
+\response We thank the referee for catching this typo. The denominator in
+equations~(13) and~(14) has been corrected from $(1-\pi)L$ to $(1-\pi)c$. The stated
+result is unaffected.
+
+%----------------------------------------------------------------
+\subsection{R1.7\quad Cross-Reference Error}
+
+\begin{r1quote}
+Page~26 references ``Appendix Table~A10,'' but the table with matching content (WTP
+deviations with IP bias controls) is numbered A8.
+\end{r1quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R1.8\quad Typos}
+
+\begin{r1quote}
+\begin{itemize}[noitemsep]
+  \item Page~7: ``Equations 6-s 7'' $\to$ ``Equations 6--7.''
+  \item Page~15, fn.~10: missing comma between $\hat{\pi}=0.43$ and $\hat{\theta}=0.25$.
+  \item Page~18: ``the value for for a prior of 0.2'' — duplicated word.
+  \item Page~27: ``the observed sensitivity patterns emerges'' $\to$ ``emerge.''
+  \item Page~27: ``characteristcs'' $\to$ ``characteristics.''
+\end{itemize}
+\end{r1quote}
+
+\response All five typos have been corrected. We thank the referee for the careful
+reading.
+
+% ===============================================================
+\newpage
+\colorlet{currcolor}{r2color}
+\section{Referee 2}
+% ===============================================================
+
+We thank Referee~2 for the detailed and constructive comments on the revision.
+
+%----------------------------------------------------------------
+\subsection{R2.1\quad Treatments and Treatment Assignment}
+
+\begin{r2quote}
+\textbf{(a)} The ``Treatments and Treatment Assignment'' subsection states that each
+subject is randomly allocated to a pair of priors but does not explain how information
+structures are assigned.
+
+\textbf{(b)} The text notes that ``the first treatment was always the one with a fully
+truthful information structure,'' suggesting information structures are \emph{not}
+randomly assigned. The authors should provide a general description and justification.
+
+\textbf{(c)} Because information structures do not appear to be randomly assigned,
+sample sizes across treatment cells (prior $\times$ information structure) likely
+differ. The authors should report sample sizes by treatment cell, e.g.\ in an appendix
+table ($4\times12=48$ cells).
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.2\quad Description and Groupings in Tables~2, 3, and A4}
+
+\begin{r2quote}
+\textbf{(a)} Page~12 states that ``Table~2 presents the average protection decisions by
+prior and signal type,'' but Table~2 actually groups observations by signal value
+(white/black) and information-structure type (truthful, FP-only, FN-only, both
+errors). The same mismatch appears in the caption of Table~A4.
+
+\textbf{(b)} The authors could briefly justify why Tables~2, 3, and A4 pool across
+priors. A single sentence would suffice.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.3\quad Claim on Page~16 Regarding Introduction of the FN Rate}
+
+\begin{r2quote}
+\textbf{(a)} The paragraph below Table~3 claims ``a similar effect for the introduction
+of the FN rate (row 1 vs.\ 2),'' but the mean updating error barely changes
+(0.048 vs.\ 0.051).
+
+\textbf{(b)} Moreover, introducing the FN rate changes the Bayesian posterior for the
+white signal (from 0.000 to 0.119), so the row~1 vs.\ row~2 comparison does not hold
+the posterior fixed — unlike row~1 vs.\ row~3.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.4\quad Section~4 Closing Summary Understates the Evidence}
+
+\begin{r2quote}
+The paragraph before Section~5 concludes only that ``subjects understand the
+experimental environment well enough.'' But Tables~2 and~3 also show that the FP (FN)
+rate affects protection decisions and updating errors even when it should not influence
+the Bayesian posterior — suggestive evidence for the FP/FN-confusion mechanism. A
+sentence foreshadowing this in Section~4 would make the main mechanism visible
+earlier.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.5\quad Hypothesis~1 and Result~1 Overstate the t-Test Evidence}
+
+\begin{r2quote}
+Hypothesis~1 states WTPs ``are equal to their value for risk-neutral agents,'' and
+Result~1 concludes ``no significant discrepancies.'' But the t-test only establishes
+that $E[\Delta b_{is}]=0$; large but offsetting deviations could cancel. Suggested
+revisions:
+\begin{enumerate}[label=\roman*.]
+  \item Restate more precisely: ``WTPs are not systematically above or below the
+        risk-neutral benchmark \emph{on average}''; or
+  \item Test the stronger claim by examining whether $|\Delta b_{is}|$ is significantly
+        different from zero.
+\end{enumerate}
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.6\quad (Optional) Reorganise Section~5.3 to Lead with FP/FN Confusion}
+
+\begin{r2quote}
+Given that FP/FN confusion is the primary mechanism, it might be preferable to present
+it first and then evaluate and rule out alternative explanations.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.7\quad Risk-Preference Discussion (pp.\ 23--24)}
+
+\begin{r2quote}
+The authors could note that the main effects of FP and FN costs remain significant,
+rather than focusing solely on the insignificance of the interaction terms.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.8\quad Probability Weighting Discussion (pp.\ 24--25)}
+
+\begin{r2quote}
+\textbf{(a)} In equation~(9) and the definition of $\Lambda$, the numerator should be
+$P_{01}$ rather than $P_{00}$.
+
+\textbf{(b)} The argument with rank-dependent utility is appreciated. The flow is clear
+and the observation that $\pi + (1-\pi)P_{10}\leq 0.75$ is insightful. However, this
+depends on the rotation point of the weighting function. If the rotation point lies far
+to the left, that range might still fall in the steeper region, implying lower relative
+sensitivity. Evidence for ``middle'' rotation points (e.g.\ Gonzalez and Wu, 1999)
+would be helpful, though the flexibility of the weighting function may make this
+difficult to rule out entirely.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.9\quad Anticipation of Bias in Protection Decisions}
+
+\begin{r2quote}
+\textbf{(a)} Table~A10 should be Table~A8; the caption of Table~A8 should refer to WTP
+\emph{deviations} rather than simply WTP.
+
+\textbf{(b)} The two new variables ($\Delta\text{prot}$, $\Delta\text{loss}$) may not
+adequately test the ``anticipation of bias'' mechanism. Negative coefficients suggest
+that subjects who perform worse in the IP task are \emph{more} accurate in WTP, which
+could indicate they anticipate their own mistakes.
+
+\textbf{(c)} Given that the coefficients are statistically significant, concluding that
+``biases in IP do not explain the observed pattern'' seems premature. A more appropriate
+interpretation is that the coefficients on FP and FN do not \emph{change} after
+introducing these variables.
+
+\textbf{(d)} A more informative specification would include interaction terms between
+mistake variables and FP/FN rates. If anticipation of bias is the primary channel,
+mistakes should mediate the WTP--FP/FN relationship.
+
+\textbf{(e)} Even if anticipation of bias is important, it does not undermine
+FP/FN confusion; Tables~2 and~7 already show that IP decisions respond to FP/FN in
+ways consistent with confusion. Anticipation of bias would reinforce, not replace, the
+FP/FN-confusion mechanism.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.10\quad Cross-Task Consistency Analysis}
+
+\begin{r2quote}
+The authors should consider incorporating the cross-task consistency analysis from the
+response letter (Table~2, page~13) into the paper or at least the appendix.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.11\quad (Optional) ``Dishonest Gremlin'' Framing}
+
+\begin{r2quote}
+Even without the ``dishonest'' framing, individuals may still conflate FP and FN errors.
+A brief discussion of this potential limitation (perhaps at the end of the paper) would
+be helpful.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.12\quad Exposition}
+
+\begin{r2quote}
+\textbf{(a)} Page~11: ``this section also provides \ldots\ the theoretical predictions''
+is imprecise — the predictions are those of the risk-neutral benchmark specifically.
+
+\textbf{(b)} Relabel ``Posterior'' as ``Bayesian posterior'' in Tables~2, 3, A2, and A4.
+
+\textbf{(c)} In Tables~5 and~A8, a horizontal rule separating the main regression panel
+from the risk-averse/risk-loving subgroup tests would improve readability.
+
+\textbf{(d)} (Optional.) Adding a short closing sentence to each appendix table caption
+pointing to the key coefficient or column would reduce cross-referencing costs.
+
+\textbf{(e)} Page~21: ``the systematic WTP biases reported above'' is vague — please
+specify which biases are meant.
+\end{r2quote}
+
+\response [Your response here.]
+
+%----------------------------------------------------------------
+\subsection{R2.13\quad Typos}
+
+\begin{r2quote}
+\begin{itemize}[noitemsep]
+  \item Equation~(2), page~5: extra ``$=$'' sign.
+  \item Page~7: ``Equations 6-s 7'' $\to$ ``Equations 6 and 7.''
+  \item Footnotes~10 and~11: missing full stop at end.
+  \item Footnote~13, page~21: ``identical'' should likely be ``different.''
+  \item Last paragraph, page~26: ``Table~A10'' $\to$ ``Table~A8.''
+\end{itemize}
+\end{r2quote}
+
+\response All five typos have been corrected. We thank the referee for the careful
+reading.
+
+%----------------------------------------------------------------
+\end{document}
