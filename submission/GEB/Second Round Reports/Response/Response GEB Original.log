@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.8.15)  2 JUN 2026 19:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.8.15)  2 JUN 2026 20:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -417,7 +417,7 @@ LaTeX Info: Redefining \Relbar on input line 970.
 LaTeX Info: Redefining \[ on input line 2949.
 LaTeX Info: Redefining \] on input line 2950.
 )
-No file "Response GEB Original".aux.
+(Response GEB Original.aux)
 \openout1 = `"Response GEB Original.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
@@ -438,6 +438,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
 LaTeX Font Info:    ... okay on input line 54.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 54.
 LaTeX Font Info:    ... okay on input line 54.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -489,6 +490,7 @@ ii
 \everyMPtoPDFconversion=\toks27
 )
 Package hyperref Info: Link coloring OFF on input line 54.
+ (Response GEB Original.out) (Response GEB Original.out)
 \@outlinefile=\write3
 \openout3 = `"Response GEB Original.out"'.
 
@@ -505,7 +507,7 @@ l.72 \tableofcontents
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-No file "Response GEB Original".toc.
+(Response GEB Original.toc)
 \tf@toc=\write4
 \openout4 = `"Response GEB Original.toc"'.
 
@@ -516,6 +518,8 @@ No file "Response GEB Original".toc.
 {C:/Users/gaduh/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 
 [2]
+
+[3]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
@@ -528,7 +532,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-[3]
+[4]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
@@ -536,7 +540,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-[4]
+[5]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
@@ -554,7 +558,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-[5]
+[6]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
@@ -567,7 +571,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-[6]
+[7]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
@@ -576,30 +580,12 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 301.
+(hyperref)                replaced by space on input line 302.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 317.
-
-
-
-[7]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 357.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 379.
+(hyperref)                replaced by space on input line 318.
 
 
 
@@ -607,17 +593,12 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 390.
+(hyperref)                replaced by space on input line 336.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 400.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 425.
+(hyperref)                replaced by space on input line 358.
 
 
 
@@ -625,12 +606,22 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 465.
+(hyperref)                replaced by space on input line 380.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 475.
+(hyperref)                replaced by space on input line 391.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \hskip 11.74988pt
+(hyperref)                replaced by space on input line 401.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \hskip 11.74988pt
+(hyperref)                replaced by space on input line 426.
 
 
 
@@ -638,36 +629,42 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 484.
+(hyperref)                replaced by space on input line 466.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \hskip 11.74988pt
-(hyperref)                replaced by space on input line 513.
+(hyperref)                replaced by space on input line 476.
 
 
 
-[11] (Response GEB Original.aux)
+[11]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \hskip 11.74988pt
+(hyperref)                replaced by space on input line 485.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \hskip 11.74988pt
+(hyperref)                replaced by space on input line 514.
+
+
+
+[12] (Response GEB Original.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
  ***********
-
-
-Package rerunfilecheck Warning: File `"Response GEB Original".out' has changed.
-
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `"Response GEB Original".out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  399FEC197EFA6A62253D258DAFCB4C4D;7519.
+Package rerunfilecheck Info: File `"Response GEB Original".out' has not changed
+.
+(rerunfilecheck)             Checksum: 399FEC197EFA6A62253D258DAFCB4C4D;7519.
  ) 
 Here is how much of TeX's memory you used:
- 11395 strings out of 468149
- 181497 string characters out of 5431082
- 632149 words of memory out of 5000000
- 39836 multiletter control sequences out of 15000+600000
+ 11432 strings out of 468149
+ 182561 string characters out of 5431082
+ 634250 words of memory out of 5000000
+ 39864 multiletter control sequences out of 15000+600000
  632437 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  76i,5n,79p,1214b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -681,9 +678,9 @@ s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/gaduh/AppData/Local/
 Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/gaduh/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/gad
 uh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on "Response GEB Original.pdf" (11 pages, 141591 bytes).
+Output written on "Response GEB Original.pdf" (12 pages, 161238 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 38 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 239 PDF objects out of 1000 (max. 8388607)
+ 39 named destinations out of 1000 (max. 500000)
+ 193 words of extra memory for PDF output out of 10000 (max. 10000000)
 
