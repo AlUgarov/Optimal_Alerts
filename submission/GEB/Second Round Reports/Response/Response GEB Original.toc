@@ -11,14 +11,14 @@
 \contentsline {section}{\numberline {3}Referee 2}{8}{section.3}%
 \contentsline {subsection}{\numberline {3.1}R2.1\hskip 1em\relax Treatments and Treatment Assignment}{8}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}R2.2\hskip 1em\relax Description and Groupings in Tables 2, 3, and A4}{8}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}R2.3\hskip 1em\relax Claim on Page 16 Regarding the Introduction of the FN Rate (Row 1 vs.\ 2)}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.3}R2.3\hskip 1em\relax Claim on Page 16 Regarding the Introduction of the FN Rate (Row 1 vs.\ 2)}{9}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}R2.4\hskip 1em\relax Section 4's Closing Summary Understates the Evidence in Tables 2 and 3}{9}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}R2.5\hskip 1em\relax Hypothesis 1 and Result 1 Overstate What the t-Tests in Table 4 Establish}{9}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.5}R2.5\hskip 1em\relax Hypothesis 1 and Result 1 Overstate What the t-Tests in Table 4 Establish}{10}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}R2.6\hskip 1em\relax (Optional) Reorganize Section 5.3 to Give Greater Prominence to the FP/FN-Confusion Mechanism}{10}{subsection.3.6}%
 \contentsline {subsection}{\numberline {3.7}R2.7\hskip 1em\relax Risk-Preference Discussion (pp.\ 23--24)}{10}{subsection.3.7}%
 \contentsline {subsection}{\numberline {3.8}R2.8\hskip 1em\relax Probability Weighting Discussion (pp.\ 24--25)}{10}{subsection.3.8}%
-\contentsline {subsection}{\numberline {3.9}R2.9\hskip 1em\relax The ``Anticipation of Bias in Protection Decision''}{10}{subsection.3.9}%
-\contentsline {subsection}{\numberline {3.10}R2.10\hskip 1em\relax Cross-Task Consistency Analysis}{11}{subsection.3.10}%
-\contentsline {subsection}{\numberline {3.11}R2.11\hskip 1em\relax (Optional) The ``Dishonest Gremlin'' Framing}{11}{subsection.3.11}%
+\contentsline {subsection}{\numberline {3.9}R2.9\hskip 1em\relax The ``Anticipation of Bias in Protection Decision''}{11}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.10}R2.10\hskip 1em\relax Cross-Task Consistency Analysis}{12}{subsection.3.10}%
+\contentsline {subsection}{\numberline {3.11}R2.11\hskip 1em\relax (Optional) The ``Dishonest Gremlin'' Framing}{12}{subsection.3.11}%
 \contentsline {subsection}{\numberline {3.12}R2.12\hskip 1em\relax Exposition}{12}{subsection.3.12}%
-\contentsline {subsection}{\numberline {3.13}R2.13\hskip 1em\relax Typos}{12}{subsection.3.13}%
+\contentsline {subsection}{\numberline {3.13}R2.13\hskip 1em\relax Typos}{13}{subsection.3.13}%
