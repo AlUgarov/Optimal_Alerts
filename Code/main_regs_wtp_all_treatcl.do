@@ -5,7 +5,8 @@ set more off
 clear all
 
 *!!put your working folder below:
-cd <project_folder>
+*cd <project_folder>
+cd "/Users/alexander/Optimal_Alerts"
 
 use "./Output/all_waves.dta", replace
 tab wave
@@ -135,7 +136,7 @@ save "./Temp/wtp_prel_all.dta", replace
 
 tab unused positive_wtp
 
-table unused positive_wtp, c(freq mean wtp) name(tbl1, replace)
+*table unused positive_wtp, statistic(freq mean wtp) name(tbl1, replace)
 
 tempname T
 matrix `T' = J(2,4,.)
@@ -921,10 +922,220 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 		substitute(_ \_ ) style(tex);
 #delimit cr
 
+bys treatn: egen med_prot_diff=median(ip_prot_diff)
+bys treatn: egen med_loss_diff=median(ip_loss_diff)
+
+gen high_ip_prot_diff=ip_prot_diff>med_prot_diff
+gen high_ip_loss_diff=ip_loss_diff>med_loss_diff
+
+label var high_ip_prot_diff "High protection costs"
+label var high_ip_loss_diff "High loss costs"
+
+
+*WTP difference: IP bias
+eststo clear
+
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+	
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff i.high_ip_prot_diff#c.false_pos  i.high_ip_prot_diff#c.false_neg  i.high_ip_loss_diff#c.false_pos  i.high_ip_loss_diff#c.false_neg, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+
+		
+		
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+		
+		
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff i.high_ip_prot_diff#c.false_pos  i.high_ip_prot_diff#c.false_neg  i.high_ip_loss_diff#c.false_pos  i.high_ip_loss_diff#c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+
+
+
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+		
+		
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff i.high_ip_prot_diff#c.false_pos  i.high_ip_prot_diff#c.false_neg  i.high_ip_loss_diff#c.false_pos  i.high_ip_loss_diff#c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+
+		
+#delimit ;
+	esttab * using "./Tables/wtpdiff_ols_bias0.tex", replace label 
+		order(false_pos false_neg  ip_prot_diff ip_loss_diff)
+		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
+		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
+		stat(r2 p_value N test_eq,  
+		label("\midrule $ R^2$" "Prob\$>\$F" "Obs"  "FP=FN" ) 
+		fmt(3 4 0 3) layout(@ @ @ @))
+		substitute(_ \_ ) style(tex);
+#delimit cr
+
+label var ip_error "IP Errors"
+
+*WTP difference: IP bias 2(decision "errors")
+eststo clear
+
+eststo: reghdfe wtp false_pos false_neg ip_error, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+	
+eststo: reghdfe wtp false_pos false_neg ip_error c.ip_error#c.false_pos  c.ip_error#c.false_neg, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+
+		
+		
+eststo: reghdfe wtp false_pos false_neg ip_error if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+		
+		
+eststo: reghdfe wtp false_pos false_neg  ip_error c.ip_error#c.false_pos  c.ip_error#c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+
+
+
+eststo: reghdfe wtp false_pos false_neg ip_error if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+		
+		
+eststo: reghdfe wtp false_pos false_neg ip_error c.ip_error#c.false_pos c.ip_error#c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+
+		
+#delimit ;
+	esttab * using "./Tables/wtpdiff_ols_bias1.tex", replace label 
+		order(false_pos false_neg  ip_error)
+		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
+		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
+		stat(r2 p_value N test_eq,  
+		label("\midrule $ R^2$" "Prob\$>\$F" "Obs"  "FP=FN" ) 
+		fmt(3 4 0 3) layout(@ @ @ @))
+		substitute(_ \_ ) style(tex);
+#delimit cr
 
 
 
 
+*All types of IP bias variables in one table (every model has interactions):
+eststo clear
+
+eststo: reghdfe wtp false_pos false_neg ip_error c.ip_error#c.false_pos  c.ip_error#c.false_neg, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)	
+	
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff i.high_ip_prot_diff#c.false_pos  i.high_ip_prot_diff#c.false_neg  i.high_ip_loss_diff#c.false_pos  i.high_ip_loss_diff#c.false_neg, abs(subject_id) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+	test false_pos = false_neg
+	estadd scalar test_eq=r(p)
+	testparm *
+    estadd scalar p_value=r(p)
+
+		
+
+eststo: reghdfe wtp false_pos false_neg  ip_error c.ip_error#c.false_pos  c.ip_error#c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)		
+		
+		
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff i.high_ip_prot_diff#c.false_pos  i.high_ip_prot_diff#c.false_neg  i.high_ip_loss_diff#c.false_pos  i.high_ip_loss_diff#c.false_neg if !phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+
+
+		
+		
+eststo: reghdfe wtp false_pos false_neg ip_error c.ip_error#c.false_pos c.ip_error#c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+		
+		
+
+		
+eststo: reghdfe wtp false_pos false_neg ip_prot_diff ip_loss_diff i.high_ip_prot_diff#c.false_pos  i.high_ip_prot_diff#c.false_neg  i.high_ip_loss_diff#c.false_pos  i.high_ip_loss_diff#c.false_neg if phigh, abs(subject_id plevel) vce(cluster subject_id treatn)
+    estadd scalar F_value = e(F)
+		testparm *
+    estadd scalar p_value=r(p)
+		test false_pos = false_neg
+		estadd scalar test_eq=r(p)
+
+
+
+		
+#delimit ;
+	esttab * using "./Tables/wtpdiff_ols_bias_all.tex", replace label 
+		order(false_pos false_neg ip_error ip_prot_diff ip_loss_diff)
+		cells(b(fmt(3)) se(par star fmt(3))) fragment booktabs 
+		starlevels(* 0.1 ** 0.05 *** 0.01) varwidth(15) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit
+		stat(r2 p_value N test_eq,  
+		label("\midrule $ R^2$" "Prob\$>\$F" "Obs"  "FP=FN" ) 
+		fmt(3 4 0 3) layout(@ @ @ @))
+		substitute(_ \_ ) style(tex);
+#delimit cr
+
+
+
+
+
+stop
 
 
 
@@ -941,7 +1152,7 @@ eststo: reghdfe wtp_diff i.risk_pref##i.inac_bel2##c.false_pos i.risk_pref##i.in
 *WTP difference: IP bias
 eststo clear
 
-eststo: reghdfe wtp_diff false_pos false_neg ip_prot_diff ip_loss_diff, abs(subject_id) vce(cluster subject_id treatn)
+eststo: reghdfe wtp_diff false_pos false_neg ip_prot ip_loss_diff, abs(subject_id) vce(cluster subject_id treatn)
     estadd scalar F_value = e(F)
 	test false_pos = false_neg
 	estadd scalar test_eq=r(p)
