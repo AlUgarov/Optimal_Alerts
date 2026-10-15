@@ -11,6 +11,7 @@
 \usepackage{adjustbox}
 %\usepackage{ulem}
 \usepackage{threeparttable}
+\usepackage{longtable}
 \usepackage{soul}
 \usepackage[title]{appendix}
 %\usepackage{prettyref}
@@ -89,9 +90,7 @@
 \maketitle
 \onehalfspacing
 \begin{abstract}{
-\noindent We use a laboratory experiment to study preferences over false-positive and false-negative rates of warning signals for an adverse event with a known prior. We find that subjects decrease their demand with signal quality, but less than predicted by our theory. 
-%They disproportionately reduce their demand for signals with high false-negative rates for rare events, while the opposite holds true for frequent events. 
-There is asymmetric under-responsiveness by prior: for a low (high) prior, their willingness-to-pay does not fully adjust for the increase in the false-positive (false-negative) costs. We show that neither risk preference nor Bayesian updating skills can fully explain our results. Our results are most consistent with a decision-making heuristic in which subjects do not distinguish between false-positive and false-negative errors. 
+\noindent We use a laboratory experiment to study preferences over false-positive and false-negative rates of warning signals for an adverse event with a known prior. We find that subjects decrease their demand with signal quality, but less than predicted by our theory. They disproportionately reduce their demand for signals with high false-negative rates for rare events, while the opposite holds true for frequent events. We show that neither risk preference nor Bayesian updating skills can fully explain our results. Our results are most consistent with a decision-making heuristic in which subjects do not distinguish between false-positive and false-negative errors. 
 %We conduct a laboratory experiment to study preferences over false-positive and false-negative rates of warning signals for an adverse event with a known prior probability. We find that subjects decrease their willingness-to-pay with signal quality, but less than predicted by our theory. They also disproportionately reduce their willingness-to-pay for signals with high false-negative rates for rare events, while the opposite holds true for frequent events. We explore potential channels and show that neither risk preference nor Bayesian updating skills can fully explain our results, which are most consistent with a decision-making heuristic in which subjects do not distinguish between false-positive and false-negative errors. 
 
 %Information is often sought and used to protect against adverse events. We conduct a laboratory experiment to evaluate preferences over false-positive and false-negative rates of warnings signals and find significant deviations from the predictions of the model with a risk-neutral decision-maker as well as from some predictions of expected utility framework in general. Relative to a risk neutral decision-maker, willingness-to-pay overreacts to false-negative (FN) rates for low priors, and underreacts to FN rates for high priors, while subjects' preferences demonstrate a reverse bias for false-positive (FP) rates. As a consequence, subjects overpay for signals with positive FP rates when the prior is low and for all priors for signals with both positive FP and FN rates, i.e., low-quality signals. We find that the observed choices are most consistent with a decision-making heuristic in which subjects do not differentiate between false-positive and false-negative rates when choosing signals.
@@ -117,7 +116,7 @@ The trade-offs between false-positive and false-negative errors of warning syste
 Most real-world warning systems --- medical diagnostics, security alarms, extreme weather alerts --- transform continuous signals about the likelihood of an adverse state into a yes/no binary signal. This transformation requires choosing a threshold for a positive classification. A lower threshold lowers the probability of failing to warn of an adverse state (false-negative rate) but increases the probability of warning in a safe state (false-positive rate), reflecting the standard trade-off characterized in ROC analysis \citep{fawcett_introduction_2006}. While the optimal threshold depends on user preference over the costs of these probabilistic errors, currently there is no guidance on what this threshold might be beyond assuming that decision-makers weigh false-positive and false-negative costs equally.\footnote{We define false positive and false negative \textit{costs} formally in Section 2, but it is important to keep in mind how they differ from false positive and false negative \textit{rates}.  False positive (negative) costs are the expected monetary costs to the decision maker as a function of the false positive (negative) rates and prior probabilities.}
 
 
-
+%Our laboratory experiment indeed finds that most potential users of a warning system would prefer facing higher false-positive costs compared to a rational risk-neutral decision maker. 
 To address this gap, we conduct a laboratory experiment to measure the demand for warning signals with varying quality.
 %The experiment examines both demand for warning signals with known qualities and their utilization in protection decisions. 
 In the experiment, subjects receive information about the prior probability of an adverse event and are asked to take a protective action after receiving a signal with known false-positive and negative rates. We then elicit our main outcome, i.e., their willingness-to-pay (WTP) for each signal. To account for subject heterogeneity, we use separate experimental tasks to measure their risk preference and Bayesian updating skill.
@@ -131,7 +130,7 @@ We contribute to the literature in three ways. First, we provide novel evidence 
 
 Second, we contribute to the emerging experimental literature on the demand for information by studying signals that affect protection decisions. Previous studies in this literature employ prediction games, in which subjects must guess an optimal state under uncertainty \citep{hoffman_how_2016, ambuehl_belief_2018, xu_revealed_2022, MontanariNunnari2023}. Generally, they find that while the demand for information increases with signal quality, it increases more modestly than expected from a Bayesian decision maker. Two of these studies employ laboratory experiments. \citet{ambuehl_belief_2018} find that subjects underreact to the accuracy of a binary signal about the state of the world, but put a premium on completely certain signals. \citet{xu_revealed_2022} shows that many subjects choose non-instrumental signals over instrumental signals, consistent with failures in contingent reasoning about the future value of information and with partial failures to distinguish FP and FN rates. Both studies employ a prediction game.
 
-
+% Our setup differs from those of \citet{ambuehl_belief_2018} and \citet{xu_revealed_2022}. 
 We extend this literature by moving beyond a prediction game and instead incorporating protection decisions with three distinct payoffs (i.e., full payoff, full payoff minus protection costs, and full payoff minus losses). With asymmetric payoffs, risk preferences affect the value of information and can change sensitivities to false-positive and false-negative rates. Asymmetric payoffs also creates asymmetry in how subjects value different types of errors which is not observed in (symmetric) prediction games. We also directly elicit both willingness-to-pay and potential protection decisions for different combinations of priors and signal characteristics, allowing for more general conclusions about subjects' preferences. Consistent with \citet{ambuehl_belief_2018}, our subjects overvalue inaccurate signals, but we do not find a premium for signals with high certainty.  
 
 Additionally, the subject's choices after receiving a signal in our experiment are equivalent to insurance decisions with full coverage. Hence our results also apply to insurance problems when subjects receive additional signals of their risks (such as flood zone designations). While on average people under-insure with respect to rare natural disasters \citep{friedl_insurance_2014}, the demand for insurance goes up immediately after an insurable adverse event \citep[e.g.,][]{kousky_understanding_2011}. One suggested explanation is that subjects overweight recent evidence leading to under-insurance when there were no negative events in the recent past and to overinsurance after the fact \citep{volkman-wise_representativeness_2015}. This is consistent with underweighting prior probabilities relative to more recent signals. At the same time, however, \citet{laury_insurance_2009} find no under-insurance for low-probability events in the laboratory setting.  We similarly find that, on average, subjects do not under-insure after receiving a signal even though we see potential over-protection for negative signals.
@@ -183,10 +182,10 @@ Hence, value of the signal, i.e., the maximum willingness to pay for it, is dete
 As noted above, the signal's value cannot be positive if it is not followed, hence it should satisfy:
 \begin{equation}\label{eq:devVal}
 \begin{split}
-P(s=1)u(Y-b-c)+\pi P_{01}u(Y-b-L)+(1-\pi)P_{00}u(Y-b)=\\=\max[u(Y-c),\pi u(Y-L)+(1-\pi) u(Y)] 
+P(s=1)u(Y-b-c)+\pi P_{01}u(Y-b-L)+(1-\pi)P_{00}u(Y-b)\\=\max[u(Y-c),\pi u(Y-L)+(1-\pi) u(Y)] 
 \end{split}
 \end{equation}
-where $P(s=1)\equiv \pi P_{11}+(1-\pi)P_{10}$. The expression on the left-hand side of this equation is a strictly decreasing function of $b$. Additionally, for $b\rightarrow \infty$ the left-hand side is smaller than the right-hand side. It implies that equation~(\ref{eq:devVal}) has at most one positive solution.
+where $P(s=1)\equiv \pi P_{11}+(1-\pi)P_{10}$. The expression on the left-hand side of this equation is a strictly decreasing function of $b$. Additionally, for $b\rightarrow \infty$ the left-hand side is smaller than the right-hand side. This implies that equation~(\ref{eq:devVal}) has at most one positive solution.
 
 Obviously, $b>0$ for a perfectly accurate signal because the payoff distribution with the signal first-order stochastically dominates the distribution without it. However, determining the value of an imperfect signal is non-trivial, as it requires more restrictions on preferences to allow weighing outcomes with losses vs outcomes with protection costs.
 
@@ -213,7 +212,7 @@ The signal's value is decreasing in both FP and FN rates. The effect is proporti
 \end{equation}
 \vspace{10pt}
 
-Note also that WTP is always equally affected by FP and FN \textit{costs} which are defined as $\pi (1-P_{01})c$ and $\pi P_{01}L$, respectively.
+\aut{Note also that WTP is always equally affected by FP and FN \textit{costs} which are defined as $(1-\pi) P_{10} c$ and $\pi P_{01}(L-c)$, respectively}.
 
 \paragraph{Risk Preferences.} In an expected utility framework, risk aversion can either increase or decrease an agent's valuation of the signal. More specifically, risk aversion decreases her WTP when protection costs are low: 
 
@@ -240,7 +239,7 @@ with the denominator equal to the expected marginal utility:
 $$D(\pi, P_{01}, P_{10}, b)\equiv P(S=1)u'(Y-c-b)+\pi P_{01}u'(Y-L-b)+$$
 $$+(1-\pi)P_{00}u'(Y-b)=E[MU]>0$$
 The signal's value decreases in FP and FN rates, i.e., ${db\over dP_{10}}$ and ${db\over dP_{01}}<0$. 
-Equations~\ref{eq:senFP}-s~\ref{eq:senFN} indicate that risk aversion can either increase or decrease the decision-maker's sensitivity to FP and FN rates depending on the utility function's curvature and the signal's characteristics. Intuitively, the expected marginal utility of a strongly risk-averse subject with an imperfect signal can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to FP rates. It can also be higher if either the signal is perfect or the curvature is small. Similarly, sensitivity to FN rates also depends on the form of the utility function.
+Equations~\ref{eq:senFP} and~\ref{eq:senFN} indicate that risk aversion can either increase or decrease the decision-maker's sensitivity to FP and FN rates depending on the utility function's curvature and the signal's characteristics. Intuitively, the expected marginal utility of a strongly risk-averse subject with an imperfect signal can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to FP rates. It can also be higher if either the signal is perfect or the curvature is small. Similarly, sensitivity to FN rates also depends on the form of the utility function.
 
 However, we can say more about the ratio of sensitivities to FP and FN rates. For information structures in which both risk-averse and risk-neutral subjects purchase a signal, the ratio of sensitivities to FP rates over FN rates should be lower for strictly risk-averse subjects. 
 
@@ -275,7 +274,7 @@ Subjects were endowed with \$25 (on top of the show-up fee) that they could pote
 \caption{Signals Presentation} \label{fig:Gremlins}
 \includegraphics[width=0.6\textwidth]{Graphs/gremlins1.png}
 \end{figure}
-
+%\footnote{\agt{XXX If we want, we can discuss in this footnote that the term "honest" likely describes how people perceive the signal in real life, assuming we can find good anecdotes or studies XXX} \pmt{I couldn't find anything where they said people's perception of the test is "dishonest," but I did find things where people lose trust in tests and the people interpreting tests (i.e., doctors).  Unless someone else finds something particularly compelling, I'm not sure this is the way to go.  In the letter, we might be able to push back on it a bit because our elicitation is arguably less heavy-handed than Coutts' original.}}
 
 \bigskip
 \paragraph{Belief Elicitation (BE).} 
@@ -287,10 +286,13 @@ To elicit incentive-compatible responses, we follow the stochastic version of th
 
 \paragraph{Post-Experiment Questionnaire and Payment.}  After the WTPE task, subjects in both waves answered a few demographic questions: gender, age, education level, and on taking any statistics or probability classes. Subjects in the second wave also answered questions about their GPA, and the seven-item extended Cognitive Reflection Test (CRT) to measure their cognitive skills \citep{toplak_assessing_2014}. The payment task and the payment round were then randomly chosen to calculate the subject's payoff.
 
-\paragraph{Treatments and Treatment Assignment.} Table~\ref{tab:treatments} summarizes our treatments for tasks other than BP. The treatments combine four priors with 12 different information structures for a total of 48 treatments. These treatments allow for a distribution of posteriors (for black and white signals) that spans a wide range of interior values and allows for a wide range of theoretical WTP values (Appendix Figure~\ref{fig:Value_hist}).
+\paragraph{Treatments and Treatment Assignment.} Table~\ref{tab:treatments} summarizes our treatments for tasks other than BP. The treatments combine four priors with 12 different information structures for a total of 48 treatments. These treatments allow for a distribution of posteriors (for black and white signals) that spans a wide range of interior values and allows for a wide range of theoretical WTP values (Appendix Figure~\ref{fig:Value_hist}). 
 
-Subjects were assigned to treatments in the following manner. Each subject was randomly assigned six treatments that combined a pair of priors of either (0.1, 0.3) or (0.2, 0.5) with three information structures. The presentation of the treatments were organized by prior, and the order of the priors --- i.e., whether the first was larger than the second --- was randomly assigned. For each prior, the first treatment was always the one with a fully truthful information structure. The order of priors and signals stays constant for each subject across tasks, but can vary between subjects.
+\agt{Based on these 48 treatments, we constructed 32 unique treatment sequences that were randomly assigned to subjects. Each sequence comprises six rounds of treatments that combined a pair of priors of either (0.1, 0.3) or (0.2, 0.5) with three information structures. Within a sequence, treatments were presented by prior; in half of the sequences, the first prior is larger than the second. For each prior, the first treatment was always the one with a fully truthful information structure. The order of priors and signals stays constant across tasks, but vary between sequences. Appendix Tables~\ref{tab:treatment_app} and~\ref{tab:treatseq_app}  present the full lists of treatments and sequences.}
+% Subjects were assigned to treatments in the following manner. Each subject was randomly assigned six treatments that combined a pair of priors of either (0.1, 0.3) or (0.2, 0.5) with three information structures. The presentation of the treatments were organized by prior, and the order of the priors --- i.e., whether the first was larger than the second --- was randomly assigned. For each prior, the first treatment was always the one with a fully truthful information structure. The order of priors and signals stays constant for each subject across tasks, but can vary between subjects. \agt{Following these rules, we constructed 22 unique sequences that we then randomly assign to subjects (see Appendix XX).} 
 
+% For tasks other than BP, subjects go through two different priors and three types of signals. The order is such that subjects go consecutively over all three signal types starting from the honest one for each prior. The order of priors and signals stays constant for each subject across tasks, but can vary between subjects. \agt{We randomize across subjects whether the first of the two priors was larger than the second.} Table~\ref{tab:treatments} summarizes our treatments.
+%\pmt{I haven't done this in the table, but I think we should take out the numeric column headers in Table 1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[h!]
 \centering
@@ -304,7 +306,7 @@ Subjects were assigned to treatments in the following manner. Each subject was r
 \section{Subject Decisions By Task}\label{sec:sanity}
 
 Decisions in the Blind Protection (BP), Informed Protection (IP), and Belief Elicitation (BE) tasks measure determinants of WTP in our model. Protection choices in the BP task reveal subjects' risk preferences with known probabilities. Choices in the IP task demonstrate how subjects use signals given their characteristics. Finally, the BE task provides insight into subjects' beliefs for given signals.  
-
+% We briefly discuss patterns of subject decisions below. They suggest that subjects understand these tasks reasonably well.
 
 Given the complexities of some of these tasks, this section illustrates the extent of subject comprehension using simple descriptive analyses. We find that subjects understand these tasks reasonably well. This section also provides a qualitative overview of how subjects tend to deviate from the theoretical predictions for each task. We provide a more formal regression analysis of how signal characteristics affect subjects' WTP later in Section~\ref{sec:results}.
 
@@ -314,6 +316,7 @@ Figure~\ref{fig:ProtResponse} plots the likelihood of protecting against the pos
 
 At the individual level, BP responses indicate significant heterogeneity in risk preferences. For approximately 70\% of subjects (143/206), protection action increases monotonically in probability. The remaining 30\% make at least one switch from protecting to not protecting and back, which is inconsistent with EU maximization.\footnote{That is, subjects do not protect for some treatments with posterior probability $P$ while protecting for a posterior probability $P'<P$.  Inconsistency on risk preference measures is well known.  \citet{filippin_reconsideration_2016} found that 17.1\% of more than 6,300 subjects in 54 published papers made inconsistent switches on the \citet{holt_risk_2002} paired-lottery measure. Among our switchers, however, 76\% (48/63) skip only a single increment of the presented probability scale, suggesting an inattention error.}
 
+%\footnote{For comparison, Holt and Laury (2002) for a similar instrument find that 28 of 212 subjects (13\%) switched back to a low-risk option with an increasing likelihood of high payoffs in a risky option at least once when decisions were presented in increasing order, which they are not here.}
 
 Risk-neutral agents who maximize their expected utility should start protecting when the prior exceeds 0.25, i.e., at the ratio of the protection cost to the potential loss (\$5/\$20). Many of our subjects (61, or 29\%) start protecting at lower priors (0.05-0.15), indicating strict risk aversion.  A smaller group of subjects makes choices consistent with risk loving by protecting at a probability of 0.3 or never.\footnote{As a reference using a CRRA utility function, switching at the probability 0.1 corresponds to a coefficient of relative risk aversion $\theta=2$, switching at 0.2 corresponds to $\theta=0.57$, and switching at 0.3 corresponds to $\theta=-0.54$.} 
 
@@ -321,7 +324,7 @@ Risk-neutral agents who maximize their expected utility should start protecting 
 \subsection{Informed Protection}
 
 Recall that, in the IP task, subjects not only know the prior but also receive a signal about the ball color. 
-Figure~\ref{fig:ProtResponse} shows that protection actions are increasing in the posterior probability of an adverse event, though roughly 28\% of subjects break monotonicity in their protection responses with respect to posterior probabilities. This is approximately the percentage of non-monotonic responses in the BP task.  Breaking monotonicity here is not particularly surprising as subjects are not directly given their posterior probabilities and may estimate them incorrectly. At the individual level, we also find that the total number of times subjects protect in the BP task significantly correlates with their likelihood of protection in the IP task conditional on posteriors, but this explains only a very small part ($<$1\%) of variation in the IP decisions.\footnote{We use a linear probability model to estimate this relationship with controls for posterior probability, reported belief, and hint, and while the coefficient on the total number of protection choices is significant at the 1\% level, the $R^2$ only increases from 0.41 to 0.42.} 
+Figure~\ref{fig:ProtResponse} shows that protection actions are increasing in the posterior probability of an adverse event, though roughly 50\% of subjects break monotonicity in their protection responses with respect to posterior probabilities (12\% if excluding certain signals). This is higher than the percentage of non-monotonic responses in the BP task.  Breaking monotonicity here is not particularly surprising as subjects are not directly given their posterior probabilities and may estimate them incorrectly. At the individual level, we also find that the total number of times subjects protect in the BP task significantly correlates with their likelihood of protection in the IP task conditional on posteriors, but this explains only a very small part ($<$1\%) of variation in the IP decisions.\footnote{We use a linear probability model to estimate this relationship with controls for posterior probability, reported belief, and hint, and while the coefficient on the total number of protection choices is significant at the 1\% level, the $R^2$ only increases from 0.41 to 0.42.} 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -338,7 +341,7 @@ Table~\ref{tab:nonparIP} presents the average protection decisions by prior and 
 
 Three observations emerge from the table. First, regardless of the signal's FP and FN rates, black signals substantially increase the likelihood of protection.  Second, subjects' protection decisions deviate significantly from what is optimal for risk-neutral subjects in most treatments, as evidenced by column 7. Subjects significantly overprotect when facing white signals (rows 1--4), while significantly underprotecting when facing black signals without false positives (rows 5--6). 
 
-Third, we find deviations that cannot be explained by expected utility maximization for any degree of risk aversion. For example, consider rows 1 and 3: even though an increase in the FP rate does not change the posterior (because the signal is white), the protection rate increases by 23 percentage points. Similarly, comparing rows 3 and 4, we see that introducing FN rates to an information structure with an FP rate raises the protection rate increases to 41 percent --- even though the average posterior probability given the signal's characteristics is merely 8 percent. As a benchmark, with no signal in the BP task, only 15(30) percent of subjects choose to protect when the probability is 10~(15) percent. 
+Third, we find deviations that cannot be explained by expected utility maximization for any degree of risk aversion. For example, consider rows 1 and 3: even though an increase in the FP rate does not change the posterior (because the signal is white), the protection rate increases by 23 percentage points. Similarly, comparing rows 3 and 4, we see that introducing FN rates to an information structure with an FP rate raises the protection rate to 41 percent --- even though the average posterior probability given the signal's characteristics is merely \aust{8 percent}\aut{11 percent with the optimal protection rate of 8 percent}. As a benchmark, with no signal in the BP task, only 15(30) percent of subjects choose to protect when the probability is 10~(15) percent. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -411,12 +414,12 @@ Subject decisions in the IP task capture the use of signals in protection decisi
 
 We define updating errors as the difference between the subjects' elicited belief and the Bayesian posterior probability of drawing a black ball for a given signal. The left-hand column of Figure~\ref{fig:BeliefUpdate} shows the distribution of the updating errors, while its right-hand column presents a scatter plot of the elicited beliefs against the true posterior\footnote{Posteriors are calculated from priors and information structures using the Bayes formula.} with a fitted line. We re-weight the observations by the inverse its treatment frequency to ensure balance by treatment.\footnote{Since our treatment assignment was not balanced across treatments, we may give too much weight to information structures with certain characteristics absent this reweighting. For example, we would have put too much weight on treatments with a truthful information structure since there will always be a total of two treatments with (one for each prior) in every session.}
 
-Panel A indicates that beliefs are still sensible despite errors. The distribution of updating errors is centered at 0, with roughly one-half (53\%) of errors concentrated within +/- 0.2 interval around zero. Overall, the correlation between the elicited beliefs and the true posteriors was 0.71 (Panel (b)).  
+Panel A indicates that beliefs are still sensible despite errors. The distribution of updating errors is centered at 0, with roughly one-half (52\%) of errors concentrated within +/- 0.2 interval around zero. Overall, the correlation between the elicited beliefs and the true posteriors was 0.71 (Panel (b)).  
 
 For some combinations of priors and signals, updating should be trivial and posteriors are completely certain.  
 Panel~(c) plots such cases, which account for 57\% of the sample and include: (i) treatments with all-honest gremlins; and (ii) treatments with obviously irrelevant dishonest gremlins (e.g., a group comprising of only honest and white-swamp gremlins announcing that the ball is black --- or vice versa). Reassuringly, 78.3\% of reported beliefs in those cases are correct. About half of the errors involve reporting a probability of one when it should have been zero.
 
-Meanwhile, Panel~(e) plots the remaining observations, i.e., those with uncertain posteriors. The median error in Panel~(e) is 0.11, with 90\% of errors lying between -0.36 and 0.57, suggesting that, on average, subjects overestimate the likelihood of adverse events for uncertain posteriors. The correlation between beliefs and posteriors in this sub-sample falls to 0.56.\footnote{The overall pattern of belief updating is consistent with the existing literature which shows that despite updating in the correct direction, people tend to underreact both to the priors and to the signals. The effect of underweighting priors --- first noted in the psychology literature \citep{phillips_conservatism_1966-1, tversky_belief_1971, kahneman_subjective_1972} --- is known as \emph{representativeness bias} or \emph{base-rate neglect}. Using the regression approach of \citet{grether_bayes_1980}, we find both base-rate neglect and signal underweighting. Our estimates of these parameters are significantly below one with $\hat \alpha=0.43$ $\hat \beta=0.25$ (see Column 1 in Appendix Table~\ref{belief_decomposition}). These values are within the range found by the meta-analysis of \citet{benjamin_chapter_2019} which calculates the average $\hat \alpha$ estimate to be around 0.22 (0.4 for incentivized studies only) and the average $\hat \beta$ to be 0.6 (0.43 for incentivized) for studies (like ours) that presented their signals simultaneously.  Such experiments are known as \emph{bookbag-and-poker-chip} experiments} 
+Meanwhile, Panel~(e) plots the remaining observations, i.e., those with uncertain posteriors. The median error in Panel~(e) is 0.11, with 90\% of errors lying between -0.33 and 0.57, suggesting that, on average, subjects overestimate the likelihood of adverse events for uncertain posteriors. The correlation between beliefs and posteriors in this sub-sample falls to 0.57.\footnote{The overall pattern of belief updating is consistent with the existing literature which shows that despite updating in the correct direction, people tend to underreact both to the priors and to the signals. The effect of underweighting priors --- first noted in the psychology literature \citep{phillips_conservatism_1966-1, tversky_belief_1971, kahneman_subjective_1972} --- is known as \emph{representativeness bias} or \emph{base-rate neglect}. Using the regression approach of \citet{grether_bayes_1980}, we find both base-rate neglect and signal underweighting. Our estimates of these parameters are significantly below one with $\hat \alpha=0.45$, $\hat \beta=0.265$ (see Column 1 in Appendix Table~\ref{belief_decomposition}). These values are within the range found by the meta-analysis of \citet{benjamin_chapter_2019} which calculates the average $\hat \alpha$ estimate to be around 0.22 (0.4 for incentivized studies only) and the average $\hat \beta$ to be 0.6 (0.43 for incentivized) for studies (like ours) that presented their signals simultaneously.  Such experiments are known as \emph{bookbag-and-poker-chip} experiments.} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -455,16 +458,17 @@ Meanwhile, Panel~(e) plots the remaining observations, i.e., those with uncertai
 
 
 
-Table~\ref{tab:nonparError} summarizes how updating errors vary with the information structure.\footnote{Appendix Table~\ref{tab:nonparError_A} disaggregates the results further by prior} We find that subjects overestimate the probability of a black ball when receiving a white signal, which is consistent with the overprotection in the IP task. This upward bias for a white signal increases in both the FP and FN rates of its information structure. To illustrate, consider the change between rows 1 and 3, where introducing an FP rate would not change the posterior (theoretical probability) because the signal is white. Yet, subjects update their beliefs upward, magnifying their updating error; we find a similar effect for the introduction of the FN rate (row 1 vs. 2).
+Table~\ref{tab:nonparError} summarizes how updating errors vary with the information structure.\footnote{Appendix Table~\ref{tab:nonparError_A} disaggregates the results further by prior.} We find that subjects overestimate the probability of a black ball when receiving a white signal, which is consistent with the overprotection in the IP task. This upward bias for a white signal increases in both the FP and FN rates of its information structure. To illustrate, consider the change between rows 1 and 3, where introducing an FP rate would not change the posterior (theoretical probability) because the signal is white. Yet, subjects update their beliefs upward, magnifying their updating error\aust{; we find a similar effect for the introduction of the FN rate (row 1 vs. 2)}.
 
 The updating bias for black signals, however, varies by the information structure. Subjects slightly underestimate the probability with a perfectly accurate signal. However, a comparison of rows 5 and 6 suggests introducing FN rates to the information structure exacerbates subjects' underestimation. Black signals from an information structure with a non-zero FP rate leads to an overestimation of the probability of a black ball. Interestingly, adding a FN rate to the information structure attenuates this overestimation.
 
-Subjects' choices in BE task are overall highly consistent with their choices in the IP task. We use the Mann-Whitney U-statistic to examine the number of cases when a subject inconsistently protects for a belief $\mu_1$ but does not protect for a belief $\mu_2\geq \mu_1$. The median U-statistic is 0.93, indicating an almost perfect rank correlation with just 1 or 2 discordant choices per subject; 35\% of subjects report beliefs which are fully consistent with their protection decisions. At the same time, there is a minority of subjects with significant discrepancies: about 25\% of subjects have U-statistic below 0.71 indicating multiple discrepancies.
+
+Subjects' choices in BE task are overall highly consistent with their choices in the IP task. We use the Mann-Whitney U-statistic to examine the number of cases when a subject inconsistently protects for a belief $\mu_1$ but does not protect for a belief $\mu_2\geq \mu_1$. The median U-statistic is 0.93, indicating an almost perfect rank correlation with just 1 or 2 discordant choices per subject; 34\% of subjects report beliefs fully consistent with their protection decisions. At the same time, there is a minority of subjects with significant discrepancies: about 25\% of subjects have U-statistic below 0.71 indicating multiple discrepancies.
 \bigskip
 
 
 \begin{center} * * * \end{center}
-In general, subjects choices vis-a-vis risks in BP are sensible, as is their use of signals. While subject beliefs about posterior probabilities are correlated with true posteriors, subjects err on average in ways that are related to the information structure of the signal.  All of this suggests that subjects understand the experimental environment well enough to allow us to draw reasonable inferences from our WTP elicitation.
+In general, subjects choices vis-a-vis risks in BP are sensible, as is their use of signals. While subject beliefs about posterior probabilities are correlated with true posteriors, subjects err on average in ways that are related to the information structure of the signal.  All of this suggests that subjects understand the experimental environment well enough to allow us to draw reasonable inferences from our WTP elicitation. \agt{At the same time, we also show that protection decisions and updating errors respond to both FP and FN rates, even when they do not affect the Bayesian posterior. These findings suggest that subjects do not have a good grasp of how these different errors affect posterior --- a hypothesis that we examine in Section~\ref{sec:discussion}.}
 
 \section{WTP and the Information Structure}\label{sec:results}
 
@@ -480,7 +484,7 @@ On average, there are no significant discrepancies between the empirical WTP and
 
 
 Overall, the theoretical signal value for a utility maximizing risk-neutral subject (hereafter, the risk-neutral WTP) in equation~\ref{eq:rnWTP} is a reasonable benchmark of our subjects' WTP. Figure~\ref{fig:WTPhist} plots the distribution of the differences between subjects' empirical WTP and the theoretical risk-neutral WTP. As in Figure~\ref{fig:BeliefUpdate}, we re-weight the observations using inverse of treatment frequencies.  
-The distribution is centered around 0, indicating that average choices do not fall far from the choices of a risk-neutral utility maximizer. However, there is substantial variation: only 22\% of reported WTP are within \$0.50 of the risk-neutral signal value, and subjects overvalue signals by at least \$1 in 25\% of cases and undervalue by at least \$0.83 in 25\% of cases. Introducing FP and FN rates does not increase the range or variation of discrepancies, but introduces a long tail of positive discrepancies shifting the average upward.
+The distribution is centered around 0, indicating that average choices do not fall far from the choices of a risk-neutral utility maximizer. However, there is substantial variation: only 30\% \aut{It is actually 22\% for weighted observations.} of reported WTP are within \$0.50 of the risk-neutral signal value, and subjects overvalue or overvalue signals by at least \$1 in 25\% of cases for each direction. Introducing FP and FN rates does not increase the range or variation of discrepancies, but introduces a long tail of positive discrepancies shifting the average upward.
 
 
 \begin{figure}[H]\centering 
@@ -502,11 +506,17 @@ The distribution is centered around 0, indicating that average choices do not fa
 \end{figure}
 
 
-Our comparisons in Table~\ref{tab:wtpdis_by_stype} also do not find differences between the empirical WTP and the risk-neutral WTP for 3 out of 4 signal types: honest, FN-only, and FP-only. For signals from information structures with both FP and FN rates, however, the empirical WTP is significantly higher than the risk-neutral WTP. Subjects' overvaluations were similar for both low and high priors, but they are not statistically significant. Additionally, subjects tend to overvalue signals with positive FP-only rates in low-prior environments ($p \in \{0.1,0.2\}$) and undervalue signals in high-prior environments ($p \in \{0.3,0.5\}$).
+Our comparisons in Table \aut{4} also do not find \aut{significant} differences between the empirical WTP and the risk-neutral WTP for 3 out of 4 signal types: honest, FN-only, and FP-only. For \aust{signals from} information structures with both FP and FN rates, however, the empirical WTP is significantly higher than the risk-neutral WTP. Subjects' overvaluations were similar for both low and high priors, but they are not statistically significant. Additionally, subjects tend to overvalue signals with positive FP-only rates in low-prior environments ($p \in \{0.1,0.2\}$) and undervalue signals in high-prior environments ($p \in \{0.3,0.5\}$).
 
-Willingness-to-pay for signals increases with priors starting from \$0.86 on average when $\pi=0.1$ and reaching \$2.10 for the highest prior of 0.5. This stands in contrast to the theoretical value, which is largest for a prior of 0.3 (followed closely by the value for for a prior of 0.2). Hence subjects tend to overpay for signals with low priors and underpay for medium priors.
+Willingness-to-pay for signals increases with priors starting from \aust{\$0.86} \aut{\$1.4} on average when $\pi=0.1$ and reaching \$2.10 for the highest prior of 0.5. This stands in contrast to the theoretical value, which is largest for a prior of 0.3 (followed closely by the value for a prior of 0.2). Hence subjects tend to overpay for signals with low priors and underpay for medium priors.
 
+% \agt{\textbf{EITHER this para:}}
 
+% \agt{When we break down these discrepancies by type of information structure (Table~\ref{tab:WTPnonpar}), we find that on average subjects: (i) undervalue completely truthful signals; and (ii) overvalue signals generated by a FN information structure, and signals generated from an information structure with a combination of FN and FP rates. In low-prior environments ($p \in \{0.1,0.2\}$), subjects overvalue signals from FP only and FP+FN information structures. In high-prior environments ($p \in \{0.3,0.5\}$), subjects undervalue truthful signal and signals generated from an FP information structure, and overvalue signals from an FN-only and FP+FN information structures.}   
+
+% \agt{\textbf{OR the following alternative para:}}
+
+% \agt{In Table~\ref{tab:WTPnonpar}, we present these discrepancies by type of information structure and prior. On average, subjects undervalue truthful signals and overvalue erroneous signals. Column 1 shows that the undervaluation of truthful signals primarily occurs in high-prior environments ($p \in \{0.3,0.5\}$). Column 2 shows that when the signal was generated by an information structure with an FN-only rate, subjects overvalue the signal in high-prior environments. However, column 3 suggest that when the signal was generated by an information structure with an FP-only rate, this discrepancy with the risk-neutral WTP varies with the prior: in low-(high-)prior environments, subjects over-(under-)value such signals. Finally, subjects consistently overvalue signals that were generated by an information structure with a combination of FN and FP rates (column 4).}   
 
 
 
@@ -514,7 +524,7 @@ Willingness-to-pay for signals increases with priors starting from \$0.86 on ave
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{Tables/bigpicture_wtp_det_cl.tex}
+\input{Tables/bigpicture_wtp_det_cl.tex}\label{tab:wtpdis_by_stype}
 
 
 \subsection{The Responsiveness of WTP to Error Costs} 
@@ -524,14 +534,14 @@ Subjects' preferences demonstrate equal sensitivity to the expected costs from f
 \end{hypothesis}
 
 \begin{result}
-On average, we cannot reject the hypothesis of equal sensitivity. However, we observe significant heterogeneity with respect to priors: subjects tend to overvalue false-positive costs for low prior probability events and overvalue false-negative costs for high prior probability events.
+On average, we cannot reject the hypothesis of equal sensitivity.  However, we observe significant heterogeneity with respect to priors: \aut{subjects significantly undervalue false-positive costs for events with low prior probabilities while properly accounting for false-negative costs.} \aust{However, we observe significant heterogeneity with respect to priors: subjects tend to false-positive costs for low prior probability events and overvalue false-negative costs for high prior probability events.}
 \end{result}
 
 Ultimately, we want to learn how people respond to the expected \textit{costs} from signals generated by different information structures and whether our simple theoretical model adequately captures this behavior. We therefore first examine whether and how subjects deviate from the benchmark WTP of our risk-neutral, Bayesian-updating, utility-maximizing agent. We then test whether these deviations can be explained by risk preference or updating accuracy. Finally, we describe our findings on the heterogeneous sensitivity of the WTP by prior --- which motivates our discussion on the potential mechanisms behind these deviations that we address in the next section.
 
-We begin by estimating the relationship between the deviations of the empirical WTP from the benchmark model on FP and FN costs. The FP and FN costs studied here --- defined above as $\pi (1-P_{01})c$ and $\pi P_{01}L$ --- differ from their respective rates because they incorporate the cost associated with each error type. For example, a high false-negative rate imposes fewer costs when priors are low because the adverse outcome is already unlikely, whereas a high false-negative rate carries substantial costs when the prior probability of the adverse outcome is high. We estimate the following regression:
-\[\Delta b_{is} = \beta_0 + \beta_1 FPC + \beta_2 FNC + \delta_i + \varepsilon_{is}\]
-where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between individual $i$'s WTP and the risk-neutral WTP for signal $s$, and FPC (FNC) is the false positive (false negative) cost. All specifications include subject fixed effects $\delta_i$, with standard errors clustered at the subject and treatment levels.
+We begin by estimating the relationship between the deviations of the empirical WTP from the benchmark model on FP and FN costs. The FP and FN costs studied here --- defined above as $\pi (1-P_{01})c$ and $\pi P_{01}(L-c)$ --- differ from their respective rates because they incorporate the cost associated with each error type. \aust{For example,}\aut{Note that} a high false-negative rate imposes fewer costs when priors are low because the adverse outcome is already unlikely, whereas a high false-negative rate carries substantial costs when the prior probability of the adverse outcome is high. We estimate the following regression:
+\[\Delta b_{is} = \beta_k + \beta_1 FPC + \beta_2 FNC + \delta_i + \varepsilon_{is}\]
+where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between individual $i$'s WTP and the risk-neutral WTP for signal $s$, and FPC (FNC) is the false positive (false negative) cost. All specifications include subject fixed effects $\delta_i$ and \aut{prior fixed effects $\beta_k$}, with standard errors clustered at the subject and treatment levels.
 
 % Note here that false positive or false negative \textit{costs} are functions of both the rates and the costs of the consequences of those rates.  For example, a high false-negative rate imposes fewer costs when priors are low because the adverse outcome is already unlikely, whereas high false-negative rates carry substantial costs when the prior probability of the adverse outcome is high. All specifications include subject fixed effects, with standard errors clustered at the subject level. 
 
@@ -558,7 +568,7 @@ where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between individual $i
 		Subject FE & Yes & Yes & Yes & Yes & Yes \\
 		Inconsistent Risk Pref. Interactions & No & Yes & Yes & Yes & Yes \\
 		Inaccurate Belief Interactions & No & No & Yes & Yes & Yes \\
-		Prior Probability FE & No & No & No & Yes & Yes \\
+		Prior Probability FE & Yes & Yes & Yes & Yes & Yes \\
 		\hline\hline
 	\end{tabular}
 	\begin{tablenotes}[flushleft]
@@ -570,36 +580,75 @@ where $\Delta b_{is} = (b_{is} - b^*_s)$ is the difference between individual $i
 		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Table~\ref{tab:wtp_ols_cl} reports the results of our regression. Column 1 presents the basic results that do not account for risk preference and belief accuracy. If subjects are risk-neutral expected-utility maximizers, we expect all coefficients to be jointly and individually insignificant. Instead, column 1 shows positive coefficients for both FP and FN costs, albeit only significant for the latter. As costs increase, subjects should downward-adjust their WTP accordingly. These positive coefficients show that relative to the risk-neutral benchmark, our subjects did not react enough to rising costs (by adjusting their WTPs), resulting in a WTP discrepancy that increases with costs.  
+Table~\ref{tab:wtp_ols_cl} reports the results of our regression. Column 1 presents the basic results that do not account for risk preference and belief accuracy. If subjects are risk-neutral expected-utility maximizers, we expect all coefficients to be jointly and individually insignificant. Instead, column 1 shows positive coefficients for both FP and FN costs\aust{, albeit only significant for the latter}. As costs increase, subjects should downward-adjust their WTP accordingly. These positive coefficients show that relative to the risk-neutral benchmark, our subjects do not \aust{react enough to rising costs (by adjusting their WTPs)} \aut{adjust their bids enough}, resulting in a WTP discrepancy that increases with costs.  
 
-Theoretically, risk-neutral subjects value the marginal costs of false-negative and false-positive events symmetrically. Although column 1 shows that the coefficient on FN costs is slightly lower, the difference between the coefficients on FP and FN costs is not statistically significant.
+Theoretically, risk-neutral subjects value the marginal costs of false-negative and false-positive events symmetrically. \aut{Subjects' choices are generally consistent with this prediction. We cannot reject the hypothesis of equality for FP and FN costs coefficients for all the specifications except for low priors (Column 4.} \aust{Although column 1 shows that while the coefficient on FN costs is slightly higher, the difference between the two coefficients is not statistically significant.}
 
+ 
+
+% Theoretically, risk-neutral subjects should value the marginal costs of false-negative and false-positive events symmetrically \agt{XXX should we have an equation that shows this in the theory section then reference it here? XXX}. Table~\ref{tab:wtp_ols} however shows that the coefficient on FN costs is slightly lower \aut{(WTP sensitivity is larger)}  meaning a higher sensitivity to FN costs. \aut{This difference albeit small is statistically significant at 5\% in our baseline estimation, and is more pronounced once we control for both risk aversion and belief accuracy (column 3)}.
+
+% To address the potential concern of WTP censoring both at zero and at the maximum bid of \$5, we also estimate the same relationship using a tobit regression (see Table~\ref{tab:wtp_tobit} in the Appendix). To make our results directly comparable we still use the difference between the elicited WTP and the theoretical value as the dependent variable and account for varying upper and lower bounds. We find that our essential results do not change: subjects under-react to FP and FN costs, and under-react to FP costs for low priors and to FN costs for high priors.
 
 \paragraph{Risk Preference and Belief Accuracy}
-
+% Our baseline estimation in column 1 indicates significant deviations from the behavior of a risk-neutral agent as predicted by the model. 
+% The positive and significant coefficients suggest that these deviations are increasing in FP and FN costs. In other words, as signal quality deteriorates (with increasing FP or FN rates), our subjects do not reduce their valuation of the signals as quickly as a risk-neutral agent would.
+% Column 1 documents deviations of subjects' WTP from the risk-neutral utility-maximizing benchmark. 
 Since our benchmark model assumes both risk neutrality and perfect updating, the finding that our subjects do not adequately adjust their WTP to rising error costs  could arise from two channels. First, Proposition~\ref{thm:riskAverse2} suggests that risk preferences can influence the sensitivity of WTP to FP and FN rates. Second, systematic biases during updating can also cause deviations. 
 
-We find that risk preferences affect the sensitivity to a signal's quality, but fall short in explaining the systematic WTP biases reported above. We use data from the BP task to categorize subjects by their risk preference. We classify all the subjects with internally consistent BP choices into three categories: risk averse, risk neutral, and risk loving.\footnote{We classify most subjects to risk-averse, risk-loving or risk-neutral based on the total number of protection choices made in the BP task, with 2 and 3 choices corresponding to risk-neutrality (protecting starting from 0.2 or 0.25).  Subjects that make more than one inconsistent choice in BP are included as their own category.} 
+We find that risk preferences affect the sensitivity to a signal's quality, but fall short in explaining the systematic WTP biases reported above. We use data from the BP task to categorize subjects by their risk preference. We classify all the subjects with internally consistent BP choices into three categories: risk averse, risk neutral, and risk loving.\footnote{We classify most subjects to risk-averse, risk-loving or risk-neutral based on the total number of protection choices made in the BP task, with 2 and 3 choices corresponding to risk-neutrality (there are 3 rounds with priors of 0.25 and above).  Subjects that make more than one inconsistent choice in BP are included as their own category.} 
 
-Column 2 explores the heterogeneity of subject responses to FP and FN costs by their risk preferences, with risk-neutral as the default category. The total coefficient values for risk-averse and risk-loving subjects, including their respective standard errors and $p$-values, are presented at the bottom panel. Among risk-neutral and risk-loving subjects, the WTP discrepancies increase with both FP and FN costs --- suggesting that they do not downward-adjust their WTP enough in the face of increasing error costs due to the lower signal quality. In contrast, the WTP discrepancies of risk-averse subjects are uncorrelated with rising error costs.
+Column 2 explores the heterogeneity of subject responses to FP and FN costs by their risk preferences, with risk-neutral as the default category. The total coefficient values for risk-averse and risk-loving subjects, including their respective standard errors and $p$-values, are presented at the bottom panel. Among risk-neutral and risk-loving subjects, the WTP discrepancies increase with both FP and FN costs --- suggesting that they do not downward-adjust their WTP enough in the face of increasing error costs due to the lower signal quality. In contrast, the WTP discrepancies of risk-averse subjects are uncorrelated with rising error costs. \aut{The choices of risk-averse subjects on average are consistent with the theoretical predictions for risk-neutral subjects.}
 
 Subjects' under-reaction to deteriorating signal quality remains even after we further control for their ability to Bayesian update. We use data from the BE task to construct a measure of subjects' (posterior) belief accuracy.\footnote{We calculate a belief error as the absolute value of the difference between the subject's belief and the true posterior probability and then average these errors across all the decisions with identical priors, false positive, and false negative rates. A subject's posterior belief for a decision is defined as accurate if its error is less than the median error across all the subjects making the same decision.} Column 3 presents the most flexible specification that controls for belief accuracy and risk preference by including triple interactions of belief accuracy, risk preference, and signal characteristics. The baseline group is the group of risk-neutral subjects with relatively accurate beliefs. We find that subjects with more accurate beliefs are not more likely to adjust optimally to rising FP and FN costs on average.\footnote{Aside from these theoretically motivated individual differences, we investigate several other characteristics. Heterogeneity is not driven by demographic characteristics (e.g., age, gender) or prior statistical coursework.  The complete set of results are in Appendix Table~\ref{wtp_dem}.}
   
 \paragraph{Heterogeneity by Prior} We motivate our experiment with a real-world problem of designing warning systems --- often for events with low probabilities. With a low prior, the default action of risk-neutral subject would be not to protect, and vice versa with a high prior. The signal would help risk-neutral subjects decide whether to maintain or switch away from the default action. We split the priors into two groups using the threshold of 0.25 (= protection cost/potential loss), and we incorporate prior-probability fixed effects to the aforementioned flexible specification. 
 
-Column 4 of Table~\ref{tab:wtp_ols_cl} presents the results for low-prior WTPE tasks. For a low prior, i.e, $p \in \{0.1,0.2\}$, the WTP discrepancies of risk-neutral and risk-loving subjects from the risk-neutral benchmark increase with FP costs. These subjects do not optimally reduce their WTP enough as signal quality deteriorates, leading to the overvaluation of FP signals. Column 5 presents the results for high-prior WTPE tasks. With high priors, the WTP discrepancies of risk-neutral and risk-loving subjects once again increase with FN costs, leading to the overvaluation of FN signals. 
+Column 4 of Table~\ref{tab:wtp_ols_cl} presents the results for low-prior WTPE tasks. For a low prior, i.e, $p \in \{0.1,0.2\}$, the WTP discrepancies of risk-neutral and risk-loving subjects from the risk-neutral benchmark increase with FP costs. These subjects do not optimally reduce their WTP enough as signal quality deteriorates, leading to the overvaluation of FP signals. \aut{However, the sensitivity to FN costs is statistically indistinguishable from zero. It means that subjects' adjust their WTP with growing FN costs similar to risk-neutral predictions.} Column 5 presents the results for high-prior WTPE tasks. With high priors, the WTP discrepancies of risk-neutral and risk-loving subjects \aust{once again increase with FN costs}\aut{increase both with FP and FN costs}, leading to the overvaluation of \aust{FN}\aut{inaccurate} signals. \aut{The sensitivity is roughly the same for both types of costs with difference being statistically insignificant at 10\%.}
 
+{\color{OliveGreen}
+
+\paragraph{Heterogeneity by Cross-Task Consistency} We further examine whether these biases are driven by subjects who were inconsistent across tasks. \aut{An example of inconsistent subjects would be reporting positive WTP for a signal despite choosing protection both for white and black balls.} Using the decisions in WTP and IP tasks, we create a leave-one-out definition of a consistent subject as the subject who makes at most one inconsistent WTP report for all the other signals.\footnote{Disregarding the current signal eliminates spurious correlation between the consistency measure and WTP.}
+
+We present the results of the heterogeneity analysis based on this subject consistency measure in Table~\ref{tab:cross_consistency}. Even though subjects with consistent WTP-IP decisions exhibit higher sensitivity to FP and FN costs --- indicating more attention to signal characteristics --- these differences are not always statistically significant. However, even consistent subjects exhibit low sensitivity to FP costs for low priors, which aligns with our previously reported findings.
+
+    \begin{table}[htbp!]
+    \centering
+    \adjustbox{max width = \textwidth}{
+    	\begin{threeparttable}
+    	\caption{Deviations from Signal Value (WTP - Value) and Protection Consistency}
+        \label{tab:cross_consistency}
+    	\begin{tabular}{l*{4}{c}}
+    		\hline\hline
+    		&\multicolumn{2}{c}{\multirow{2}{*}{All}} & \multicolumn{2}{c}{Prior}\\ \cmidrule(lr){4-5}
+    		&&& $\{.1,.2\}$ & $\{.3,.5\}$\\ 
+            \hline
+    %\begin{tabular}{lcccc}
+            \input{Tables/wtpdiff_ols_consistency.tex}
+            \\ \hline \hline
+    \end{tabular}
+	\begin{tablenotes}[flushleft]
+        \input{wtp_reg_footnote.tex}
+	\end{tablenotes}
+    \end{threeparttable}
+    }
+    \end{table}
+
+}
 \bigskip
 
 \begin{center} * * * \end{center}
 
-\noindent To address the potential bias from WTP censoring both at zero and at the upper bound of \$5, we also estimate the same relationship using a tobit regression (see Appendix Table~\ref{tab:wtp_tobit}). To maintain comparability, we use the difference between the elicited WTP and theoretical value as the dependent variable and account for varying upper and lower bounds. We find that our essential results do not change: subjects underreact to FP and FN costs for all the priors on average, and underreact to FP costs for low priors and to FN costs for high priors.
+\noindent To address the potential bias from WTP censoring both at zero and at the upper bound of \$5, we also estimate the same relationship using a tobit regression (see Appendix Table~\ref{tab:wtp_tobit}). To maintain comparability, we use the difference between the elicited WTP and theoretical value as the dependent variable and account for varying upper and lower bounds. We find that our essential results do not change: subjects underreact to FP and FN costs for all the priors on average, and underreact to FP costs for low priors and to both costs for high priors.
 
 
+% \agst{In summary, with low priors, subjects do not reduce their WTP enough to account for the deteriorating signal quality captured by the false-positive costs. In contrast, with high priors, they underreact to false-negative costs.}
+% \agt{In practice, most warning systems are designed for low probability events. In such cases, users would tend to overpay for signals with high false-positive costs and underpay for signals with high false-negative rates. For example, they would prefer a smoke alarm that never misses fire incidents, even when its expected cost of false alarms is high. Risk preferences seem to affect this pattern, with risk-averse subjects' WTP tracking closer to the WTP of the risk-neutral benchmark.}\agst{, but most interaction coefficients are not statistically significant despite large magnitudes.}
+% \pmt{I don't really think we want to close with this last sentence.  Arya's addition here is good, but do you think it belongs here?  Or should we use it as part of the conclusion?}\agt{Maybe move/drop the whole paragraph?}
 
 \subsection{Understanding Source(s) of Empirical Deviations}\label{sec:discussion}
 
-The under-reactions of subjects' WTP to FP (FN) costs for low (high) priors are inconsistent with our risk-neutral model. Equations~\ref{eq:dWTP_dFP} and~\ref{eq:dWTP_dFN} in Section~\ref{sec:model} suggest that WTP should respond more to FP rates (relative to FN rates) for low priors and vice versa for high priors. That is, for a given FN rate, false negative outcomes are much less likely with low priors and hence impose lower costs on the agent. As priors increase, FN rates become more salient while FP rates become less salient. Instead, our subjects react very similarly to FP and FN rates for both low and high priors.
+The under-reactions of subjects' WTP to FP costs for low priors \aut{and to both costs for high priors} are inconsistent with our risk-neutral model. Equations~\ref{eq:dWTP_dFP} and~\ref{eq:dWTP_dFN} in Section~\ref{sec:model} suggest that WTP should respond more to FP rates (relative to FN rates) for low priors and vice versa for high priors. That is, for a given FN rate, false negative outcomes are much less likely with low priors and hence impose lower costs on the agent. As priors increase, FN rates become more salient while FP rates become less salient. Instead, our subjects react very similarly to FP and FN rates for both low and high priors.
 
 
 
@@ -617,13 +666,14 @@ To illustrate, we obtained the sensitivities of WTP on FP and FN rates by estima
 \label{eq:tobit}
 b^* = \alpha+\beta_{FP} FP +\beta_{FN} FN+\epsilon
 \end{equation}
-In Figure~\ref{fig:Comparison}, we overlay these estimates on the line plots of the theoretical sensitivities of WTP on FP and FN rates across different priors (based off Equation~\ref{eq:tobit}).\footnote{Given that theoretical sensitivities depend on information structures which are pooled within priors, we fit the same regression to the theoretical values and report coefficients as theoretical sensitivities. With tobit estimates, the empirical coefficients are generally higher but are also very close to each other and follow the same pattern.  However, we cannot fit them easily for the theoretical values.} The figure shows that the point estimates of the sensitivity coefficients of WTP on FP rates for lower priors ($p \in \{0.1, 0.2\}$) are below their theoretical benchmarks. In contrast, the point estimates of WTP sensitivity on FN rates for higher priors ($p \in \{0.3, 0.5\}$)  are significantly below. Surprisingly, across all priors, the empirical estimates of the sensitivities on FP and FN rates are very close to each other.
+In Figure~\ref{fig:Comparison}, we overlay these estimates on the line plots of the theoretical sensitivities of WTP on FP and FN rates across different priors (based off Equation~\ref{eq:tobit}).\footnote{Given that theoretical sensitivities depend on information structures which are pooled within priors, we fit the same regression to the theoretical values and report coefficients as theoretical sensitivities. With tobit estimates, the empirical coefficients are generally higher but are also very close to each other and follow the same pattern.  However, we cannot fit them easily for the theoretical values.} The figure shows that the point estimates of the sensitivity coefficients of WTP on FP rates for lower priors ($p \in \{0.1, 0.2\}$) are below their theoretical benchmarks. In contrast, for higher priors ($p \in \{0.3, 0.5\}$) the point estimates of WTP sensitivity on FN rates  are significantly below. Surprisingly, across all priors, the empirical estimates of the sensitivities on FP and FN rates are very close to each other.
 
+% Figure~\ref{fig:Comparison} illustrates this puzzling behavior. This figure plots estimates from \agt{Tobit} regressions of reported WTP --- instead of its deviation from the risk-neutral WTP --- on FP and FN rates. \agt{We overlay these estimates on the plots of the theoretical WTP sensitivity to changes in FP and FN rates across priors (based on Equation XX).} We find that the sensitivities of subjects' WTP to both FP and FN rates increase with priors and that the change occurs relatively smoothly, and the two sensitivities are also surprisingly close to each other.\footnote{We cannot reject the hypothesis that two sensitivities are equal to each other for any of the priors.} 
 
 We consider six candidate explanations for these puzzling results: (i) risk preferences; (ii)probability weighting; (iii)  anchoring; (iv) valuing non-instrumental information; (v) the anticipation of bias in the protection decision; and (vi) a failure to distinguish how FP and FN error rates ought to affect calculated posteriors differently. 
 
 
-\paragraph{Risk Preferences.} Our evidence suggests that risk preferences do not explain this behavior. We test the risk preference hypothesis using subjects' BP choices. Columns 4 and 5 of Table~\ref{tab:wtp_ols_cl} already show that, even after controlling for subjects' risk preferences, the coefficients on FP and FN costs remain very different for low and high priors.  We augment this analysis by explicitly testing for interactions between risk-preferences, priors, and FP and FN rates (Appendix Table~\ref{tab:wtp_risk}). We find that these interactions are mostly insignificant, except for the interactions between FN rates and risk aversion in low-prior environments. The heterogeneity largely remains after controlling for risk preferences, but the interaction between high priors and FP rates becomes insignificant.
+\paragraph{Risk Preferences.} Our evidence suggests that risk preferences do not explain this behavior. We test the risk preference hypothesis using subjects' BP choices. Columns 4 and 5 of Table~\ref{tab:wtp_ols_cl} already show that, even after controlling for subjects' risk preferences, the coefficients on FP and FN costs remain very different for low and high priors.  We augment this analysis by explicitly testing for interactions between risk-preferences, priors, and FP and FN rates (Appendix Table~\ref{tab:wtp_risk}). We find that these interactions are mostly insignificant, except for the interactions \aust{between FN rates and risk aversion in low-prior environments} \aut{of FP costs with risk aversion and prior probability}. The heterogeneity \aust{largely}remains after controlling for risk preferences\aust{, but the interaction between high priors and FP rates becomes insignificant}.
 
 \paragraph{Probability Weighting.} Rank-dependent probability weighting assumes that subjects evaluate lotteries using transformed outcome probabilities that account for the preference ranking of each outcome and cumulative probability distribution.  It helps to explain extreme low probability outcomes receiving disproportionate weight in decision-making \citep{quiggin_theory_1982} and hence is applicable to protection decisions in which losses can be both rare and extreme.
 
@@ -634,41 +684,33 @@ Assuming that each lottery $p$ has ordered outcomes $x_1\succ x_2 \succ...\succ 
 
 As follows from the equation, the weights depend on the ranking of the outcomes and the probabilities within each lottery. In the signal purchase decision,  subjects compare a simple blind protection lottery with the compound lottery of first drawing a signal and then choosing a trivial protection outcome or a simple no protection lottery with a signal. We assume that the reduction of compound lotteries applies so that the compound lottery of informed protection is ranked equivalently to a reduced simple lottery with weighting applied to all the possible outcomes. This means that the utility with a signal can be written as:
 
-\[ U_S = \phi(\pi P_{01})u(Y-b-L)+[\phi((1-\pi)P_{10}+\pi P_{11})-\phi(\pi P_{01})]u(Y-b-c)+\]
-\[+[1-\phi((1-\pi)P_{10}+\pi P_{11})-\phi(\pi P_{01})]u(Y-b)\]
+\[ U_S = \phi((1-\pi) P_{00})u(Y-b)+[\phi(1-\pi P_{01})-\phi((1-\pi)P_{00})]u(Y-b-c)+\]
+\[+[1-\phi(1-\pi P_{01})]u(Y-b-L)\]
 
 After applying implicit differentiation by FP and FN rates we obtain that the ratio of sensitivities to FN and FP rates should satisfy:
 \begin{equation}
-{db / dP_{01}  \over db / dP_{10}} = {\pi \over (1-\pi)} \Bigl({\phi'(\pi P_{00}) \over \phi'(\pi+(1-\pi)P_{10})}\Bigr) {(u(Y-c-b)-u(Y-L-b))\over (u(Y-b)-u(Y-c-b))}
+{db / dP_{01}  \over db / dP_{10}} = {\pi \over (1-\pi)} \Bigl({\phi'(1-\pi P_{01}) \over \phi'((1-\pi)P_{00})}\Bigr) {(u(Y-c-b)-u(Y-L-b))\over (u(Y-b)-u(Y-c-b))}
 \end{equation}
 
 
-Probability weighting with reasonable parameter choices can explain higher relative sensitivity to FN costs when the priors are low, though it does not explain lower relative sensitivity when the priors are high. First, note that this ratio is equivalent to the expression we derived for the EU maximizers in the general case, except the additional multiplier $\Lambda\equiv \Bigl({\phi'(\pi P_{00}) \over \phi'(\pi+(1-\pi)P_{10})}\Bigr)$ which is equal to a ratio of derivatives of the weighting functions at two different points. We know that $\pi P_{01}<\pi<\pi+(1-\pi)P_{10}$ and that, for our experimental parameters, $\pi+(1-\pi)P_{10}\leq 0.75$ meaning that the value is still likely to fall in the mid-range of an S-shaped weighting function. Thus, for small priors $\pi$ or for small FN rates $P_{01}$, we have $\Lambda>1$, implying higher relative sensitivity to FN rates. For higher priors and FN rates $\Lambda$ would be closer to one making little difference in relative sensitivity\footnote{\citet{gonzalez_shape_1999} report very diverse estimates of shapes of weighting functions estimated individually for 10 subjects. We calculate the ratio using linear in odds probability weighting function for all their parameter estimates and find that the ratio is greater than one for all our treatments except the treatment with prior $\pi=0.5$ and the FN rate of 0.5. Using their power weighting function estimates produces ratios which are always greater than one.}.
+Probability weighting with reasonable parameter choices can explain higher relative sensitivity to FN costs when the priors are low\aust{, though it does not explain lower relative sensitivity when the priors are high}. First, note that this ratio is equivalent to the expression we derived for the EU maximizers in the general case, except the additional multiplier $\Lambda\equiv \Bigl({\phi'(1-\pi P_{01}) \over \phi'((1-\pi)P_{00})}\Bigr)$ which is equal to a ratio of derivatives of the weighting functions at two different points. 
 
-\paragraph{Anchoring.} The evidence also does not support the hypothesis that anchoring on previous priors explains higher sensitivity to FN rates for low priors. The prior order is randomized with some subjects starting with lower priors and other starting with higher priors. Most subjects (159 out of 206) also change their reported WTP when facing a new prior in round 4, demonstrating responsiveness to information on priors. The average belief error in the BE task is actually \emph{lower} for the second set of priors rather than the first (0.201 vs 0.186), which suggests that changing priors does not make subjects more confused. Most importantly, our main results on WTP sensitivity hold even when we limit the sample only to the first prior in each sequence.
+We find that this multiplier tends to be greater than one for  realistic probability weighting parameters, meaning that probability weighting mostly increases sensitivity to false-negative errors. This happens because the probability of avoiding losses with a signal ($1-\pi P_{01}>1-\pi$ tends to be close to 1 in our treatments and the slope of the weighting function sharply increases near the boundaries. Using parameters calibrated for 10 subjects from \citet{gonzalez_shape_1999} with linear in log-odds weighting function, we find that the ratio exceeds 1 for all the low-prior treatments and for all of their subjects. Even for high priors, this ratio always exceeds one for eight of of ten of their parameter estimates. Notably, the minimum value of $\Lambda$ is just 0.85 while the maximum is 15.8 which would create a very high sensitivity to false-negative signals.
+
+\paragraph{Anchoring.} The evidence does not support the hypothesis that anchoring on previous priors explains higher sensitivity to FN rates for low priors. The prior order is randomized with some subjects starting with lower priors and other starting with higher priors. Most subjects (159 out of 206) also change their reported WTP when facing a new prior in round 4, demonstrating responsiveness to information on priors. The average belief error in the BE task is actually \emph{lower} for the second set of priors rather than the first (0.203 vs 0.183), which suggests that changing priors does not make subjects more confused. Most importantly, our main results on WTP sensitivity hold even when we limit the sample only to the first prior in each sequence.
 
 \paragraph{Non-instrumental information.} There is evidence in the literature of people valuing ``non-instrumental information'' that does not affect their decisions. For example, \citet{eliaz_paying_2010} find that subjects are willing to pay to know the probability of their choice being correct even if this information cannot affect their choice, while \citet{ganguly_fantasy_2017} document that most people are willing to pay a small amount to know their pre-determined experimental payoffs at the beginning of the experiment rather than at the end.  Similarly, \citet{Masatlioglu2023} reveal a strong and systematic preference for positively skewed information, even when such signals are less informative, suggesting that anticipatory emotions such as hope and anxiety shape information demand independently of instrumental value.\footnote{Unlike \citet{Masatlioglu2023}, \citet{OliverosZultan2025} find that decision makers exhibit a striking and persistent preference for symmetric sources, i.e., those offering a balanced distribution of positive and negative signals, even when asymmetric sources would yield more decision-relevant information.  The authors argue that symmetry exerts an intrinsic appeal, suggesting that individuals prefer information structures that “feel fair” or representative, independent of their actual informativeness.} 
 Most information in our experiment is instrumental by design, i.e., it informs their choices, and indeed enters into subjects' decisions as evidenced by choices in the IP task. Nonetheless, many subjects have a positive WTP for signals that cannot affect their IP decisions (295 out of 1242 total choices). It is therefore plausible that the reported WTPs include some non-instrumental components. 
 
 Preferences for non-instrumental information cannot, however, provide a full explanation of our results, mainly because there is no time delay between receiving a signal and learning the outcome.  If the WTP task round is selected as a payment round, the subject receives a signal, chooses an action, and then immediately learns their payoffs.  This leaves essentially no window for anticipatory feelings assumed to be the causal mechanism behind the demand for non-instrumental information in most of the literature. Additionally, the closeness of coefficients for FP and FN rates also seems a priori implausible based only on the non-instrumental information value story because, in contrast to our last explanation, no theory of preferences for non-instrumental information suggests the effects should be so similar to one another.
 
-\paragraph{Anticipation of Bias in Protection Decision.} Since both IP and WTP task responses exhibit certain unexpected biases, subjects might adjust their bids in the WTP task in anticipation of the projected distortions in their use of the signal in the IP task. For example, a subject expecting to always protect for a particular information structure might report a lower WTP. This should be expected if subjects make consistent choices across tasks. We find that their IP biases do affect their bids, but fail to explain the main patterns of sensitivities to FP and FN costs that we observe.
+\paragraph{Anticipation of Bias in Protection Decision.} \aut{Since both IP and WTP task responses exhibit certain unexpected biases, subjects might adjust their bids in the WTP task in anticipation of the projected distortions in their use of the signal in the IP task. For example, a subject expecting to always protect for a particular information structure might report a lower WTP. This should be expected if subjects make consistent choices across tasks. We find that their IP biases do affect their bids, but fail to explain the main patterns of sensitivities to FP and FN costs that we observe.
 
-To show this, we define two variables measuring the discrepancies in expected payoffs due to elicited strategies in IP ($a_{iw}, a_{ib}$) and BP tasks ($a_{i}$) versus optimal decisions for a risk-neutral decision-making $(a^*_i, a^*_{ib}, a^*_{iw})$. The first variable measures the protection-cost component and the second variable the loss component of the shortfall in the value of the signal under the subject’s elicited strategies relative to the optimal benchmark\footnote{Given that there is no elicited blind protection choice for prior of $\pi=0.5$, we assume full protection. For context, 65\% of subjects protect for the highest prior probability of 0.3 in our BP elicitation.}:
+To show this, we add a control of deviations between optimal and empirical informed protection decisions into the regression of WTP differences. For each signal structure, the new variable equals to the average absolute deviation between the subject's choices in the IP task and the optimal choices of a risk-neutral agent. Note, that the the variable can take just 3 values with 0 meaning no deviations, 0.5 meaning deviation for just one signal value out of 2, and 1 meaning the subject always taking the opposite relative to a risk-neutral agent. If a subject knows about their error propensity for a particular signal structure, they would rationally bid less for it in the WTP treatment. In contrast, if deviations from optimal risk-neutral decisions emerge due to their preferences, we would not necessarily see lower WTP. 
 
-\[
-\Delta^{\text{prot}}_{i}\equiv c\Big\{(a_i-a^*_i)-\big[P(S=W)(a_{iw}-a^*_{iw})+P(S=B)(a_{ib}-a^*_{ib})\big]\Big\}
-\]
+Accounting for deviations in IP decisions does not affect the pattern of sensitivities to FP and FN costs. Table A10 reports regression estimates of WTP differences on FP and FN costs and new measures of IP bias. Deviations in IP decisions enter the model with negative coefficients which are significant in all the specifications. Making just one suboptimal IP choice corresponds to roughly 20-30 cents lower WTP. However, the coefficient on FN costs is still significantly higher than the coefficient on FP costs for low priors, and there is a weak opposite pattern for high priors. The interactions between IP errors and FP/FN costs are all statistically insignificant implying little difference in sensitivity to errors for signal structures with high IP errors.}
 
-\[
-\Delta^{\text{loss}}_{i}\equiv \pi L\Big[(a^*_i-a_i)-\big(P_{11}(a^*_{iw}-a_{iw})+P_{01}(a^*_{ib}-a_{ib})\big)\Big]
-\]
-
-Here $P(S=B)=\pi P_{11}+(1-\pi)P_{10}$ is the probability of a black signal, and $P(S=W)=\pi P_{01}+(1-\pi)P_{00}$ is the opposite. The sum of these two variables equals a decrease in the signal's value for a risk-neutral subject if using actual subject $i$ strategies. Defining the expected benefit in this way allows for an asymmetry in responding to large losses versus relatively small protection costs. 
-
-Appendix Table A10 reports the estimation results of the deviation of the empirical WTP from the signal value (similar to Table~\ref{tab:wtp_ols_cl}) with the two new measures of bias in informed protection decisions. The coefficients on the added covariates are statistically significant but relatively small in magnitude. At the same time, both coefficients on FP costs for low priors and FN costs for high priors remain highly statistically significant. Thus, we conclude that subjects' biases in how they will utilize signals when facing an IP task do not explain the observed pattern of sensitivities to FP and FN rates.
-
-\paragraph{Failure to distinguish between FP and FN} Instead, we argue that the observed sensitivity patterns emerges because many subjects neglect the difference between FN and FP rates, treating these two characteristcs as if they were the same thing. Subjects' own proffered explanations motivate our consideration of this possible mechanism.  At the end of the experiment, we asked subjects to explain to us how they made their protection choices.\footnote{The text of all the responses are in the appendix.} Out of 206 subjects, 70 refer to the \emph{percentage}  or presence of dishonest gremlins as their rationale for choosing protection. For example:
+\paragraph{Failure to distinguish between FP and FN} \aust{Instead, we argue that the observed sensitivity patterns emerge because many subjects neglect the difference between FN and FP rates, treating these two characteristics as if they were the same thing.} \aut{One plausible explanation for underreaction to FP costs with low priors can come from confusion between the two types of signal errors. Subjects' own explanations suggest that many neglect the difference between FN and FP rates, treating these two characteristics as if they were the same thing.}  At the end of the experiment, we asked subjects to explain to us how they made their protection choices.\footnote{The text of all the responses are in the appendix.} Out of 206 subjects, 70 refer to the \emph{percentage}  or presence of dishonest gremlins as their rationale for choosing protection. For example:
 \begin{itemize}
 	\item ``\emph{my strategy for this task was to only buy protection if there was a white or black gremlin and not if there was a truth gremlin}''
 	\item ``\emph{If there were only honest gremlins then I never protected but even if there was one white-swamp gremlin or one black-swamp gremlin then I payed} (sic) \emph{for protection.}''
@@ -693,7 +735,7 @@ We can test this hypothesis using choices from the BE and IP tasks when signals 
 									&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
 	\hline
 
-	\input{Tables/table_be_err_AU_cl.tex}
+	\input{Tables/table_be_err_cl_fr.tex}
 	\\ [-1em]
 	\hline
 	Subject FE      &      Yes         &      Yes         &      Yes         \\
@@ -729,7 +771,7 @@ Columns 1 and 2 show that, even after we condition on posterior and subject FEs 
 									&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
 	\hline
 		
-		\input{Tables/table_ip_flex_AU.tex}
+		\input{Tables/table_ip_flex_fr.tex}
 	
 	\\ [-1em]
 	\hline
@@ -740,7 +782,7 @@ Columns 1 and 2 show that, even after we condition on posterior and subject FEs 
 	\hline\hline
 	\end{tabular}
 	\begin{tablenotes}[flushleft]
-			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Coefficients are average marginal effects. Standard errors in parentheses (clustered at the subject level). */**/*** indicates statistical significance at 10/5/1 percent.
+			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:}  Standard errors in parentheses (clustered at the subject and treatment level). */**/*** indicates statistical significance at 10/5/1 percent.
 	\end{tablenotes}								
 	\end{threeparttable}
 	}
@@ -748,7 +790,7 @@ Columns 1 and 2 show that, even after we condition on posterior and subject FEs 
 
 
 
-Overall, we observe a striking uniformity in sensitivity of WTP to both FP and FN rates. This pattern is consistent with subjects neglecting the difference between FP and FN signals, a behavior that is supported by subjects' explanations of their decision making and the anomalous sensitivities to FP and FN rates in other treatments in which they do not affect posterior probabilities.\footnote{This pattern is consistent with greater bias in belief elicitation when subjects have to engage in contingent reasoning versus smaller belief biases when eliciting responses after presenting a signal results, as \citet{aina_contingent_2023} found. This result implies that decisions to acquire information, such as decisions made in our experiment where subjects determining their WTP have to reason through contingencies, might suffer from persistent inherent biases. Indeed, we find that subjects commit reasoning errors which reduces the correlation between their WTP for a signal and its usefulness for decreasing expected potential costs.} 
+Overall, we observe a striking uniformity in sensitivity of WTP to both FP and FN rates. \aut{This pattern is most consistent with two potential explanations: probability weighting and partial failure to distinguish the effects of FP and FN rates. Probability weighting can overweight very low probability loss events when priors are low leading to higher sensitivity to FN rates. Failure to distinguish the effects of two errors makes reaction more uniform across priors. This hypothesis finds support in subject's explanations and the anomalous sensitivities to FP and FN rates in other treatments in which they do not affect posterior probabilities}.\footnote{This pattern is consistent with greater bias in belief elicitation when subjects have to engage in contingent reasoning versus smaller belief biases when eliciting responses after presenting a signal results, as \citet{aina_contingent_2023} found. This result implies that decisions to acquire information, such as decisions made in our experiment where subjects determining their WTP have to reason through contingencies, might suffer from persistent inherent biases. Indeed, we find that subjects commit reasoning errors which reduces the correlation between their WTP for a signal and its usefulness for decreasing expected potential costs.}
 
 \vspace{10pt}
 \section{Conclusion}\label{sec:conclusion}
@@ -760,7 +802,9 @@ Our findings have direct applications for the design of warning signals. Bias in
 Understanding the source of this asymmetry can also help reduce externalities associated with signal (mis)use. We find that people overvalue signals with excessive false alarms for a typical case with low-probability events. In some cases, individuals may not incur the full cost of false positive signals.  For example, the cost of medical overtreatment from tests with high false positives may be an externality absorbed by the healthcare system.  Similarly, first responders may be required by law to respond to automatic fire alarms installed in commercial buildings resulting in excess costs borne by taxpayers when false positive rates are high. 
 
 Future research should also explore the role of warning signals as an experience good, to wit, how prolonged exposure to a signal with a given information structure can influence individual biases. For example, buying a smoke alarm that never misses may seem like a good idea at first, but may seem less so after a year experiencing repeated false alarms. Given our finding of insufficient attention to false-positive costs for rare events, ex-ante preferred warning signals could later be considered overly sensitive and ignored, leading to \emph{alarm fatigue} and increasing the risk of potentially preventable disasters.
+% As we do not study how preferences change with experience, this constitutes another fruitful direction for future research.
 
+% Aside from the direct implications for signal design and presentation, another interesting issue is conceptualizing a signal as an experience good.  That is, how does prolonged exposure to a signal with a given information structure influence the biases in subjects' preferences? For example, buying a smoke alarm that never misses fires may seem like a good idea at first, but may seem less so after a year experiencing repeated false alarms. Given that we observe insufficient attention to false-positive costs for rare events, there is a possibility that warning signals preferred ex ante would be considered overly sensitive and ignored later. As we do not study how preferences change with experience, this constitutes another fruitful direction for future research.
 
 
 \vspace{20pt}
@@ -784,11 +828,59 @@ Future research should also explore the role of warning signals as an experience
 \setcounter{figure}{0}
 \renewcommand{\thetable}{\thesection\arabic{table}}
 \renewcommand{\thefigure}{\thesection\arabic{figure}}
+\singlespacing
 \newpage
 
 
 \section{Tables and Figures}
 
+\begin{longtable}{ccccccc}
+\caption{List of Treatments} \label{tab:treatment_app} \\
+\toprule
+\multirow{3}{8ex}{\centering Treat ID} & \multirow{3}{*}{Prior ($p$)} & \multicolumn{3}{c}{Number of Gremlins} & \multirow{3}{*}{FP rate} &  \multirow{3}{*}{FN rate} \\ \cmidrule(lr){3-5}
+& & \multirow{2}{*}{Total} & Black- & White- \\
+& & &Swamp& Swamp \\
+\midrule
+\endfirsthead
+
+\multicolumn{7}{c}{{\tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\multirow{3}{8ex}{\centering Treat ID} & \multirow{3}{*}{Prior ($p$)} & \multicolumn{3}{c}{Number of Gremlins} & \multirow{3}{*}{FP rate} &  \multirow{3}{*}{FN rate} \\ \cmidrule(lr){3-5}
+& & \multirow{2}{*}{Total} & Black- & White- \\
+& & &Swamp& Swamp \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{7}{r}{{Continued on next page}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\input Tables/table_treatments_appendix
+
+\end{longtable}
+
+\begin{table}[h!]
+\centering
+\begin{threeparttable}[h!]
+\caption{List of Treatment Sequences} \label{tab:treatseq_app}
+\begin{tabular}{ccccccc}
+\toprule
+\multirow{2}{10ex}{\centering Sequence ID} & \multicolumn{6}{c}{Rounds} \\ \cmidrule(lr){2-7}
+   & 1 & 2 & 3 & 4 & 5 & 6 \\
+\midrule
+\input Tables/table_treat_sequence.tex
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item\footnotesize \textit{Notes: The treatment associated with each of the numbers above is listed in Appendix Table~\ref{tab:treatment_app}}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\newpage\clearpage
 
 \begin{table}[h!]
 \centering
@@ -887,13 +979,17 @@ Future research should also explore the role of warning signals as an experience
 \caption{Deviations from Signal Value (WTP - Value) and Demographic Determinants} 
 \label{wtp_dem}
 \adjustbox{max width=\textwidth}{
-	\begin{threeparttable}	
+\begin{threeparttable}	
+\begin{tabular}{lcccccc}
+   \hline \hline
 	\input{Tables/table_wtpdiff_02_AU_cl.tex}
-	\begin{tablenotes}[flushleft]
+    \\ [-1em]
+    \end{tabular}%
+  \begin{tablenotes}[flushleft]
 			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Standard errors in parentheses (clustered at subject and treatment levels). */**/*** indicates statistical significance at 10/5/1 percent. 
 	\end{tablenotes}								
 	\end{threeparttable}
-	}
+}
 \end{table}
 
 
@@ -903,7 +999,15 @@ Future research should also explore the role of warning signals as an experience
 \label{tab:wtp_risk}
 \adjustbox{max width=\textwidth}{
 	\begin{threeparttable}	
-	\input{Tables/wtp_het_risk_AU_cl.tex}
+    {
+    \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+    \begin{tabular}{l*{5}{c}}
+    \hline\hline
+	\input{Tables/wtp_het_risk_cl.tex}
+    \\[-1em]
+    \hline\hline
+    \end{tabular}
+    }
 	\begin{tablenotes}[flushleft]
 			\item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Risk preferences interactions include inconsistent preferences (not shown), interacted with priors, FP, and FN costs. Standard errors in parentheses (clustered at subject and treatment levels). */**/*** indicates statistical significance at 10/5/1 percent.
 	\end{tablenotes}								
@@ -943,7 +1047,7 @@ Future research should also explore the role of warning signals as an experience
 % 	\end{threeparttable}
 % }
 % \end{table}	
-
+%UPDATE THE TABLE!%
 \begin{table}[htbp!]
 \centering
 \adjustbox{max width = \textwidth}{
@@ -958,16 +1062,17 @@ Future research should also explore the role of warning signals as an experience
 		&\multirow{1}{*}{(1)} & \multirow{1}{*}{(2)} & \multirow{1}{*}{(3)} & \multirow{1}{*}{(4)} & \multirow{1}{*}{(5)}\\
 	\hline
 	\\ [-0.5em]
-		\exInput{Tables/wtpdiff_tobit.tex}
+		\exInput{Tables/wtpdiff_tobit2.tex}
 				\hline
-		Subject FE & Yes & Yes & Yes & Yes & Yes \\
+		Subject FE & No & Yes & Yes & Yes & Yes \\
 		Inconsistent Risk Pref. Interactions & No & Yes & Yes & Yes & Yes \\
 		Inaccurate Belief Interactions & No & No & Yes & Yes & Yes \\
 		Prior Probability FE & No & No & No & Yes & Yes \\
 		\hline\hline
 	\end{tabular}
 	\begin{tablenotes}[flushleft]        
-        \input{wtp_reg_footnote.tex}
+        %\input{wtp_reg_footnote.tex}
+                \item\leavevmode\kern-\scriptspace\kern-\labelsep \footnotesize \textit{Notes:} Risk preferences interactions include inconsistent preferences (not shown), interacted with priors, FP, and FN costs. Standard errors in parentheses (clustered at subject levels). */**/*** indicates statistical significance at 10/5/1 percent.
 	\end{tablenotes}
 	\end{threeparttable}
 }
@@ -979,22 +1084,21 @@ Future research should also explore the role of warning signals as an experience
 \centering
 \adjustbox{max width = \textwidth}{
 	\begin{threeparttable}
-	\caption{WTP and Signal Characteristics, IP bias}
+	\caption{Deviations from Signal Value and Signal Characteristics, IP bias}
 	\label{tab:wtp_bias}
-	\begin{tabular}{l*{5}{c}}
+	\begin{tabular}{l*{6}{c}}
 		\hline\hline
-		&\multicolumn{3}{c}{\multirow{2}{*}{All}} & \multicolumn{2}{c}{Prior}\\ \cmidrule(lr){5-6}
-		&&&& $\{.1,.2\}$ & $\{.3,.5\}$\\ 
-		\cmidrule(lr){2-4} \cmidrule(lr){5-5} \cmidrule(lr){6-6}  
-		&\multirow{1}{*}{(1)} & \multirow{1}{*}{(2)} & \multirow{1}{*}{(3)} & \multirow{1}{*}{(4)} & \multirow{1}{*}{(5)}\\
+		&\multicolumn{2}{c}{\multirow{2}{*}{All}} & \multicolumn{4}{c}{Prior}\\ \cmidrule(lr){4-7}
+		&&&\multicolumn{2}{c}{$\{.1,.2\}$} & \multicolumn{2}{c}{$\{.3,.5\}$}\\ 
+		\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}  
+		&\multirow{1}{*}{(1)} & \multirow{1}{*}{(2)} & \multirow{1}{*}{(3)} & \multirow{1}{*}{(4)} & 
+        \multirow{1}{*}{(5)} & \multirow{1}{*}{(6)}\\
 	\hline
 	\\ [-0.5em]
-		\exInput{Tables/wtpdiff_ols_bias.tex}
+		\exInput{Tables/wtpdiff_ols_bias1.tex}
 				\hline
-		Subject FE & Yes & Yes & Yes & Yes & Yes \\
-		Inconsistent Risk Pref. Interactions & No & Yes & Yes & Yes & Yes \\
-		Inaccurate Belief Interactions & No & No & Yes & Yes & Yes \\
-		Prior Probability FE & No & No & No & Yes & Yes \\
+		Subject FE & Yes & Yes & Yes & Yes & Yes & Yes\\
+
 		\hline\hline
 	\end{tabular}
 	\begin{tablenotes}[flushleft]
@@ -1048,19 +1152,19 @@ $$Eu(X-b_0)<u(EX-b_0)=u(Y-c)=Eu(X-b)$$
 
 Because $u(\dot)$ is an increasing function we obtain $b<b_0$. \end{proof} 
 
+% \subsection{Proposition 2}
+% %\small
+% \begin{proof}
+% Use the mean value theorem to rewrite the sensitivity as:
+% $${db\over dP_{01}}=-{\pi u'(\zeta)(L-c)\over E[MU]},\zeta \in \left(Y-L-b, Y-c-b\right)$$
+% Now let $X$ denote a (random) payoff of the agent with a signal. A risk-averse decision-maker puts a positive value on the signal only if its expected payoff is higher than the certain payoff with full protection: $EX>Y-c-b$. If an agent is imprudent ($u'''<0$) then $u'(\cdot)$ is a strictly concave function and hence $E[MU]\equiv E[u'(X)]<u'(EX)$ by Jensen inequality. Next, $u'$ being a strictly decreasing function due to strict risk aversion and $EX>Y-c-b$: $u'(\zeta)>u'(Y-c-b)>u'(EX)$. Hence ${u'(\zeta)\over E[MU]}>1$ and ${db\over dP_{01}}<-\pi(L-c)$. 
+% \end{proof}
+% %\normalsize
+
+% However, risk aversion can both increase and decrease subject's sensitivity to false-positive rates depending on the utility function curvature and signal's characteristics. Intuitively, an expected marginal utility of a strongly risk-averse subject with an imperfect signal can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to false-positive rates. It can also be higher if either the signal is good or the curvature is small.
+
+
 \subsection{Proposition 2}
-%\small
-\begin{proof}
-Use the mean value theorem to rewrite the sensitivity as:
-$${db\over dP_{01}}=-{\pi u'(\zeta)(L-c)\over E[MU]},\zeta \in \left(Y-L-b, Y-c-b\right)$$
-Now let $X$ denote a (random) payoff of the agent with a signal. A risk-averse decision-maker puts a positive value on the signal only if its expected payoff is higher than the certain payoff with full protection: $EX>Y-c-b$. If an agent is imprudent ($u'''<0$) then $u'(\cdot)$ is a strictly concave function and hence $E[MU]\equiv E[u'(X)]<u'(EX)$ by Jensen inequality. Next, $u'$ being a strictly decreasing function due to strict risk aversion and $EX>Y-c-b$: $u'(\zeta)>u'(Y-c-b)>u'(EX)$. Hence ${u'(\zeta)\over E[MU]}>1$ and ${db\over dP_{01}}<-\pi(L-c)$. 
-\end{proof}
-%\normalsize
-
-However, risk aversion can both increase and decrease subject's sensitivity to false-positive rates depending on the utility function curvature and signal's characteristics. Intuitively, an expected marginal utility of a strongly risk-averse subject with an imperfect signal can be lower than the average slope of the utility function between ($Y-c-b$) and ($Y-b$) which reduces sensitivity to false-positive rates. It can also be higher if either the signal is good or the curvature is small.
-
-
-\subsection{Proposition 3}
 
 \begin{proof}
 
@@ -1084,12 +1188,12 @@ Hence the ratio of sensitivities is:
 Based on the mean value theorem, there exist such $\zeta_1 \in (Y-L-b, Y-c-b)$, $\zeta_2\in (Y-c-b,Y-b)$ that $u(Y-c-b)-u(Y-L-b)=u'(\zeta_1)(L-c)$ and $u(Y-b)-u(Y-c-b)=u'(\zeta_2)c$. Hence we can write:
 
 \begin{equation}
-{db / dP_{01}  \over db / dP_{10}} = {\pi \over (1-\pi)} {u'(\zeta_1)(L-c)\over u'(\zeta_2)c}= {\pi (L-c)\over (1-\pi)L}{u'(\zeta_1)\over u'(\zeta_2)}
+{db / dP_{01}  \over db / dP_{10}} = {\pi \over (1-\pi)} {u'(\zeta_1)(L-c)\over u'(\zeta_2)c}= {\pi (L-c)\over (1-\pi)c}{u'(\zeta_1)\over u'(\zeta_2)}
 \end{equation}
 
 Because $\zeta_1<Y-c-b<\zeta_2$ and $u''<0$, $u'(\zeta_2)<u'(\zeta_1)$ and hence:
 \begin{equation}
-{db / dP_{01}  \over db / dP_{10}} = {\pi \over (1-\pi)} {u'(\zeta_1)(L-c)\over u'(\zeta_2)c}>{\pi (L-c)\over (1-\pi)L}
+{db / dP_{01}  \over db / dP_{10}} = {\pi \over (1-\pi)} {u'(\zeta_1)(L-c)\over u'(\zeta_2)c}>{\pi (L-c)\over (1-\pi)c}
 \end{equation}
 Because the last expression on the right describes a ratio of sensitivities for a risk-neutral agent, we obtain that strictly risk averse subjects exhibit higher relative sensitivity to FN rates. 
 

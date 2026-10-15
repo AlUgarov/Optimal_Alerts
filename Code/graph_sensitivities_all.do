@@ -3,7 +3,7 @@ set more off
 clear all
 
 *!!put your working folder below:*
-cd <project_folder>
+cd "/Users/alexander/Optimal_Alerts"
 
 use "./Temp/wtp_discrepancy0.dta", replace
 drop highprob
@@ -139,17 +139,16 @@ gen wtp_FN_ub=wtp_FN+1.96*wtp_FN_se
 gen p_FP = p - 0.005
 gen p_FN = p + 0.005
 
-*net install scheme-modern, from("https://raw.githubusercontent.com/mdroste/stata-scheme-modern/master/")
+cap net install scheme-modern, from("https://raw.githubusercontent.com/mdroste/stata-scheme-modern/master/")
 set scheme modern
 #delimit ;
 twoway (line val_FP p, lcolor(dknavy) lwidth(thick)  lpattern(".-")) (line val_FN p, lcolor(red) lwidth(thick) lpattern(dash))
- (scatter wtp_FP p, mcolor(dknavy)  msize(medlarge)) (scatter wtp_FN p, mcolor(red) msymbol(d) msize(medlarge)) (rcap wtp_FP_lb wtp_FP_ub p_FP, lcolor(dknavy) msize(medlarge)) (rcap wtp_FN_lb wtp_FN_ub p_FN, lcolor(red) msize(medlarge)),
+ (scatter wtp_FP p, mcolor(dknavy)  msize(medlarge)) (scatter wtp_FN p, mcolor(red) msymbol(d) msize(medlarge)) (rcap wtp_FP_lb wtp_FP_ub p_FP, lcolor(dknavy) msize(medlarge) legend(label(5 "95% confidence interval (FP)"))) (rcap wtp_FN_lb wtp_FN_ub p_FN, lcolor(red) msize(medlarge) legend(label(6 "95% confidence interval (FN)")) ),
  xtitle("Prior probability")
  yscale(r(0 9))
  xlabel(#5, labsize(medium))
  ylabel(#5, labsize(medium))
- legend(ring(0) position(11) bmargin(large) cols(2) size(medium))
- note("OLS estimates of sensitivity to FP and FN rates by prior probability of a black ball.", size(medium));
+ legend(ring(0) position(11) bmargin(large) cols(2) size(medium));
  
 #delimit cr
 graph export "./Graphs/sensit_comparison.png", width(1000) height(600) replace
@@ -162,6 +161,14 @@ gen wtp_FN_ub=wtp_FNt+1.96*wtp_FN_set
 
 label var p_FP "Estimated FP sensitivity"
 label var p_FN "Estimated FN sensitivity"
+
+
+label var wtp_FP_ub "Upper bound (FP)"
+label var wtp_FP_lb "Lower bound (FP)"
+label var wtp_FN_ub "Upper bound (FN)"
+label var wtp_FN_lb "Lower bound (FN)"
+
+
 
 set scheme modern
 #delimit ;

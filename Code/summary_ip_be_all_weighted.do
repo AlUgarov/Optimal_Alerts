@@ -4,7 +4,7 @@ set more off
 clear all
 
 *!!put your working folder below:*
-cd <project_folder>
+cd "/Users/alexander/Optimal_Alerts"
 
 
 
@@ -25,10 +25,10 @@ rename ip_time time_ip
 
 **flipping priors orders for cases which were randomly flipped for new treatments in wave2:
 gen chrono_round=round
-recode round (1=4) (2=5) (3=6) (4=1) (5=2) (6=3) if (revorder==1)&!missing(revorder)
+recode round (1=4) (2=5) (3=6) (4=1) (5=2) (6=3) if (revorder==1)&!missing(revorder), gen(new_round)
 tab round
-replace round=chrono_round
-
+replace round = new_round if (revorder==1)&!missing(revorder)
+drop new_round
 
 
 
@@ -39,6 +39,10 @@ tab _merge
 keep if _merge==3
 drop _merge
 drop if missing(participant_id)
+
+*Restoring chronological round order after merging:
+replace round=chrono_round
+drop chrono_round
 gen wave=2
 save "./Temp/secondwave_long.dta", replace
 
@@ -76,7 +80,7 @@ duplicates list subject_id round
 
 
 
-*stop
+
 
 **Merging risk aversion vars from the blind protection task
 merge m:1 participant_id using "./Temp/blind_collapsed_all.dta"
@@ -270,13 +274,13 @@ tab wave
 save "./Output/all_waves.dta", replace
 
 
-*stop
+
 
 
 
 
 use "./Output/all_waves.dta", replace
-*stop
+
 **Create the summary statistics table:
 gen duration_min=duration/60
 collapse (first) seq sex age stat_educ college final_payoff duration_min, by(subject_id)
@@ -289,7 +293,7 @@ replace college=1-college
 tabstat sex old college stat_educ, by(seq_type) statistics(sum mean) column(statistics) longstub
 
 
-use "./Output/second_wave_test.dta", replace
+use "./Output/all_waves.dta", replace
 
 keep subject_id participant_id round time_ip honest ncorrect p phintBW phintWB phintBB rev_response treatm_type tot_liars bl_gr w_gr treatn
 collapse (first) treatm_type participant_id time_ip honest ncorrect p phintBW phintWB phintBB rev_response tot_liars bl_gr w_gr treatn, by(subject_id round)
@@ -298,11 +302,11 @@ label values treatm_type treatm_typel
 duplicates list subject_id round //no duplicates
 
 
-save "./Temp/base_second_wave.dta", replace
+save "./Temp/base_all_waves.dta", replace
 
 
 
-use "./Output/second_wave_test.dta", replace
+use "./Output/all_waves.dta", replace
 *Remove the timing information for now
 drop *click* *page* history q104-q106 q114 q115
 rename post_probW post_probw
@@ -321,7 +325,7 @@ reshape long ip_ be_ be_time_ post_prob, i(subject_id round) j(hint) string
 *stop
 
 *Merging back subject-round variables:
-merge m:1 subject_id round using "./Temp/base_second_wave.dta"
+merge m:1 subject_id round using "./Temp/base_all_waves.dta"
 keep if _merge==3
 drop _merge
 
@@ -418,14 +422,15 @@ duplicates list subject_id round hint
 *stop
 
 **Saving belief accuracy:
-save "./Temp/base_second_wave.dta", replace
+save "./Temp/base_all_waves.dta", replace
 *stop
 
 **ADDING HERE A BIT MORE ANALYSIS ON WHO IS MAKING THE MOST EGREGIOUS ERRORS**
-use "./Temp/base_second_wave.dta", replace
+use "./Temp/base_all_waves.dta", replace
 
+duplicates list subject_id round hint
+drop if abs(0.5-post_prob)<0.499 //keeping only uncertain signals
 
-drop if abs(0.5-post_prob)<0.499 //keeping only certain signals
 
 gen opp_err0=abs(be_-post_prob)>0.999 //giving the opposite probability (0 vs 1)
 gen cert_err0=(be_>0)&(abs(0.5-post_prob)>0.499) //belief error when the outcome is completely certain cond. on a signal
@@ -434,30 +439,39 @@ bys subject_id: egen cert_err=sum(cert_err0)
 bys subject_id: egen opp_err=max(opp_err0)
 
 
+*Checking monotonicity level:
+*gen post_level=round(1000*post_prob)
+*collapse (mean) ip_, by(subject_id post_level)
 
-**IP consistency: non-monotonicies, protecting when p=0, not protecting when p=1
+*IP consistency: non-monotonicies, protecting when p=0, not protecting when p=1
 sort subject_id post_prob
 
 *calculate the posterior at the earliest protection
 gen post_probx=post_prob
-replace post_probx=2 if ip_==1
+replace post_probx=2 if ip_==0
 by subject_id: egen minprotect=min(post_probx)
 replace minprotect=1 if minprotect==2
 
 gen post_proby=(1-ip_)*post_prob
 by subject_id: egen maxrisk=max(post_proby)
 sum maxrisk
-gen nonmon=maxrisk>minprotect
+gen nonmon=maxrisk>minprotect+0.001
+sum post_prob
 
+tab nonmon
+
+
+sort subject_id post_prob hint
 *then find if there are no protection for any higher probabilities
-gen backswitch=(ip_==0&ip[_n-1]==1)&(subject_id==subject_id[_n-1])
+gen backswitch=(ip_==0&ip[_n-1]==1)&(subject_id==subject_id[_n-1])&(post_prob>post_prob[_n-1]+0.001)
 
 *How to check more properly if it's monotonic?
 tab backswitch
-bys subject_id: egen nip_backswitches=sum(backswitch)
+by subject_id: egen nip_backswitches=sum(backswitch)
 tab nip_backswitches
-bys subject_id: egen ip_backswitcher=max(backswitch)
-
+by subject_id: egen ip_backswitcher=max(backswitch)
+qui sum ip_backswitcher
+disp "The percentage of subjects breaking monotonicity in protection decisions: " 100*`r(mean)'
 
 gen toosafe=(ip_==1)&(post_prob==0)
 gen suicidal=(ip_==0)&(post_prob==1)
@@ -475,7 +489,9 @@ bys laterounds: sum cert_err0 //BE when the posterior should be certain
 bys laterounds: sum opp_err0 //Reporting the opposite belief when the posterior is certain, slightly lower
 
 
-collapse (first) backswitcher backswitcher0 nbswitches goodquiz opp_ip_err ip_backswitcher opp_err cert_err, by(subject_id)
+
+
+collapse (first) backswitcher backswitcher0 nbswitches goodquiz opp_ip_err ip_backswitcher nonmon opp_err cert_err, by(subject_id)
 
 gen badquiz=1-goodquiz
 gen knuckleheadidness=badquiz+backswitcher0+ip_backswitcher+opp_err
@@ -486,12 +502,16 @@ graph export "./Graphs/hist_bigerrors_test.png", width(1200) height(800) replace
 
 
 
-use "./Temp/base_second_wave.dta", replace
+
+
+
+
+use "./Temp/base_all_waves.dta", replace
 collapse (mean) accur_bel accur_bel2 accur_bel3 be_change confid absbel_err tot_bel_err, by(subject_id round)
 
 save "./Temp/bel_accuracy_all.dta", replace
 
-use "./Temp/base_second_wave.dta", replace
+use "./Temp/base_all_waves.dta", replace
 *stop
 
 label define accur_bel_l 0 "Inaccurate" 1 "Accur. beliefs"
@@ -614,6 +634,10 @@ local tot = r(sum)
 
 display "Weighted share in [-0.2,0.2] = " %6.4f (`num'/`tot')
 
+
+corr be_ post_prob
+
+
 *weighted prop correct for certain signals:
 quietly sum w_treat if abs(0.5-post_prob) > 0.499&bel_err<0.0001, meanonly
 local num = r(sum)
@@ -630,7 +654,10 @@ local p95 = r(r3)
 display "Weighted post_prob (uncertain) p5/median/p95: " ///
     %6.4f `p5' "  " %6.4f `med' "  " %6.4f `p95'
 
+corr be_ post_prob if abs(0.5-post_prob) < 0.499
 *stop
+
+	
 *weighted prop correct for certain signals:
 quietly sum w_treat if abs(0.5-post_prob) < 0.499&bel_err<0.0001, meanonly
 local num = r(sum)
@@ -692,5 +719,7 @@ preserve
 
     graph export "./Graphs/hist_belief_error_s5w.png", width(1200) height(800) replace
 restore
+
+
 
 

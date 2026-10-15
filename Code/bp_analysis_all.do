@@ -5,7 +5,8 @@ clear all
 
 
 *!!put your working folder below:*
-cd <project_folder>
+*cd <project_folder>
+cd "/Users/alexander/Optimal_Alerts"
 
 set seed 135
 
@@ -49,7 +50,7 @@ replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp[_n+1]!=bp)&(round>1)&
 replace repairable=1 if (nbswitches==1)&(bp[_n-1]!=bp)&(bp==0)&(round==6)
 
 bys p: sum bp
-stop
+*stop
 
 save "./Temp/bp_val_all.dta", replace
 
@@ -63,7 +64,7 @@ collapse (mean) bp submittime (first) sex age stat_educ ncorrect informed_correc
 tab firstswitch
 tab backswitcher
 tab repairable if backswitcher==1
-stop
+
 replace firstswitch=. if backswitcher==1
 replace firstswitch=7-totprot if repairable==1
 tab firstswitch

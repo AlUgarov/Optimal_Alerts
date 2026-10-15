@@ -7,9 +7,15 @@ clear all
 graph drop _all
 
 *!!put your working folder below:*
-cd <project_folder>
+*cd <project_folder>
+cd "/Users/alexander/Optimal_Alerts"
 
-use "./Temp/base_second_wave.dta", replace
+
+
+
+
+
+use "./Temp/base_main_waves.dta", replace
 xtset subject_id question
 drop if pilot==1 //now dropping the pilot
 
@@ -204,46 +210,30 @@ mkspline bespline1 0.2 bespline2 0.4 bespline3 0.6 bespline4 0.8 bespline5 = be_
   
 set more off
 **Robustness: flexible control both for beliefs and posteriors:
-eststo clear:
-logit ip_ post_prob0* white_phintBW white_phintWB  black_phintBW black_phintWB blackhint highprob i.subject_id, vce(cluster subject_id)
-local r2p=e(r2_p)
-local llike=e(ll)
-eststo m1: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob) post
-estadd scalar r2p = `r2p'
-estadd scalar llike = `llike'
+eststo clear
+eststo: reghdfe ip_ post_prob0* white_phintBW white_phintWB  black_phintBW black_phintWB blackhint highprob, absorb(subject_id) vce(cluster subject_id treatn)
 
-logit ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
-local r2p=e(r2_p)
-local llike=e(ll)
-eststo m2: margins, dydx(blackhint white_phintBW white_phintWB  black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
-estadd scalar r2p = `r2p'
-estadd scalar llike = `llike'
+eststo: reghdfe ip_ post_prob0* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob high_phintBW high_phintWB, absorb(subject_id) vce(cluster subject_id treatn)
 
 
-logit ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob i.subject_id, vce(cluster subject_id)
-local r2p=e(r2_p)
-local llike=e(ll)
-eststo m3: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob) post
-estadd scalar r2p = `r2p'
-estadd scalar llike = `llike'
+eststo: reghdfe ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob, absorb(subject_id) vce(cluster subject_id treatn)
 
-logit ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob high_phintBW high_phintWB i.subject_id, vce(cluster subject_id)
-local r2p=e(r2_p)
-local llike=e(ll)
-eststo m4: margins, dydx(blackhint white_phintBW white_phintWB black_phintBW black_phintWB highprob high_phintBW high_phintWB) post
-estadd scalar r2p = `r2p'
-estadd scalar llike = `llike'
 
-esttab m1 m2 m3 m4 using "./Tables/table_ip_flex.tex", b(%9.3f) se(%9.3f) label addnotes("With flexible controls of posterior probability and beliefs" ///
-  "Subject FE, errors are clustered by subject, average marginal treatment effects") stats(N r2p llike, labels("N" "Pseudo R-squared" "Log-likelihood") fmt(0 3 3)) mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+eststo: reghdfe ip_ post_prob0* bespline* white_phintBW white_phintWB black_phintBW black_phintWB blackhint highprob high_phintBW high_phintWB, absorb(subject_id) vce(cluster subject_id treatn)
 
+
+esttab using "./Tables/table_ip_flex.tex", b(%9.3f) se(%9.3f) drop(_cons post_prob0* bespline*) label addnotes("With flexible controls of posterior probability and beliefs" ///
+  "Subject FE, reporting standard errors clustered by subject and treatment") stats(N r2 r2_within, labels("N" "R-squared" "R-squared (within)") fmt(0 3 3)) mtitles("Posterior only" "Posterior only" "Both" "Both") title(Informed Protection Response: flexible control for posteriors and beliefs) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+esttab using "./Tables/table_ip_flex_fr.tex", b(%9.3f) se(%9.3f)  drop(_cons post_prob0* bespline*) mlabels(, none) collabels(, none) nomtitle noobs nonum noline noomit fragment label stats(N r2 r2_within, labels("N" "R-squared" "R-squared (within)") fmt(0 3 3)) star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels nonum compress nogaps replace
+
+*stop
   
 **Measuring th effects of 
 
 reg ip_ post_prob be_ blackhint
 reg ip_ post_prob be_ blackhint totprot
  
-*stop
 
   
  **Robustness: LINEAR! flexible control both for beliefs and posteriors:
@@ -264,7 +254,10 @@ bysort subject_id: egen R1 = total(r_be*(ip_==1))
 bysort subject_id: egen n1 = total(ip_==1)
 bysort subject_id: egen n0 = total(ip_==0)
 gen mw_auc = (R1-n1*(n1+1)/2)/(n1*n0)
-sum mw_auc
+
+sum mw_auc, det
+*tab mw_auc
+
 
 sort subject_id be_
 order subject_id round be_ r_be ip_ mw_auc
@@ -317,6 +310,7 @@ esttab using "./Tables/table_ip5_semi.tex", b(%9.3g) se(%9.1f) ar2(%9.2f) label 
 
 
 *replace bel_err=-bel_err
+cap drop n_treat
 
 save "./Temp/prep_beliefs.dta", replace
 
@@ -431,7 +425,7 @@ gen loss      = 20
 gen ip_o      = post_prob > (prot_cost/loss)
 
 * gen highprob = p > 0.201
-
+cap drop n_treat
 * --- Equal weight by treatment arm (same as bigpicture_IP) ---
 bysort treatn: gen n_treat = _N
 gen w_treat = 1/n_treat
@@ -616,6 +610,7 @@ use "./Temp/prep_beliefs.dta", replace
 gen fp_env=phintBW>0
 gen fn_env=phintWB>0
 
+cap drop n_treat
 bysort treatn: gen n_treat = _N
 gen w_treat = 1/n_treat
 
@@ -689,6 +684,7 @@ gen fn_env = phintWB > 0
 * gen highprob = p > 0.201
 
 * --- Equal weight by treatment arm ---
+cap drop n_treat
 bysort treatn: gen n_treat = _N
 gen w_treat = 1/n_treat
 
@@ -858,7 +854,9 @@ eststo clear
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id, cluster(subject_id treatn)
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id if blackhint==0, cluster(subject_id treatn)
 eststo: ivreg2 bel_err phintBW phintWB i.subject_id if blackhint==1, cluster(subject_id treatn)
-esttab using "./Tables/table_be_err_cl.tex", fragment b(%9.3f) se(%9.3f) ar2(%9.3f) label drop(_cons) addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+esttab using "./Tables/table_be_err_cl.tex", b(%9.3f) se(%9.3f) ar2(%9.3f) label drop(_cons *.subject_id) addnotes(Dep. variable: reported belief - posterior probability) title(Belief Elicitation: When Mistakes Happen) mtitles("All" "S=White" "S=Black") star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
+
+esttab using "./Tables/table_be_err_cl_fr.tex", fragment b(%9.3f) se(%9.3f) ar2(%9.3f) label drop(*.subject_id) mlabels(, none) collabels(, none) nomtitle nonum noline noomit star("*" 0.10 "**" 0.05 "***" 0.01) nobaselevels compress nogaps replace
 
 
 *Testing FP/FN confusion:
@@ -884,12 +882,14 @@ label var lt_prior "Prior"
 label var signal "Signal"
 *Decomposition of belief updating (coeffs should be all ones)***
 eststo clear
-eststo: ivreg2 lt_bel lt_prior signal, noconstant cluster(subject_id treatn)
-eststo: reghdfe lt_bel lt_prior signal, abs(subject_id) vce(cluster subject_id treatn)
-eststo: ivreg2 lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, noconstant cluster(subject_id treatn)
-eststo: reghdfe lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, abs(subject_id) vce(cluster subject_id treatn)
-eststo: ivreg2 lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, noconstant cluster(subject_id treatn)
-eststo: reghdfe lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, abs(subject_id) vce(cluster subject_id treatn)
+eststo: ivreg2 lt_bel lt_prior signal, noconstant cluster(subject_id)
+eststo: reghdfe lt_bel lt_prior signal, abs(subject_id) vce(cluster subject_id)
+eststo: ivreg2 lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, noconstant cluster(subject_id)
+eststo: reghdfe lt_bel lt_prior signal i.goodquiz#c.lt_prior i.goodquiz#c.signal, abs(subject_id) vce(cluster subject_id)
+eststo: ivreg2 lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, noconstant cluster(subject_id)
+eststo: reghdfe lt_bel lt_prior signal i.stat_educ#c.lt_prior i.stat_educ#c.signal, abs(subject_id) vce(cluster subject_id)
 esttab using "./Tables/table_be3_cl.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE") star("*" 0.10 "**" 0.05 "***" 0.01) note("Decomposition works only for imperfect signals") nobaselevels compress nogaps replace
 
+
+esttab using "./Tables/table_be3_cl_fr.tex", b(%9.3f) se(%9.3f) ar2(%9.2f) label drop(_cons) mtitles("OLS" "FE" "OLS" "FE" "OLS" "FE")  star("*" 0.10 "**" 0.05 "***" 0.01) fragment nobaselevels compress nogaps replace
 *stop

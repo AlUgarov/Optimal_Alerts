@@ -6,30 +6,30 @@
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
                 &\multicolumn{1}{c}{Posterior only}&\multicolumn{1}{c}{Posterior only}&\multicolumn{1}{c}{Both}&\multicolumn{1}{c}{Both}\\
 \hline
-FP rate x (S=White)&    0.895\sym{***}&    0.943\sym{***}&    0.525\sym{***}&    0.571\sym{***}\\
-                &  (0.089)         &  (0.093)         &  (0.095)         &  (0.098)         \\
-FN rate x (S=White)&    0.537\sym{***}&    0.532\sym{***}&    0.307\sym{**} &    0.299\sym{**} \\
-                &  (0.145)         &  (0.146)         &  (0.144)         &  (0.146)         \\
-FP rate x (S=Black)&   -0.032         &    0.025         &   -0.065         &   -0.000         \\
-                &  (0.201)         &  (0.204)         &  (0.196)         &  (0.202)         \\
-FN rate x (S=Black)&    0.103         &    0.069         &   -0.005         &   -0.021         \\
-                &  (0.074)         &  (0.080)         &  (0.087)         &  (0.093)         \\
-S=Black         &    0.531\sym{***}&    0.542\sym{***}&    0.383\sym{***}&    0.374\sym{***}\\
-                &  (0.103)         &  (0.114)         &  (0.105)         &  (0.115)         \\
-p$>$0.2         &    0.039\sym{**} &    0.041\sym{**} &    0.024         &    0.029         \\
-                &  (0.016)         &  (0.021)         &  (0.015)         &  (0.020)         \\
-FP rate x (p$>$0.2)&                  &   -0.081         &                  &   -0.085         \\
-                &                  &  (0.076)         &                  &  (0.079)         \\
-FN rate x (p$>$0.2)&                  &    0.088         &                  &    0.048         \\
-                &                  &  (0.099)         &                  &  (0.093)         \\
+FP rate x (S=White)&    0.828\sym{***}&    0.802\sym{***}&    0.455\sym{***}&    0.464\sym{***}\\
+                &  (0.095)         &  (0.096)         &  (0.095)         &  (0.094)         \\
+FN rate x (S=White)&    0.363\sym{**} &    0.369\sym{**} &    0.140         &    0.138         \\
+                &  (0.171)         &  (0.166)         &  (0.152)         &  (0.152)         \\
+FP rate x (S=Black)&    0.012         &   -0.068         &   -0.010         &   -0.025         \\
+                &  (0.158)         &  (0.183)         &  (0.160)         &  (0.184)         \\
+FN rate x (S=Black)&    0.106         &   -0.007         &    0.005         &   -0.103         \\
+                &  (0.075)         &  (0.094)         &  (0.083)         &  (0.101)         \\
+S=Black         &    0.533\sym{***}&    0.636\sym{***}&    0.358\sym{***}&    0.433\sym{***}\\
+                &  (0.109)         &  (0.138)         &  (0.102)         &  (0.131)         \\
+p$>$0.2         &    0.058\sym{***}&    0.034\sym{***}&    0.035\sym{***}&    0.018\sym{*}  \\
+                &  (0.015)         &  (0.010)         &  (0.012)         &  (0.010)         \\
+FP rate x (p$>$0.2)&                  &    0.077         &                  &   -0.001         \\
+                &                  &  (0.105)         &                  &  (0.101)         \\
+FN rate x (p$>$0.2)&                  &    0.215\sym{**} &                  &    0.208\sym{**} \\
+                &                  &  (0.098)         &                  &  (0.084)         \\
 \hline
-N               &     2424         &     2424         &     2424         &     2424         \\
-Pseudo R-squared&    0.505         &    0.505         &    0.538         &    0.539         \\
-Log-likelihood  & -830.188         & -829.168         & -773.731         & -773.018         \\
+N               &     2460         &     2460         &     2460         &     2460         \\
+R-squared       &    0.541         &    0.542         &    0.567         &    0.568         \\
+R-squared (within)&    0.489         &    0.490         &    0.518         &    0.519         \\
 \hline\hline
 \multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{5}{l}{\footnotesize With flexible controls of posterior probability and beliefs}\\
-\multicolumn{5}{l}{\footnotesize Subject FE, errors are clustered by subject, average marginal treatment effects}\\
+\multicolumn{5}{l}{\footnotesize Subject FE, reporting standard errors clustered by subject and treatment}\\
 \multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
 \end{tabular}
 \end{table}

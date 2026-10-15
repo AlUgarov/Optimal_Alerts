@@ -5,14 +5,14 @@ clear all
 
 *!!put your working folder below:
 *!!put your working folder below:*
-cd <project_folder>
+cd "/Users/alexander/Optimal_Alerts"
 
 set seed 135
 
 *Prepare the treatment characteristics to merge:
 import delimited using "./Input/exp_treatments_wave2.csv", varnames(1) clear
 *drop v1
-rename ïsnames snames
+*rename ïsnames snames
 rename snames treatn
 
 save "./Temp/exp_treatments_wave2.dta", replace
@@ -76,7 +76,6 @@ foreach v of varlist _all{
 
 
 
-
 *Mass renaming some response variables to make reshaping and analysis more convenient:
 rename b1_* bp_* //blind protection responses by round
 rename be1_b_1* be_b* //beliefs if the gremlin says "black" by round
@@ -94,8 +93,8 @@ rename sequence seq
 
 
 ***CLEANING************************
+keep if finished==1&!missing(finished) //subjects complete the experiment
 drop if missing(participant_id) //if no id
-keep if finished==1 //subjects complete the experiment
 drop ipaddress recipient* distributionchannel userlanguage finished //drop unnecessary identifying information
 drop round externalreference location* responseid t1r1 sel* treatment_plans ip_wc ip_bc payoffs signal* //other excessive info, relicts of previous experiment edits
 
@@ -140,6 +139,7 @@ replace acad_status="Other" if acad_status=="3"
 
 tab acad_status
 
+*stop
 save "./Temp/secondwave_wide.dta", replace
 
 tab seq
