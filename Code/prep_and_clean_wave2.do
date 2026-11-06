@@ -94,7 +94,9 @@ rename sequence seq
 
 ***CLEANING************************
 keep if finished==1&!missing(finished) //subjects complete the experiment
+
 drop if missing(participant_id) //if no id
+
 drop ipaddress recipient* distributionchannel userlanguage finished //drop unnecessary identifying information
 drop round externalreference location* responseid t1r1 sel* treatment_plans ip_wc ip_bc payoffs signal* //other excessive info, relicts of previous experiment edits
 

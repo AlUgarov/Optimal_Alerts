@@ -2200,7 +2200,7 @@ format wtp_diff ptest %9.3f
 use "./Temp/wtp_by_environment.dta", replace
 gen highprob="All priors"
 append using "./Temp/wtp_by_environment_det.dta"
-generate sigtype=10*(false_pos=="Yes")+(false_neg=="Yes")
+generate sigtype=10*(false_neg=="Yes")+(false_pos=="Yes")
 drop false_pos false_neg
 reshape wide wtp_diff ptest se, i(highprob) j(sigtype)
 format wtp_diff* ptest* %9.3f
@@ -2240,9 +2240,8 @@ replace highprob = "" if se_row
 drop se* ind se_row
 
 
-listtex using "./Tables/bigpicture_wtp_det_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \multicolumn{5}{l}{\footnotesize *The number of stars represents statistical significance (0.1, 0.05, 0.01)} \\ \end{tabular} \end{table}") replace
-listtex using "./Tables/bigpicture_wtp_det_pres_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FN only}& \textbf{FP only} & \textbf{FP and FN}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
-
+listtex using "./Tables/bigpicture_wtp_det_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \caption{Average WTP discrepancy (WTP-Value) by Signal Type} \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}& \textbf{FP only} &\textbf{FN only}& \textbf{FP and FN}\\ \hline"') foot("\hline \multicolumn{5}{l}{\footnotesize *The number of stars represents statistical significance (0.1, 0.05, 0.01)} \\ \end{tabular} \end{table}") replace
+listtex using "./Tables/bigpicture_wtp_det_pres_cl.tex", type rstyle(tabular) head("\begin{table}[H]\centering \begin{tabular}{ccccc} \hline \hline" `"\textbf{Priors}&\textbf{Honest}&\textbf{FP only} &\textbf{FN only}& \textbf{FP and FN}\\ \hline"') foot("\hline \end{tabular} \end{table}") replace
 
 
 
@@ -2299,8 +2298,8 @@ bys wave: tab noprior_response
 
 bys subject_id: egen anchored=sum(noprior_response)
 tab anchored
+stop
 
-*stop
 
 
 *comparing symmetric treatments (differing only by relabeling FP to FN)
